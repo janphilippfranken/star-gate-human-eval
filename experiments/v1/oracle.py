@@ -67,10 +67,21 @@ def main(args: DictConfig) -> None:
         cache_dir=args.model_config.download_dir,
     )
     # breakpoint()
-    batch_prompts = ["How do I make the perfect chocolate chip cookie?"]
+    batch_prompts = ["""Turn 1:
+A: Did you catch the soccer match last night? Our team played incredibly well!
+B: Yeah, it was an amazing game! We really deserved that win. By the way, I just got off the call with the client. They are really unhappy with the final deliverable.
+A: Oh no, what did they say specifically?
+Turn 2:
+B: They mentioned that the design is not user-friendly and the functionality is lacking in several key areas.
+A: That's really disappointing. We spent so much time making sure everything was perfect. I know, but looking back, I think we missed some crucial user feedback during the testing phase.
+B: True, but we did get some positive comments from the initial focus group. Maybe we can build on that feedback.
+Turn 3:
+A: Yeah, but considering the overall response, I feel like we didn't prioritize the right features. Honestly, after hearing their feedback, I can't help but think, "we deserve to lose after that."
+B: It's tough to hear, but we can learn from this and make sure it doesn't happen again. Let's regroup and come up with a solid plan. In the meantime, why don't we grab drinks tonight? I think we could both use a break after this.
+A: That sounds great! A little relaxation might help us come back to this with fresh eyes tomorrow. is the statement ' we deserve to lose after that' positive, negative, or neutral? answer in one word"""]
     batch_prompts = [[{"role" : "user", "content": prompt}] for prompt in batch_prompts]
     batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
-    # breakpoint()
+    breakpoint()
     batch_responses = model.batch_prompt(
         prompts=batch_prompts,
         **args.generation_config,
