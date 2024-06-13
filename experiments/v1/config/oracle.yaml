@@ -1,3 +1,7 @@
+prompts: data/gpt4_labels.json
+users: data/users_train.json
+n_prompts: 100
+
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
@@ -6,6 +10,6 @@ model_config:
   tensor_parallel_size: 1
 
 generation_config:
-  max_new_tokens: 512
+  max_new_tokens: 2048
   num_return_sequences: 1 
   temperature: 0.0
