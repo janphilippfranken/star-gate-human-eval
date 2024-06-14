@@ -29,18 +29,17 @@ class VLLMInferenceModel():
     def prompt_logprobs(
         self, 
         prompts: List[str],
-        n_logprobs_per_token: int=1,
-    ):
-        """Returns n_logprobs_per_token in the prompt."""    
+        n_logprobs_per_token=1,
+    ):  
+        """Returns n logprobs of prompt tokens."""    
         sampling_params = SamplingParams(
-            temperature=0.0,
+            temperature=0,
             max_tokens=1,
             n=1,
-            prompt_logprobs=n_logprobs_per_token,
+            prompt_logprobs=1,
             spaces_between_special_tokens=False,
         )
-        
-        breakpoint()
+
         output_responses = self.model.generate(
             sampling_params=sampling_params,
             prompts=prompts,

@@ -15,6 +15,17 @@ Additional Comments: <Provide any additional comments or insights here, such as 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification and death."""
 
 
+RESPONSE_PROMPT = """{question}"""
+
+
+PROMPT_LOGPROBS = """Hi! Here is my profile: {user}
+
+I have the following question for you:
+
+Question: {question}
+
+Please write a personalized response that aligns with my background and preferences."""
+
 
 PERSONA = """
 Age: {age}

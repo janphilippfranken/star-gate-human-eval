@@ -38,7 +38,7 @@ def main(args: DictConfig) -> None:
     for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
         for i, prompt in enumerate(prompts['prompt'][:args.n_prompts]):
             ids.append(i)
-            batch_prompts.append([{"role" : "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
+            batch_prompts.append([{"role": "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
 
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
     

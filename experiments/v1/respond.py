@@ -10,7 +10,7 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from prompts import *
 
 
-@hydra.main(version_base=None, config_path="config", config_name="logprobs")
+@hydra.main(version_base=None, config_path="config", config_name="respond")
 def main(args: DictConfig) -> None:
    
     # model
@@ -31,25 +31,16 @@ def main(args: DictConfig) -> None:
     # format prompts
     ids = []
     batch_prompts = []
-    for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
-        for i, (prompt, response) in enumerate(zip(prompts['prompt'][:args.n_prompts], prompts['response'][:args.n_prompts])):
-            ids.append(i)
-
-            batch_prompts.append([
-                {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])},
-                {"role": "assistant", "content": response}
-            ])
+    for i, prompt in enumerate(prompts['prompt'][:args.n_prompts]):
+        ids.append(i)
+        batch_prompts.append([{"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}])
 
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
     
     # get responses
-    breakpoint()
-    batch_logprobs = model.prompt_logprobs(
-        prompts=formatted_batch_prompts,
-        n_logprobs_per_token=args.n_logprobs_per_token,
-    )
     batch_responses = model.batch_prompt(
         prompts=formatted_batch_prompts,
+        **args.generation_config,
     )
     breakpoint()
     
@@ -70,7 +61,7 @@ def main(args: DictConfig) -> None:
         questioner_responses['prompt'].append(prompt)
         questioner_responses['response'].append(response)
     
-    with open('base_introspection.json', 'w') as f:
+    with open('questioner_responses_base.json', 'w') as f:
         json.dump(questioner_responses, f, indent=4)
 
 if __name__ == "__main__":
