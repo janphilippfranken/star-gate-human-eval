@@ -36,13 +36,14 @@ class VLLMInferenceModel():
             temperature=0,
             max_tokens=1,
             n=1,
-            prompt_logprobs=1,
+            prompt_logprobs=n_logprobs_per_token,
             spaces_between_special_tokens=False,
         )
 
         output_responses = self.model.generate(
             sampling_params=sampling_params,
             prompts=prompts,
+            use_tqdm=False,
         )
        
         return output_responses

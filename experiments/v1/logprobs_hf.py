@@ -49,7 +49,14 @@ def main(args: DictConfig) -> None:
             #     {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])}
             # ])
             
-           
+            batch_prompts.append([
+                {"role": "user", "content": "What is 1 + 1? Return only the answer as a single digit integer. Do not return anything else!"},
+                {"role": "assistant", "content": "9"}
+            ])
+            batch_inputs.append([
+                {"role": "user", "content": "What is 1 + 1? Return only the answer as a single digit integer. Do not return anything else!"}
+            ])
+
     formatted_batch_inputs = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_inputs]
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
     

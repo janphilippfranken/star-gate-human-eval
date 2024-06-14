@@ -1,7 +1,9 @@
-"""Generate responses without additional info or questions."""
+"""Get logprobs of assistant responses."""
 import json
 import fire
 import hydra
+import tqdm
+import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
@@ -28,50 +30,60 @@ def main(args: DictConfig) -> None:
     with open(args.prompts, 'r') as f:
         prompts = json.load(f)
         
-    # format prompts
-    ids = []
-    batch_prompts = []
-    for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
-        for i, (prompt, response) in enumerate(zip(prompts['prompt'][:args.n_prompts], prompts['response'][:args.n_prompts])):
-            ids.append(i)
+    # logprobs container
+    all_logprobs = {}
+    
+    for i, (prompt, response) in tqdm.tqdm(enumerate(
+        zip(prompts['prompt'][:args.n_prompts], prompts['response'][:args.n_prompts])
+    )):
+        
+        all_logprobs[i] = {
+            'prompt': prompt, 
+            'response': response, 
+            'prompt_with_each_user': {},
+            'logprobs_for_each_user': {},
+            'means': [],
+            'variance': 0,
+        }
+        
+        for j, user in enumerate([USER_1, USER_2, USER_3, USER_4, USER_5]):
+            # prompt with no assistant response 
+            prompt_without_response = [
+                    {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])},
+            ]
+            
+            # prompt with assistant response 
+            prompt_with_response = [
+                    {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])},
+                    {"role": "assistant", "content": response}
+            ]
+            
+            # append prompt
+            all_logprobs[i]['prompt_with_each_user'][j] = prompt_with_response
+            
+            # format 
+            formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
+            formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
 
-            batch_prompts.append([
-                {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])},
-                {"role": "assistant", "content": response}
-            ])
+            outputs = model.prompt_logprobs(
+                prompts=[formatted_prompt_with_response],
+                n_logprobs_per_token=args.n_logprobs_per_token,
+            )
 
-    formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
-    
-    # get responses
-    breakpoint()
-    batch_logprobs = model.prompt_logprobs(
-        prompts=formatted_batch_prompts,
-        n_logprobs_per_token=args.n_logprobs_per_token,
-    )
-    batch_responses = model.batch_prompt(
-        prompts=formatted_batch_prompts,
-    )
-    breakpoint()
-    
-    # format and write to json
-    formatted_responses = [
-        response.split('<|end_header_id|>')[1].strip() 
-        for response in batch_responses
-    ]
-    
-    questioner_responses = {
-        'id': [],
-        'prompt': [],
-        'response': [],
-    }
-    
-    for i, prompt, response in zip(ids, batch_prompts, formatted_responses):
-        questioner_responses['id'].append(i)
-        questioner_responses['prompt'].append(prompt)
-        questioner_responses['response'].append(response)
-    
-    with open('base_introspection.json', 'w') as f:
-        json.dump(questioner_responses, f, indent=4)
+            # get only logprobs for response
+            logprobs = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
+            logprobs = [v for prob in logprobs for k, v in prob.items()]
+            all_logprobs[i]['logprobs_for_each_user'][j] = logprobs
+            all_logprobs[i]['means'].append(sum(logprobs))
+        
+        
+        all_logprobs[i]['variance'] = np.var(all_logprobs[i]['means'])
+        
+    breakpoint() 
+            
+    with open('logprobs.json', 'w') as f:
+        json.dump(all_logprobs, f, indent=4)
+
 
 if __name__ == "__main__":
     fire.Fire(main())
