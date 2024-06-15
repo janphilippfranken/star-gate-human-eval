@@ -88,7 +88,6 @@ def main(args: DictConfig) -> None:
         'question': [],
         'response': [],
     }
-    breakpoint()
     
     response_idx = 0
     for user_id in range(args.n_users):
@@ -102,7 +101,7 @@ def main(args: DictConfig) -> None:
                 conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
                 response_idx += 1
     
-    with open('conversations.json', 'w') as f:
+    with open('data/conversations.json', 'w') as f:
         json.dump(conversations, f, indent=4)
 
 if __name__ == "__main__":

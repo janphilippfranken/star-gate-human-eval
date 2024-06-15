@@ -34,10 +34,12 @@ def main(args: DictConfig) -> None:
         
     # format prompts
     ids = []
+    user_ids = []
     batch_prompts = []
-    for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
+    for user_id, user in enumerate([USER_1, USER_2, USER_3, USER_4, USER_5]):
         for i, prompt in enumerate(prompts['prompt'][:args.n_prompts]):
             ids.append(i)
+            user_ids.append(user_id)
             batch_prompts.append([{"role": "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
 
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
@@ -56,16 +58,18 @@ def main(args: DictConfig) -> None:
     
     gold_responses = {
         'id': [],
+        'user': [],
         'prompt': [],
         'response': [],
     }
     
-    for i, prompt, response in zip(ids, batch_prompts, formatted_responses):
+    for i, user_id, prompt, response in zip(ids, user_ids, batch_prompts, formatted_responses):
         gold_responses['id'].append(i)
+        gold_responses['user'].append(user_id)
         gold_responses['prompt'].append(prompt)
         gold_responses['response'].append(response)
     
-    with open('gold_responses.json', 'w') as f:
+    with open('data/gold_responses.json', 'w') as f:
         json.dump(gold_responses, f, indent=4)
   
 
