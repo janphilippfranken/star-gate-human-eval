@@ -91,14 +91,17 @@ def main(args: DictConfig) -> None:
     
     response_idx = 0
     for user_id in range(args.n_users):
+        question_idx = 0
         for prompt_id in range(args.n_prompts):
             for question_attempt in range(args.generation_config_questioner.num_return_sequences):
+                breakpoint()
                 conversations['id'].append(prompt_id)
                 conversations['user'].append(user_id)
                 conversations['prompt'].append(prompts[prompt_id])
                 conversations['attempt'].append(question_attempt)
-                conversations['question'].append(formatted_batch_responses_questioner[question_attempt])
+                conversations['question'].append(formatted_batch_responses_questioner[question_idx])
                 conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
+                question_idx += 1
                 response_idx += 1
     
     with open('data/conversations.json', 'w') as f:
