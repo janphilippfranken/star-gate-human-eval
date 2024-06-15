@@ -9,8 +9,10 @@ from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
+from helpers import *
 from prompts import *
 
+N_USERS = 5
 
 @hydra.main(version_base=None, config_path="config", config_name="logprobs")
 def main(args: DictConfig) -> None:
@@ -44,6 +46,7 @@ def main(args: DictConfig) -> None:
             'logprobs_for_each_user': {},
             'means': [],
             'variance': 0,
+            'mutual_information': 0,
         }
         
         for j, user in enumerate([USER_1, USER_2, USER_3, USER_4, USER_5]):
@@ -74,14 +77,20 @@ def main(args: DictConfig) -> None:
             logprobs = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
             logprobs = [v for prob in logprobs for k, v in prob.items()]
             all_logprobs[i]['logprobs_for_each_user'][j] = logprobs
-            all_logprobs[i]['means'].append(sum(logprobs))
+            all_logprobs[i]['means'].append(np.mean(logprobs))
         
         
         all_logprobs[i]['variance'] = np.var(all_logprobs[i]['means'])
         
+        all_logprobs[i]['mutual_information']  = mutual_information(
+            logprobs=torch.tensor(all_logprobs[i]['means']),
+            n_users=N_USERS,
+        ).numpy().item()
+       
+        
     breakpoint() 
             
-    with open('logprobs.json', 'w') as f:
+    with open('logprobs_mi.json', 'w') as f:
         json.dump(all_logprobs, f, indent=4)
 
 
