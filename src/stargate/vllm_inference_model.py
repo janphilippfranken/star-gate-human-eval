@@ -62,14 +62,14 @@ class VLLMInferenceModel():
         presence_penalty: Optional[float] = 0.0,
         frequency_penalty: Optional[float] = 0.0,
     ) -> List[str]:
-        """Batched text generation."""     
+        """Batched text generation."""    
         sampling_params = SamplingParams(
             temperature=temperature,
             top_p=top_p,
             top_k=top_k,
             max_tokens=max_new_tokens,
             n=num_return_sequences,
-            best_of=1,
+            best_of=best_of,
             use_beam_search=use_beam_search,
             presence_penalty=presence_penalty,
             frequency_penalty=frequency_penalty,

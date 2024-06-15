@@ -57,9 +57,13 @@ def main(args: DictConfig) -> None:
     for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
         for i, question in enumerate(formatted_batch_responses_questioner):
             prompt = prompts[i//n]
-            max_words = 20
             batch_prompts_roleplayer.append([
-                    {"role": "user", "content": ROLEPLAY_PROMPT.format(user=user, prompt=prompt, question=question, max_words=max_words)}
+                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
+                    {"role": "user", "content": ROLEPLAY_PROMPT.format(
+                        user=user, 
+                        question=question, 
+                        max_words=args.roleplayer_max_words,
+                )}
             ])
 
     formatted_batch_prompts_roleplayer = [
@@ -72,15 +76,34 @@ def main(args: DictConfig) -> None:
     )
 
     formatted_batch_responses_roleplayer = [
-        response.split('Response to Assistant:')[1].strip()
+        response.split('Response:')[1].strip().strip('"')
         for response in batch_responses_roleplayer
     ]
     
+    conversations = {
+        'id': [],
+        'user': [],
+        'prompt': [],
+        'attempt': [],
+        'question': [],
+        'response': [],
+    }
     breakpoint()
     
+    response_idx = 0
+    for user_id in range(args.n_users):
+        for prompt_id in range(args.n_prompts):
+            for question_attempt in range(args.generation_config_questioner.num_return_sequences):
+                conversations['id'].append(prompt_id)
+                conversations['user'].append(user_id)
+                conversations['prompt'].append(prompts[prompt_id])
+                conversations['attempt'].append(question_attempt)
+                conversations['question'].append(formatted_batch_responses_questioner[question_attempt])
+                conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
+                response_idx += 1
     
-    with open('conversation.json', 'w') as f:
-        json.dump(questioner_responses, f, indent=4)
+    with open('conversations.json', 'w') as f:
+        json.dump(conversations, f, indent=4)
 
 if __name__ == "__main__":
     fire.Fire(main())

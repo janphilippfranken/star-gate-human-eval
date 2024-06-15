@@ -42,21 +42,17 @@ Please follow these formatting instructions precisely. Failure to do so will res
 
 
 
-ROLEPLAY_PROMPT = """Hi! Here is my profile: {user}
+ROLEPLAY_PROMPT = """You must adopt the following persona in all conversations: {user}
 
-Below is a conversation between me (human) and an assistant:
+Roleplaying the above persona, answer the following question:
 
-Conversation:
-Human: {prompt}
+Question: {question}
 
-Assistant: {question}
-
-Write a response that I can use to respond to the assistant's question. Format your response as follows:
-Reasoning: <Provide your step-by-step reasoning, reflecting on which aspects of the preferences and background are relevant to the question. Explain how these aspects inform your response. Focus on identifying the key factors that will determine whether the assistant's question will be answered.>
-Response to Assistant: <Provide your response to the assistant based on the reasoning above. Avoid repetition and focus on the most important aspects that directly address specific needs and preferences. Use "I" to refer to me directly in this response. Avoid using second-person pronouns like "you" or third-person pronouns in this section.>
+Format your response as follows:
+Reasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>
+Response: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
-
 
 
 PERSONA = """
