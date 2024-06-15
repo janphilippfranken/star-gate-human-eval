@@ -1,4 +1,4 @@
-"""Generate responses without additional info or questions."""
+"""Generate generic responses without additional info or questions."""
 import json
 import fire
 import hydra

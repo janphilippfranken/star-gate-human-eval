@@ -1,0 +1,86 @@
+"""Generate conversations and filter good questions based on expected info gain."""
+import json
+import fire
+import hydra
+from omegaconf import DictConfig
+from transformers import AutoTokenizer
+
+from stargate.vllm_inference_model import VLLMInferenceModel
+
+from prompts import *
+
+
+@hydra.main(version_base=None, config_path="config", config_name="conversation")
+def main(args: DictConfig) -> None:
+   
+    # model
+    model = VLLMInferenceModel(
+        **args.model_config
+    )
+    
+    # tokenizer 
+    tokenizer = AutoTokenizer.from_pretrained(
+        pretrained_model_name_or_path=args.model_config.model,
+        cache_dir=args.model_config.download_dir,
+    )
+    
+    # prompts
+    with open(args.prompts, 'r') as f:
+        prompts = json.load(f)
+                
+    # TODO: multiturn 
+    
+    # QUESTIONER 
+    batch_prompts_questioner = []
+    for i, prompt in enumerate(prompts[:args.n_prompts]):
+        batch_prompts_questioner.append([
+            {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
+        ])
+
+    formatted_batch_prompts_questioner = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in batch_prompts_questioner]
+    
+    batch_responses_questioner = model.batch_prompt(
+        prompts=formatted_batch_prompts_questioner,
+        **args.generation_config_questioner,
+    )
+    
+    formatted_batch_responses_questioner = [
+        response.split('Clarifying Question:')[1].strip()
+        for response in batch_responses_questioner
+    ]
+    
+    # ROLEPLAYER 
+    batch_prompts_roleplayer = []
+    n = args.generation_config_questioner.num_return_sequences
+    for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
+        for i, question in enumerate(formatted_batch_responses_questioner):
+            prompt = prompts[i//n]
+            max_words = 20
+            batch_prompts_roleplayer.append([
+                    {"role": "user", "content": ROLEPLAY_PROMPT.format(user=user, prompt=prompt, question=question, max_words=max_words)}
+            ])
+
+    formatted_batch_prompts_roleplayer = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in batch_prompts_roleplayer]
+    
+    batch_responses_roleplayer = model.batch_prompt(
+        prompts=formatted_batch_prompts_roleplayer,
+        **args.generation_config_roleplayer,
+    )
+
+    formatted_batch_responses_roleplayer = [
+        response.split('Response to Assistant:')[1].strip()
+        for response in batch_responses_roleplayer
+    ]
+    
+    breakpoint()
+    
+    
+    with open('conversation.json', 'w') as f:
+        json.dump(questioner_responses, f, indent=4)
+
+if __name__ == "__main__":
+    fire.Fire(main())

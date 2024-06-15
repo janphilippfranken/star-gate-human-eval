@@ -12,7 +12,7 @@ Response: <Provide your final personalized response based on the reasoning above
 
 Additional Comments: <Provide any additional comments or insights here, such as how you arrived at your response by carefully considering my preferences and background. Offer any other relevant thoughts or context.>
 
-Please follow these formatting instructions precisely. Failure to do so will result in disqualification and death."""
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
 
 RESPONSE_PROMPT = """{question}"""
@@ -25,6 +25,38 @@ I have the following question for you:
 Question: {question}
 
 Please write a personalized response that aligns with my background and preferences."""
+
+
+QUESTION_PROMPT = """A user with an unknown profile has asked you the following question:
+
+Question: {question}
+
+Instead of providing a response, you must ask a clarifying question specific to the user's question to elicit relevant background information. Be concise and try to ask an informative question.
+
+Format your output as follows:
+
+Reasoning: <Your step-by-step reasoning analyzing the user's question and thinking about what background information from the user might be relevant to provide a high-quality personalized response that aligns with the user's unique background and preferences.>
+Clarifying Question: <The high-quality clarifying question you are asking the user to elicit relevant background information and preferences.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
+
+ROLEPLAY_PROMPT = """Hi! Here is my profile: {user}
+
+Below is a conversation between me (human) and an assistant:
+
+Conversation:
+Human: {prompt}
+
+Assistant: {question}
+
+Write a response that I can use to respond to the assistant's question. Format your response as follows:
+Reasoning: <Provide your step-by-step reasoning, reflecting on which aspects of the preferences and background are relevant to the question. Explain how these aspects inform your response. Focus on identifying the key factors that will determine whether the assistant's question will be answered.>
+Response to Assistant: <Provide your response to the assistant based on the reasoning above. Avoid repetition and focus on the most important aspects that directly address specific needs and preferences. Use "I" to refer to me directly in this response. Avoid using second-person pronouns like "you" or third-person pronouns in this section.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
 
 
 PERSONA = """

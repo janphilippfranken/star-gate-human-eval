@@ -1,4 +1,4 @@
-"""Generate responses with oracle (i.e., give the original user + prompt, no questions needed)"""
+"""Generate personalized responses with oracle (i.e., give the original user + prompt, no questions needed)"""
 import json
 import fire
 import hydra
