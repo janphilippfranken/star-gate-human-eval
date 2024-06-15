@@ -95,7 +95,7 @@ def main(args: DictConfig) -> None:
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
                     p_gold_given_conversation = [v for prob in p_gold_given_conversation for _, v in prob.items()]
                     logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
-    breakpoint()
+    # breakpoint()
     eig = {}
     # breakpoint()
     
@@ -115,26 +115,13 @@ def main(args: DictConfig) -> None:
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 attempt_user_scores.append(eig[attempt_key])
             attempt_prompt_scores.append(np.argmax(attempt_user_scores))
-        best_questions[f"best_question_for_prompt_{prompt_id}"] = np.argmax(np.bincount(attempt_prompt_scores))
-    breakpoint()
-                
-                
-    # for k, v in eig.items():
+        best_questions[f"best_question_for_prompt_{prompt_id}"] = int(np.argmax(np.bincount(attempt_prompt_scores)))
+    
         
-
-    
-    
-    
-    #     all_logprobs[i]["mutual_information"]  = mutual_information(
-    #         logprobs=torch.tensor(all_logprobs[i]["means"]),
-    #         n_users=N_USERS,
-    #     ).numpy().item()
-       
-        
-    # breakpoint() 
+    breakpoint() 
             
-    # with open("logprobs_mi.json", "w") as f:
-    #     json.dump(all_logprobs, f, indent=4)
+    with open("data/best_questions_idx.json", "w") as f:
+        json.dump(best_questions, f, indent=4)
 
 
 if __name__ == "__main__":

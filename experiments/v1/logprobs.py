@@ -12,7 +12,6 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
 
-N_USERS = 5
 
 @hydra.main(version_base=None, config_path="config", config_name="logprobs")
 def main(args: DictConfig) -> None:
@@ -84,12 +83,9 @@ def main(args: DictConfig) -> None:
         
         all_logprobs[i]['mutual_information']  = mutual_information(
             logprobs=torch.tensor(all_logprobs[i]['means']),
-            n_users=N_USERS,
+            n_users=args.n_users,
         ).numpy().item()
        
-        
-    breakpoint() 
-            
     with open('logprobs_mi.json', 'w') as f:
         json.dump(all_logprobs, f, indent=4)
 

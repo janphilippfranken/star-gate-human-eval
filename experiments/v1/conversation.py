@@ -94,7 +94,6 @@ def main(args: DictConfig) -> None:
         question_idx = 0
         for prompt_id in range(args.n_prompts):
             for question_attempt in range(args.generation_config_questioner.num_return_sequences):
-                breakpoint()
                 conversations['id'].append(prompt_id)
                 conversations['user'].append(user_id)
                 conversations['prompt'].append(prompts[prompt_id])

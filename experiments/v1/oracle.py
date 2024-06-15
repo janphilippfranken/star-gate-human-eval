@@ -24,10 +24,6 @@ def main(args: DictConfig) -> None:
         cache_dir=args.model_config.download_dir,
     )
     
-    # users
-    with open(args.users, 'r') as f:
-        users = json.load(f)
-    
     # prompts
     with open(args.prompts, 'r') as f:
         prompts = json.load(f)
