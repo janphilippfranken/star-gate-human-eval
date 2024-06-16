@@ -1,7 +1,7 @@
-prompts: data/prism_opening_prompts.json
+prompts: data/original_prompts/human_assistant_instruct.json
 n_prompts: 500
 
-save_file: data/base_responses_prism.json
+save_file: data/base_responses_human_assistant_instruct.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

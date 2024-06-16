@@ -28,7 +28,9 @@ def main(args: DictConfig) -> None:
     with open(args.prompts, 'r') as f:
         prompts = json.load(f)
                 
-    # TODO: multiturn 
+    # users
+    with open(args.users, 'r') as f:
+        users = json.load(f)
     
     # QUESTIONER 
     batch_prompts_questioner = []
@@ -45,16 +47,20 @@ def main(args: DictConfig) -> None:
         prompts=formatted_batch_prompts_questioner,
         **args.generation_config_questioner,
     )
+
+    formatted_batch_responses_questioner = []
     
-    formatted_batch_responses_questioner = [
-        response.split('Clarifying Question:')[1].strip()
-        for response in batch_responses_questioner
-    ]
+    for response in batch_responses_questioner:
+        try:
+            formatted_batch_responses_questioner.append(response.split('Clarifying Question:')[1].strip())
+        except:
+            print(f"INVALID response: {response}")    
+            formatted_batch_responses_questioner.append("<|invalid_response|>")
     
     # ROLEPLAYER 
     batch_prompts_roleplayer = []
     n = args.generation_config_questioner.num_return_sequences
-    for user in [USER_1, USER_2, USER_3, USER_4, USER_5]:
+    for user in enumerate(list(users.values())[:args.n_users]):
         for i, question in enumerate(formatted_batch_responses_questioner):
             prompt = prompts[i//n]
             batch_prompts_roleplayer.append([
@@ -75,10 +81,13 @@ def main(args: DictConfig) -> None:
         **args.generation_config_roleplayer,
     )
 
-    formatted_batch_responses_roleplayer = [
-        response.split('Response:')[1].strip().strip('"')
-        for response in batch_responses_roleplayer
-    ]
+    formatted_batch_responses_roleplayer = []
+    for response in batch_responses_roleplayer:
+        try:
+            formatted_batch_responses_roleplayer.append(response.split('Response:')[1].strip().strip('"'))
+        except:
+            print(f"INVALID response: {response}")    
+            formatted_batch_responses_questioner.append("<|invalid_response|>")
     
     conversations = {
         'id': [],
@@ -103,8 +112,10 @@ def main(args: DictConfig) -> None:
                 question_idx += 1
                 response_idx += 1
     
-    with open('data/conversations.json', 'w') as f:
+    with open(args.save_file, 'w') as f:
         json.dump(conversations, f, indent=4)
+        
+    breakpoint()
 
 if __name__ == "__main__":
     fire.Fire(main())

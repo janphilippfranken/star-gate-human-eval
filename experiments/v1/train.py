@@ -1,0 +1,76 @@
+import os
+import json
+import fire
+import hydra
+import torch
+import wandb
+
+from omegaconf import (
+    DictConfig, 
+    OmegaConf,
+)
+
+from transformers import (
+    TrainingArguments, 
+    Trainer, 
+    AutoModelForCausalLM, 
+    AutoTokenizer,
+)
+
+from helpers import *
+
+
+@hydra.main(version_base=None, config_path="config", config_name="train")
+def main(args: DictConfig) -> None:
+    
+    # wandb
+    # args_dict = OmegaConf.to_container(args, resolve=True)
+    # wandb.init(project=args.qa_model.wandb.project, name=args.qa_model.wandb.name, config=args_dict)
+    
+    # tokenizer 
+    tokenizer = AutoTokenizer.from_pretrained(**args.tokenizer_config)
+    tokenizer.pad_token, tokenizer.padding_side = tokenizer.eos_token, "right"
+
+    # get model
+    model = AutoModelForCausalLM.from_pretrained(
+        **args.model_config,
+        torch_dtype=torch.bfloat16,
+        device_map='auto',
+    )
+    
+    # training args
+    training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
+    training_args = TrainingArguments(**training_args_dict)
+   
+    # check if output path exists
+    if not os.path.exists(training_args.output_dir):
+        os.makedirs(training_args.output_dir)
+   
+    # data
+    targets = json.load(open(args.data, "r"))
+    dataset = preprocess(targets=targets, tokenizer=tokenizer)
+    dataset = dataset.shuffle(seed=args.training_args.seed)
+    
+    # collator 
+    data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
+   
+    breakpoint()
+
+    # trainer
+    trainer = Trainer(
+        model=model,
+        tokenizer=tokenizer,
+        args=training_args,
+        train_dataset=dataset,
+        data_collator=data_collator,
+    )
+    
+    # train
+    trainer.train()
+    
+    # save model
+    trainer.save_model(output_dir=f"{training_args.output_dir}")
+    
+    
+if __name__ == "__main__":
+    fire.Fire(main())

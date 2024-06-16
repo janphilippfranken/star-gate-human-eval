@@ -44,13 +44,12 @@ def main(args: DictConfig) -> None:
     for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
-    
-    
+        
     # logprobs container
     logprobs = {}
 
     for prompt_id in tqdm.tqdm(set(conversations["id"])): 
-        
+
         for user_id in set(conversations["user"]): 
         
             for attempt in set(conversations["attempt"]):
@@ -136,13 +135,11 @@ def main(args: DictConfig) -> None:
             best_question_eig_across_users.append(eig[best_attempt_key])  
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_eig'] = np.mean(best_question_eig_across_users).item()
 
-    
-        
-    breakpoint() 
-            
-    with open("data/best_questions_idx.json", "w") as f:
+      
+    with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)
 
+    breakpoint() 
 
 if __name__ == "__main__":
     fire.Fire(main())
