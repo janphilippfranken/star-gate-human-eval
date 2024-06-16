@@ -31,9 +31,11 @@ def main(args: DictConfig) -> None:
     # format prompts
     ids = []
     batch_prompts = []
-    for i, prompt in enumerate(prompts['prompt'][:args.n_prompts]):
+    for i, prompt in enumerate(prompts[:args.n_prompts]):
         ids.append(i)
-        batch_prompts.append([{"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}])
+        batch_prompts.append([
+            {"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}
+        ])
 
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
     
@@ -51,17 +53,17 @@ def main(args: DictConfig) -> None:
     ]
     
     questioner_responses = {
-        'id': [],
+        'prompt_id': [],
         'prompt': [],
         'response': [],
     }
     
-    for i, prompt, response in zip(ids, batch_prompts, formatted_responses):
-        questioner_responses['id'].append(i)
+    for i, prompt, response in zip(ids, prompts, formatted_responses):
+        questioner_responses['prompt_id'].append(i)
         questioner_responses['prompt'].append(prompt)
         questioner_responses['response'].append(response)
     
-    with open('questioner_responses_base.json', 'w') as f:
+    with open(args.save_file, 'w') as f:
         json.dump(questioner_responses, f, indent=4)
 
 if __name__ == "__main__":

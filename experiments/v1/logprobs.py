@@ -31,6 +31,10 @@ def main(args: DictConfig) -> None:
     with open(args.prompts, 'r') as f:
         prompts = json.load(f)
         
+    # users
+    with open(args.users, 'r') as f:
+        users = json.load(f)
+        
     # logprobs container
     all_logprobs = {}
     
@@ -48,15 +52,15 @@ def main(args: DictConfig) -> None:
             'mutual_information': 0,
         }
         
-        for j, user in enumerate([USER_1, USER_2, USER_3, USER_4, USER_5]):
+        for j, user in enumerate(list(users.values())[:args.n_users]):
             # prompt with no assistant response 
             prompt_without_response = [
-                    {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])},
+                    {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt)},
             ]
             
             # prompt with assistant response 
             prompt_with_response = [
-                    {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt[0]['content'])},
+                    {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt)},
                     {"role": "assistant", "content": response}
             ]
             
@@ -86,7 +90,7 @@ def main(args: DictConfig) -> None:
             n_users=args.n_users,
         ).numpy().item()
        
-    with open('logprobs_mi.json', 'w') as f:
+    with open(args.save_file, 'w') as f:
         json.dump(all_logprobs, f, indent=4)
 
 

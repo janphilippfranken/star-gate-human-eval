@@ -1,7 +1,10 @@
-gold_responses: data/gold_responses.json
-conversations: data/conversations.json
-n_logprobs_per_token: 0
+gold_responses: data/gold_responses_prism.json
+conversations: data/conversations_prism.json
 n_users: 5
+
+n_logprobs_per_token: 0
+
+save_file: data/eig_prism.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

@@ -95,27 +95,47 @@ def main(args: DictConfig) -> None:
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
                     p_gold_given_conversation = [v for prob in p_gold_given_conversation for _, v in prob.items()]
                     logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
-    # breakpoint()
+    
+    # now compute expected info gain
     eig = {}
-    # breakpoint()
     
     for prompt_user_attempt_key, prompt_user_attempt_value in logprobs.items():
-        p_gold_given_prompt = torch.tensor(1/args.n_users).repeat(args.n_users) # just uniform in the beginning
+        p_gold_given_prompt = torch.tensor(1/args.n_users).repeat(args.n_users) # baseline: uniform 
         p_gold_given_prompt_entropy = -(p_gold_given_prompt * torch.log(p_gold_given_prompt)).sum()
         p_gold_given_conversation = torch.softmax(torch.tensor(prompt_user_attempt_value), dim=0)
         p_gold_given_conversation_entropy = -(p_gold_given_conversation * torch.log(p_gold_given_conversation)).sum()
         eig[prompt_user_attempt_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
     
     best_questions = {}
-    for prompt_id in set(conversations["id"]): 
-        attempt_prompt_scores = []
+
+    for prompt_id in set(conversations["id"]): # for each prompt, we now find the best attempt to ask a question across users 
+        best_question_idx_across_users = [] # best attempt across users 
+        
         for user_id in set(conversations["user"]): 
-            attempt_user_scores = []
-            for attempt in set(conversations["attempt"]):
+            best_question_eig_within_users = [] # best attempt within each user 
+            
+            for attempt in set(conversations["attempt"]):   
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
-                attempt_user_scores.append(eig[attempt_key])
-            attempt_prompt_scores.append(np.argmax(attempt_user_scores))
-        best_questions[f"best_question_for_prompt_{prompt_id}"] = int(np.argmax(np.bincount(attempt_prompt_scores)))
+                best_question_eig_within_users.append(eig[attempt_key])
+            
+            # best attempt within user 
+            best_question_idx_across_users.append(np.argmax(best_question_eig_within_users))
+        
+        # best attempt across users
+        best_question_idx = int(np.argmax(np.bincount(best_question_idx_across_users)))
+        
+        # add this to our best questions for each prompt_id 
+        best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
+        
+        # now still need to compute eig for that attempt across users 
+        best_question_eig_across_users = []
+        
+        for user_id in set(conversations["user"]): 
+            best_attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_question_idx}"
+            best_question_eig_across_users.append(eig[best_attempt_key])  
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_eig'] = np.mean(best_question_eig_across_users).item()
+
     
         
     breakpoint() 

@@ -1,7 +1,10 @@
-prompts: base_responses.json
-n_prompts: 100
-n_logprobs_per_token: 0
+prompts: data/base_responses_prism.json
+users: data/users.json
+n_prompts: 500
 n_users: 5
+n_logprobs_per_token: 0
+
+save_file: data/mi_prism.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
