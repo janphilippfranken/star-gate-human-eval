@@ -1,14 +1,17 @@
-
 # macOS display setting files
 .DS_Store
 */.DS_Store
 **/.DS_Store
 
+# Ignore all files in a folder called data
+data/
+**/data/
+*/data/
+
 # ignore cache directory
 cache/
 **/cache/
 */cache/
-
 
 # ignore cache directory
 local_cache/
@@ -52,9 +55,6 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-
-
-
 
 # Unit test / coverage reports
 htmlcov/
