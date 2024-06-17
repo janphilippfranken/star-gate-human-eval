@@ -81,7 +81,7 @@ def main(args: DictConfig) -> None:
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-    
+    breakpoint()
     # format and write to json
     formatted_responses = [
         response.split('<|end_header_id|>')[1].strip() 

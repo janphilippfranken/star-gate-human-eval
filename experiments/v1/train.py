@@ -17,6 +17,9 @@ from transformers import (
     AutoTokenizer,
 )
 
+from datasets import load_dataset, Dataset
+from trl import SFTConfig, SFTTrainer
+
 from helpers import *
 
 
@@ -24,7 +27,7 @@ from helpers import *
 def main(args: DictConfig) -> None:
     
     # wandb
-    wandb.init(project=args.wandb.project, name=args.wandb.name)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name)
     
     # tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.tokenizer_config)
@@ -39,31 +42,37 @@ def main(args: DictConfig) -> None:
     
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
-    training_args = TrainingArguments(**training_args_dict)
+    training_args = SFTConfig(**training_args_dict)
    
     # check if output path exists
     if not os.path.exists(training_args.output_dir):
         os.makedirs(training_args.output_dir)
    
     # data
-    targets = json.load(open(args.data, "r"))
-    dataset = preprocess(targets=targets, tokenizer=tokenizer)
-    dataset = dataset.shuffle(seed=args.training_args.seed)
-    dataset = dataset.train_test_split(test_size=args.test_split)
-    print(dataset)
-
+    breakpoint()
+    dataset = json.load(open(args.data, "r"))
+    dataset= dict(
+        messages=[example for example in dataset]
+    )
+    dataset = Dataset.from_dict(dataset)
+    # dataset.set_format('torch')
     
+    # dataset = preprocess(targets=targets, tokenizer=tokenizer)
+    # dataset = dataset.shuffle(seed=args.training_args.seed)
+    # dataset = dataset.train_test_split(test_size=args.test_split)
+    # print(dataset)
+
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
    
     # trainer
-    trainer = Trainer(
+    trainer = SFTTrainer(
         model=model,
-        tokenizer=tokenizer,
+        # tokenizer=tokenizer,
         args=training_args,
-        train_dataset=dataset["train"],
-        eval_dataset=dataset["test"],
-        data_collator=data_collator,
+        train_dataset=dataset,
+        # eval_dataset=dataset["test"],
+        # data_collator=data_collator,
     )
     
     # train
