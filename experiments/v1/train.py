@@ -27,7 +27,7 @@ from helpers import *
 def main(args: DictConfig) -> None:
     
     # wandb
-    # wandb.init(project=args.wandb.project, name=args.wandb.name)
+    wandb.init(project=args.wandb.project, name=args.wandb.name)
     
     # tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.tokenizer_config)
@@ -49,12 +49,14 @@ def main(args: DictConfig) -> None:
         os.makedirs(training_args.output_dir)
    
     # data
-    breakpoint()
+    # breakpoint()
     dataset = json.load(open(args.data, "r"))
     dataset= dict(
         messages=[example for example in dataset]
     )
     dataset = Dataset.from_dict(dataset)
+    # dataset.set_format('torch')
+    print(dataset)
     # dataset.set_format('torch')
     
     # dataset = preprocess(targets=targets, tokenizer=tokenizer)
@@ -73,6 +75,7 @@ def main(args: DictConfig) -> None:
         train_dataset=dataset,
         # eval_dataset=dataset["test"],
         # data_collator=data_collator,
+        max_seq_length=2048,
     )
     
     # train
@@ -81,7 +84,7 @@ def main(args: DictConfig) -> None:
     # save model
     trainer.save_model(output_dir=f"{training_args.output_dir}")
     
-    breakpoint()
+    # breakpoint()
     
     
 if __name__ == "__main__":

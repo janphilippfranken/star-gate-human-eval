@@ -1,4 +1,4 @@
-[2024-06-17 16:11:41,061] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-06-17 16:27:07,263] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
 Warning: The default cache directory for DeepSpeed Triton autotune, /sailhome/jphilipp/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
 [93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
 [93m [WARNING] [0m async_io: please install the libaio-dev package with apt
@@ -6,6 +6,9 @@ Warning: The default cache directory for DeepSpeed Triton autotune, /sailhome/jp
 [93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
 [93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.1
 [93m [WARNING] [0m using untested triton version (2.1.0), only 1.0.0 is known to be compatible
-> /sailhome/jphilipp/research_projects/star-gate-human-eval/experiments/v1/train.py(59)main()
--> data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
-(Pdb) 
+Dataset({
+    features: ['messages'],
+    num_rows: 5987
+})
+[2024-06-17 16:27:15,238][root][INFO] - Formatting dataset with chatml format
+[2024-06-17 16:27:17,124][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
