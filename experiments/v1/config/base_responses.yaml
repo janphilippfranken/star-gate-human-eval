@@ -1,7 +1,7 @@
 prompts: data/original_prompts/human_assistant_instruct.json
-n_prompts: 2000
+n_prompts: 4000
 
-save_file: data/base_responses/human_assistant_instruct.json
+save_file: data/base_responses/human_assistant_instruct_4k.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

@@ -1,6 +1,7 @@
 """Generate generic responses without additional info or questions."""
 import os
 import json
+import torch
 import fire
 import hydra
 from omegaconf import DictConfig
@@ -29,25 +30,20 @@ def main(args: DictConfig) -> None:
     conversations = {k: [] for k in ['id', 'user', 'prompt', 'attempt', 'question', 'response']}
     for conversation_batch in sorted(os.listdir(args.conversations))[:4]:
         with open(f"{args.conversations}{conversation_batch}", 'r') as f:
-            batch = json.load(f)
+            conversation_batch = json.load(f)
         for key in conversations:
-            conversations[key].extend(batch[key])
-            
-    breakpoint()
+            conversations[key].extend(conversation_batch[key])
         
     # eig for best questions
-    
-    with open(args.eig, 'r') as f:
-       eig = json.load(f)
-
+    best_question_attempts = []
+    for eig_batch in sorted(os.listdir(args.eig))[:4]:
+        with open(f"{args.eig}{eig_batch}", 'r') as f:
+            eig_batch = json.load(f)
+        eig_batch = [datum["best_question_idx"] for datum in eig_batch.values()]
+        best_question_attempts.extend(eig_batch)
+       
     with open(args.labels, 'r') as f:
        labels = json.load(f)
-
-    best_question_attempts = [
-        datum["best_question_idx"] for datum in eig.values()
-    ]
-    
-    breakpoint()
     
     conversation_dict = {}
     for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
@@ -55,17 +51,21 @@ def main(args: DictConfig) -> None:
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}   
     
     conversation_dict_filtered = {}
-    
+    breakpoint()
     for prompt_id in range(args.n_prompts):
         for user_id in range(args.n_users):
             key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_question_attempts[prompt_id]}"
             conversation_dict_filtered[key] = conversation_dict[key]
+            
+
 
     # format prompts
     batch_prompts = []
     for conversation_key, conversation in conversation_dict_filtered.items():
         prompt_key = int(conversation_key.split("_")[1])
-        if labels[prompt_key] == 1:# if this is a prompt for which we should ask a question
+        if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
+            # now we dont want to include all of them because we have a bunch of them per user; so we only include 30% for now
+            # if torch.randint(3, (1,)).item() == 2:
             batch_prompts.append([
                 {"role": "user", "content": conversation["prompt"]},
                 {"role": "assistant", "content": conversation["question"]},
@@ -105,10 +105,10 @@ def main(args: DictConfig) -> None:
         
     # TODO: implement some filtering here if needed
     
-    # breakpoint()
-    # # save as dataset with messages as key
-    # with open(args.save_file, 'w') as f:
-    #     json.dump(training_data, f, indent=4)
+    breakpoint()
+    # save as dataset with messages as key
+    with open(args.save_file, 'w') as f:
+        json.dump(training_data, f, indent=4)
 
 
 if __name__ == "__main__":

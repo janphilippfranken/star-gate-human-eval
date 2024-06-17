@@ -94,8 +94,10 @@ def main(args: DictConfig) -> None:
         PROMPT.format(question=prompt, response=response) 
         for prompt, response in zip(prompts, formatted_responses)
     ]
+    breakpoint()
     gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
-    formatted_gpt_responses = [int(resp[0].split('Final Response:')[1].strip()) for resp in gpt_responses]
+    breakpoint()
+    formatted_gpt_responses = [resp[0].split('Final Response:')[1].strip() for resp in gpt_responses]
 
     
     # now we prompt the model again with a random user, and then respond based on that to get a final response 

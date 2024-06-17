@@ -11,17 +11,17 @@ wandb:
   project: stargate
   name: stargate-pilot
 
-data: data/train_data.json
+data: data/train/train_data_2k.json
 test_split: 0.1
 
 training_args:
   output_dir: /scr/jphilipp/stargate/checkpoints/m1-human-instruct
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 16
+  gradient_accumulation_steps: 32
   learning_rate: 5e-6
   num_train_epochs: 3
-  save_total_limit: 1
+  save_total_limit: 3
   do_eval: false
   seed: 42
   save_strategy: epoch

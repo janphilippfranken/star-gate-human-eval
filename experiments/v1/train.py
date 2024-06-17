@@ -51,6 +51,7 @@ def main(args: DictConfig) -> None:
     dataset = dataset.shuffle(seed=args.training_args.seed)
     dataset = dataset.train_test_split(test_size=args.test_split)
     print(dataset)
+
     
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)

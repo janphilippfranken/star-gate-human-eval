@@ -65,7 +65,7 @@ def main(args: DictConfig) -> None:
             ]
             
             # append prompt
-            all_logprobs[i]['prompt_with_each_user'][j] = prompt_with_response
+            # all_logprobs[i]['prompt_with_each_user'][j] = prompt_with_response
             
             # format 
             formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
@@ -79,11 +79,11 @@ def main(args: DictConfig) -> None:
             # get only logprobs for response
             logprobs = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
             logprobs = [v for prob in logprobs for k, v in prob.items()]
-            all_logprobs[i]['logprobs_for_each_user'][j] = logprobs
+            # all_logprobs[i]['logprobs_for_each_user'][j] = logprobs
             all_logprobs[i]['means'].append(np.mean(logprobs))
         
         
-        all_logprobs[i]['variance'] = np.var(all_logprobs[i]['means'])
+        # all_logprobs[i]['variance'] = np.var(all_logprobs[i]['means'])
         
         all_logprobs[i]['mutual_information']  = mutual_information(
             logprobs=torch.tensor(all_logprobs[i]['means']),

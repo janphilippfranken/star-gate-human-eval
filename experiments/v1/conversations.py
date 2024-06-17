@@ -14,7 +14,10 @@ from prompts import *
 
 @hydra.main(version_base=None, config_path="config", config_name="conversations")
 def main(args: DictConfig) -> None:
-    logging.info(f"Generating Conversations. Start Prompt: {args.prompt_start}. End Prompt: {args.prompt_end}")
+    logging.info(f"""Generating Conversations. 
+Start Prompt: {args.prompt_start}. 
+End Prompt: {args.prompt_end}
+Saving to: {args.save_file}""")
    
     # model
     model = VLLMInferenceModel(
