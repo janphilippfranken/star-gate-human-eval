@@ -1,4 +1,5 @@
-from typing import Dict, Sequence, List, Tuple
+from typing import Dict, Sequence, List
+from dataclasses import dataclass
 
 import torch
 import transformers 
@@ -28,7 +29,7 @@ def mutual_information(
     
     return mutual_information.sum()
 
-
+@dataclass
 class DataCollatorForSupervisedDataset(object):
     """Data collator for SFT which masks user from the loss."""
 
@@ -90,8 +91,13 @@ def preprocess(
     tokenized = {}
     for i, messages in enumerate(targets):
         tokenized[i] = _tokenize_fn(messages, tokenizer)
-        
-    dataset = Dataset.from_dict(tokenized)
+   
+    tokenized_formatted = dict(
+        input_ids=[example["input_ids"] for example in tokenized.values()],
+        labels=[example["labels"] for example in tokenized.values()],
+        attention_mask=[example["attention_mask"] for example in tokenized.values()]
+    )
+    dataset = Dataset.from_dict(tokenized_formatted)
     dataset.set_format('torch')
 
     return dataset

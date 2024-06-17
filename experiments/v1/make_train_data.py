@@ -2,6 +2,7 @@
 import json
 import fire
 import hydra
+import torch
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
@@ -29,15 +30,16 @@ def main(args: DictConfig) -> None:
         conversations = json.load(f)
         
     # eig for best questions
-    # with open(args.eig, 'r') as f:
-    #    eig = json.load(f)
+    with open(args.eig, 'r') as f:
+       eig = json.load(f)
+
+    with open(args.labels, 'r') as f:
+       labels = json.load(f)
+
+    best_question_attempts = [
+        datum["best_question_idx"] for datum in eig.values()
+    ]
     
-    # check whether this is a prompt that should involve follow-up
-    # with open(args.eig, 'r') as f:
-    #    eig = json.load(f)
-    best_attempts = [1, 4, 5, 3, 4, 3, 4, 5, 6, 7]
-    include_question =    [0, 0, 1, 1, 1, 1, 1, 0, 0, 0]
-        
     conversation_dict = {}
     for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
@@ -47,14 +49,14 @@ def main(args: DictConfig) -> None:
     
     for prompt_id in range(args.n_prompts):
         for user_id in range(args.n_users):
-            key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_attempts[prompt_id]}"
+            key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_question_attempts[prompt_id]}"
             conversation_dict_filtered[key] = conversation_dict[key]
-    
+
     # format prompts
     batch_prompts = []
-    for i, (conversation_key, conversation) in enumerate(conversation_dict_filtered.items()):
-        
-        if include_question[i]: # if this is a prompt for which we should ask a question
+    for conversation_key, conversation in conversation_dict_filtered.items():
+        prompt_key = int(conversation_key.split("_")[1])
+        if labels[prompt_key] == 1:# if this is a prompt for which we should ask a question
             batch_prompts.append([
                 {"role": "user", "content": conversation["prompt"]},
                 {"role": "assistant", "content": conversation["question"]},
@@ -62,11 +64,14 @@ def main(args: DictConfig) -> None:
             ])
         
         else:  # if this is a prompt for which we should not ask a question
-            batch_prompts.append([
-                {"role": "user", "content": conversation["prompt"]},
-            ])
+            prompt = [{"role": "user", "content": conversation["prompt"]}]
+            if prompt not in batch_prompts: # we only append once because we've already seen it! 
+                batch_prompts.append(prompt)
 
-    formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
+    formatted_batch_prompts = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in batch_prompts
+    ]
     
     # get responses
     batch_responses = model.batch_prompt(
@@ -75,18 +80,24 @@ def main(args: DictConfig) -> None:
     )
         
     # format and write to json
-    formatted_responses = [
-        response.split('<|end_header_id|>')[1].strip() 
-        for response in batch_responses
-    ]
-    
+    formatted_responses =  []
+    for response in batch_responses:
+        try:
+            formatted_responses.append(response.split('<|end_header_id|>')[1].strip())
+        except:
+            print(f"INVALID response: {response}")
+            formatted_responses.append('<|invalid|>')
+            
     # append final response to training data
     training_data = []
     for prompt, response in zip(batch_prompts, formatted_responses):
-        training_data.append({"role": "assistant", "content": formatted_responses})
+        conversation = prompt + [{"role": "assistant", "content": response}]
+        training_data.append(conversation)
         
-    # save as dataset with messages as key
+    # TODO: implement some filtering here if needed
     
+    breakpoint()
+    # save as dataset with messages as key
     with open(args.save_file, 'w') as f:
         json.dump(training_data, f, indent=4)
 

@@ -24,8 +24,7 @@ from helpers import *
 def main(args: DictConfig) -> None:
     
     # wandb
-    # args_dict = OmegaConf.to_container(args, resolve=True)
-    # wandb.init(project=args.qa_model.wandb.project, name=args.qa_model.wandb.name, config=args_dict)
+    wandb.init(project=args.wandb.project, name=args.wandb.name)
     
     # tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.tokenizer_config)
@@ -54,8 +53,6 @@ def main(args: DictConfig) -> None:
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
    
-    breakpoint()
-
     # trainer
     trainer = Trainer(
         model=model,

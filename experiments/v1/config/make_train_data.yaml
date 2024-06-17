@@ -1,6 +1,7 @@
 conversations: data/conversations_human_assistant_instruct.json
+labels: data/labels/llama_mi_labels_human_assistant_instruct.json
 eig: data/eig_human_assistant_instruct.json
-n_prompts: 10
+n_prompts: 500
 n_users: 5
 
 save_file: data/train_data.json
