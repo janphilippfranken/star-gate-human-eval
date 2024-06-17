@@ -1,9 +1,12 @@
-gold_responses: data/gold_responses_human_assistant_instruct_10k.json
-conversations: data/conversations_human_assistant_instruct_10k.json
-n_users: 5
-n_logprobs_per_token: 0
+gold_responses: data/gold_responses/gold_responses_human_assistant_instruct_50k.json
+conversations: data/conversations/human_assistant_instruct_0_500.json
+save_file: data/expected_info_gain/eig_human_assistant_instruct_0_500.json
 
-save_file: data/eig_human_assistant_instruct_10k.json
+prompt_start: 0
+prompt_end: 500
+n_users: 5
+
+n_logprobs_per_token: 0
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

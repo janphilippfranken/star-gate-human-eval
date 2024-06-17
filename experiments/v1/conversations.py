@@ -3,16 +3,18 @@ import json
 import fire
 import torch
 import hydra
+import logging
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from experiments.v1.data.prompts import *
+from prompts import *
 
 
-@hydra.main(version_base=None, config_path="config", config_name="conversation")
+@hydra.main(version_base=None, config_path="config", config_name="conversations")
 def main(args: DictConfig) -> None:
+    logging.info(f"Generating Conversations. Start Prompt: {args.prompt_start}. End Prompt: {args.prompt_end}")
    
     # model
     model = VLLMInferenceModel(
@@ -35,7 +37,8 @@ def main(args: DictConfig) -> None:
     
     # QUESTIONER 
     batch_prompts_questioner = []
-    for i, prompt in enumerate(prompts[:args.n_prompts]):
+    for i in range(args.prompt_start, args.prompt_end):
+        prompt = prompts[i]
         batch_prompts_questioner.append([
             {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
         ])
@@ -64,12 +67,17 @@ def main(args: DictConfig) -> None:
     for user in enumerate(list(users.values())[:args.n_users]):
         for i, question in enumerate(formatted_batch_responses_questioner):
             prompt = prompts[i//n]
+            
+            # max words for roleplayer 
+            max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
+            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
+            
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
                     {"role": "user", "content": ROLEPLAY_PROMPT.format(
                         user=user, 
                         question=question, 
-                        max_words=torch.randint(args.roleplayer_min_words, args.roleplayer_max_words, (1,)).item(),
+                        max_words=max_words,
                 )}
             ])
 
@@ -81,6 +89,7 @@ def main(args: DictConfig) -> None:
         prompts=formatted_batch_prompts_roleplayer,
         **args.generation_config_roleplayer,
     )
+    
 
     formatted_batch_responses_roleplayer = []
     for response in batch_responses_roleplayer:
@@ -88,7 +97,7 @@ def main(args: DictConfig) -> None:
             formatted_batch_responses_roleplayer.append(response.split('Response:')[1].strip().strip('"'))
         except:
             print(f"INVALID response: {response}")    
-            formatted_batch_responses_questioner.append("<|invalid_response|>")
+            formatted_batch_responses_roleplayer.append("<|invalid_response|>")
     
     conversations = {
         'id': [],
@@ -102,7 +111,7 @@ def main(args: DictConfig) -> None:
     response_idx = 0
     for user_id in range(args.n_users):
         question_idx = 0
-        for prompt_id in range(args.n_prompts):
+        for prompt_id in range(args.prompt_start, args.prompt_end):
             for question_attempt in range(args.generation_config_questioner.num_return_sequences):
                 try:
                     conversations['id'].append(prompt_id)
@@ -113,10 +122,10 @@ def main(args: DictConfig) -> None:
                     conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
                 except:
                     print(f"INVALID: {prompt_id} and {user_id}")
-                    conversations['id'].append("<|invalid_response|>")
-                    conversations['user'].append("<|invalid_response|>")
-                    conversations['prompt'].append("<|invalid_response|>")
-                    conversations['attempt'].append("<|invalid_response|>")
+                    conversations['id'].append(prompt_id)
+                    conversations['user'].append(user_id)
+                    conversations['prompt'].append(prompts[prompt_id])
+                    conversations['attempt'].append(question_attempt)
                     conversations['question'].append("<|invalid_response|>")
                     conversations['response'].append("<|invalid_response|>")
                 question_idx += 1
@@ -125,7 +134,6 @@ def main(args: DictConfig) -> None:
     with open(args.save_file, 'w') as f:
         json.dump(conversations, f, indent=4)
         
-    breakpoint()
 
 if __name__ == "__main__":
     fire.Fire(main())

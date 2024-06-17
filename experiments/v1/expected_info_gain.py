@@ -1,8 +1,9 @@
-"""Get logprobs of assistant responses."""
+"""Get logprobs of assistant responses for eig."""
 import json
 import fire
 import hydra
 import tqdm
+import logging
 import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
@@ -10,11 +11,14 @@ from transformers import AutoTokenizer
 from stargate.vllm_inference_model import VLLMInferenceModel
 
 from helpers import *
-from experiments.v1.data.prompts import *
+from prompts import *
 
 
-@hydra.main(version_base=None, config_path="config", config_name="logprobs_convo")
+@hydra.main(version_base=None, config_path="config", config_name="expected_info_gain")
 def main(args: DictConfig) -> None:
+    logging.info(f"""Computing EIG. Start Prompt: {args.prompt_start}. End Prompt: {args.prompt_end}
+Saving to: {args.save_file}
+Convo file: {args.conversations}""")
    
     # model
     model = VLLMInferenceModel(
@@ -44,7 +48,7 @@ def main(args: DictConfig) -> None:
     for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
-        
+    
     # logprobs container
     logprobs = {}
 
@@ -63,7 +67,9 @@ def main(args: DictConfig) -> None:
                     conversation_key = f"prompt_{prompt_id}_user_{other_user_id}_attempt_{attempt}"
                     gold_response_key = f"{prompt_id}_{user_id}"
                     
+        
                     conversation = conversation_dict[conversation_key]
+                        
                     gold_response = gold_responses[gold_response_key] 
         
                     # prompt with no assistant response 
@@ -106,6 +112,7 @@ def main(args: DictConfig) -> None:
         eig[prompt_user_attempt_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
     
     best_questions = {}
+    breakpoint()
 
     for prompt_id in set(conversations["id"]): # for each prompt, we now find the best attempt to ask a question across users 
         best_question_idx_across_users = [] # best attempt across users 
@@ -135,11 +142,10 @@ def main(args: DictConfig) -> None:
             best_question_eig_across_users.append(eig[best_attempt_key])  
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_eig'] = np.mean(best_question_eig_across_users).item()
 
-      
+
     with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)
 
-    # breakpoint() 
 
 if __name__ == "__main__":
     fire.Fire(main())

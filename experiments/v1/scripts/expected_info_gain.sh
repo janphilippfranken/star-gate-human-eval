@@ -7,13 +7,19 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=eig.out         
-#SBATCH --error=eig.err           
+#SBATCH --output=eig_1500_2000.out         
+#SBATCH --error=eig_1500_2000.err           
 
-# cond env
+prompt_start=1500
+prompt_end=2000
+
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v1
 
-python expected_info_gain.py
+python expected_info_gain.py \
+    prompt_start=$prompt_start \
+    prompt_end=$prompt_end \
+    conversations=data/conversations/human_assistant_instruct_${prompt_start}_${prompt_end}.json \
+    save_file=data/expected_info_gain/eig_human_assistant_instruct_${prompt_start}_${prompt_end}.json

@@ -1,10 +1,10 @@
-prompts: data/base_responses_human_assistant_instruct.json
+prompts: data/base_responses/human_assistant_instruct.json
 users: data/users/users.json
 n_prompts: 2000
 n_users: 5
 n_logprobs_per_token: 0
 
-save_file: data/mi_human_assistant_instruct_10k.json
+save_file: data/mutual_information/human_assistant_instruct.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

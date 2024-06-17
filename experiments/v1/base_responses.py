@@ -7,7 +7,7 @@ from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from experiments.v1.data.prompts import *
+from prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="base_responses")
@@ -44,7 +44,6 @@ def main(args: DictConfig) -> None:
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-    breakpoint()
     
     # format and write to json
     formatted_responses = [

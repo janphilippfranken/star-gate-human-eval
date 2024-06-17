@@ -13,7 +13,7 @@ from helpers import *
 from prompts import *
 
 
-@hydra.main(version_base=None, config_path="config", config_name="logprobs")
+@hydra.main(version_base=None, config_path="config", config_name="mutual_information")
 def main(args: DictConfig) -> None:
    
     # model

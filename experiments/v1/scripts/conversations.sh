@@ -6,14 +6,19 @@
 #SBATCH --gres=gpu:1                      
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
-#SBATCH --time=12:00:00                    
-#SBATCH --output=conversations.out         
-#SBATCH --error=conversations.err           
+#SBATCH --time=12:00:00      
+#SBATCH --output=convo_0_500.out
+#SBATCH --error=convo_0_500.err
 
-# cond env
+prompt_start=0
+prompt_end=500
+
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v1
 
-python conversation.py
+python conversations.py \
+    prompt_start=$prompt_start \
+    prompt_end=$prompt_end \
+    save_file=data/conversations/human_assistant_instruct_${prompt_start}_${prompt_end}.json
