@@ -9,7 +9,7 @@ from transformers import AutoTokenizer
 
 from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM
 
-from prompts import *
+from experiments.v1.data.prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="logprobs")

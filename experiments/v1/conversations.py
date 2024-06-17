@@ -8,7 +8,7 @@ from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from prompts import *
+from experiments.v1.data.prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="conversation")
@@ -104,12 +104,21 @@ def main(args: DictConfig) -> None:
         question_idx = 0
         for prompt_id in range(args.n_prompts):
             for question_attempt in range(args.generation_config_questioner.num_return_sequences):
-                conversations['id'].append(prompt_id)
-                conversations['user'].append(user_id)
-                conversations['prompt'].append(prompts[prompt_id])
-                conversations['attempt'].append(question_attempt)
-                conversations['question'].append(formatted_batch_responses_questioner[question_idx])
-                conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
+                try:
+                    conversations['id'].append(prompt_id)
+                    conversations['user'].append(user_id)
+                    conversations['prompt'].append(prompts[prompt_id])
+                    conversations['attempt'].append(question_attempt)
+                    conversations['question'].append(formatted_batch_responses_questioner[question_idx])
+                    conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
+                except:
+                    print(f"INVALID: {prompt_id} and {user_id}")
+                    conversations['id'].append("<|invalid_response|>")
+                    conversations['user'].append("<|invalid_response|>")
+                    conversations['prompt'].append("<|invalid_response|>")
+                    conversations['attempt'].append("<|invalid_response|>")
+                    conversations['question'].append("<|invalid_response|>")
+                    conversations['response'].append("<|invalid_response|>")
                 question_idx += 1
                 response_idx += 1
     

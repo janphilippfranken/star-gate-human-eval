@@ -8,7 +8,7 @@ from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from prompts import *
+from experiments.v1.data.prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="make_train_data")

@@ -7,9 +7,8 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=logpconvo.out         
-#SBATCH --error=logpconvo.err           
-#SBATCH --begin=now+8hours
+#SBATCH --output=base_response.out         
+#SBATCH --error=base_response.err           
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
@@ -17,4 +16,4 @@ conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v1
 
-python logprobs_convo.py
+python base_responses.py

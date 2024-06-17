@@ -10,7 +10,7 @@ from transformers import AutoTokenizer
 from stargate.vllm_inference_model import VLLMInferenceModel
 
 from helpers import *
-from prompts import *
+from experiments.v1.data.prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="logprobs_convo")

@@ -5,10 +5,10 @@
 #SBATCH --nodelist=cocoflops-hgx-1          
 #SBATCH --gres=gpu:1                      
 #SBATCH --mem=64GB                       
-#SBATCH --cpus-per-task=16               
+#SBATCH --cpus-per-task=24               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=logp.out         
-#SBATCH --error=logp.err           
+#SBATCH --output=gold.out         
+#SBATCH --error=gold.err           
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
@@ -16,4 +16,4 @@ conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v1
 
-python logprobs.py
+python gold_responses.py

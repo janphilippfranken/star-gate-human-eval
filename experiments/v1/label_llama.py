@@ -7,7 +7,7 @@ from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from prompts import *
+from experiments.v1.data.prompts import *
 
 
 PROMPT = """You are given a prompt that a user asked an assistant:
