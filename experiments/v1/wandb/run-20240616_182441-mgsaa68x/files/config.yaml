@@ -9,7 +9,7 @@ _wandb:
     huggingface_version: 4.37.2
     is_jupyter_run: false
     is_kaggle_kernel: false
-    start_time: 1718586622
+    start_time: 1718587481
     t:
       1:
       - 1
@@ -282,13 +282,13 @@ do_train:
   value: false
 do_eval:
   desc: null
-  value: false
+  value: true
 do_predict:
   desc: null
   value: false
 evaluation_strategy:
   desc: null
-  value: 'no'
+  value: epoch
 prediction_loss_only:
   desc: null
   value: false
@@ -315,7 +315,7 @@ eval_delay:
   value: 0
 learning_rate:
   desc: null
-  value: 1.0e-06
+  value: 5.0e-06
 weight_decay:
   desc: null
   value: 0.0
@@ -333,19 +333,19 @@ max_grad_norm:
   value: 1.0
 num_train_epochs:
   desc: null
-  value: 1
+  value: 3
 max_steps:
   desc: null
   value: -1
 lr_scheduler_type:
   desc: null
-  value: linear
+  value: cosine
 lr_scheduler_kwargs:
   desc: null
   value: {}
 warmup_ratio:
   desc: null
-  value: 0.0
+  value: 0.1
 warmup_steps:
   desc: null
   value: 0
@@ -360,7 +360,7 @@ log_on_each_node:
   value: true
 logging_dir:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct/runs/Jun16_18-10-28_cocoflops-hgx-1
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct/runs/Jun16_18-24-47_cocoflops-hgx-1
 logging_strategy:
   desc: null
   value: steps
@@ -369,7 +369,7 @@ logging_first_step:
   value: false
 logging_steps:
   desc: null
-  value: 5
+  value: 1
 logging_nan_inf_filter:
   desc: null
   value: true

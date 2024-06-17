@@ -1,0 +1,11 @@
+DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 1345
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 150
+    })
+})
+[2024-06-16 18:26:23,185][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.

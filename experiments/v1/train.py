@@ -49,6 +49,8 @@ def main(args: DictConfig) -> None:
     targets = json.load(open(args.data, "r"))
     dataset = preprocess(targets=targets, tokenizer=tokenizer)
     dataset = dataset.shuffle(seed=args.training_args.seed)
+    dataset = dataset.train_test_split(test_size=args.test_split)
+    print(dataset)
     
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
@@ -58,7 +60,8 @@ def main(args: DictConfig) -> None:
         model=model,
         tokenizer=tokenizer,
         args=training_args,
-        train_dataset=dataset,
+        train_dataset=dataset["train"],
+        eval_dataset=dataset["test"],
         data_collator=data_collator,
     )
     
@@ -67,6 +70,8 @@ def main(args: DictConfig) -> None:
     
     # save model
     trainer.save_model(output_dir=f"{training_args.output_dir}")
+    
+    breakpoint()
     
     
 if __name__ == "__main__":
