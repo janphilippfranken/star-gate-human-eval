@@ -1,14 +1,14 @@
 """Generate generic responses without additional info or questions."""
+import os
 import json
 import fire
 import hydra
-import torch
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from experiments.v1.data.prompts import *
+from prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="make_train_data")
@@ -26,10 +26,17 @@ def main(args: DictConfig) -> None:
     )
     
     # conversations
-    with open(args.conversations, 'r') as f:
-        conversations = json.load(f)
+    conversations = {k: [] for k in ['id', 'user', 'prompt', 'attempt', 'question', 'response']}
+    for conversation_batch in sorted(os.listdir(args.conversations))[:4]:
+        with open(f"{args.conversations}{conversation_batch}", 'r') as f:
+            batch = json.load(f)
+        for key in conversations:
+            conversations[key].extend(batch[key])
+            
+    breakpoint()
         
     # eig for best questions
+    
     with open(args.eig, 'r') as f:
        eig = json.load(f)
 
@@ -39,6 +46,8 @@ def main(args: DictConfig) -> None:
     best_question_attempts = [
         datum["best_question_idx"] for datum in eig.values()
     ]
+    
+    breakpoint()
     
     conversation_dict = {}
     for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
@@ -96,10 +105,10 @@ def main(args: DictConfig) -> None:
         
     # TODO: implement some filtering here if needed
     
-    breakpoint()
-    # save as dataset with messages as key
-    with open(args.save_file, 'w') as f:
-        json.dump(training_data, f, indent=4)
+    # breakpoint()
+    # # save as dataset with messages as key
+    # with open(args.save_file, 'w') as f:
+    #     json.dump(training_data, f, indent=4)
 
 
 if __name__ == "__main__":

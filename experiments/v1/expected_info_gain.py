@@ -112,7 +112,7 @@ Convo file: {args.conversations}""")
         eig[prompt_user_attempt_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
     
     best_questions = {}
-    breakpoint()
+
 
     for prompt_id in set(conversations["id"]): # for each prompt, we now find the best attempt to ask a question across users 
         best_question_idx_across_users = [] # best attempt across users 
