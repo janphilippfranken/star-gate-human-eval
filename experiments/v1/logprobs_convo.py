@@ -139,7 +139,7 @@ def main(args: DictConfig) -> None:
     with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)
 
-    breakpoint() 
+    # breakpoint() 
 
 if __name__ == "__main__":
     fire.Fire(main())

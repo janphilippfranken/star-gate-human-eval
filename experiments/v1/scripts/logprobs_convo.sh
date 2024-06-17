@@ -9,6 +9,7 @@
 #SBATCH --time=12:00:00                    
 #SBATCH --output=logpconvo.out         
 #SBATCH --error=logpconvo.err           
+#SBATCH --begin=now+8hours
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh

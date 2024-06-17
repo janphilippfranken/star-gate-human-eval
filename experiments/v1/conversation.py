@@ -1,6 +1,7 @@
 """Generate conversations and filter good questions based on expected info gain."""
 import json
 import fire
+import torch
 import hydra
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
@@ -68,7 +69,7 @@ def main(args: DictConfig) -> None:
                     {"role": "user", "content": ROLEPLAY_PROMPT.format(
                         user=user, 
                         question=question, 
-                        max_words=args.roleplayer_max_words,
+                        max_words=torch.randint(args.roleplayer_min_words, args.roleplayer_max_words, (1,)).item(),
                 )}
             ])
 

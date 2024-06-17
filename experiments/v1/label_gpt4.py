@@ -33,14 +33,19 @@ Reasoning: <your step-by-step reasoning>
 Final Response: <your final response>"""
 
 
-BATCH_SIZE = 100
-TOTAL_EXAMPLES = 500
+BATCH_SIZE = 50
+TOTAL_EXAMPLES = 2000
 
-prompts = json.load(open('data/original_prompts/prism_opening_prompts.json', 'r'))
+import time()
+
+prompts = json.load(open('data/original_prompts/human_assistant_opening_instruct.json', 'r'))
 
 all_responses = {'id': [], 'prompt': [], 'reasoning': [], 'response': [], 'label': []}
 
 for batch_start in range(0, TOTAL_EXAMPLES, BATCH_SIZE):
+    print('sleep')
+    time.sleep(2)
+    print('awake')
     batch_end = min(batch_start + BATCH_SIZE, TOTAL_EXAMPLES)
     current_batch = prompts[batch_start:batch_end]
 
@@ -60,5 +65,5 @@ for batch_start in range(0, TOTAL_EXAMPLES, BATCH_SIZE):
         all_responses['response'].append(response)
         all_responses['label'].append(label)
 
-    with open('data/labels/gpt4_labels_prism.json', 'w') as f:
+    with open('data/labels/gpt4_labels_human_assistant_instruct.json', 'w') as f:
         json.dump(all_responses, f, indent=4)
