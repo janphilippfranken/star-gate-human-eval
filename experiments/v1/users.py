@@ -1694,6 +1694,772 @@ Creative writing: Low
 Storytelling skills: Medium"""
 
 
+USER_10 = """Age: 27
+Gender: Non-binary
+Race: Indigenous Australian
+Ancestry: Aboriginal
+Speaks at home: English and Warlpiri
+Education: Bachelor's Degree in Environmental Science
+Employment: Part-time
+Class of worker: Self-employed and academic researcher
+Industry category: Science and Indigenous Studies
+Occupation category: Environmental Researcher and Cultural Educator
+Job description: Conducts research on indigenous land management practices, delivers workshops on traditional ecological knowledge, and works with local communities to promote environmental sustainability.
+Income: $40,000 per year
+Marital Status: Single
+Household Type: Communal living with friends
+Family presence: Close to extended family
+Place of birth: Alice Springs, Australia
+Citizenship: Australian Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Government-provided health insurance
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Very High, Conscientiousness: Medium, Extraversion: High, Agreeableness: High, Neuroticism: Low
+Core values: Connection to Land, Community, Knowledge Sharing
+Defining Quirks: Always carries a small hand-carved wooden totem
+Mannerisms: Speaks calmly and with reverence about nature
+Entertainment preferences: Indigenous storytelling, nature walks
+Personal time: Enjoys painting, bushwalking, and attending cultural festivals
+Lifestyle: Community-focused and nature-oriented
+Ideology: Eco-spirituality
+Political views: Indigenous Rights Activist
+Religion: Animism
+Hobbies: Traditional crafting, bush medicine, drumming
+Diet: Plant-based with an emphasis on traditional foods
+Exercise habits: Regular hiking and traditional dance
+Technical skills: GIS mapping, ecological survey methods
+Languages spoken: English, Warlpiri
+Travel preferences: Prefers travel to indigenous lands and cultural sites
+Preferred communication style: Respectful and narrative
+Learning style: Experiential and community-based
+Stress management: Meditation and spending time in nature
+Social media usage: Moderate (focus on cultural and environmental advocacy)
+Pet ownership: None
+Volunteer work: Active in indigenous community initiatives
+Environmental consciousness: Extremely high
+Favorite cuisine: Traditional bush foods
+Favorite sports: Traditional games
+Favorite books: Indigenous lore and ecological texts
+Favorite movies: Documentaries about indigenous cultures
+Favorite TV shows: Nature and wildlife documentaries
+Favorite music genres: Traditional Aboriginal music, world music
+Fashion style: Traditional with contemporary influences
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Uses public transportation and rides a bicycle
+Financial habits: Community-oriented and budget-conscious
+Shopping preferences: Local markets and indigenous artisans
+Tech gadget preferences: Minimalist, uses for research and advocacy
+Home decor style: Natural and cultural artifacts
+Celebration preferences: Community ceremonies and festivals
+Favorite outdoor activities: Bushwalking, traditional dance
+Cooking skills: Good (focuses on traditional and sustainable meals)
+Gardening skills: High (focus on native plants)
+DIY skills: High
+Personal goals: Promote traditional ecological knowledge globally
+Career goals: Become a leading advocate for indigenous land management practices
+Conflict resolution style: Meditative and inclusive
+Problem-solving approach: Holistic and community-focused
+Creativity level: High
+Risk-taking appetite: Medium
+Adaptability: Very high
+Emotional intelligence: Very high
+Negotiation skills: High
+Leadership style: Servant leadership
+Decision-making style: Consensus-based
+Time management skills: Good
+Attention to detail: High
+Public speaking skills: Excellent
+Networking ability: High
+Cultural awareness: Extremely high
+Personal growth focus: Cultural and environmental development
+Sense of humor: Warm and inclusive
+Fashion sensitivity: Medium
+Social engagement: Very high
+Introversion/Extraversion: Extraversion
+Risk aversion: Low
+Political activism: Very high
+Charity involvement: High
+Pet peeves: Disrespect towards nature and culture
+Allergies: None
+Physical fitness: High (due to active lifestyle)
+Health consciousness: Very high
+Media consumption habits: Focused on cultural and environmental content
+Gadget usage: Low
+Digital literacy: Medium
+Work ethic: Strong
+Team orientation: Highly collaborative
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: Ecological monitoring tools
+Sports participation: Traditional indigenous sports
+Artistic interests: Traditional crafts and painting
+Cultural tastes: Deeply rooted in indigenous traditions
+Culinary skills: Good
+Environmental activism: Extremely high
+Public policy views: Strong advocate for indigenous rights and environmental sustainability
+Relationship status: Single
+Parental status: None
+Household income: $40,000
+Savings rate: 10%
+Investment strategy: Ethical investments
+Insurance coverage: Basic
+Home ownership: Renter
+Renting habits: Prefers communal living
+Living environment: Suburban with access to natural areas
+Community involvement: Very high
+Civic engagement: Very high
+Neighborhood safety: Medium
+Transportation mode: Public transport and bicycle
+Commute time: 30 minutes
+Travel frequency: Moderate (focus on cultural sites)
+Vacation preferences: Visits to cultural and natural sites
+Work-life balance: Well-balanced
+Family obligations: High
+Support network: Strong community ties
+Crisis management: Calm and resourceful
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: Medium
+Career aspirations: Global advocate for indigenous knowledge
+Job satisfaction: Very high
+Work environment preference: Collaborative and community-focused
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: Very high
+Global awareness: Very high
+Travel experience: Moderate
+Language proficiency: English, Warlpiri
+Dialect knowledge: None
+Historical knowledge: High
+Scientific literacy: High
+Mathematical proficiency: Medium
+Artistic ability: High
+Musical talent: Medium
+Creative writing: High
+Storytelling skills: Very high"""
+
+USER_11 = """Age: 38
+Gender: Male
+Race: Mixed (Caribbean and European)
+Ancestry: Jamaican and Dutch
+Speaks at home: English and Patois
+Education: High School Diploma
+Employment: Full-time
+Class of worker: Self-employed
+Industry category: Maritime Activities
+Occupation category: Modern-day Pirate
+Job description: Engages in treasure hunting, maritime adventures, and historical reenactments, offers pirate-themed tours and events.
+Income: $70,000 per year
+Marital Status: Single
+Household Type: Crew-based living on a ship
+Family presence: Estranged from family, considers crew as family
+Place of birth: Port Royal, Jamaica
+Citizenship: Jamaican Citizen
+Veteran status: No
+Disability: None
+Health Insurance: None
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: Wears an eyepatch for aesthetic reasons
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: High, Conscientiousness: Medium, Extraversion: High, Agreeableness: Medium, Neuroticism: Medium
+Core values: Freedom, Adventure, Loyalty
+Defining Quirks: Always wears a tricorn hat and carries a cutlass
+Mannerisms: Speaks with a hearty laugh and uses nautical jargon
+Entertainment preferences: Adventure novels, pirate folklore
+Personal time: Enjoys sailing, storytelling, and exploring uncharted waters
+Lifestyle: Adventurous and nomadic
+Ideology: Libertarian
+Political views: Apolitical
+Religion: Free-spirited (believes in sea spirits)
+Hobbies: Sailing, treasure hunting, crafting pirate gear
+Diet: Omnivorous with a preference for seafood
+Exercise habits: Rigorous due to ship duties and swimming
+Technical skills: Navigation, sailing, scuba diving
+Languages spoken: English, Patois
+Travel preferences: Prefers maritime journeys and exploring islands
+Preferred communication style: Boisterous and engaging
+Learning style: Hands-on and experiential
+Stress management: Rum and sea shanties
+Social media usage: Low
+Pet ownership: A parrot named "Squawk"
+Volunteer work: Occasionally helps coastal communities
+Environmental consciousness: Medium (focuses on ocean conservation)
+Favorite cuisine: Caribbean seafood
+Favorite sports: Sailing
+Favorite books: "Treasure Island" by Robert Louis Stevenson
+Favorite movies: "Pirates of the Caribbean" series
+Favorite TV shows: "Black Sails"
+Favorite music genres: Sea shanties, reggae
+Fashion style: Pirate-themed with a mix of rugged and flamboyant
+Sleeping habits: 6 hours per night
+Morning or night person: Night
+Driving habits: Sails a ship, rarely drives
+Financial habits: Spends lavishly when in port, otherwise frugal
+Shopping preferences: Local markets and antique shops
+Tech gadget preferences: Basic navigation tools
+Home decor style: Nautical and rustic
+Celebration preferences: Pirate festivals and rum parties
+Favorite outdoor activities: Sailing, diving, exploring islands
+Cooking skills: Good (focuses on hearty and simple meals)
+Gardening skills: None
+DIY skills: High (crafts and repairs ship equipment)
+Personal goals: Discover a legendary treasure
+Career goals: Become a renowned pirate and storyteller
+Conflict resolution style: Bold and direct
+Problem-solving approach: Creative and daring
+Creativity level: High
+Risk-taking appetite: Very high
+Adaptability: Very high
+Emotional intelligence: Medium
+Negotiation skills: Moderate
+Leadership style: Charismatic and adventurous
+Decision-making style: Instinctive and bold
+Time management skills: Moderate
+Attention to detail: Medium
+Public speaking skills: Excellent (entertains crowds with stories)
+Networking ability: High
+Cultural awareness: High (due to extensive travel)
+Personal growth focus: Adventure and discovery
+Sense of humor: Boisterous and hearty
+Fashion sensitivity: Medium (focused on pirate aesthetics)
+Social engagement: High
+Introversion/Extraversion: Extraversion
+Risk aversion: Very low
+Political activism: Low
+Charity involvement: Medium
+Pet peeves: Boredom and routine
+Allergies: None
+Physical fitness: High (due to active lifestyle)
+Health consciousness: Medium
+Media consumption habits: Adventure and maritime content
+Gadget usage: Low
+Digital literacy: Medium
+Work ethic: Strong (driven by passion for adventure)
+Team orientation: Highly collaborative with crew
+Leadership potential: High
+Mentorship experience: Medium
+Favorite technology: Nautical navigation tools
+Sports participation: Regular sailing and diving
+Artistic interests: Nautical tattoos and pirate crafts
+Cultural tastes: Rich and diverse
+Culinary skills: Good (focuses on simple, hearty meals)
+Environmental activism: Medium
+Public policy views: Apolitical
+Relationship status: Single
+Parental status: None
+Household income: $70,000
+Savings rate: Low (spends on adventures and ship upkeep)
+Investment strategy: None (focuses on immediate adventures)
+Insurance coverage: None
+Home ownership: Owns a ship
+Renting habits: None
+Living environment: Aboard a ship
+Community involvement: Medium
+Civic engagement: Low
+Neighborhood safety: High (due to close-knit crew)
+Transportation mode: Sailing ship
+Commute time: None (lives where he works)
+Travel frequency: Very high
+Vacation preferences: None (life is an adventure)
+Work-life balance: Blended (adventure is work and life)
+Family obligations: None
+Support network: Strong bond with crew
+Crisis management: Calm and resourceful
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: Low
+Career aspirations: Legendary pirate and storyteller
+Job satisfaction: Very high
+Work environment preference: Outdoors and adventurous
+Managerial experience: High
+Entrepreneurial tendency: High
+Innovation capacity: Medium
+Change management: High
+Project management skills: Medium
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Extensive
+Language proficiency: English, Patois
+Dialect knowledge: Nautical terms and phrases
+Historical knowledge: High (focused on maritime history)
+Scientific literacy: Medium (focused on navigation and marine life)
+Mathematical proficiency: Medium (for navigation)
+Artistic ability: High (crafting and storytelling)
+Musical talent: Medium (sings sea shanties)
+Creative writing: High
+Storytelling skills: Very high"""
+
+
+USER_12 = """Age: 47
+Gender: Female
+Race: Caucasian
+Ancestry: Irish and Scottish
+Speaks at home: English with a Southern drawl
+Education: High School Diploma
+Employment: Full-time
+Class of worker: Self-employed
+Industry category: Food and Hospitality
+Occupation category: Owner of a Southern Diner
+Job description: Manages a family-owned diner, specializing in Southern comfort food, handles cooking, staff management, and customer relations.
+Income: $55,000 per year
+Marital Status: Married
+Household Type: Nuclear family household
+Family presence: Spouse and two children aged 14 and 16
+Place of birth: Mobile, Alabama
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Private health insurance
+Fertility: Two children
+Hearing difficulty: None
+Vision difficulty: Wears reading glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: High, Agreeableness: High, Neuroticism: Medium
+Core values: Family, Tradition, Hospitality
+Defining Quirks: Always has a jar of sweet tea
+Mannerisms: Uses colorful Southern idioms and expressions
+Entertainment preferences: Country music, Southern Gothic literature
+Personal time: Enjoys gardening, baking, and attending church events
+Lifestyle: Family-oriented and community-focused
+Ideology: Conservative
+Political views: Traditional
+Religion: Baptist
+Hobbies: Baking, quilting, fishing
+Diet: Omnivorous with a focus on Southern comfort food
+Exercise habits: Regular walks and light gardening
+Technical skills: Basic bookkeeping, cooking
+Languages spoken: English
+Travel preferences: Prefers local road trips and visits to family
+Preferred communication style: Warm and conversational
+Learning style: Hands-on and practical
+Stress management: Prayer and cooking
+Social media usage: Low
+Pet ownership: One dog and a few chickens
+Volunteer work: Active in church and community fundraising events
+Environmental consciousness: Medium
+Favorite cuisine: Southern comfort food
+Favorite sports: College football
+Favorite books: Southern Gothic novels
+Favorite movies: "Steel Magnolias"
+Favorite TV shows: "Fixer Upper"
+Favorite music genres: Country, bluegrass
+Fashion style: Casual and comfortable
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Drives a family SUV
+Financial habits: Budget-conscious
+Shopping preferences: Local markets and family-owned businesses
+Tech gadget preferences: Basic and practical
+Home decor style: Rustic and homey
+Celebration preferences: Family reunions and church picnics
+Favorite outdoor activities: Fishing, gardening
+Cooking skills: Excellent (specializes in Southern dishes)
+Gardening skills: High
+DIY skills: Medium
+Personal goals: Maintain a happy and healthy family
+Career goals: Expand the diner and publish a Southern cookbook
+Conflict resolution style: Diplomatic and nurturing
+Problem-solving approach: Practical and community-focused
+Creativity level: Medium
+Risk-taking appetite: Low
+Adaptability: Medium
+Emotional intelligence: High
+Negotiation skills: Moderate
+Leadership style: Supportive and hands-on
+Decision-making style: Practical
+Time management skills: Good
+Attention to detail: High
+Public speaking skills: Good
+Networking ability: High
+Cultural awareness: High (within Southern culture)
+Personal growth focus: Family and community development
+Sense of humor: Warm and witty
+Fashion sensitivity: Low
+Social engagement: High
+Introversion/Extraversion: Extraversion
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: High
+Pet peeves: Dishonesty and rudeness
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: Medium
+Media consumption habits: Focus on local news and cooking shows
+Gadget usage: Low
+Digital literacy: Medium
+Work ethic: Strong
+Team orientation: Collaborative with family and staff
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: Kitchen appliances
+Sports participation: Occasionally participates in church softball
+Artistic interests: Quilting and baking
+Cultural tastes: Traditional and local
+Culinary skills: Excellent
+Environmental activism: Low
+Public policy views: Conservative
+Relationship status: Married
+Parental status: Two children
+Household income: $55,000
+Savings rate: 15%
+Investment strategy: Low-risk investments
+Insurance coverage: Comprehensive
+Home ownership: Owns a house
+Renting habits: None
+Living environment: Suburban
+Community involvement: Very high
+Civic engagement: High
+Neighborhood safety: High
+Transportation mode: SUV
+Commute time: 15 minutes
+Travel frequency: Rare (prefers staying local)
+Vacation preferences: Family road trips
+Work-life balance: Balanced with a focus on family
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and practical
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: Medium
+Career aspirations: Successful diner owner and cookbook author
+Job satisfaction: High
+Work environment preference: Collaborative and community-focused
+Managerial experience: High
+Entrepreneurial tendency: Medium
+Innovation capacity: Medium
+Change management: Medium
+Project management skills: High
+Cross-cultural skills: Low
+Global awareness: Low
+Travel experience: Low
+Language proficiency: English
+Dialect knowledge: Southern drawl
+Historical knowledge: Medium
+Scientific literacy: Low
+Mathematical proficiency: Medium
+Artistic ability: Medium (focused on culinary arts)
+Musical talent: Low
+Creative writing: Low
+Storytelling skills: Medium"""
+
+USER_13 = """Age: 28
+Gender: Female
+Race: Central Asian
+Ancestry: Tajik
+Speaks at home: Dari
+Education: No formal education
+Employment: Full-time
+Class of worker: Informal sector
+Industry category: Handicrafts and textiles
+Occupation category: Weaver and Artisan
+Job description: Creates and sells traditional Afghan rugs and textiles, supporting her family with her craft.
+Income: $5,000 per year
+Marital Status: Married
+Household Type: Extended family household
+Family presence: Lives with husband, two children, in-laws, and extended relatives
+Place of birth: Herat, Afghanistan
+Citizenship: Afghan Citizen
+Veteran status: No
+Disability: None
+Health Insurance: None
+Fertility: Two children
+Hearing difficulty: None
+Vision difficulty: None
+Cognitive difficulty: None
+Ability to speak English: Basic
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: Medium, Agreeableness: High, Neuroticism: Medium
+Core values: Family, Tradition, Community
+Defining Quirks: Wears traditional Afghan jewelry
+Mannerisms: Speaks softly and respectfully
+Entertainment preferences: Local music, storytelling
+Personal time: Enjoys weaving, spending time with family, and attending local gatherings
+Lifestyle: Traditional and community-focused
+Ideology: Community-oriented
+Political views: Apolitical
+Religion: Islam
+Hobbies: Weaving, cooking, gardening
+Diet: Omnivorous with a preference for traditional Afghan dishes
+Exercise habits: Light physical activity from daily chores
+Technical skills: Weaving, embroidery
+Languages spoken: Dari
+Travel preferences: Rarely travels, prefers staying within the community
+Preferred communication style: Polite and respectful
+Learning style: Hands-on and experiential
+Stress management: Prayer and spending time with family
+Social media usage: None
+Pet ownership: None
+Volunteer work: Helps neighbors with weaving and childcare
+Environmental consciousness: Medium (focuses on sustainability in crafts)
+Favorite cuisine: Afghan cuisine
+Favorite sports: None
+Favorite books: None (prefers oral storytelling)
+Favorite movies: None
+Favorite TV shows: None
+Favorite music genres: Traditional Afghan music
+Fashion style: Traditional Afghan attire
+Sleeping habits: 8 hours per night
+Morning or night person: Morning
+Driving habits: None (does not drive)
+Financial habits: Frugal and savings-focused
+Shopping preferences: Local markets
+Tech gadget preferences: None
+Home decor style: Traditional and functional
+Celebration preferences: Family and community gatherings
+Favorite outdoor activities: Gardening, attending community events
+Cooking skills: Excellent (specializes in traditional Afghan cuisine)
+Gardening skills: High
+DIY skills: High
+Personal goals: Provide a better future for her children
+Career goals: Expand her weaving business to support her family
+Conflict resolution style: Calm and diplomatic
+Problem-solving approach: Practical and community-focused
+Creativity level: High (in weaving and crafts)
+Risk-taking appetite: Low
+Adaptability: High
+Emotional intelligence: High
+Negotiation skills: Moderate
+Leadership style: Supportive and nurturing
+Decision-making style: Consensus-based
+Time management skills: Good
+Attention to detail: High
+Public speaking skills: Low
+Networking ability: Medium (within the community)
+Cultural awareness: Very high
+Personal growth focus: Family and community development
+Sense of humor: Warm and gentle
+Fashion sensitivity: High (focused on traditional styles)
+Social engagement: High
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: High (within the community)
+Pet peeves: Disrespect towards tradition
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: High (focused on traditional remedies)
+Media consumption habits: Low (focus on local culture)
+Gadget usage: Low
+Digital literacy: Low
+Work ethic: Very strong
+Team orientation: Collaborative with family and community
+Leadership potential: Medium
+Mentorship experience: High (within the community)
+Favorite technology: None
+Sports participation: None
+Artistic interests: Weaving and embroidery
+Cultural tastes: Rich and traditional
+Culinary skills: Excellent
+Environmental activism: Medium (focus on sustainable practices)
+Public policy views: Apolitical
+Relationship status: Married
+Parental status: Two children
+Household income: $5,000
+Savings rate: Low
+Investment strategy: None
+Insurance coverage: None
+Home ownership: Family-owned house
+Renting habits: None
+Living environment: Rural
+Community involvement: Very high
+Civic engagement: Low
+Neighborhood safety: High (close-knit community)
+Transportation mode: Walking
+Commute time: Minimal (works from home)
+Travel frequency: Rare
+Vacation preferences: None
+Work-life balance: Integrated with family life
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and resourceful
+Emergency preparedness: Medium
+Legal knowledge: Basic
+Financial literacy: Low
+Career aspirations: Support family through weaving
+Job satisfaction: High
+Work environment preference: Home-based and community-focused
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: Medium
+Change management: High
+Project management skills: Medium
+Cross-cultural skills: Low
+Global awareness: Low
+Travel experience: Low
+Language proficiency: Dari
+Dialect knowledge: None
+Historical knowledge: Medium (focused on local history)
+Scientific literacy: Low
+Mathematical proficiency: Low
+Artistic ability: High
+Musical talent: Low
+Creative writing: Low
+Storytelling skills: Medium (oral tradition)"""
+
+USER_14 = """Age: 35
+Gender: Female
+Race: African
+Ancestry: Bemba
+Speaks at home: Bemba and English
+Education: High School Diploma
+Employment: Full-time
+Class of worker: Self-employed
+Industry category: Retail and Small Business
+Occupation category: Market Vendor
+Job description: Manages a stall in Lusaka’s main market, selling vegetables, fruits, and handmade crafts.
+Income: $10,000 per year
+Marital Status: Married
+Household Type: Extended family household
+Family presence: Lives with husband, three children, and in-laws
+Place of birth: Lusaka, Zambia
+Citizenship: Zambian Citizen
+Veteran status: No
+Disability: None
+Health Insurance: None
+Fertility: Three children
+Hearing difficulty: None
+Vision difficulty: None
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: High, Agreeableness: High, Neuroticism: Medium
+Core values: Family, Hard work, Community
+Defining Quirks: Always wears colorful chitenge (traditional fabric) attire
+Mannerisms: Greets customers with a warm smile and a hearty laugh
+Entertainment preferences: Local music, storytelling
+Personal time: Enjoys cooking, dancing, and attending church events
+Lifestyle: Community-oriented and vibrant
+Ideology: Traditional and community-focused
+Political views: Moderate
+Religion: Christian (Catholic)
+Hobbies: Dancing, cooking, weaving baskets
+Diet: Omnivorous with a focus on traditional Zambian dishes
+Exercise habits: Regular physical activity from market work and daily chores
+Technical skills: Weaving, basic accounting
+Languages spoken: Bemba, English
+Travel preferences: Prefers local travel to visit family in rural areas
+Preferred communication style: Warm and engaging
+Learning style: Hands-on and experiential
+Stress management: Prayer and spending time with family
+Social media usage: Low
+Pet ownership: None
+Volunteer work: Active in church and community support groups
+Environmental consciousness: Medium (focus on sustainability in business practices)
+Favorite cuisine: Nshima with vegetables and fish
+Favorite sports: Netball
+Favorite books: Inspirational and religious texts
+Favorite movies: Local Zambian dramas
+Favorite TV shows: Zambian soap operas
+Favorite music genres: Traditional Zambian music, gospel
+Fashion style: Traditional and colorful
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Uses public transportation
+Financial habits: Budget-conscious and saves diligently
+Shopping preferences: Local markets
+Tech gadget preferences: Basic mobile phone
+Home decor style: Simple and traditional
+Celebration preferences: Family and community gatherings
+Favorite outdoor activities: Dancing, attending local festivals
+Cooking skills: Excellent (specializes in traditional Zambian cuisine)
+Gardening skills: High (grows own vegetables)
+DIY skills: Medium
+Personal goals: Educate her children and improve family’s living standards
+Career goals: Expand her market stall and increase income
+Conflict resolution style: Diplomatic and calm
+Problem-solving approach: Practical and community-focused
+Creativity level: High (in crafts and cooking)
+Risk-taking appetite: Low
+Adaptability: High
+Emotional intelligence: High
+Negotiation skills: High (bargains effectively in the market)
+Leadership style: Supportive and nurturing
+Decision-making style: Consensus-based
+Time management skills: Good
+Attention to detail: High
+Public speaking skills: Good
+Networking ability: High (within the market and community)
+Cultural awareness: Very high
+Personal growth focus: Family and community development
+Sense of humor: Warm and infectious
+Fashion sensitivity: High (focused on traditional styles)
+Social engagement: High
+Introversion/Extraversion: Extraversion
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: High (within the church and community)
+Pet peeves: Disrespect towards tradition and community values
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: Medium
+Media consumption habits: Low (focus on local news and religious content)
+Gadget usage: Low
+Digital literacy: Low
+Work ethic: Very strong
+Team orientation: Collaborative with family and community
+Leadership potential: Medium
+Mentorship experience: High (within the community)
+Favorite technology: Basic mobile communication tools
+Sports participation: Occasionally participates in community netball
+Artistic interests: Weaving and traditional crafts
+Cultural tastes: Rich and traditional
+Culinary skills: Excellent
+Environmental activism: Medium
+Public policy views: Supportive of community development programs
+Relationship status: Married
+Parental status: Three children
+Household income: $10,000
+Savings rate: 10%
+Investment strategy: Low-risk savings
+Insurance coverage: None
+Home ownership: Renter
+Renting habits: Prefers renting in a close-knit community
+Living environment: Urban
+Community involvement: Very high
+Civic engagement: Medium
+Neighborhood safety: Medium (close-knit community provides support)
+Transportation mode: Public transport
+Commute time: 30 minutes
+Travel frequency: Low (prefers staying local)
+Vacation preferences: Visiting family in rural areas
+Work-life balance: Integrated with family life
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and practical
+Emergency preparedness: Medium
+Legal knowledge: Basic
+Financial literacy: Low
+Career aspirations: Successful market vendor and community leader
+Job satisfaction: High
+Work environment preference: Community-focused and dynamic
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: Medium
+Change management: High
+Project management skills: Medium
+Cross-cultural skills: Medium
+Global awareness: Low
+Travel experience: Low
+Language proficiency: Bemba, English
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Low
+Mathematical proficiency: Medium
+Artistic ability: High (in weaving and crafts)
+Musical talent: Medium (enjoys singing in church)
+Creative writing: Low
+Storytelling skills: High (oral tradition)"""
+
 users = {
     "user_0": USER_0, 
     "user_1": USER_1, 
@@ -1705,6 +2471,11 @@ users = {
     "user_7": USER_7,
     "user_8": USER_8,
     "user_9": USER_9, 
+    "user_10": USER_10, 
+    "user_11": USER_11, 
+    "user_12": USER_12, 
+    "user_13": USER_13, 
+    "user_14": USER_14, 
 }
 
 with open('data/users.json', 'w') as f:

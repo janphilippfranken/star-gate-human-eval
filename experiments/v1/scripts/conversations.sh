@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00      
-#SBATCH --output=convo_3000_4000.out
-#SBATCH --error=convo_3000_4000.err
+#SBATCH --output=convo_0_2500.out
+#SBATCH --error=convo_0_2500.err
 
 prompt_start=3000
 prompt_end=4000

@@ -1,0 +1,14 @@
+prompts: data/original_prompts/human_assistant_instruct.json
+eval_prompt_start: 0
+eval_prompt_end: 50
+save_file: data/evaluate/human_assistant_instruct_eval_10k_to_10.5k.json
+model_config:
+  model: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-2.5e-6-2k/checkpoint-32
+  download_dir: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-2.5e-6-2k/checkpoint-32
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  temperature: 0.0

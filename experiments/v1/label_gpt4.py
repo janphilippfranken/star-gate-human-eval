@@ -32,23 +32,23 @@ Format your response as follows:
 Reasoning: <your step-by-step reasoning>
 Final Response: <your final response>"""
 
-
+START_EXAMPLE = 5000
 BATCH_SIZE = 50
-TOTAL_EXAMPLES = 2000
+TOTAL_EXAMPLES = 5100
 
-import time()
+import time
 
-prompts = json.load(open('data/original_prompts/human_assistant_opening_instruct.json', 'r'))
+prompts = json.load(open('data/original_prompts/human_assistant_instruct.json', 'r'))
 
 all_responses = {'id': [], 'prompt': [], 'reasoning': [], 'response': [], 'label': []}
 
-for batch_start in range(0, TOTAL_EXAMPLES, BATCH_SIZE):
+for batch_start in range(START_EXAMPLE, TOTAL_EXAMPLES, BATCH_SIZE):
     print('sleep')
     time.sleep(2)
     print('awake')
     batch_end = min(batch_start + BATCH_SIZE, TOTAL_EXAMPLES)
     current_batch = prompts[batch_start:batch_end]
-
+    print(current_batch[0])
     formatted_prompts = [PROMPT.format(prompt=prompt) for prompt in current_batch]
     responses = model.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_prompts)
 
@@ -65,5 +65,5 @@ for batch_start in range(0, TOTAL_EXAMPLES, BATCH_SIZE):
         all_responses['response'].append(response)
         all_responses['label'].append(label)
 
-    with open('data/labels/gpt4_labels_human_assistant_instruct.json', 'w') as f:
+    with open('data/labels/gpt4_labels_human_assistant_instruct_test.json', 'w') as f:
         json.dump(all_responses, f, indent=4)

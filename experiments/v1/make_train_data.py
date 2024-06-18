@@ -1,6 +1,7 @@
 """Generate generic responses without additional info or questions."""
 import os
 import json
+import copy
 import torch
 import fire
 import hydra
@@ -50,32 +51,39 @@ def main(args: DictConfig) -> None:
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}   
     
+    # filter best attempts 
     conversation_dict_filtered = {}
-    breakpoint()
     for prompt_id in range(args.n_prompts):
         for user_id in range(args.n_users):
             key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_question_attempts[prompt_id]}"
-            conversation_dict_filtered[key] = conversation_dict[key]
+            conversation_dict_filtered[key] = copy.deepcopy(conversation_dict[key])
             
-
+    # now to make sure dataset is balanced, only have each prompt appear once; so we sample random user 
+    conversation_keys_filtered = [
+        f"prompt_{prompt_id}_user_{torch.randint(args.n_users, (1,)).item()}_attempt_{best_question_attempts[prompt_id]}"
+        for prompt_id in range(args.n_prompts)
+    ]
+    
+    # and update the dictionary 
+    conversation_dict_filtered = {
+        k: conversation_dict_filtered[k] 
+        for k in conversation_keys_filtered
+    }
 
     # format prompts
     batch_prompts = []
     for conversation_key, conversation in conversation_dict_filtered.items():
         prompt_key = int(conversation_key.split("_")[1])
         if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
-            # now we dont want to include all of them because we have a bunch of them per user; so we only include 30% for now
-            if torch.randint(4, (1,)).item() == 3:
-                batch_prompts.append([
-                    {"role": "user", "content": conversation["prompt"]},
-                    {"role": "assistant", "content": conversation["question"]},
-                    {"role": "user", "content": conversation["response"]},
-                ])
+            # now we dont want to include all of them because we have a bunch of them per user; so we only include 30% for now)
+            batch_prompts.append([
+                {"role": "user", "content": conversation["prompt"]},
+                {"role": "assistant", "content": conversation["question"]},
+                {"role": "user", "content": conversation["response"]},
+            ])
         
         else:  # if this is a prompt for which we should not ask a question
-            prompt = [{"role": "user", "content": conversation["prompt"]}]
-            if prompt not in batch_prompts: # we only append once because we've already seen it! 
-                batch_prompts.append(prompt)
+            batch_prompts.append([{"role": "user", "content": conversation["prompt"]}])
 
     formatted_batch_prompts = [
         tokenizer.apply_chat_template(prompt, tokenize=False) 

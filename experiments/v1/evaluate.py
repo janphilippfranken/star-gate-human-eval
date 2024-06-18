@@ -98,7 +98,13 @@ def main(args: DictConfig) -> None:
     gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
     breakpoint()
     formatted_gpt_responses = [resp[0].split('Final Response:')[1].strip() for resp in gpt_responses]
-
+    labels_gpt4 = json.load(open('data/labels/gpt4_labels_human_assistant_instruct_test.json'))
+    import numpy as np
+    agreement = np.mean([i == int(j) for i, j in zip(labels_gpt4['label'], formatted_gpt_responses)])
+    breakpoint()
+    for response in formatted_responses:
+        if response[-1] == "?":
+            print(response, "\n\n#################\n\n")
     
     # now we prompt the model again with a random user, and then respond based on that to get a final response 
     batch_prompts = []
@@ -112,7 +118,7 @@ def main(args: DictConfig) -> None:
     
     
     labels = [1 if resp == "Question Needed" else 0 for resp in formatted_responses]
-    
+    # get win rates too for one held out user here 
     breakpoint()
     
     with open(args.save_file, 'w') as f:
