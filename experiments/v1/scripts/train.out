@@ -1,14 +1,13 @@
-[2024-06-17 16:27:07,263] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cuda (auto detect)
-Warning: The default cache directory for DeepSpeed Triton autotune, /sailhome/jphilipp/.triton/autotune, appears to be on an NFS system. While this is generally acceptable, if you experience slowdowns or hanging when DeepSpeed exits, it is recommended to set the TRITON_CACHE_DIR environment variable to a non-NFS path.
-[93m [WARNING] [0m async_io requires the dev libaio .so object and headers but these were not found.
-[93m [WARNING] [0m async_io: please install the libaio-dev package with apt
-[93m [WARNING] [0m If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
-[93m [WARNING] [0m Please specify the CUTLASS repo directory as environment variable $CUTLASS_PATH
-[93m [WARNING] [0m sparse_attn requires a torch version >= 1.5 and < 2.0 but detected 2.1
-[93m [WARNING] [0m using untested triton version (2.1.0), only 1.0.0 is known to be compatible
-Dataset({
-    features: ['messages'],
-    num_rows: 5987
+[2024-06-17 22:12:33,231][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-2.5e-6-2k
+learning rate: 2.5e-06
+DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 2053
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 229
+    })
 })
-[2024-06-17 16:27:15,238][root][INFO] - Formatting dataset with chatml format
-[2024-06-17 16:27:17,124][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-06-17 22:12:45,178][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.

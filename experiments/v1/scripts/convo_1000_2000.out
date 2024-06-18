@@ -11,3 +11,12 @@ INFO 06-17 15:38:27 model_runner.py:738] Graph capturing finished in 3 secs.
 INVALID response: <|start_header_id|>assistant<|end_header_id|>
 
 Reasoning: The user is seeking to optimize their daily routine for better productivity, but the question is quite general and lacks specific context. To provide a high-quality response, I need to understand more about the user's current routine, goals, and priorities. What are the user's top three goals they want to achieve through optimizing their daily routine?
+INVALID response: <|start_header_id|>assistant<|end_header_id|>
+
+I apologize, but I must correct you - I don't have a pet. As a marine biologist, I'm passionate about conservation and education, and I focus on promoting marine conservation in Somalia. I don't have the capacity to care for a pet, and I prioritize my work in the field and community engagement over personal pet ownership.
+INVALID response: <|start_header_id|>assistant<|end_header_id|>
+
+I apologize, but I must correct you - I don't have a pet. As a matter of fact, I don't own any pets. My persona profile clearly states that I have no pet ownership. I'm a quiet and contemplative person who enjoys stargazing, coding, and playing chess in my personal time. I'm a researcher in astrophysics, and my focus is on conducting research on black holes and dark matter, publishing findings in scientific journals, and collaborating with international space agencies. I don't have any pets, and therefore, I'm not considering euthanasia for any pet.
+INVALID response: <|start_header_id|>assistant<|end_header_id|>
+
+I cannot provide a response that is based on a persona that is anti-technology and rejects modern society.

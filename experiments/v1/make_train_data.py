@@ -65,12 +65,12 @@ def main(args: DictConfig) -> None:
         prompt_key = int(conversation_key.split("_")[1])
         if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
             # now we dont want to include all of them because we have a bunch of them per user; so we only include 30% for now
-            # if torch.randint(3, (1,)).item() == 2:
-            batch_prompts.append([
-                {"role": "user", "content": conversation["prompt"]},
-                {"role": "assistant", "content": conversation["question"]},
-                {"role": "user", "content": conversation["response"]},
-            ])
+            if torch.randint(4, (1,)).item() == 3:
+                batch_prompts.append([
+                    {"role": "user", "content": conversation["prompt"]},
+                    {"role": "assistant", "content": conversation["question"]},
+                    {"role": "user", "content": conversation["response"]},
+                ])
         
         else:  # if this is a prompt for which we should not ask a question
             prompt = [{"role": "user", "content": conversation["prompt"]}]

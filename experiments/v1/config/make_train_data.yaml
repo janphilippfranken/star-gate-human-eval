@@ -6,7 +6,7 @@ labels: data/labels/llama_mi_labels_human_assistant_instruct_2k.json
 n_prompts: 2000
 n_users: 5
 
-save_file: data/train/train_data_2k.json
+save_file: data/train/train_data_25_percent.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

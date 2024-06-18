@@ -2,6 +2,7 @@ from typing import Dict, Sequence, List
 from dataclasses import dataclass
 
 import torch
+import copy
 import transformers 
 from datasets import Dataset
 
@@ -56,25 +57,30 @@ def _tokenize_fn(
     tokenizer: transformers.PreTrainedTokenizer,
 ) -> Dict:  
     """Tokenize list of chat messages (user, assistant). TODO: Add support for system message."""
-    inputs, labels = {}, {}
-    for turn, _ in enumerate(messages):
+    inputs, labels = [], []
+    
+    for turn, message in enumerate(messages):
         tokenized = tokenizer.apply_chat_template(
-                messages[turn:turn + 1],
-                return_tensors="pt",
-                padding="longest",
-                max_length=tokenizer.model_max_length,
-                truncation=True,
-            )[0]
-        inputs[turn] = tokenized
-    
-        # labels (mask user turns which are every second; currently not using system messages)
+            [message],
+            return_tensors="pt",
+            padding="longest",
+            max_length=tokenizer.model_max_length,
+            truncation=True,
+        )[0]
+        if turn > 0: # skip bos_token
+            tokenized = tokenized[1:]
+        
+        inputs.append(tokenized)
+        
+        # mask user input (turn % 2 == 0) with -100
         if turn % 2 == 0:
-            labels[turn] = torch.tensor(IGNORE_INDEX, dtype=torch.long).repeat(tokenized.shape[0])
+            masked_labels = torch.full(tokenized.shape, -100, dtype=torch.long)
+            labels.append(masked_labels)
         else:
-            labels[turn] = tokenized
+            labels.append(copy.deepcopy(tokenized))
     
-    input_ids = torch.cat([tokenized for tokenized in inputs.values()], dim=0)
-    labels = torch.cat([tokenized for tokenized in labels.values()], dim=0)
+    input_ids = torch.cat(inputs, dim=0)
+    labels = torch.cat(labels, dim=0)
     
     return dict(
         input_ids=input_ids,

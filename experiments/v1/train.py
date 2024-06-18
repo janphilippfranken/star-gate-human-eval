@@ -17,14 +17,15 @@ from transformers import (
     AutoTokenizer,
 )
 
-from datasets import load_dataset, Dataset
-from trl import SFTConfig, SFTTrainer
+import logging
 
 from helpers import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="train")
 def main(args: DictConfig) -> None:
+    logging.info(f"""Writing to: {args.training_args.output_dir}
+learning rate: {args.training_args.learning_rate}""")
     
     # wandb
     wandb.init(project=args.wandb.project, name=args.wandb.name)
@@ -42,40 +43,30 @@ def main(args: DictConfig) -> None:
     
     # training args
     training_args_dict = OmegaConf.to_container(args.training_args, resolve=True)
-    training_args = SFTConfig(**training_args_dict)
+    training_args = TrainingArguments(**training_args_dict)
    
     # check if output path exists
     if not os.path.exists(training_args.output_dir):
         os.makedirs(training_args.output_dir)
    
     # data
-    # breakpoint()
-    dataset = json.load(open(args.data, "r"))
-    dataset= dict(
-        messages=[example for example in dataset]
-    )
-    dataset = Dataset.from_dict(dataset)
-    # dataset.set_format('torch')
+    targets = json.load(open(args.data, "r"))
+    dataset = preprocess(targets=targets, tokenizer=tokenizer)
+    dataset = dataset.shuffle(seed=args.training_args.seed)
+    dataset = dataset.train_test_split(test_size=args.test_split)
     print(dataset)
-    # dataset.set_format('torch')
-    
-    # dataset = preprocess(targets=targets, tokenizer=tokenizer)
-    # dataset = dataset.shuffle(seed=args.training_args.seed)
-    # dataset = dataset.train_test_split(test_size=args.test_split)
-    # print(dataset)
 
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
    
     # trainer
-    trainer = SFTTrainer(
+    trainer = Trainer(
         model=model,
-        # tokenizer=tokenizer,
+        tokenizer=tokenizer,
         args=training_args,
-        train_dataset=dataset,
-        # eval_dataset=dataset["test"],
-        # data_collator=data_collator,
-        max_seq_length=2048,
+        train_dataset=dataset["train"],
+        eval_dataset=dataset["test"],
+        data_collator=data_collator,
     )
     
     # train
@@ -89,3 +80,12 @@ def main(args: DictConfig) -> None:
     
 if __name__ == "__main__":
     fire.Fire(main())
+    
+    
+    
+    
+    
+# dataset= dict(
+#         messages=[example for example in dataset]
+#     )
+#     dataset = Dataset.from_dict(dataset)
