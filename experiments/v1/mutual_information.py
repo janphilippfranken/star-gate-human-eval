@@ -15,6 +15,8 @@ from prompts import *
 
 @hydra.main(version_base=None, config_path="config", config_name="mutual_information")
 def main(args: DictConfig) -> None:
+    
+    torch.manual_seed(args.seed)
    
     # model
     model = VLLMInferenceModel(
@@ -35,6 +37,12 @@ def main(args: DictConfig) -> None:
     with open(args.users, 'r') as f:
         users = json.load(f)
         
+    # only keep up to max users
+    users = {
+        k: v for k, v in users.items() 
+        if int(k.split("_")[1]) < args.n_users
+    }
+        
     # logprobs container
     all_logprobs = {}
     
@@ -45,14 +53,16 @@ def main(args: DictConfig) -> None:
         all_logprobs[i] = {
             'prompt': prompt, 
             'response': response, 
-            'prompt_with_each_user': {},
-            'logprobs_for_each_user': {},
             'means': [],
-            'variance': 0,
             'mutual_information': 0,
         }
         
-        for j, user in enumerate(list(users.values())[:args.n_users]):
+        rand_user_ids = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+        
+        for j, rand_user_id in enumerate(rand_user_ids):
+            
+            user = users[f"user_{rand_user_id}"]
+            
             # prompt with no assistant response 
             prompt_without_response = [
                     {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt)},
@@ -63,9 +73,6 @@ def main(args: DictConfig) -> None:
                     {"role": "user", "content": PROMPT_LOGPROBS.format(user=user, question=prompt)},
                     {"role": "assistant", "content": response}
             ]
-            
-            # append prompt
-            # all_logprobs[i]['prompt_with_each_user'][j] = prompt_with_response
             
             # format 
             formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
@@ -79,11 +86,7 @@ def main(args: DictConfig) -> None:
             # get only logprobs for response
             logprobs = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
             logprobs = [v for prob in logprobs for k, v in prob.items()]
-            # all_logprobs[i]['logprobs_for_each_user'][j] = logprobs
             all_logprobs[i]['means'].append(np.mean(logprobs))
-        
-        
-        # all_logprobs[i]['variance'] = np.var(all_logprobs[i]['means'])
         
         all_logprobs[i]['mutual_information']  = mutual_information(
             logprobs=torch.tensor(all_logprobs[i]['means']),

@@ -7,10 +7,11 @@ Question: {question}
 Please write a personalized response that aligns with my background and preferences.
 
 Format your response as follows:
-Reasoning: <Provide your step-by-step reasoning, reflecting on which aspects of my preferences and background are relevant to the question. Explain how these aspects inform your response. Focus on identifying the key factors that will determine whether I find the response valuable and tailored to my needs. If the response below does not capture my preferences or address my background effectively, it will not be considered a satisfactory answer.>
-Response: <Provide your final personalized response based on the reasoning above. Avoid repetition and focus on the most important aspects that directly address my specific needs and preferences. Use "you" to refer to me directly. Avoid using first-person pronouns like "I" in this section.>
+Reasoning: <Your step-by-step reasoning reflecting on the question and my profile to determine what aspects of my profile are relevant to my question.>
+Most Important Aspects: <List the 5-10 most important aspects of my profile that are relevant to the question. Just write them down as a list.>
+Response: <Based on the reasoning and most important aspects above, provide a personalized response. Avoid repetition and focus on key aspects that address my needs and preferences. Use "you" to refer to me directly. Avoid first-person pronouns like "I" and do not start with 'Considering your background and preferences.' Do not use phrases like 'As someone' or 'As you.' Ensure the response incorporates the attributes listed in the Most Important Aspects section. The response should be around 5-6 sentences long and synthesize all relevant aspects.>
 
-Additional Comments: <Provide any additional comments or insights here, such as how you arrived at your response by carefully considering my preferences and background. Offer any other relevant thoughts or context.>
+Additional Comments: <Any additional comments you may have.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
@@ -24,7 +25,9 @@ I have the following question for you:
 
 Question: {question}
 
-Please write a personalized response that aligns with my background and preferences."""
+Please provide a personalized response that aligns with my background and preferences. 
+
+Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
 
 QUESTION_PROMPT = """A user with an unknown profile has asked you the following question:

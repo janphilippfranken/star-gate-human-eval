@@ -5,12 +5,14 @@ import hydra
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
+import logging
+
 from stargate.vllm_inference_model import VLLMInferenceModel
 
 from prompts import *
 
 
-@hydra.main(version_base=None, config_path="config", config_name="oracle")
+@hydra.main(version_base=None, config_path="config", config_name="gold_responses")
 def main(args: DictConfig) -> None:
    
     # model
@@ -38,14 +40,15 @@ def main(args: DictConfig) -> None:
     batch_prompts = []
     opening_prompts = []
     for user_id, user in enumerate(list(users.values())[:args.n_users]):
+        print(user_id)
         for i, prompt in enumerate(prompts[:args.n_prompts]):
             prompt_ids.append(i)
             user_ids.append(user_id)
-            batch_prompts.append([{"role": "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
             opening_prompts.append(prompt)
-
+            batch_prompts.append([{"role": "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
+    
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
-
+    logging.info(len(formatted_batch_prompts))
     # get responses
     batch_responses = model.batch_prompt(
         prompts=formatted_batch_prompts,
@@ -60,7 +63,7 @@ def main(args: DictConfig) -> None:
         except:
             formatted_responses.append("<|invalid_response|>")
             print(f"INVALID RESPONSE: {response.split('<|end_header_id|>')[1].strip()}")
-    
+   
     gold_responses = {
         'prompt_id': [],
         'user_id': [],

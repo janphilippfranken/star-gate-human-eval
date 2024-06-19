@@ -12,12 +12,18 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from prompts import *
 
 
+import logging
+
 @hydra.main(version_base=None, config_path="config", config_name="conversations")
 def main(args: DictConfig) -> None:
     logging.info(f"""Generating Conversations. 
 Start Prompt: {args.prompt_start}. 
 End Prompt: {args.prompt_end}
-Saving to: {args.save_file}""")
+Saving to: {args.save_file}
+Seed: {args.seed}""")
+    
+    # seed for users
+    torch.manual_seed(args.seed)
    
     # model
     model = VLLMInferenceModel(
@@ -37,6 +43,12 @@ Saving to: {args.save_file}""")
     # users
     with open(args.users, 'r') as f:
         users = json.load(f)
+    
+    # only keep up to max users
+    users = {
+        k: v for k, v in users.items() 
+        if int(k.split("_")[1]) < args.n_users
+    }
     
     # QUESTIONER 
     batch_prompts_questioner = []
@@ -66,12 +78,22 @@ Saving to: {args.save_file}""")
     
     # ROLEPLAYER 
     batch_prompts_roleplayer = []
+    rand_user_ids = []
     n = args.generation_config_questioner.num_return_sequences
-    for user in enumerate(list(users.values())[:args.n_users]):
-        for i, question in enumerate(formatted_batch_responses_questioner):
-            prompt = prompts[i//n]
+    
+    for i, question in enumerate(formatted_batch_responses_questioner):
+        
+        prompt = prompts[i//n] 
+        
+        # random selection of users
+        rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist() # sample random users for this prompt 
+        logging.info(rand_users)
+        for rand_user_id in rand_users:
             
-            # max words for roleplayer 
+            user = users[f"user_{rand_user_id}"]
+            rand_user_ids.append(rand_user_id)
+            
+            # random selection of max words for roleplayer 
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             
@@ -83,7 +105,7 @@ Saving to: {args.save_file}""")
                         max_words=max_words,
                 )}
             ])
-
+            
     formatted_batch_prompts_roleplayer = [
         tokenizer.apply_chat_template(prompt, tokenize=False) 
         for prompt in batch_prompts_roleplayer]
@@ -93,7 +115,6 @@ Saving to: {args.save_file}""")
         **args.generation_config_roleplayer,
     )
     
-
     formatted_batch_responses_roleplayer = []
     for response in batch_responses_roleplayer:
         try:
@@ -104,6 +125,7 @@ Saving to: {args.save_file}""")
     
     conversations = {
         'id': [],
+        'user_id': [],
         'user': [],
         'prompt': [],
         'attempt': [],
@@ -111,27 +133,30 @@ Saving to: {args.save_file}""")
         'response': [],
     }
     
+    rand_user_idx = 0
     response_idx = 0
-    for user_id in range(args.n_users):
-        question_idx = 0
-        for prompt_id in range(args.prompt_start, args.prompt_end):
-            for question_attempt in range(args.generation_config_questioner.num_return_sequences):
+    
+    for prompt_id in range(args.prompt_start, args.prompt_end): # for all prompts 
+        for question_attempt in range(args.generation_config_questioner.num_return_sequences):
+            for _ in range(args.n_users_per_prompt): # and we gave each attempt to a random sample of n users 
                 try:
                     conversations['id'].append(prompt_id)
-                    conversations['user'].append(user_id)
+                    conversations['user_id'].append(rand_user_ids[rand_user_idx])
+                    conversations['user'].append(users[f"user_{rand_user_ids[rand_user_idx]}"])
                     conversations['prompt'].append(prompts[prompt_id])
                     conversations['attempt'].append(question_attempt)
-                    conversations['question'].append(formatted_batch_responses_questioner[question_idx])
+                    conversations['question'].append(formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt])
                     conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
                 except:
-                    print(f"INVALID: {prompt_id} and {user_id}")
+                    print(f"INVALID")
                     conversations['id'].append(prompt_id)
-                    conversations['user'].append(user_id)
+                    conversations['user_id'].append(rand_user_ids[rand_user_idx])
+                    conversations['user'].append(users[f"user_{rand_user_ids[rand_user_idx]}"])
                     conversations['prompt'].append(prompts[prompt_id])
                     conversations['attempt'].append(question_attempt)
                     conversations['question'].append("<|invalid_response|>")
                     conversations['response'].append("<|invalid_response|>")
-                question_idx += 1
+                rand_user_idx += 1
                 response_idx += 1
     
     with open(args.save_file, 'w') as f:

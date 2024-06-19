@@ -1,9 +1,0 @@
-[2024-06-17 12:44:49,397][root][INFO] - Computing EIG. Start Prompt: 0. End Prompt: 500
-Saving to: data/expected_info_gain/eig_human_assistant_instruct_0_500.json
-Convo file: data/conversations/human_assistant_instruct_0_500.json
-INFO 06-17 12:44:49 llm_engine.py:79] Initializing an LLM engine with config: model='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir='/scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct', load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, seed=0)
-INFO 06-17 12:44:51 weight_utils.py:163] Using model weights format ['*.safetensors']
-INFO 06-17 12:44:54 llm_engine.py:337] # GPU blocks: 27885, # CPU blocks: 2048
-INFO 06-17 12:44:55 model_runner.py:666] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
-INFO 06-17 12:44:55 model_runner.py:670] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
-INFO 06-17 12:44:59 model_runner.py:738] Graph capturing finished in 3 secs.

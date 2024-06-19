@@ -2460,6 +2460,1545 @@ Musical talent: Medium (enjoys singing in church)
 Creative writing: Low
 Storytelling skills: High (oral tradition)"""
 
+
+USER_15 = """Age: 41
+Gender: Male
+Race: Asian
+Ancestry: Japanese
+Speaks at home: Japanese
+Education: Bachelor's Degree in Mechanical Engineering
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Automotive
+Occupation category: Engineer
+Job description: Designs and tests new automotive technologies and components for a major car manufacturer.
+Income: $80,000 per year
+Marital Status: Married
+Household Type: Nuclear family household
+Family presence: Spouse and one child aged 6
+Place of birth: Osaka, Japan
+Citizenship: Japanese Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: One child
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: Medium, Agreeableness: Medium, Neuroticism: Low
+Core values: Innovation, Efficiency, Family
+Defining Quirks: Always carries a pocket-sized notebook for sketches and ideas
+Mannerisms: Frequently adjusts glasses while thinking
+Entertainment preferences: Technology magazines, sci-fi movies
+Personal time: Enjoys tinkering with electronics, reading manga, and hiking
+Lifestyle: Balanced between modern and traditional
+Ideology: Technological Optimism
+Political views: Moderate
+Religion: Shinto
+Hobbies: Robotics, model building, photography
+Diet: Omnivorous with a preference for Japanese cuisine
+Exercise habits: Regular jogging and hiking
+Technical skills: CAD software, robotics, programming (Python, C++)
+Languages spoken: Japanese, English
+Travel preferences: Prefers trips to nature spots and historical sites
+Preferred communication style: Clear and structured
+Learning style: Analytical and hands-on
+Stress management: Meditation and nature walks
+Social media usage: Moderate (focus on tech and innovation)
+Pet ownership: One Shiba Inu
+Volunteer work: Mentors students in robotics clubs
+Environmental consciousness: High
+Favorite cuisine: Sushi
+Favorite sports: Soccer
+Favorite books: Sci-fi novels
+Favorite movies: "Ghost in the Shell"
+Favorite TV shows: "Neon Genesis Evangelion"
+Favorite music genres: J-pop, classical
+Fashion style: Casual and functional
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Drives an electric car
+Financial habits: Budget-conscious
+Shopping preferences: Online and tech stores
+Tech gadget preferences: Latest gadgets and smart home devices
+Home decor style: Minimalist with a touch of tech
+Celebration preferences: Family gatherings and tech meetups
+Favorite outdoor activities: Hiking, cycling
+Cooking skills: Intermediate (focus on Japanese dishes)
+Gardening skills: Basic
+DIY skills: High
+Personal goals: Create a sustainable tech startup
+Career goals: Lead a team in innovative automotive projects
+Conflict resolution style: Analytical and calm
+Problem-solving approach: Data-driven
+Creativity level: Medium
+Risk-taking appetite: Medium
+Adaptability: High
+Emotional intelligence: Medium
+Negotiation skills: Good
+Leadership style: Transformational
+Decision-making style: Evidence-based
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Good
+Networking ability: Medium
+Cultural awareness: High
+Personal growth focus: Technological advancement
+Sense of humor: Dry and intellectual
+Fashion sensitivity: Medium
+Social engagement: Medium
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: Medium
+Pet peeves: Inefficiency and clutter
+Allergies: None
+Physical fitness: High (due to active lifestyle)
+Health consciousness: High
+Media consumption habits: Tech and innovation focused
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: Robotics and AI
+Sports participation: Occasional soccer games
+Artistic interests: Photography and model building
+Cultural tastes: Modern and traditional blend
+Culinary skills: Intermediate
+Environmental activism: Medium
+Public policy views: Supportive of tech innovation and sustainability
+Relationship status: Married
+Parental status: One child
+Household income: $80,000
+Savings rate: 20%
+Investment strategy: Balanced between stocks and tech ventures
+Insurance coverage: Comprehensive
+Home ownership: Owns a house
+Renting habits: None
+Living environment: Suburban
+Community involvement: Medium
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Electric car
+Commute time: 40 minutes
+Travel frequency: Moderate
+Vacation preferences: Nature and historical sites
+Work-life balance: Well-balanced
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and logical
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: High
+Career aspirations: Lead innovative projects in the automotive industry
+Job satisfaction: High
+Work environment preference: Collaborative and innovative
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Moderate
+Language proficiency: Japanese, English
+Dialect knowledge: Kansai dialect
+Historical knowledge: Medium
+Scientific literacy: High
+Mathematical proficiency: High
+Artistic ability: Medium (focused on technical drawing)
+Musical talent: Low
+Creative writing: Low
+Storytelling skills: Medium"""
+
+
+USER_16 = """Age: 30
+Gender: Male
+Race: Hispanic
+Ancestry: Puerto Rican
+Speaks at home: Spanish
+Education: Master's Degree in Urban Planning
+Employment: Full-time
+Class of worker: Government employee
+Industry category: Public Administration
+Occupation category: Urban Planner
+Job description: Develops and implements city planning initiatives, focusing on sustainable urban development and community engagement.
+Income: $70,000 per year
+Marital Status: Single
+Household Type: Single-person household
+Family presence: Close to parents and siblings
+Place of birth: San Juan, Puerto Rico
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Government-provided health insurance
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: High, Conscientiousness: High, Extraversion: Medium, Agreeableness: High, Neuroticism: Low
+Core values: Sustainability, Community, Innovation
+Defining Quirks: Always carries a reusable water bottle
+Mannerisms: Frequently gestures while speaking
+Entertainment preferences: Documentaries, urban design books
+Personal time: Enjoys cycling, reading, and volunteering in community projects
+Lifestyle: Eco-conscious and active
+Ideology: Progressive
+Political views: Liberal
+Religion: Agnostic
+Hobbies: Cycling, photography, urban gardening
+Diet: Vegetarian
+Exercise habits: Regular cycling and gym workouts
+Technical skills: GIS, AutoCAD, data analysis
+Languages spoken: Spanish, English
+Travel preferences: Prefers eco-tourism and city exploration
+Preferred communication style: Clear and collaborative
+Learning style: Visual and experiential
+Stress management: Meditation and exercise
+Social media usage: Moderate (focus on urban planning and sustainability)
+Pet ownership: One cat
+Volunteer work: Active in community gardens and local environmental groups
+Environmental consciousness: Very high
+Favorite cuisine: Puerto Rican
+Favorite sports: Soccer
+Favorite books: "The Death and Life of Great American Cities" by Jane Jacobs
+Favorite movies: "Inception"
+Favorite TV shows: "Parks and Recreation"
+Favorite music genres: Latin jazz, indie
+Fashion style: Casual and eco-friendly
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Prefers cycling and public transportation
+Financial habits: Budget-conscious
+Shopping preferences: Local and sustainable products
+Tech gadget preferences: Functional and sustainable
+Home decor style: Minimalist with green elements
+Celebration preferences: Community events and festivals
+Favorite outdoor activities: Cycling, hiking
+Cooking skills: Good (focuses on vegetarian dishes)
+Gardening skills: High (focus on urban gardening)
+DIY skills: Medium
+Personal goals: Promote sustainable urban development globally
+Career goals: Lead urban planning projects that enhance community well-being
+Conflict resolution style: Collaborative and calm
+Problem-solving approach: Analytical and community-focused
+Creativity level: High
+Risk-taking appetite: Medium
+Adaptability: High
+Emotional intelligence: High
+Negotiation skills: Good
+Leadership style: Democratic and inclusive
+Decision-making style: Data-driven and participatory
+Time management skills: Excellent
+Attention to detail: High
+Public speaking skills: Good
+Networking ability: High
+Cultural awareness: Very high
+Personal growth focus: Professional and personal development
+Sense of humor: Warm and witty
+Fashion sensitivity: Medium
+Social engagement: High
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: High (focused on sustainability)
+Charity involvement: High
+Pet peeves: Environmental neglect, inefficiency
+Allergies: None
+Physical fitness: High (due to active lifestyle)
+Health consciousness: High
+Media consumption habits: Focus on urban planning and sustainability
+Gadget usage: Moderate
+Digital literacy: High
+Work ethic: Strong
+Team orientation: Highly collaborative
+Leadership potential: High
+Mentorship experience: Medium
+Favorite technology: Urban planning software
+Sports participation: Regularly cycles and plays soccer
+Artistic interests: Photography and street art
+Cultural tastes: Diverse and inclusive
+Culinary skills: Good
+Environmental activism: Very high
+Public policy views: Supportive of sustainable development
+Relationship status: Single
+Parental status: None
+Household income: $70,000
+Savings rate: 20%
+Investment strategy: Low-risk and socially responsible investments
+Insurance coverage: Comprehensive
+Home ownership: Renter
+Renting habits: Prefers eco-friendly apartments
+Living environment: Urban
+Community involvement: Very high
+Civic engagement: High
+Neighborhood safety: Medium
+Transportation mode: Cycling and public transport
+Commute time: 20 minutes
+Travel frequency: Moderate
+Vacation preferences: Eco-tourism and cultural exploration
+Work-life balance: Well-balanced
+Family obligations: Medium
+Support network: Strong community and family ties
+Crisis management: Calm and resourceful
+Emergency preparedness: Medium
+Legal knowledge: Basic
+Financial literacy: High
+Career aspirations: Leading sustainable urban development initiatives
+Job satisfaction: High
+Work environment preference: Collaborative and innovative
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: Very high
+Global awareness: Very high
+Travel experience: Moderate
+Language proficiency: Spanish, English
+Dialect knowledge: None
+Historical knowledge: High (focused on urban development)
+Scientific literacy: Medium
+Mathematical proficiency: High
+Artistic ability: Medium (focused on photography)
+Musical talent: Low
+Creative writing: Medium
+Storytelling skills: High"""
+
+
+USER_17 = """Age: 37
+Gender: Male
+Race: Caucasian
+Ancestry: Italian
+Speaks at home: English
+Education: MBA in Finance
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Finance
+Occupation category: Investment Banker
+Job description: Manages client portfolios, advises on mergers and acquisitions, and develops financial strategies for high-net-worth individuals and corporations.
+Income: $200,000 per year
+Marital Status: Married
+Household Type: Nuclear family household
+Family presence: Spouse and two children aged 5 and 8
+Place of birth: New York City, New York
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: Two children
+Hearing difficulty: None
+Vision difficulty: None
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: High, Agreeableness: Medium, Neuroticism: Low
+Core values: Ambition, Wealth, Family
+Defining Quirks: Always wears a tailored suit
+Mannerisms: Speaks confidently and with authority
+Entertainment preferences: Financial news, business magazines
+Personal time: Enjoys golfing, fine dining, and spending time with family
+Lifestyle: High-paced and luxurious
+Ideology: Capitalist
+Political views: Conservative
+Religion: Catholic
+Hobbies: Golfing, wine tasting, collecting art
+Diet: Omnivorous with a preference for gourmet cuisine
+Exercise habits: Regular gym workouts and golf
+Technical skills: Financial modeling, investment analysis
+Languages spoken: English, basic Italian
+Travel preferences: Prefers luxury destinations and business trips
+Preferred communication style: Direct and assertive
+Learning style: Analytical and practical
+Stress management: Exercise and meditation
+Social media usage: Moderate (focus on professional networking)
+Pet ownership: One dog
+Volunteer work: Supports financial literacy programs
+Environmental consciousness: Medium
+Favorite cuisine: Italian
+Favorite sports: Golf
+Favorite books: "The Intelligent Investor" by Benjamin Graham
+Favorite movies: "The Wolf of Wall Street"
+Favorite TV shows: "Billions"
+Favorite music genres: Jazz, classical
+Fashion style: Professional and upscale
+Sleeping habits: 6 hours per night
+Morning or night person: Morning
+Driving habits: Drives a luxury car
+Financial habits: Invests heavily and strategically
+Shopping preferences: High-end stores
+Tech gadget preferences: Latest tech gadgets and financial software
+Home decor style: Modern and luxurious
+Celebration preferences: Exclusive parties and family gatherings
+Favorite outdoor activities: Golfing, sailing
+Cooking skills: Basic (prefers dining out)
+Gardening skills: None
+DIY skills: Low
+Personal goals: Achieve financial independence and provide for family
+Career goals: Become a top executive in a major investment bank
+Conflict resolution style: Assertive and strategic
+Problem-solving approach: Analytical and data-driven
+Creativity level: Medium (focused on financial strategies)
+Risk-taking appetite: High
+Adaptability: High
+Emotional intelligence: Medium
+Negotiation skills: Excellent
+Leadership style: Authoritative and visionary
+Decision-making style: Data-driven and confident
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Excellent
+Networking ability: Very high
+Cultural awareness: High
+Personal growth focus: Financial and professional development
+Sense of humor: Dry and sophisticated
+Fashion sensitivity: High
+Social engagement: High
+Introversion/Extraversion: Extraversion
+Risk aversion: Low
+Political activism: Medium
+Charity involvement: High (focus on education and financial literacy)
+Pet peeves: Inefficiency and unprofessionalism
+Allergies: None
+Physical fitness: High (due to regular exercise)
+Health consciousness: High
+Media consumption habits: Focus on financial news and business trends
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative with a leadership role
+Leadership potential: Very high
+Mentorship experience: High
+Favorite technology: Financial analysis software
+Sports participation: Regularly plays golf
+Artistic interests: Collecting art
+Cultural tastes: Upscale and sophisticated
+Culinary skills: Low
+Environmental activism: Low
+Public policy views: Conservative
+Relationship status: Married
+Parental status: Two children
+Household income: $200,000
+Savings rate: 25%
+Investment strategy: High-risk, high-reward investments
+Insurance coverage: Comprehensive
+Home ownership: Owns a luxury apartment
+Renting habits: None
+Living environment: Urban
+Community involvement: Medium
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Luxury car
+Commute time: 30 minutes
+Travel frequency: High (business and leisure)
+Vacation preferences: Luxury resorts and international travel
+Work-life balance: Skewed towards work
+Family obligations: Medium
+Support network: Strong professional and personal networks
+Crisis management: Calm and strategic
+Emergency preparedness: High
+Legal knowledge: Medium
+Financial literacy: Very high
+Career aspirations: Top executive in finance
+Job satisfaction: High
+Work environment preference: High-pressure and competitive
+Managerial experience: High
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: Very high
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Extensive
+Language proficiency: English, basic Italian
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Low
+Mathematical proficiency: Very high
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Low
+Storytelling skills: Medium"""
+
+
+USER_18 = """Age: 34
+Gender: Female
+Race: Asian
+Ancestry: Chinese
+Speaks at home: Mandarin
+Education: PhD in Computer Science
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Technology
+Occupation category: AI Research Scientist
+Job description: Conducts advanced research in artificial intelligence, focusing on machine learning algorithms and neural networks, and publishes findings in top scientific journals.
+Income: $150,000 per year
+Marital Status: Single
+Household Type: Single-person household
+Family presence: Close to parents and one sibling
+Place of birth: Shanghai, China
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: Wears contact lenses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Very High, Conscientiousness: High, Extraversion: Low, Agreeableness: Medium, Neuroticism: Low
+Core values: Innovation, Knowledge, Integrity
+Defining Quirks: Always carries a tablet for note-taking and reading
+Mannerisms: Frequently paces while thinking
+Entertainment preferences: Sci-fi novels, tech blogs
+Personal time: Enjoys coding side projects, reading, and hiking
+Lifestyle: Modern and intellectually driven
+Ideology: Rationalist
+Political views: Moderate
+Religion: Secular
+Hobbies: Programming, reading sci-fi, playing chess
+Diet: Vegetarian
+Exercise habits: Regular yoga and hiking
+Technical skills: Machine learning, neural networks, Python, TensorFlow
+Languages spoken: Mandarin, English
+Travel preferences: Prefers attending international conferences and nature trips
+Preferred communication style: Clear and precise
+Learning style: Analytical and hands-on
+Stress management: Meditation and coding
+Social media usage: Low
+Pet ownership: None
+Volunteer work: Mentors students in STEM fields
+Environmental consciousness: High
+Favorite cuisine: Chinese
+Favorite sports: None (focuses on tech and innovation)
+Favorite books: "Artificial Intelligence: A Modern Approach" by Stuart Russell and Peter Norvig
+Favorite movies: "Ex Machina"
+Favorite TV shows: "Black Mirror"
+Favorite music genres: Classical, electronic
+Fashion style: Casual and functional
+Sleeping habits: 6 hours per night
+Morning or night person: Night
+Driving habits: Prefers public transportation and ride-sharing services
+Financial habits: Conservative spender
+Shopping preferences: Online and tech stores
+Tech gadget preferences: Latest tech gadgets and AI tools
+Home decor style: Minimalist with tech elements
+Celebration preferences: Small gatherings with close friends
+Favorite outdoor activities: Hiking, running
+Cooking skills: Basic (prefers quick and healthy meals)
+Gardening skills: None
+DIY skills: Medium
+Personal goals: Contribute to groundbreaking AI research
+Career goals: Lead a research team at Google Brain and publish influential papers
+Conflict resolution style: Analytical and calm
+Problem-solving approach: Data-driven
+Creativity level: High
+Risk-taking appetite: Medium
+Adaptability: High
+Emotional intelligence: Medium
+Negotiation skills: Good
+Leadership style: Visionary and collaborative
+Decision-making style: Evidence-based
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Good
+Networking ability: Medium
+Cultural awareness: High
+Personal growth focus: Professional and intellectual development
+Sense of humor: Dry and intellectual
+Fashion sensitivity: Low
+Social engagement: Low
+Introversion/Extraversion: Introversion
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: Medium
+Pet peeves: Inefficiency and pseudoscience
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: High
+Media consumption habits: Tech and science-focused
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: AI and machine learning tools
+Sports participation: Occasional running
+Artistic interests: None
+Cultural tastes: Modern and innovative
+Culinary skills: Basic
+Environmental activism: Medium
+Public policy views: Supportive of science and technology funding
+Relationship status: Single
+Parental status: None
+Household income: $150,000
+Savings rate: 20%
+Investment strategy: Balanced between stocks and tech ventures
+Insurance coverage: Comprehensive
+Home ownership: Renter
+Renting habits: Prefers high-tech apartments
+Living environment: Urban
+Community involvement: Medium
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Public transport and ride-sharing
+Commute time: 30 minutes
+Travel frequency: Moderate (focus on conferences)
+Vacation preferences: Nature trips and tech conferences
+Work-life balance: Well-balanced
+Family obligations: Medium
+Support network: Strong professional and personal networks
+Crisis management: Calm and logical
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: High
+Career aspirations: Lead innovative AI research projects
+Job satisfaction: High
+Work environment preference: Collaborative and innovative
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Moderate
+Language proficiency: Mandarin, English
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Very high
+Mathematical proficiency: Very high
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Medium
+Storytelling skills: Medium"""
+
+
+USER_19 = """Age: 35
+Gender: Male
+Race: Caucasian
+Ancestry: Russian
+Speaks at home: English and Russian
+Education: PhD in Computer Science
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Technology
+Occupation category: Chief Scientist
+Job description: Leads AI research efforts, focusing on deep learning and neural networks, mentors research teams, and collaborates on high-impact AI projects.
+Income: $500,000 per year
+Marital Status: Married
+Household Type: Nuclear family household
+Family presence: Spouse and one child aged 3
+Place of birth: Moscow, Russia
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: One child
+Hearing difficulty: None
+Vision difficulty: Wears contact lenses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Very High, Conscientiousness: Very High, Extraversion: Medium, Agreeableness: Medium, Neuroticism: Low
+Core values: Innovation, Knowledge, Integrity
+Defining Quirks: Always carries a small notebook for jotting down ideas
+Mannerisms: Often lost in thought and paces while thinking
+Entertainment preferences: Reading scientific journals, attending tech conferences
+Personal time: Enjoys coding personal projects, playing chess, and hiking
+Lifestyle: High-paced and intellectually driven
+Ideology: Rationalist
+Political views: Moderate
+Religion: Secular
+Hobbies: Programming, reading, chess
+Diet: Pescatarian
+Exercise habits: Regular gym workouts and hiking
+Technical skills: Deep learning, neural networks, Python, TensorFlow, PyTorch
+Languages spoken: English, Russian
+Travel preferences: Prefers attending international tech conferences and nature trips
+Preferred communication style: Clear and precise
+Learning style: Analytical and hands-on
+Stress management: Meditation and problem-solving
+Social media usage: Low
+Pet ownership: None
+Volunteer work: Mentors young researchers and AI enthusiasts
+Environmental consciousness: High
+Favorite cuisine: Mediterranean
+Favorite sports: Chess
+Favorite books: "Deep Learning" by Ian Goodfellow, Yoshua Bengio, and Aaron Courville
+Favorite movies: "The Matrix"
+Favorite TV shows: "Black Mirror"
+Favorite music genres: Classical, electronic
+Fashion style: Casual and functional
+Sleeping habits: 6 hours per night
+Morning or night person: Night
+Driving habits: Prefers public transportation and ride-sharing services
+Financial habits: Conservative spender with strategic investments
+Shopping preferences: Online and tech stores
+Tech gadget preferences: Latest tech gadgets and AI tools
+Home decor style: Minimalist with tech elements
+Celebration preferences: Small gatherings with close friends and family
+Favorite outdoor activities: Hiking, running
+Cooking skills: Basic (prefers healthy and quick meals)
+Gardening skills: None
+DIY skills: Medium
+Personal goals: Lead transformative AI research that impacts the world positively
+Career goals: Become a leading figure in AI research and contribute to significant advancements in the field
+Conflict resolution style: Analytical and calm
+Problem-solving approach: Data-driven and innovative
+Creativity level: High
+Risk-taking appetite: High
+Adaptability: High
+Emotional intelligence: Medium
+Negotiation skills: Good
+Leadership style: Visionary and collaborative
+Decision-making style: Evidence-based and strategic
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Excellent
+Networking ability: High
+Cultural awareness: High
+Personal growth focus: Professional and intellectual development
+Sense of humor: Dry and intellectual
+Fashion sensitivity: Low
+Social engagement: Medium
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: Medium
+Pet peeves: Inefficiency and lack of innovation
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: High
+Media consumption habits: Tech and science-focused
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative with leadership role
+Leadership potential: Very high
+Mentorship experience: High
+Favorite technology: AI and machine learning tools
+Sports participation: Occasional running and hiking
+Artistic interests: None
+Cultural tastes: Modern and innovative
+Culinary skills: Basic
+Environmental activism: Medium
+Public policy views: Supportive of science and technology funding
+Relationship status: Married
+Parental status: One child
+Household income: $500,000
+Savings rate: 30%
+Investment strategy: Balanced between stocks and tech ventures
+Insurance coverage: Comprehensive
+Home ownership: Owns a house
+Renting habits: None
+Living environment: Urban
+Community involvement: Medium
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Public transport and ride-sharing
+Commute time: 30 minutes
+Travel frequency: High (attends international conferences)
+Vacation preferences: Nature trips and tech conferences
+Work-life balance: Skewed towards work
+Family obligations: Medium
+Support network: Strong professional and personal networks
+Crisis management: Calm and strategic
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: High
+Career aspirations: Leading transformative AI research projects
+Job satisfaction: Very high
+Work environment preference: Collaborative and innovative
+Managerial experience: High
+Entrepreneurial tendency: Medium
+Innovation capacity: Very high
+Change management: High
+Project management skills: Very high
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Extensive
+Language proficiency: English, Russian
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Very high
+Mathematical proficiency: Very high
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Medium
+Storytelling skills: Medium"""
+
+
+USER_20 = """Age: 40
+Gender: Male
+Race: Caucasian
+Ancestry: European
+Speaks at home: English
+Education: Bachelor's Degree in Business Administration
+Employment: Full-time
+Class of worker: Private sector employee
+Industry category: Retail
+Occupation category: Store Manager
+Job description: Manages daily operations of a retail store, supervises staff, and ensures customer satisfaction.
+Income: $60,000 per year
+Marital Status: Married
+Household Type: Nuclear family household
+Family presence: Spouse and two children aged 8 and 10
+Place of birth: Chicago, Illinois
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: Two children
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: Medium, Agreeableness: High, Neuroticism: Medium
+Core values: Family, Hard work, Integrity
+Defining Quirks: Always wears a wristwatch
+Mannerisms: Often uses hand gestures while speaking
+Entertainment preferences: Comedy shows, action movies
+Personal time: Enjoys golfing, watching sports, and spending time with family
+Lifestyle: Suburban and family-focused
+Ideology: Moderate
+Political views: Centrist
+Religion: Christian (Protestant)
+Hobbies: Golfing, fishing, grilling
+Diet: Omnivorous with a preference for home-cooked meals
+Exercise habits: Regular gym workouts and occasional running
+Technical skills: Basic computer skills, retail management software
+Languages spoken: English
+Travel preferences: Prefers family road trips and beach vacations
+Preferred communication style: Direct and friendly
+Learning style: Practical and hands-on
+Stress management: Exercise and family time
+Social media usage: Moderate
+Pet ownership: One dog
+Volunteer work: Active in community events and youth sports coaching
+Environmental consciousness: Medium
+Favorite cuisine: American BBQ
+Favorite sports: Football, basketball
+Favorite books: Mystery novels
+Favorite movies: "Top Gun"
+Favorite TV shows: "Friends"
+Favorite music genres: Rock, country
+Fashion style: Casual and practical
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Drives a mid-size SUV
+Financial habits: Budget-conscious
+Shopping preferences: Local stores and online
+Tech gadget preferences: Basic and functional
+Home decor style: Cozy and family-oriented
+Celebration preferences: Family gatherings and holidays
+Favorite outdoor activities: Barbecuing, hiking, camping
+Cooking skills: Good (specializes in grilling)
+Gardening skills: Basic
+DIY skills: Medium
+Personal goals: Provide a good life for his family and save for retirement
+Career goals: Maintain a stable job and possibly own a small business
+Conflict resolution style: Calm and practical
+Problem-solving approach: Logical and straightforward
+Creativity level: Medium
+Risk-taking appetite: Low
+Adaptability: High
+Emotional intelligence: High
+Negotiation skills: Good
+Leadership style: Supportive and hands-on
+Decision-making style: Practical and data-driven
+Time management skills: Good
+Attention to detail: High
+Public speaking skills: Good
+Networking ability: Medium
+Cultural awareness: Medium
+Personal growth focus: Family and career development
+Sense of humor: Warm and friendly
+Fashion sensitivity: Low
+Social engagement: High
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: High
+Pet peeves: Disorganization
+Allergies: None
+Physical fitness: Medium
+Health consciousness: Medium
+Media consumption habits: Focus on news and entertainment
+Gadget usage: Moderate
+Digital literacy: Medium
+Work ethic: Strong
+Team orientation: Collaborative
+Leadership potential: High
+Mentorship experience: Medium
+Favorite technology: Smart home devices
+Sports participation: Occasionally plays recreational sports
+Artistic interests: None
+Cultural tastes: Traditional American
+Culinary skills: Good
+Environmental activism: Medium
+Public policy views: Moderate
+Relationship status: Married
+Parental status: Two children
+Household income: $60,000
+Savings rate: 10%
+Investment strategy: Conservative
+Insurance coverage: Comprehensive
+Home ownership: Owns a house
+Renting habits: None
+Living environment: Suburban
+Community involvement: High
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: SUV
+Commute time: 30 minutes
+Travel frequency: Moderate
+Vacation preferences: Family vacations to popular destinations
+Work-life balance: Well-balanced
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and practical
+Emergency preparedness: Medium
+Legal knowledge: Basic
+Financial literacy: Medium
+Career aspirations: Stable career with growth potential
+Job satisfaction: High
+Work environment preference: Team-oriented and supportive
+Managerial experience: High
+Entrepreneurial tendency: Medium
+Innovation capacity: Medium
+Change management: Medium
+Project management skills: High
+Cross-cultural skills: Medium
+Global awareness: Medium
+Travel experience: Moderate
+Language proficiency: English
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Medium
+Mathematical proficiency: Medium
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Low
+Storytelling skills: Medium"""
+
+USER_21 = """Age: 31
+Gender: Female
+Race: Caucasian
+Ancestry: German and Irish
+Speaks at home: English
+Education: PhD in Computer Science
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Technology
+Occupation category: AI Research Scientist
+Job description: Conducts research in artificial intelligence and machine learning, focusing on AI safety and ethics.
+Income: $140,000 per year
+Marital Status: Single
+Household Type: Single-person household
+Family presence: Close to parents and one sibling
+Place of birth: San Francisco, California
+Citizenship: U.S. Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Very High, Conscientiousness: High, Extraversion: Low, Agreeableness: Medium, Neuroticism: Low
+Core values: Knowledge, Integrity, Ethical Responsibility
+Defining Quirks: Always carries a notepad for jotting down ideas
+Mannerisms: Frequently taps a pen while thinking
+Entertainment preferences: Sci-fi novels, tech blogs
+Personal time: Enjoys coding side projects, reading, and yoga
+Lifestyle: Modern and intellectually driven
+Ideology: Rationalist
+Political views: Progressive
+Religion: Secular
+Hobbies: Programming, reading sci-fi, hiking
+Diet: Vegan
+Exercise habits: Regular yoga and hiking
+Technical skills: Machine learning, neural networks, Python, TensorFlow
+Languages spoken: English, basic German
+Travel preferences: Prefers attending international conferences and nature trips
+Preferred communication style: Clear and precise
+Learning style: Analytical and hands-on
+Stress management: Meditation and coding
+Social media usage: Low
+Pet ownership: One cat
+Volunteer work: Mentors students in STEM fields
+Environmental consciousness: High
+Favorite cuisine: Vegan Asian cuisine
+Favorite sports: None (focuses on tech and innovation)
+Favorite books: "Superintelligence" by Nick Bostrom
+Favorite movies: "Ex Machina"
+Favorite TV shows: "Black Mirror"
+Favorite music genres: Classical, electronic
+Fashion style: Casual and functional
+Sleeping habits: 6 hours per night
+Morning or night person: Night
+Driving habits: Prefers public transportation and ride-sharing services
+Financial habits: Conservative spender
+Shopping preferences: Online and tech stores
+Tech gadget preferences: Latest tech gadgets and AI tools
+Home decor style: Minimalist with tech elements
+Celebration preferences: Small gatherings with close friends
+Favorite outdoor activities: Hiking, running
+Cooking skills: Basic (prefers quick and healthy meals)
+Gardening skills: None
+DIY skills: Medium
+Personal goals: Contribute to groundbreaking AI research with a focus on safety
+Career goals: Lead a research team at Anthropic and publish influential papers on AI safety
+Conflict resolution style: Analytical and calm
+Problem-solving approach: Data-driven
+Creativity level: High
+Risk-taking appetite: Medium
+Adaptability: High
+Emotional intelligence: Medium
+Negotiation skills: Good
+Leadership style: Visionary and collaborative
+Decision-making style: Evidence-based
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Good
+Networking ability: Medium
+Cultural awareness: High
+Personal growth focus: Professional and intellectual development
+Sense of humor: Dry and intellectual
+Fashion sensitivity: Low
+Social engagement: Low
+Introversion/Extraversion: Introversion
+Risk aversion: Medium
+Political activism: Medium
+Charity involvement: Medium
+Pet peeves: Inefficiency and pseudoscience
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: High
+Media consumption habits: Tech and science-focused
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: AI and machine learning tools
+Sports participation: Occasional running
+Artistic interests: None
+Cultural tastes: Modern and innovative
+Culinary skills: Basic
+Environmental activism: Medium
+Public policy views: Supportive of science and technology funding
+Relationship status: Single
+Parental status: None
+Household income: $140,000
+Savings rate: 20%
+Investment strategy: Balanced between stocks and tech ventures
+Insurance coverage: Comprehensive
+Home ownership: Renter
+Renting habits: Prefers high-tech apartments
+Living environment: Urban
+Community involvement: Medium
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Public transport and ride-sharing
+Commute time: 30 minutes
+Travel frequency: Moderate (focus on conferences)
+Vacation preferences: Nature trips and tech conferences
+Work-life balance: Well-balanced
+Family obligations: Medium
+Support network: Strong professional and personal networks
+Crisis management: Calm and logical
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: High
+Career aspirations: Lead innovative AI safety research projects
+Job satisfaction: High
+Work environment preference: Collaborative and innovative
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Moderate
+Language proficiency: English, basic German
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Very high
+Mathematical proficiency: Very high
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Medium
+Storytelling skills: Medium"""
+
+
+USER_22 = """Age: 28
+Gender: Male
+Race: Asian
+Ancestry: Javanese
+Speaks at home: Indonesian
+Education: Bachelor's Degree in Environmental Science
+Employment: Full-time
+Class of worker: NGO employee
+Industry category: Environmental Conservation
+Occupation category: Environmental Project Coordinator
+Job description: Manages and coordinates environmental projects, focusing on reforestation, wildlife protection, and community education in rural areas.
+Income: $12,000 per year
+Marital Status: Single
+Household Type: Extended family household
+Family presence: Lives with parents and two younger siblings
+Place of birth: Yogyakarta, Indonesia
+Citizenship: Indonesian Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: None
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: High, Conscientiousness: High, Extraversion: Medium, Agreeableness: High, Neuroticism: Low
+Core values: Conservation, Community, Education
+Defining Quirks: Always carries a reusable water bottle
+Mannerisms: Speaks passionately about environmental issues
+Entertainment preferences: Nature documentaries, environmental literature
+Personal time: Enjoys hiking, reading, and volunteering at local schools
+Lifestyle: Eco-friendly and community-oriented
+Ideology: Environmentalism
+Political views: Progressive
+Religion: Islam
+Hobbies: Hiking, bird watching, teaching
+Diet: Pescatarian
+Exercise habits: Regular hiking and community activities
+Technical skills: Data analysis, project management
+Languages spoken: Indonesian, English
+Travel preferences: Prefers eco-tourism and visiting rural communities
+Preferred communication style: Thoughtful and educational
+Learning style: Visual and hands-on
+Stress management: Meditation and nature walks
+Social media usage: Low
+Pet ownership: None
+Volunteer work: Organizes community cleanups and educational programs
+Environmental consciousness: Very high
+Favorite cuisine: Indonesian seafood dishes
+Favorite sports: Badminton
+Favorite books: Environmental science literature
+Favorite movies: Nature documentaries
+Favorite TV shows: Educational programs about nature
+Favorite music genres: Traditional Indonesian music, ambient
+Fashion style: Practical and eco-friendly
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Prefers public transportation and cycling
+Financial habits: Frugal and eco-conscious
+Shopping preferences: Local and sustainable products
+Tech gadget preferences: Minimalist and energy-efficient
+Home decor style: Simple and natural
+Celebration preferences: Family and community gatherings
+Favorite outdoor activities: Hiking, beach cleanups
+Cooking skills: Good (focuses on traditional and sustainable meals)
+Gardening skills: High
+DIY skills: Medium
+Personal goals: Promote environmental conservation in Indonesia
+Career goals: Become a leading expert in environmental science and conservation
+Conflict resolution style: Diplomatic and calm
+Problem-solving approach: Analytical and community-focused
+Creativity level: Medium (focused on scientific solutions)
+Risk-taking appetite: Low
+Adaptability: High
+Emotional intelligence: High
+Negotiation skills: High
+Leadership style: Transformational
+Decision-making style: Data-driven
+Time management skills: Good
+Attention to detail: High
+Public speaking skills: Good
+Networking ability: Medium
+Cultural awareness: Very high
+Personal growth focus: Scientific and environmental development
+Sense of humor: Warm and gentle
+Fashion sensitivity: Medium
+Social engagement: High
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: High (focused on environmental issues)
+Charity involvement: High
+Pet peeves: Environmental neglect, wastefulness
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: Very high
+Media consumption habits: Low (focuses on scientific and environmental content)
+Gadget usage: Low
+Digital literacy: Medium
+Work ethic: Very strong
+Team orientation: Highly collaborative
+Leadership potential: High
+Mentorship experience: Medium
+Favorite technology: Environmental monitoring devices
+Sports participation: Regularly plays badminton and participates in community cleanups
+Artistic interests: None
+Cultural tastes: Deeply rooted in Indonesian traditions
+Culinary skills: Good
+Environmental activism: Very high
+Public policy views: Supportive of environmental protection and education
+Relationship status: Single
+Parental status: None
+Household income: $12,000
+Savings rate: Medium
+Investment strategy: Low-risk, socially responsible investments
+Insurance coverage: Basic
+Home ownership: None (lives with family)
+Renting habits: None
+Living environment: Urban
+Community involvement: Very high
+Civic engagement: High
+Neighborhood safety: Medium
+Transportation mode: Public transport and cycling
+Commute time: 20 minutes
+Travel frequency: Low (prefers local community work)
+Vacation preferences: Eco-tourism
+Work-life balance: Well-balanced
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and resourceful
+Emergency preparedness: Medium
+Legal knowledge: Basic
+Financial literacy: Medium
+Career aspirations: Promote environmental conservation and education globally
+Job satisfaction: Very high
+Work environment preference: Collaborative and community-focused
+Managerial experience: Medium
+Entrepreneurial tendency: Low
+Innovation capacity: High (in scientific solutions)
+Change management: High
+Project management skills: High
+Cross-cultural skills: Very high
+Global awareness: Very high
+Travel experience: Medium (focus on scientific expeditions)
+Language proficiency: Indonesian, English
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Very high
+Mathematical proficiency: High
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Medium
+Storytelling skills: High"""
+
+USER_23 = """Age: 33
+Gender: Male
+Race: Arab
+Ancestry: Saudi
+Speaks at home: Arabic
+Education: Master's Degree in Business Administration
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Finance
+Occupation category: Financial Analyst
+Job description: Analyzes financial data, prepares reports, and provides recommendations to improve financial performance of the company.
+Income: $80,000 per year
+Marital Status: Married
+Household Type: Nuclear family household
+Family presence: Spouse and one child aged 3
+Place of birth: Riyadh, Saudi Arabia
+Citizenship: Saudi Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: One child
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: Medium, Conscientiousness: High, Extraversion: Medium, Agreeableness: High, Neuroticism: Low
+Core values: Family, Integrity, Ambition
+Defining Quirks: Always carries a small notepad for jotting down ideas
+Mannerisms: Speaks with confidence and clarity
+Entertainment preferences: Business magazines, financial news
+Personal time: Enjoys reading, playing soccer, and spending time with family
+Lifestyle: Balanced between traditional and modern
+Ideology: Conservative
+Political views: Traditional
+Religion: Islam
+Hobbies: Soccer, reading, cooking
+Diet: Omnivorous with a preference for Middle Eastern cuisine
+Exercise habits: Regular soccer and gym workouts
+Technical skills: Financial modeling, data analysis
+Languages spoken: Arabic, English
+Travel preferences: Prefers family vacations to cultural and historical sites
+Preferred communication style: Direct and professional
+Learning style: Analytical and practical
+Stress management: Exercise and family time
+Social media usage: Moderate
+Pet ownership: None
+Volunteer work: Active in community financial literacy programs
+Environmental consciousness: Medium
+Favorite cuisine: Middle Eastern
+Favorite sports: Soccer
+Favorite books: Financial and business literature
+Favorite movies: Historical dramas
+Favorite TV shows: Business and financial news
+Favorite music genres: Traditional Arabic music
+Fashion style: Professional and conservative
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Drives a sedan
+Financial habits: Budget-conscious with strategic investments
+Shopping preferences: Local markets and high-end stores
+Tech gadget preferences: Latest financial software and gadgets
+Home decor style: Modern with traditional elements
+Celebration preferences: Family gatherings and cultural events
+Favorite outdoor activities: Soccer, desert trips
+Cooking skills: Intermediate (focuses on traditional dishes)
+Gardening skills: Low
+DIY skills: Medium
+Personal goals: Provide a stable future for his family
+Career goals: Become a top executive in the finance industry
+Conflict resolution style: Calm and diplomatic
+Problem-solving approach: Analytical and data-driven
+Creativity level: Medium (focused on financial strategies)
+Risk-taking appetite: Medium
+Adaptability: High
+Emotional intelligence: High
+Negotiation skills: Excellent
+Leadership style: Authoritative and visionary
+Decision-making style: Data-driven and confident
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Good
+Networking ability: High
+Cultural awareness: High
+Personal growth focus: Professional development
+Sense of humor: Warm and gentle
+Fashion sensitivity: Medium
+Social engagement: Medium
+Introversion/Extraversion: Balanced
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: High (focus on education and financial literacy)
+Pet peeves: Inefficiency and unprofessionalism
+Allergies: None
+Physical fitness: High (due to regular exercise)
+Health consciousness: High
+Media consumption habits: Focus on financial news and business trends
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative with a leadership role
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: Financial analysis software
+Sports participation: Regularly plays soccer
+Artistic interests: None
+Cultural tastes: Traditional and modern blend
+Culinary skills: Intermediate
+Environmental activism: Low
+Public policy views: Conservative
+Relationship status: Married
+Parental status: One child
+Household income: $80,000
+Savings rate: 20%
+Investment strategy: Balanced between stocks and bonds
+Insurance coverage: Comprehensive
+Home ownership: Owns a house
+Renting habits: None
+Living environment: Urban
+Community involvement: High
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Sedan
+Commute time: 30 minutes
+Travel frequency: Moderate
+Vacation preferences: Cultural and historical sites
+Work-life balance: Well-balanced
+Family obligations: High
+Support network: Strong family and community ties
+Crisis management: Calm and resourceful
+Emergency preparedness: High
+Legal knowledge: Medium
+Financial literacy: Very high
+Career aspirations: Top executive in finance
+Job satisfaction: High
+Work environment preference: High-pressure and competitive
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Moderate
+Language proficiency: Arabic, English
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Medium
+Mathematical proficiency: High
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Low
+Storytelling skills: Medium"""
+
+
+USER_24 = """Age: 34
+Gender: Female
+Race: Asian
+Ancestry: Pakistani
+Speaks at home: Urdu
+Education: PhD in Chemistry
+Employment: Full-time
+Class of worker: Corporate employee
+Industry category: Chemical Industry
+Occupation category: Chemist
+Job description: Leads research projects in organic chemistry, develops new chemical compounds, and publishes findings in scientific journals.
+Income: $120,000 per year
+Marital Status: Single
+Household Type: Single-person household
+Family presence: Close to parents and siblings
+Place of birth: Karachi, Pakistan
+Citizenship: Pakistani Citizen
+Veteran status: No
+Disability: None
+Health Insurance: Employer-provided health insurance
+Fertility: Not applicable
+Hearing difficulty: None
+Vision difficulty: Wears glasses
+Cognitive difficulty: None
+Ability to speak English: Fluent
+Big Five personality traits: Openness: High, Conscientiousness: Very High, Extraversion: Low, Agreeableness: Medium, Neuroticism: Low
+Core values: Knowledge, Precision, Innovation
+Defining Quirks: Always carries a lab notebook and a set of precision tools
+Mannerisms: Often taps her glasses while thinking
+Entertainment preferences: Science documentaries, crime novels
+Personal time: Enjoys experimenting with new recipes, reading, and hiking
+Lifestyle: Methodical and detail-oriented
+Ideology: Rationalist
+Political views: Moderate
+Religion: Secular
+Hobbies: Cooking, knitting, solving puzzles
+Diet: Vegetarian
+Exercise habits: Regular yoga and hiking
+Technical skills: Spectroscopy, chromatography, chemical synthesis, data analysis, programming (Python, R)
+Languages spoken: Urdu, English
+Travel preferences: Prefers scientific conferences and nature trips
+Preferred communication style: Clear and concise
+Learning style: Analytical and hands-on
+Stress management: Meditation and lab work
+Social media usage: Low
+Pet ownership: None
+Volunteer work: Mentors students in STEM fields
+Environmental consciousness: High
+Favorite cuisine: Italian
+Favorite sports: None (focuses on mental challenges)
+Favorite books: "The Double Helix" by James Watson
+Favorite movies: "A Beautiful Mind"
+Favorite TV shows: "Breaking Bad"
+Favorite music genres: Classical, instrumental
+Fashion style: Professional and functional
+Sleeping habits: 7 hours per night
+Morning or night person: Morning
+Driving habits: Prefers public transportation
+Financial habits: Budget-conscious
+Shopping preferences: Online and tech stores
+Tech gadget preferences: Latest lab equipment and scientific tools
+Home decor style: Minimalist with a touch of science
+Celebration preferences: Small gatherings with close friends
+Favorite outdoor activities: Hiking, nature walks
+Cooking skills: Advanced (focus on healthy and innovative recipes)
+Gardening skills: None
+DIY skills: Medium
+Personal goals: Contribute to significant advancements in chemistry
+Career goals: Lead a major research team and make groundbreaking discoveries
+Conflict resolution style: Analytical and calm
+Problem-solving approach: Data-driven and innovative
+Creativity level: High
+Risk-taking appetite: Medium
+Adaptability: High
+Emotional intelligence: Medium
+Negotiation skills: Good
+Leadership style: Visionary and collaborative
+Decision-making style: Evidence-based
+Time management skills: Excellent
+Attention to detail: Very high
+Public speaking skills: Good
+Networking ability: Medium
+Cultural awareness: High
+Personal growth focus: Professional and intellectual development
+Sense of humor: Dry and intellectual
+Fashion sensitivity: Low
+Social engagement: Medium
+Introversion/Extraversion: Introversion
+Risk aversion: Medium
+Political activism: Low
+Charity involvement: Medium
+Pet peeves: Inefficiency and lack of precision
+Allergies: None
+Physical fitness: Medium (due to active lifestyle)
+Health consciousness: High
+Media consumption habits: Science-focused
+Gadget usage: High
+Digital literacy: Very high
+Work ethic: Strong
+Team orientation: Collaborative
+Leadership potential: High
+Mentorship experience: High
+Favorite technology: Lab equipment and scientific tools
+Sports participation: Occasional hiking
+Artistic interests: None
+Cultural tastes: Modern and innovative
+Culinary skills: Advanced
+Environmental activism: Medium
+Public policy views: Supportive of science and technology funding
+Relationship status: Single
+Parental status: None
+Household income: $120,000
+Savings rate: 20%
+Investment strategy: Balanced between stocks and tech ventures
+Insurance coverage: Comprehensive
+Home ownership: Renter
+Renting habits: Prefers high-tech apartments
+Living environment: Urban
+Community involvement: Medium
+Civic engagement: Medium
+Neighborhood safety: High
+Transportation mode: Public transport
+Commute time: 30 minutes
+Travel frequency: Moderate (focus on conferences)
+Vacation preferences: Nature trips and tech conferences
+Work-life balance: Well-balanced
+Family obligations: Medium
+Support network: Strong professional and personal networks
+Crisis management: Calm and logical
+Emergency preparedness: High
+Legal knowledge: Basic
+Financial literacy: High
+Career aspirations: Leading innovative chemistry research projects
+Job satisfaction: High
+Work environment preference: Collaborative and innovative
+Managerial experience: Medium
+Entrepreneurial tendency: Medium
+Innovation capacity: High
+Change management: High
+Project management skills: High
+Cross-cultural skills: High
+Global awareness: High
+Travel experience: Moderate
+Language proficiency: Urdu, English
+Dialect knowledge: None
+Historical knowledge: Medium
+Scientific literacy: Very high
+Mathematical proficiency: Very high
+Artistic ability: Low
+Musical talent: Low
+Creative writing: Medium
+Storytelling skills: Medium"""
+
+
 users = {
     "user_0": USER_0, 
     "user_1": USER_1, 
@@ -2476,7 +4015,17 @@ users = {
     "user_12": USER_12, 
     "user_13": USER_13, 
     "user_14": USER_14, 
+    "user_15": USER_15, 
+    "user_16": USER_16, 
+    "user_17": USER_17, 
+    "user_18": USER_18, 
+    "user_19": USER_19, 
+    "user_20": USER_20, 
+    "user_21": USER_21, 
+    "user_22": USER_22, 
+    "user_23": USER_23, 
+    "user_24": USER_24, 
 }
 
-with open('data/users.json', 'w') as f:
+with open('data/users/users.json', 'w') as f:
     json.dump(users, f, indent=4)

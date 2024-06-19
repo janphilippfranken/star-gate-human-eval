@@ -4,7 +4,8 @@ save_file: data/expected_info_gain/eig_human_assistant_instruct_0_500.json
 
 prompt_start: 0
 prompt_end: 500
-n_users: 5
+n_users: 20
+n_users_per_prompt: 5
 
 n_logprobs_per_token: 0
 
