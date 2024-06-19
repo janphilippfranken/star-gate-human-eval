@@ -2,6 +2,7 @@
 import json
 import fire
 import hydra
+import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 from stargate.azure import AsyncAzureChatLLM
@@ -10,6 +11,9 @@ from stargate.gpt4 import GPT4Agent
 from stargate.vllm_inference_model import VLLMInferenceModel
 
 from prompts import *
+
+
+from users import USER_9
 
 # gpt 4 agent
 llm = AsyncAzureChatLLM(
@@ -65,7 +69,7 @@ def main(args: DictConfig) -> None:
     with open(args.prompts, 'r') as f:
         prompts = json.load(f)[args.eval_prompt_start:args.eval_prompt_end]
              
-    # format prompts
+    # format prompts for initial query 
     ids = []
     batch_prompts = []
     for i, prompt in enumerate(prompts):
@@ -74,55 +78,136 @@ def main(args: DictConfig) -> None:
             {"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}
         ])
 
-    formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
+    formatted_batch_prompts = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in batch_prompts
+    ]
     
     # get responses
     batch_responses = model.batch_prompt(
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-    breakpoint()
-    # format and write to json
+
+    # format 
     formatted_responses = [
         response.split('<|end_header_id|>')[1].strip() 
         for response in batch_responses
     ]
     
-    # now here comes the point where we need to see if model asked a follow-up question and go for it again
-    breakpoint()
+    # now we need to call GPT to check if response includes question
     formatted_gpt_prompts = [
         PROMPT.format(question=prompt, response=response) 
         for prompt, response in zip(prompts, formatted_responses)
     ]
-    breakpoint()
-    gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
-    breakpoint()
-    formatted_gpt_responses = [resp[0].split('Final Response:')[1].strip() for resp in gpt_responses]
-    labels_gpt4 = json.load(open('data/labels/gpt4_labels_human_assistant_instruct_test.json'))
-    import numpy as np
-    agreement = np.mean([i == int(j) for i, j in zip(labels_gpt4['label'], formatted_gpt_responses)])
-    breakpoint()
-    for response in formatted_responses:
-        if response[-1] == "?":
-            print(response, "\n\n#################\n\n")
-    
-    # now we prompt the model again with a random user, and then respond based on that to get a final response 
-    batch_prompts = []
-    for i, prompt in enumerate(prompts):
-        ids.append(i + args.eval_prompt_start)
-        batch_prompts.append([
-            {"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}
-        ])
 
-    formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
+    gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
+    
+    formatted_gpt_responses = [
+        int(resp[0].split('Final Response:')[1].strip()) 
+        for resp in gpt_responses
+    ]
+    
+    # load the OG labels to compute agreement between gpt4 and model asked questions
+    labels_gpt4 = json.load(open('data/labels/gpt4_labels_human_assistant_instruct_test.json'))
+    agreement = np.mean([i == j for i, j in zip(labels_gpt4['label'], formatted_gpt_responses)])
+    print("AGREEMENT", agreement)
+    breakpoint()
+    
+    # now back to prompting roleplayer 
+    batch_prompts_roleplayer = []
+    for i, prompt in enumerate(prompts):
+        if int(formatted_gpt_responses[i]) == 1:
+            batch_prompts_roleplayer.append([
+                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {USER_9}"},
+                    {"role": "user", "content": ROLEPLAY_PROMPT.format(
+                        user=USER_9, 
+                        question=formatted_responses[i].strip(),
+                        max_words=30,
+                )}
+            ])
+
+    formatted_batch_prompts_roleplayer = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in batch_prompts_roleplayer
+    ]
+    
+    batch_responses_roleplayer = model.batch_prompt(
+        prompts=formatted_batch_prompts_roleplayer,
+        **args.generation_config,
+    )
+
+    # format and write to json
+    formatted_responses_roleplayer = [
+        response.split('<|end_header_id|>')[1].strip() 
+        for response in batch_responses_roleplayer
+    ]
+    
+    formatted_batch_responses_roleplayer = []
+    for response in formatted_responses_roleplayer:
+        try:
+            formatted_batch_responses_roleplayer.append(response.split('Response:')[1].strip().strip('"'))
+        except:
+            print(f"INVALID response: {response}")    
+            formatted_batch_responses_roleplayer.append("<|invalid_response|>")
+            
+    breakpoint()
+    
+    breakpoint()
+    
+    batch_prompts_final = []
+    response_count = 0
+    for i, prompt in enumerate(prompts):
+        if int(formatted_gpt_responses[i]) == 1:
+            batch_prompts_final.append([
+                {"role": "user", "content": prompts[i]},
+                {"role": "assistant", "content": formatted_responses[i]},
+                {"role": "user", "content": formatted_batch_responses_roleplayer[response_count]}
+            ])
+            response_count += 1
+    
+    formatted_batch_prompts_final = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in batch_prompts_final 
+    ]
+    
+    batch_responses_final = model.batch_prompt(
+        prompts=formatted_batch_prompts_final ,
+        **args.generation_config,
+    )
+    
+    formatted_responses_final = [
+        response.split('<|end_header_id|>')[1].strip() 
+        for response in batch_responses_final
+    ]
+    
+    final_performance = {}
+    f_counter = 0
+    for i, prompt in enumerate(prompts):
+        final_performance[i] = {}
+        if int(formatted_gpt_responses[i]) == 1:
+            final_performance[i] = {
+                'prompt': prompt,
+                'question': formatted_responses[i],
+                'response': formatted_responses_final[f_counter],
+                'roleplayer': formatted_batch_responses_roleplayer[f_counter],
+            }
+            f_counter += 1
+        else:
+            final_performance[i] = {
+                'prompt': prompt,
+                'response': formatted_responses[i],
+            }
+    breakpoint()
+    
     
     
     labels = [1 if resp == "Question Needed" else 0 for resp in formatted_responses]
     # get win rates too for one held out user here 
     breakpoint()
     
-    with open(args.save_file, 'w') as f:
-        json.dump(questioner_responses, f, indent=4)
+    with open('data/final_performance_test_1e-5_epoch_3.json', 'w') as f:
+        json.dump(final_performance, f, indent=4)
 
 if __name__ == "__main__":
     fire.Fire(main())
