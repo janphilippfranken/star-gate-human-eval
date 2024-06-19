@@ -90,7 +90,7 @@ def main(args: DictConfig) -> None:
         
         all_logprobs[i]['mutual_information']  = mutual_information(
             logprobs=torch.tensor(all_logprobs[i]['means']),
-            n_users=args.n_users,
+            n_users=args.n_users_per_prompt,
         ).numpy().item()
        
     with open(args.save_file, 'w') as f:
