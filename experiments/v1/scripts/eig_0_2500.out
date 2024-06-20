@@ -1,0 +1,4 @@
+[2024-06-19 19:47:25,734][root][INFO] - Computing EIG. Start Prompt: 0. End Prompt: 2500
+Saving to: data/expected_info_gain/5k/eig_human_assistant_instruct_0_2500.json
+Convo file: data/conversations/5k/human_assistant_instruct_0_2500.json
+INFO 06-19 19:47:25 llm_engine.py:79] Initializing an LLM engine with config: model='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir='/scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct', load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, seed=0)

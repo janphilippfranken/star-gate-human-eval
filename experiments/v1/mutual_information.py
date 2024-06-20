@@ -57,7 +57,9 @@ def main(args: DictConfig) -> None:
             'mutual_information': 0,
         }
         
-        rand_user_ids = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+        # rand_user_ids = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+        # 
+        rand_user_ids = [4, 17] # orthogonal users
         
         for j, rand_user_id in enumerate(rand_user_ids):
             

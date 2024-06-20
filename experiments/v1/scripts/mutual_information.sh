@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=mi.out         
-#SBATCH --error=mi.err           
+#SBATCH --output=mi1k.out         
+#SBATCH --error=mi1k.err           
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh

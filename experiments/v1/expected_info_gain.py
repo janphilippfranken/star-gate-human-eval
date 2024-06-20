@@ -45,25 +45,33 @@ Convo file: {args.conversations}""")
         conversations = json.load(f)
         
     conversation_dict = {}
-    for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
+    for prompt_id, user_id, user, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
-    
+  
     # logprobs container
     logprobs = {}
 
-    for prompt_id in tqdm.tqdm(set(conversations["id"])): 
-
-        for user_id in set(conversations["user"]): 
+    for prompt_id in tqdm.tqdm(set(conversations["prompt"])):
         
-            for attempt in set(conversations["attempt"]):
+        for attempt in set(conversations["attempt"]):
+            
+            prompt_attempt_users = [
+                int(key.split("_")[3])
+                for key in conversation_dict.keys()
+                if int(key.split("_")[1]) == prompt_id and 
+                int(key.split("_")[-1]) == attempt
+            ]
+            
+            for user_id in prompt_attempt_users:
                         
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 
                 logprobs[attempt_key] = []
                    
                 # now to get the distributions of the above logprobs for each attempt_key, we need to compute logprobs across gold responses for each user 
-                for other_user_id in set(conversations["user"]):
+                for other_user_id in prompt_attempt_users:
+                    
                     conversation_key = f"prompt_{prompt_id}_user_{other_user_id}_attempt_{attempt}"
                     gold_response_key = f"{prompt_id}_{user_id}"
                     
@@ -104,43 +112,55 @@ Convo file: {args.conversations}""")
     # now compute expected info gain
     eig = {}
     
-    for prompt_user_attempt_key, prompt_user_attempt_value in logprobs.items():
-        p_gold_given_prompt = torch.tensor(1/args.n_users).repeat(args.n_users) # baseline: uniform 
+    for prompt_attempt_user_key, prompt_attempt_user_value in logprobs.items():
+        p_gold_given_prompt = torch.tensor(1/args.n_users_per_prompt).repeat(args.n_users_per_prompt) # baseline: uniform 
         p_gold_given_prompt_entropy = -(p_gold_given_prompt * torch.log(p_gold_given_prompt)).sum()
-        p_gold_given_conversation = torch.softmax(torch.tensor(prompt_user_attempt_value), dim=0)
+        p_gold_given_conversation = torch.softmax(torch.tensor(prompt_attempt_user_value), dim=0)
         p_gold_given_conversation_entropy = -(p_gold_given_conversation * torch.log(p_gold_given_conversation)).sum()
-        eig[prompt_user_attempt_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
+        eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
     
     best_questions = {}
 
-
-    for prompt_id in set(conversations["id"]): # for each prompt, we now find the best attempt to ask a question across users 
-        best_question_idx_across_users = [] # best attempt across users 
+    for prompt_id in set(conversations["prompt"]):
+        best_question_indices = [] # best question attempt 
+        questions = []
         
-        for user_id in set(conversations["user"]): 
-            best_question_eig_within_users = [] # best attempt within each user 
+        for attempt in set(conversations["attempt"]):   
             
-            for attempt in set(conversations["attempt"]):   
+            prompt_attempt_users = [
+                int(key.split("_")[3])
+                for key in conversation_dict.keys()
+                if int(key.split("_")[1]) == prompt_id and 
+                int(key.split("_")[-1]) == attempt
+            ]
+            
+            best_question_eig_across_users = [] 
+            
+            
+            for user_id in prompt_attempt_users:
+            
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
-                best_question_eig_within_users.append(eig[attempt_key])
+                best_question_eig_across_users.append(eig[attempt_key])
+                questions.append(conversation_dict[attempt_key]["question"])
             
-            # best attempt within user 
-            best_question_idx_across_users.append(np.argmax(best_question_eig_within_users))
-        
+            # how much did this attempt help on average across users 
+            best_question_indices.append(np.mean(best_question_eig_across_users))
+       
         # best attempt across users
-        best_question_idx = int(np.argmax(np.bincount(best_question_idx_across_users)))
-        
+        best_question_idx = int(np.argmax(best_question_indices))
+        worst_question_idx =  int(np.argmin(best_question_indices))
+        print(best_question_idx, worst_question_idx)
+       
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
-        
-        # now still need to compute eig for that attempt across users 
-        best_question_eig_across_users = []
-        
-        for user_id in set(conversations["user"]): 
-            best_attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_question_idx}"
-            best_question_eig_across_users.append(eig[best_attempt_key])  
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_eig'] = np.mean(best_question_eig_across_users).item()
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question_idx'] = worst_question_idx
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question'] = questions[best_question_idx]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['average_eig'] = best_question_indices[best_question_idx]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['max_eig_gain_over_min'] = max(best_question_indices) - min(best_question_indices)
+        questions = []
+        best_question_indices = []
 
 
     with open(args.save_file, "w") as f:

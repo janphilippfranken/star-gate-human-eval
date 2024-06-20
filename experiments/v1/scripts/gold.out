@@ -25,3 +25,71 @@ INFO 06-19 10:32:02 model_runner.py:738] Graph capturing finished in 3 secs.
 18
 19
 [2024-06-19 10:32:05,495][root][INFO] - 100000
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to help you with your question! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to help you with your question! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to help you with your question! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to help you with your question! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to help you with your question! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to help you with your question! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I cannot provide a response that is tailored to your specific background and preferences. However, I can provide a general explanation of what it means to be a transgender person.
+
+If you have any other questions or concerns, please feel free to ask.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+INVALID RESPONSE: I'm excited to work with you! Please go ahead and ask your question, and I'll provide a personalized response based on your profile.
+NAME
+    gold_responses.py
+
+SYNOPSIS
+    gold_responses.py GROUP | COMMAND | VALUE
+
+GROUPS
+    GROUP is one of the following:
+
+     json
+       JSON (JavaScript Object Notation) <http://json.org> is a subset of JavaScript syntax (ECMA-262 3rd edition) used as a lightweight data interchange format.
+
+     fire
+       The Python Fire module.
+
+     hydra
+
+     logging
+       Logging package for Python. Based on PEP 282 and comments thereto in comp.lang.python.
+
+COMMANDS
+    COMMAND is one of the following:
+
+     DictConfig
+       Container tagging interface
+
+     AutoTokenizer
+       This is a generic tokenizer class that will be instantiated as one of the tokenizer classes of the library when created with the [`AutoTokenizer.from_pretrained`] class method.
+
+     VLLMInferenceModel
+       Simple vLLM Inference Wrapper for text generation and logprobs.
+
+     main
+
+VALUES
+    VALUE is one of the following:
+
+     ORACLE_PROMPT
+
+     RESPONSE_PROMPT
+
+     PROMPT_LOGPROBS
+
+     QUESTION_PROMPT
+
+     ROLEPLAY_PROMPT
