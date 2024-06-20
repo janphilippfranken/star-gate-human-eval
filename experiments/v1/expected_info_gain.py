@@ -52,7 +52,7 @@ Convo file: {args.conversations}""")
     # logprobs container
     logprobs = {}
 
-    for prompt_id in tqdm.tqdm(set(conversations["prompt"])):
+    for prompt_id in tqdm.tqdm(set(conversations["id"])):
         
         for attempt in set(conversations["attempt"]):
             
@@ -121,7 +121,7 @@ Convo file: {args.conversations}""")
     
     best_questions = {}
 
-    for prompt_id in set(conversations["prompt"]):
+    for prompt_id in set(conversations["id"]):
         best_question_indices = [] # best question attempt 
         questions = []
         

@@ -10,7 +10,7 @@
 #SBATCH --output=convo_2500_5000.out
 #SBATCH --error=convo_2500_5000.err
 
-seed=1
+seed=0
 prompt_start=2500
 prompt_end=5000
 
@@ -23,4 +23,4 @@ python conversations.py \
     seed=$seed \
     prompt_start=$prompt_start \
     prompt_end=$prompt_end \
-    save_file=data/conversations/human_assistant_instruct_${prompt_start}_${prompt_end}.json
+    save_file=data/conversations/human_assistant_instruct_${prompt_start}_${prompt_end}_v2.json

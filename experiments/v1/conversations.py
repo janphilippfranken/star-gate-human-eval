@@ -85,8 +85,10 @@ Seed: {args.seed}""")
         
         prompt = prompts[i//n] 
         
-        # random selection of users
-        rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist() # sample random users for this prompt 
+        if i % n == 0:
+            # randomly sample args.n_users_per_prompt each time we are at a new prompt
+            rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist() # sample random users for this prompt 
+        
         logging.info(rand_users)
         for rand_user_id in rand_users:
             
