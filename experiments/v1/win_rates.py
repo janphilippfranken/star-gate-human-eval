@@ -34,15 +34,15 @@ Comparison: <step-by-step comparison and explanation>
 Final Response: <"A" or "B">"""
 
 
-from users import USER_9
+from users import USER_21
 
 @hydra.main(version_base=None, config_path="config", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
-    responses_base_file = json.load(open('data/final_performance_base.json'))
+    responses_base_file = json.load(open('data/performance_5k_base.json'))
     breakpoint()
     responses_base = [r["response"] for r in responses_base_file.values()]
-    responses_test_file = json.load(open('data/final_performance_test_1e-5_epoch_1.json'))
+    responses_test_file = json.load(open('data/performance_5k_ckpt_2.json'))
     responses_test = [r["response"] for r in responses_test_file.values()]
     queries = [r["prompt"] for r in responses_test_file.values()]
     
@@ -78,7 +78,7 @@ def main(args: DictConfig) -> None:
         if rand_number == 0:
         
             prompt = GPT4_WIN_RATE.format(
-                user=USER_9,
+                user=USER_21,
                 query=queries[i],
                 response_a=response_base,
                 response_b=response_test,
@@ -87,7 +87,7 @@ def main(args: DictConfig) -> None:
               
         elif rand_number == 1:
             prompt = GPT4_WIN_RATE.format(
-                user=USER_9,
+                user=USER_21,
                 query=queries[i],
                 response_a=response_test,
                 response_b=response_base,
@@ -139,7 +139,7 @@ def main(args: DictConfig) -> None:
                 print("ERROR")
                 win_rates.append((0.5))
                 
-    with open(f'data/win_rates-1e-5-epoch-3.json', 'w') as file:
+    with open(f'data/win_rates-1e-5-epoch-2-250.json', 'w') as file:
         json.dump(win_rates, file, indent=4)
         
 if __name__ == "__main__":

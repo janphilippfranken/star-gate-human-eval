@@ -49,12 +49,19 @@ Convo file: {args.conversations}""")
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
   
+    conversation_dict = {k: conversation_dict[k] for k in list(conversation_dict.keys())[5:10]}
+    breakpoint()
+    import random
+    for k in conversation_dict:
+        conversation_dict[k]["question"] = "What is the name of your dog?"
+        conversation_dict[k]["response"] = random.choice(["I don't have a dog.", "Gnocci!", "Doggo."])
+    breakpoint()
     # logprobs container
     logprobs = {}
 
-    for prompt_id in tqdm.tqdm(set(conversations["id"])):
+    for prompt_id in [0]:
         
-        for attempt in set(conversations["attempt"]):
+        for attempt in [0]:
             
             prompt_attempt_users = [
                 int(key.split("_")[3])
@@ -62,6 +69,7 @@ Convo file: {args.conversations}""")
                 if int(key.split("_")[1]) == prompt_id and 
                 int(key.split("_")[-1]) == attempt
             ]
+            breakpoint()
             
             for user_id in prompt_attempt_users:
                         
@@ -108,7 +116,20 @@ Convo file: {args.conversations}""")
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
                     p_gold_given_conversation = [v for prob in p_gold_given_conversation for _, v in prob.items()]
                     logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
+    breakpoint()
+    # now compute expected info gain
+    eig = {}
+    
+    for prompt_attempt_user_key, prompt_attempt_user_value in logprobs.items():
+        p_gold_given_prompt = torch.tensor(1/args.n_users_per_prompt).repeat(args.n_users_per_prompt) # baseline: uniform 
+        p_gold_given_prompt_entropy = -(p_gold_given_prompt * torch.log(p_gold_given_prompt)).sum()
+        p_gold_given_conversation = torch.softmax(torch.tensor(prompt_attempt_user_value), dim=0)
+        p_gold_given_conversation_entropy = -(p_gold_given_conversation * torch.log(p_gold_given_conversation)).sum()
+        eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
+        
+    breakpoint()
     
 
+    
 if __name__ == "__main__":
     fire.Fire(main())

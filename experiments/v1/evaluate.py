@@ -13,7 +13,7 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from prompts import *
 
 
-from users import USER_9
+from users import USER_21
 
 # gpt 4 agent
 llm = AsyncAzureChatLLM(
@@ -119,11 +119,11 @@ def main(args: DictConfig) -> None:
     for i, prompt in enumerate(prompts):
         if int(formatted_gpt_responses[i]) == 1:
             batch_prompts_roleplayer.append([
-                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {USER_9}"},
+                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {USER_21}"},
                     {"role": "user", "content": ROLEPLAY_PROMPT.format(
-                        user=USER_9, 
+                        user=USER_21, 
                         question=formatted_responses[i].strip(),
-                        max_words=30,
+                        max_words=20,
                 )}
             ])
 
@@ -200,13 +200,11 @@ def main(args: DictConfig) -> None:
             }
     breakpoint()
     
-    
-    
     labels = [1 if resp == "Question Needed" else 0 for resp in formatted_responses]
     # get win rates too for one held out user here 
     breakpoint()
     
-    with open('data/final_performance_test_1e-5_epoch_3.json', 'w') as f:
+    with open('data/performance_5k_ckpt_1.json', 'w') as f:
         json.dump(final_performance, f, indent=4)
 
 if __name__ == "__main__":
