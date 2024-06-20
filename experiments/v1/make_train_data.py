@@ -28,7 +28,7 @@ def main(args: DictConfig) -> None:
     )
     
     # conversations
-    conversations = {k: [] for k in ['id', 'user', 'prompt', 'attempt', 'question', 'response']}
+    conversations = {k: [] for k in ['id', 'user_id', 'user', 'prompt', 'attempt', 'question', 'response']}
     for conversation_batch in sorted(os.listdir(args.conversations))[:4]:
         with open(f"{args.conversations}{conversation_batch}", 'r') as f:
             conversation_batch = json.load(f)
@@ -47,28 +47,40 @@ def main(args: DictConfig) -> None:
        labels = json.load(f)
     
     conversation_dict = {}
-    for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
+    for prompt_id, user_id, user, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
-        conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}   
+        conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
     
     # filter best attempts 
     conversation_dict_filtered = {}
     for prompt_id in range(args.n_prompts):
-        for user_id in range(args.n_users):
-            key = f"prompt_{prompt_id}_user_{user_id}_attempt_{best_question_attempts[prompt_id]}"
-            conversation_dict_filtered[key] = copy.deepcopy(conversation_dict[key])
-            
-    # now to make sure dataset is balanced, only have each prompt appear once; so we sample random user 
-    conversation_keys_filtered = [
-        f"prompt_{prompt_id}_user_{torch.randint(args.n_users, (1,)).item()}_attempt_{best_question_attempts[prompt_id]}"
-        for prompt_id in range(args.n_prompts)
-    ]
+        
+        best_attempt = best_question_attempts[prompt_id]
+        print(prompt_id)
+        prompt_attempt_users = [
+                int(key.split("_")[3])
+                for key in conversation_dict.keys()
+                if int(key.split("_")[1]) == prompt_id and 
+                int(key.split("_")[-1]) == best_attempt
+            ]
+        
+        rand_user = prompt_attempt_users[0]
+        # for user_id in prompt_attempt_users:
+        key = f"prompt_{prompt_id}_user_{rand_user}_attempt_{best_attempt}"
+        conversation_dict_filtered[key] = copy.deepcopy(conversation_dict[key])
     
-    # and update the dictionary 
-    conversation_dict_filtered = {
-        k: conversation_dict_filtered[k] 
-        for k in conversation_keys_filtered
-    }
+    breakpoint()
+    # now to make sure dataset is balanced, only have each prompt appear once; so we sample random user 
+    # conversation_keys_filtered = [
+    #     f"prompt_{prompt_id}_user_{torch.randint(args.n_users, (1,)).item()}_attempt_{best_question_attempts[prompt_id]}"
+    #     for prompt_id in range(args.n_prompts)
+    # ]
+    
+    # # and update the dictionary 
+    # conversation_dict_filtered = {
+    #     k: conversation_dict_filtered[k] 
+    #     for k in conversation_keys_filtered
+    # }
 
     # format prompts
     batch_prompts = []

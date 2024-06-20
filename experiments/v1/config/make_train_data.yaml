@@ -1,12 +1,12 @@
-conversations: data/conversations/4k/
-eig: data/expected_info_gain/4k/
+conversations: data/conversations/5k_v2/
+eig: data/expected_info_gain/5k/v2/
 
-labels: data/labels/llama_mi_labels_human_assistant_instruct_4k.json
+labels: data/labels/llama_mi_labels_human_assistant_instruct_5k.json
 
-n_prompts: 4000
+n_prompts: 5000
 n_users: 5
 
-save_file: data/train/train_data_4k.json
+save_file: data/train/train_data_5k.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

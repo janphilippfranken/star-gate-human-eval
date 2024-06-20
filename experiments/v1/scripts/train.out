@@ -1,0 +1,13 @@
+[2024-06-20 09:27:07,008][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-1e-5
+learning rate: 1e-05
+DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 4750
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 250
+    })
+})
+[2024-06-20 09:27:22,576][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
