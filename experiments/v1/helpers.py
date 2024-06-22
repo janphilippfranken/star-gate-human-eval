@@ -6,6 +6,7 @@ import copy
 import transformers 
 from datasets import Dataset
 
+from omegaconf import DictConfig
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 

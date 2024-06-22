@@ -25,7 +25,7 @@ def main(args: DictConfig) -> None:
     )
     
     # prompts
-    with open(args.prompts, 'r') as f:
+    with open(args.prompts, "r") as f:
         prompts = json.load(f)
         
     # format prompts
@@ -47,22 +47,22 @@ def main(args: DictConfig) -> None:
     
     # format and write to json
     formatted_responses = [
-        response.split('<|end_header_id|>')[1].strip() 
+        response.split("<|end_header_id|>")[1].strip() 
         for response in batch_responses
     ]
     
     questioner_responses = {
-        'prompt_id': [],
-        'prompt': [],
-        'response': [],
+        "prompt_id": [],
+        "prompt": [],
+        "response": [],
     }
     
     for i, prompt, response in zip(ids, prompts, formatted_responses):
-        questioner_responses['prompt_id'].append(i)
-        questioner_responses['prompt'].append(prompt)
-        questioner_responses['response'].append(response)
+        questioner_responses["prompt_id"].append(i)
+        questioner_responses["prompt"].append(prompt)
+        questioner_responses["response"].append(response)
     
-    with open(args.save_file, 'w') as f:
+    with open(args.save_file, "w") as f:
         json.dump(questioner_responses, f, indent=4)
 
 if __name__ == "__main__":

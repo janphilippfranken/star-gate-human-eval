@@ -3,15 +3,15 @@ users: data/users/users.json
 seed: 0
 prompt_start: 0
 prompt_end: 3
-n_users: 20 # total users to consider 
+n_users: 20         # total users to consider 
 n_users_per_prompt: 5 # how many we randomly sample for each prompt
 
 save_file: data/conversations/human_assistant_instruct_0_500.json
 
 # roleplayer word var
-roleplayer_mean_words: 20
-roleplayer_std_words: 20
-roleplayer_min_words: 5
+roleplayer_mean_words: 11
+roleplayer_std_words: 15
+roleplayer_min_words: 6
 roleplayer_max_words: 50
 
 model_config:
@@ -24,7 +24,7 @@ model_config:
 generation_config_questioner:
   max_new_tokens: 2048
   num_return_sequences: 7
-  best_of: 10
+  best_of: 7
   temperature: 1.0
 
 generation_config_roleplayer:

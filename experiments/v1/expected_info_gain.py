@@ -108,16 +108,21 @@ Convo file: {args.conversations}""")
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
                     p_gold_given_conversation = [v for prob in p_gold_given_conversation for _, v in prob.items()]
                     logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
-    
+
     # now compute expected info gain
     eig = {}
     
     for prompt_attempt_user_key, prompt_attempt_user_value in logprobs.items():
-        p_gold_given_prompt = torch.tensor(1/args.n_users_per_prompt).repeat(args.n_users_per_prompt) # baseline: uniform 
-        p_gold_given_prompt_entropy = -(p_gold_given_prompt * torch.log(p_gold_given_prompt)).sum()
-        p_gold_given_conversation = torch.softmax(torch.tensor(prompt_attempt_user_value), dim=0)
-        p_gold_given_conversation_entropy = -(p_gold_given_conversation * torch.log(p_gold_given_conversation)).sum()
-        eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
+       
+        if len(prompt_attempt_user_value) > 1: # softmax if we are longer than one 
+            p_gold_given_prompt = torch.tensor(1/args.n_users_per_prompt).repeat(args.n_users_per_prompt) # baseline: uniform 
+            p_gold_given_prompt_entropy = -(p_gold_given_prompt * torch.log(p_gold_given_prompt)).sum()
+            p_gold_given_conversation = torch.softmax(torch.tensor(prompt_attempt_user_value), dim=0)
+            p_gold_given_conversation_entropy = -(p_gold_given_conversation * torch.log(p_gold_given_conversation)).sum()
+            eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
+ 
+        else:
+            eig[prompt_attempt_user_key] = prompt_attempt_user_value[0].item()
     
     best_questions = {}
 
@@ -149,7 +154,7 @@ Convo file: {args.conversations}""")
         # best attempt across users
         best_question_idx = int(np.argmax(best_question_indices))
         worst_question_idx =  int(np.argmin(best_question_indices))
-        print(best_question_idx, worst_question_idx)
+        questions = list(set(questions))
        
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}

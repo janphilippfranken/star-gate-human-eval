@@ -44,7 +44,7 @@ To generate diverse and creative clarifying questions, think about:
 
 Format your output as follows:
 Reasoning: <Your step-by-step reasoning analyzing the user's question and thinking about what background information from the user might be relevant to provide a high-quality personalized response.>
-Clarifying Question: <The high-quality clarifying question you are asking the user to elicit relevant background information and preferences.>
+Clarifying Question: <The high-quality clarifying question you are asking the user to elicit relevant background information and preferences. Be concise.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 

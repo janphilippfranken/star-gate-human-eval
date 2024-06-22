@@ -27,11 +27,11 @@ def main(args: DictConfig) -> None:
     )
     
     # prompts
-    with open(args.prompts, 'r') as f:
+    with open(args.prompts, "r") as f:
         prompts = json.load(f)
         
     # users
-    with open(args.users, 'r') as f:
+    with open(args.users, "r") as f:
         users = json.load(f)
         
     # format prompts
@@ -59,25 +59,25 @@ def main(args: DictConfig) -> None:
     formatted_responses = []
     for response in batch_responses:
         try:
-            formatted_responses.append(response.split('<|end_header_id|>')[1].strip().split('Response:')[1].strip().split('Additional Comments:')[0].strip())
+            formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
         except:
             formatted_responses.append("<|invalid_response|>")
-            print(f"INVALID RESPONSE: {response.split('<|end_header_id|>')[1].strip()}")
+            print(f"INVALID RESPONSE: {response.split("<|end_header_id|>")[1].strip()}")
    
     gold_responses = {
-        'prompt_id': [],
-        'user_id': [],
-        'prompt': [],
-        'response': [],
+        "prompt_id": [],
+        "user_id": [],
+        "prompt": [],
+        "response": [],
     }
     
     for i, user_id, prompt, response in zip(prompt_ids, user_ids, opening_prompts, formatted_responses):
-        gold_responses['prompt_id'].append(i)
-        gold_responses['user_id'].append(user_id)
-        gold_responses['prompt'].append(prompt)
-        gold_responses['response'].append(response)
+        gold_responses["prompt_id"].append(i)
+        gold_responses["user_id"].append(user_id)
+        gold_responses["prompt"].append(prompt)
+        gold_responses["response"].append(response)
     
-    with open(args.save_file, 'w') as f:
+    with open(args.save_file, "w") as f:
         json.dump(gold_responses, f, indent=4)
   
 

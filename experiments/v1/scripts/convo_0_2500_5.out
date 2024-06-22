@@ -1,0 +1,7 @@
+[2024-06-22 10:33:39,008][root][INFO] - Generating Conversations. 
+Start Prompt: 0
+End Prompt: 10
+Saving to: data/conversations/hai_start_0_end_10_n_user_5_seed_0.json
+Seed: 0
+N_USERS_PER_PROMPT: 5
+INFO 06-22 10:33:39 llm_engine.py:79] Initializing an LLM engine with config: model='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir='/scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct', load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, seed=0)
