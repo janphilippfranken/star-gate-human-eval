@@ -142,11 +142,13 @@ Convo file: {args.conversations}""")
             best_question_eig_across_users = [] 
             
             
-            for user_id in prompt_attempt_users:
+            for j, user_id in enumerate(prompt_attempt_users):
             
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 best_question_eig_across_users.append(eig[attempt_key])
-                questions.append(conversation_dict[attempt_key]["question"])
+                
+                if j == 0: # only need to append questions once 
+                    questions.append(conversation_dict[attempt_key]["question"])
             
             # how much did this attempt help on average across users 
             best_question_indices.append(np.mean(best_question_eig_across_users))
@@ -154,8 +156,7 @@ Convo file: {args.conversations}""")
         # best attempt across users
         best_question_idx = int(np.argmax(best_question_indices))
         worst_question_idx =  int(np.argmin(best_question_indices))
-        questions = list(set(questions))
-       
+        
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
@@ -166,7 +167,6 @@ Convo file: {args.conversations}""")
         best_questions[f"best_question_for_prompt_{prompt_id}"]['max_eig_gain_over_min'] = max(best_question_indices) - min(best_question_indices)
         questions = []
         best_question_indices = []
-
 
     with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)

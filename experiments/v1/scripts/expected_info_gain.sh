@@ -7,14 +7,14 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=eig_0_2500_2.out         
-#SBATCH --error=eig_0_2500_2.err          
+#SBATCH --output=eig_0_2500_1.out         
+#SBATCH --error=eig_0_2500_1.err          
 #SBATCH --begin=now+0hours 
 
 seed=0
 prompt_start=0
-prompt_end=5
-n_users_per_prompt=2
+prompt_end=10
+n_users_per_prompt=1
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
