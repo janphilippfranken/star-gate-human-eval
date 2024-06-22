@@ -1,0 +1,7 @@
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [00:09<15:18,  9.28s/it]  2%|▏         | 2/100 [00:18<15:21,  9.40s/it]  3%|▎         | 3/100 [00:27<14:55,  9.23s/it]  4%|▍         | 4/100 [00:36<14:38,  9.15s/it]  5%|▌         | 5/100 [00:46<14:52,  9.39s/it]  6%|▌         | 6/100 [00:55<14:18,  9.13s/it]  7%|▋         | 7/100 [01:04<13:58,  9.02s/it]  8%|▊         | 8/100 [01:13<13:59,  9.13s/it]  9%|▉         | 9/100 [01:22<13:42,  9.04s/it] 10%|█         | 10/100 [01:30<13:24,  8.94s/it] 11%|█         | 11/100 [01:39<13:17,  8.96s/it] 12%|█▏        | 12/100 [01:48<13:02,  8.89s/it]

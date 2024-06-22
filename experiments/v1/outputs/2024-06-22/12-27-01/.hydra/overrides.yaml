@@ -1,0 +1,4 @@
+- prompt_start=0
+- prompt_end=100
+- conversations=data/conversations/hai_start_0_end_100_n_user_5_seed_0_9_shots.json
+- save_file=data/expected_info_gain/hai_start_0_end_100_n_user_5_seed_0_9_shots.json

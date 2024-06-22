@@ -91,27 +91,14 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
             user = users[f"user_{rand_user_id}"]
             rand_user_ids.append(rand_user_id)
             
-            if i % n == 0: # insert control item for first question
-            
-                batch_prompts_roleplayer.append([
-                        {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
-                        {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
-                            user=user, 
-                            question="What is 2 + 2? Return your answer in one word.", # distractor item which should have worst EIG
-                            max_words=1,
-                    )}
-                ])   
-            
-            else:
-                
-                batch_prompts_roleplayer.append([
-                        {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
-                        {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
-                            user=user, 
-                            question=question, 
-                            max_words=max_words,
-                    )}
-                ])   
+            batch_prompts_roleplayer.append([
+                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
+                    {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
+                        user=user, 
+                        question=question, 
+                        max_words=max_words,
+                )}
+            ])   
             
     formatted_batch_responses_roleplayer = get_formatted_responses(
         model=model,
@@ -144,8 +131,21 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                     conversations["user"].append(users[f"user_{rand_user_ids[rand_user_idx]}"])
                     conversations["prompt"].append(prompts[prompt_id])
                     conversations["attempt"].append(question_attempt)
+                    
                     question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt] if question_attempt > 0 else "What is 2 + 2? Return your answer in one word."
-                    response = formatted_batch_responses_roleplayer[response_idx] if question_attempt > 0 else "4."
+                    
+                    if question_attempt == 0: # pos control
+                        question = "Please share your profile with me so I can provide a personalized response."
+                        response = f"""Sure! Here is my entire profile {users[f'user_{rand_user_ids[rand_user_idx]}']}\n\nBased on this profile, it should be easy to provide a personalized response."""
+                    
+                    elif question_attempt == 1: # neg control 
+                        question = "What is 2 + 2? Return your answer in one word."
+                        response = "4."
+                    
+                    else: # rest
+                        response = formatted_batch_responses_roleplayer[response_idx] 
+                        question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt]
+                        
                     conversations["question"].append(question)
                     conversations["response"].append(response)
                 except:

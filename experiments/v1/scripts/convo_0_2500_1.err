@@ -1,19 +1,0 @@
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Processed prompts:   0%|          | 0/10 [00:00<?, ?it/s]Processed prompts:  10%|█         | 1/10 [00:03<00:31,  3.47s/it]Processed prompts:  20%|██        | 2/10 [00:03<00:12,  1.55s/it]Processed prompts:  70%|███████   | 7/10 [00:03<00:00,  3.17it/s]Processed prompts: 100%|██████████| 10/10 [00:04<00:00,  4.17it/s]Processed prompts: 100%|██████████| 10/10 [00:04<00:00,  2.40it/s]
-Processed prompts:   0%|          | 0/70 [00:00<?, ?it/s]Processed prompts:   1%|▏         | 1/70 [00:17<19:38, 17.08s/it]Processed prompts:   3%|▎         | 2/70 [00:17<08:02,  7.09s/it]Processed prompts:   4%|▍         | 3/70 [00:17<04:21,  3.90s/it]Processed prompts:  13%|█▎        | 9/70 [00:17<00:50,  1.21it/s]Processed prompts:  16%|█▌        | 11/70 [00:17<00:36,  1.62it/s]Processed prompts:  21%|██▏       | 15/70 [00:17<00:19,  2.77it/s]Processed prompts:  27%|██▋       | 19/70 [00:17<00:11,  4.28it/s]Processed prompts:  36%|███▌      | 25/70 [00:18<00:06,  7.31it/s]Processed prompts:  41%|████▏     | 29/70 [00:18<00:04,  9.35it/s]Processed prompts:  49%|████▊     | 34/70 [00:18<00:02, 12.76it/s]Processed prompts:  54%|█████▍    | 38/70 [00:18<00:02, 14.94it/s]Processed prompts:  67%|██████▋   | 47/70 [00:18<00:00, 23.62it/s]Processed prompts:  76%|███████▌  | 53/70 [00:18<00:00, 28.27it/s]Processed prompts:  89%|████████▊ | 62/70 [00:18<00:00, 36.37it/s]Processed prompts:  96%|█████████▌| 67/70 [00:19<00:00, 34.94it/s]Processed prompts: 100%|██████████| 70/70 [00:19<00:00,  3.64it/s]
-ERROR: Cannot find key: seed=0
-Usage: conversations.py <group|command|value>
-  available groups:      json | fire | torch | hydra | logging |
-                         ROLEPLAY_PROMPTS
-  available commands:    DictConfig | AutoTokenizer | VLLMInferenceModel |
-                         get_formatted_responses | main
-  available values:      ORACLE_PROMPT | RESPONSE_PROMPT | PROMPT_LOGPROBS |
-                         QUESTION_PROMPT | ROLEPLAY_PROMPT
-
-For detailed information on this command, run:
-  conversations.py --help

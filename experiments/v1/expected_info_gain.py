@@ -18,7 +18,8 @@ from prompts import *
 def main(args: DictConfig) -> None:
     logging.info(f"""Computing EIG. Start Prompt: {args.prompt_start}. End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
-Convo file: {args.conversations}""")
+Convo file: {args.conversations}
+N_USER: {args.n_users_per_prompt}""")
    
     # model
     model = VLLMInferenceModel(
@@ -120,7 +121,7 @@ Convo file: {args.conversations}""")
             p_gold_given_conversation = torch.softmax(torch.tensor(prompt_attempt_user_value), dim=0)
             p_gold_given_conversation_entropy = -(p_gold_given_conversation * torch.log(p_gold_given_conversation)).sum()
             eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
- 
+            logging.info(eig[prompt_attempt_user_key])
         else:
             eig[prompt_attempt_user_key] = prompt_attempt_user_value[0].item()
     
@@ -156,12 +157,18 @@ Convo file: {args.conversations}""")
         # best attempt across users
         best_question_idx = int(np.argmax(best_question_indices))
         worst_question_idx =  int(np.argmin(best_question_indices))
+        # TODO: MAKE VAR NAMES HERE BETTER
+        best_question_idx_wo_pos_control = 1 + int(np.argmax(best_question_indices[1:])) # look at best excluding the first two
         
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['question_performances'] = best_question_indices
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['questions'] = questions
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
         best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question_idx'] = worst_question_idx
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx_wo_pos_control'] = best_question_idx_wo_pos_control 
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question'] = questions[best_question_idx]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_wo_pos_control'] = questions[best_question_idx_wo_pos_control]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['average_eig'] = best_question_indices[best_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['max_eig_gain_over_min'] = max(best_question_indices) - min(best_question_indices)

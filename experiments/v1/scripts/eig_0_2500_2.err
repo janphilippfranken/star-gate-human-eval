@@ -1,21 +1,0 @@
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:00<00:03,  1.09it/s] 40%|████      | 2/5 [00:01<00:02,  1.08it/s] 60%|██████    | 3/5 [00:02<00:01,  1.14it/s] 80%|████████  | 4/5 [00:03<00:00,  1.14it/s]100%|██████████| 5/5 [00:04<00:00,  1.12it/s]100%|██████████| 5/5 [00:04<00:00,  1.12it/s]
-ERROR: Cannot find key: prompt_start=0
-Usage: expected_info_gain.py <group|command|value>
-  available groups:      json | fire | hydra | tqdm | logging | np | Dict |
-                         Sequence | List | torch | copy | transformers |
-                         ROLEPLAY_PROMPTS
-  available commands:    DictConfig | AutoTokenizer | VLLMInferenceModel |
-                         dataclass | Dataset | get_formatted_responses |
-                         mutual_information |
-                         DataCollatorForSupervisedDataset | preprocess | main
-  available values:      IGNORE_INDEX | ORACLE_PROMPT | RESPONSE_PROMPT |
-                         PROMPT_LOGPROBS | QUESTION_PROMPT | ROLEPLAY_PROMPT
-
-For detailed information on this command, run:
-  expected_info_gain.py --help

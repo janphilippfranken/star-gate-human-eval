@@ -1,16 +1,0 @@
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-0it [00:00, ?it/s]0it [00:01, ?it/s]
-Error executing job with overrides: []
-Traceback (most recent call last):
-  File "/sailhome/jphilipp/research_projects/star-gate-human-eval/experiments/v1/mutual_information.py", line 93, in main
-    all_logprobs[i]['mutual_information']  = mutual_information(
-  File "/sailhome/jphilipp/research_projects/star-gate-human-eval/experiments/v1/helpers.py", line 23, in mutual_information
-    p_response = (p_response_given_user * p_user).sum()
-RuntimeError: The size of tensor a (4) must match the size of tensor b (5) at non-singleton dimension 0
-
-Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
