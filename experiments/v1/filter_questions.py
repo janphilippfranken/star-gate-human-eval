@@ -8,14 +8,15 @@ best_questions = {k: datum["best_question_wo_pos_control"] for k, datum in eig.i
 count_distractor = sum(datum["best_question_idx_wo_pos_control"] == 1 for datum in eig.values()) / len(eig)
 
 
-norm_eig = [
-    np.array(datum["question_performances"][2:])
+
+
+cv = [
+    (np.std(np.array(np.abs(datum["question_performances"][2:]))) / np.mean(np.abs(np.abs(datum["question_performances"][2:])))) * 100
     for datum in eig.values()
 ]
 
-norm_std = [np.std(datum) for datum in norm_eig]
 
 print("Count Distractor:", count_distractor)
-print("Normalized EIG:", np.mean(norm_std))
+print("Normalized EIG:", np.mean(cv), np.std(cv))
 
 breakpoint()
