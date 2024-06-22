@@ -6,8 +6,42 @@ import copy
 import transformers 
 from datasets import Dataset
 
+
+from stargate.vllm_inference_model import VLLMInferenceModel
+
 IGNORE_INDEX = -100
 
+
+def get_formatted_responses(
+    model: VLLMInferenceModel, 
+    tokenizer: transformers.AutoTokenizer,
+    prompts: List[str], 
+    config: DictConfig,
+    output_format: str="Clarifying Question:",
+    invalid_output: str="<|invalid_response|>",
+) -> List[str]:
+    """Formats prompts and returns formatted model responses."""
+    formatted_prompts = [
+        tokenizer.apply_chat_template(prompt, tokenize=False) 
+        for prompt in prompts
+    ]
+    
+    responses = model.batch_prompt(
+        prompts=formatted_prompts,
+        **config,
+    )
+    
+    formatted_responses = []
+
+    for response in responses:
+        try:
+            formatted_responses.append(response.split(output_format)[1].strip())
+        except:
+            formatted_responses.append(invalid_output)
+            
+    return formatted_responses
+
+    
 def mutual_information(
     logprobs: torch.FloatTensor, 
     n_users: int,
@@ -74,7 +108,7 @@ def _tokenize_fn(
         
         # mask user input (turn % 2 == 0) with -100
         if turn % 2 == 0:
-            masked_labels = torch.full(tokenized.shape, -100, dtype=torch.long)
+            masked_labels = torch.full(tokenized.shape, IGNORE_INDEX, dtype=torch.long)
             labels.append(masked_labels)
         else:
             labels.append(copy.deepcopy(tokenized))

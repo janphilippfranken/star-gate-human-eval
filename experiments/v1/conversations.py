@@ -1,4 +1,4 @@
-"""Generate conversations and filter good questions based on expected info gain."""
+"""Generate conversations with simulated users."""
 import json
 import fire
 import torch
@@ -10,9 +10,10 @@ from transformers import AutoTokenizer
 from stargate.vllm_inference_model import VLLMInferenceModel
 
 from prompts import *
+from helpers import get_formatted_responses
 
+logging.basicConfig(level=logging.INFO)
 
-import logging
 
 @hydra.main(version_base=None, config_path="config", config_name="conversations")
 def main(args: DictConfig) -> None:
@@ -22,7 +23,7 @@ End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
 Seed: {args.seed}""")
     
-    # seed for users
+    # seed
     torch.manual_seed(args.seed)
    
     # model
@@ -44,13 +45,13 @@ Seed: {args.seed}""")
     with open(args.users, 'r') as f:
         users = json.load(f)
     
-    # only keep up to max users
+    # only keep up to max users used during training
     users = {
         k: v for k, v in users.items() 
         if int(k.split("_")[1]) < args.n_users
     }
     
-    # QUESTIONER 
+    # STEP 1: questioner 
     batch_prompts_questioner = []
     for i in range(args.prompt_start, args.prompt_end):
         prompt = prompts[i]
@@ -73,10 +74,17 @@ Seed: {args.seed}""")
         try:
             formatted_batch_responses_questioner.append(response.split('Clarifying Question:')[1].strip())
         except:
-            print(f"INVALID response: {response}")    
+            logging.info(f"INVALID response: {response}")    
             formatted_batch_responses_questioner.append("<|invalid_response|>")
     
-    # ROLEPLAYER 
+    
+    
+
+
+        
+        
+    
+    # STEP 2: roleplayer 
     batch_prompts_roleplayer = []
     rand_user_ids = []
     n = args.generation_config_questioner.num_return_sequences
@@ -99,9 +107,13 @@ Seed: {args.seed}""")
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             
+            # can either be bullet points or normal response
+            rand_roleplay_prompt = torch.randint(len(ROLEPLAY_PROMPTS), (1,)).item()
+            roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt]
+            
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
-                    {"role": "user", "content": ROLEPLAY_PROMPT.format(
+                    {"role": "user", "content": ROLEPLAY_PROMPT[roleplay_prompt_key].format(
                         user=user, 
                         question=question, 
                         max_words=max_words,
@@ -122,7 +134,7 @@ Seed: {args.seed}""")
         try:
             formatted_batch_responses_roleplayer.append(response.split('Response:')[1].strip().strip('"'))
         except:
-            print(f"INVALID response: {response}")    
+            logging.info(f"INVALID response: {response}")    
             formatted_batch_responses_roleplayer.append("<|invalid_response|>")
     
     conversations = {
@@ -150,7 +162,6 @@ Seed: {args.seed}""")
                     conversations['question'].append(formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt])
                     conversations['response'].append(formatted_batch_responses_roleplayer[response_idx])
                 except:
-                    print(f"INVALID")
                     conversations['id'].append(prompt_id)
                     conversations['user_id'].append(rand_user_ids[rand_user_idx])
                     conversations['user'].append(users[f"user_{rand_user_ids[rand_user_idx]}"])
