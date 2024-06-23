@@ -9,7 +9,7 @@ _wandb:
     huggingface_version: 4.37.2
     is_jupyter_run: false
     is_kaggle_kernel: false
-    start_time: 1719162856
+    start_time: 1719166197
     t:
       1:
       - 1
@@ -61,42 +61,6 @@ _wandb:
       6:
       - 1
     - 1: train/epoch
-      5: 1
-      6:
-      - 1
-    - 1: eval/loss
-      5: 1
-      6:
-      - 1
-    - 1: eval/runtime
-      5: 1
-      6:
-      - 1
-    - 1: eval/samples_per_second
-      5: 1
-      6:
-      - 1
-    - 1: eval/steps_per_second
-      5: 1
-      6:
-      - 1
-    - 1: train/train_runtime
-      5: 1
-      6:
-      - 1
-    - 1: train/train_samples_per_second
-      5: 1
-      6:
-      - 1
-    - 1: train/train_steps_per_second
-      5: 1
-      6:
-      - 1
-    - 1: train/total_flos
-      5: 1
-      6:
-      - 1
-    - 1: train/train_loss
       5: 1
       6:
       - 1
@@ -323,7 +287,7 @@ model_type:
   value: llama
 output_dir:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled
 overwrite_output_dir:
   desc: null
   value: false
@@ -410,7 +374,7 @@ log_on_each_node:
   value: true
 logging_dir:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled/runs/Jun23_10-14-25_cocoflops-hgx-1
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled/runs/Jun23_11-10-04_cocoflops-hgx-1
 logging_strategy:
   desc: null
   value: steps
@@ -512,7 +476,7 @@ past_index:
   value: -1
 run_name:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled
 disable_tqdm:
   desc: null
   value: false
