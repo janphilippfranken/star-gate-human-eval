@@ -204,7 +204,7 @@ def main(args: DictConfig) -> None:
     # get win rates too for one held out user here 
     breakpoint()
     
-    with open('data/performance_5k_ckpt_1.json', 'w') as f:
+    with open('data/performance_5k_ckpt_2_always_ask_no_cot.json', 'w') as f:
         json.dump(final_performance, f, indent=4)
 
 if __name__ == "__main__":

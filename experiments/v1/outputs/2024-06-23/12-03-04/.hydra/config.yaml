@@ -1,28 +1,23 @@
 model_config:
   pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
   cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
-
 tokenizer_config:
   pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
   cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   model_max_length: 2048
-
 wandb:
   project: stargate
-  name: stargate-5k-cot-distilled-always-ask
-
-data: data/train/train_data_5k_v2_cot_all_questions.json
+  name: stargate-5k-not-cot-distilled-always-ask
+data: data/train/train_data_5k_v2_no_cot_all_questions.json
 test_split: 0.05
-
 training_args:
-  output_dir: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-always-ask
+  output_dir: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled-always-ask
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 64
-  learning_rate: 5e-6
+  learning_rate: 5.0e-06
   num_train_epochs: 3
   save_total_limit: 3
-  # do_eval: false
   seed: 42
   save_strategy: epoch
   evaluation_strategy: epoch

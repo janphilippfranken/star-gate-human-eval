@@ -9,7 +9,7 @@ _wandb:
     huggingface_version: 4.37.2
     is_jupyter_run: false
     is_kaggle_kernel: false
-    start_time: 1719166197
+    start_time: 1719169410
     t:
       1:
       - 1
@@ -323,7 +323,7 @@ model_type:
   value: llama
 output_dir:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-always-ask
 overwrite_output_dir:
   desc: null
   value: false
@@ -410,7 +410,7 @@ log_on_each_node:
   value: true
 logging_dir:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled/runs/Jun23_11-10-04_cocoflops-hgx-1
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-always-ask/runs/Jun23_12-03-39_cocoflops-hgx-1
 logging_strategy:
   desc: null
   value: steps
@@ -512,7 +512,7 @@ past_index:
   value: -1
 run_name:
   desc: null
-  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled
+  value: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-always-ask
 disable_tqdm:
   desc: null
   value: false

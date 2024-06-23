@@ -1,4 +1,4 @@
-[2024-06-23 11:09:57,051][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled
+[2024-06-23 12:03:29,683][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-always-ask
 learning rate: 5e-06
 DatasetDict({
     train: Dataset({
@@ -10,4 +10,416 @@ DatasetDict({
         num_rows: 250
     })
 })
-[2024-06-23 11:10:12,675][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+[2024-06-23 12:03:45,372][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 1.1164, 'learning_rate': 2.5000000000000004e-07, 'epoch': 0.03}
+{'loss': 1.1095, 'learning_rate': 5.000000000000001e-07, 'epoch': 0.05}
+{'loss': 1.0906, 'learning_rate': 7.5e-07, 'epoch': 0.08}
+{'loss': 1.1074, 'learning_rate': 1.0000000000000002e-06, 'epoch': 0.11}
+{'loss': 1.0922, 'learning_rate': 1.25e-06, 'epoch': 0.13}
+{'loss': 1.059, 'learning_rate': 1.5e-06, 'epoch': 0.16}
+{'loss': 1.0293, 'learning_rate': 1.75e-06, 'epoch': 0.19}
+{'loss': 1.0076, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.22}
+{'loss': 0.939, 'learning_rate': 2.25e-06, 'epoch': 0.24}
+{'loss': 0.9285, 'learning_rate': 2.5e-06, 'epoch': 0.27}
+{'loss': 0.8533, 'learning_rate': 2.7500000000000004e-06, 'epoch': 0.3}
+{'loss': 0.797, 'learning_rate': 3e-06, 'epoch': 0.32}
+{'loss': 0.7872, 'learning_rate': 3.2500000000000002e-06, 'epoch': 0.35}
+{'loss': 0.7537, 'learning_rate': 3.5e-06, 'epoch': 0.38}
+{'loss': 0.7027, 'learning_rate': 3.7500000000000005e-06, 'epoch': 0.4}
+{'loss': 0.6575, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.43}
+{'loss': 0.6391, 'learning_rate': 4.25e-06, 'epoch': 0.46}
+{'loss': 0.5651, 'learning_rate': 4.5e-06, 'epoch': 0.49}
+{'loss': 0.5282, 'learning_rate': 4.75e-06, 'epoch': 0.51}
+{'loss': 0.48, 'learning_rate': 5e-06, 'epoch': 0.54}
+{'loss': 0.471, 'learning_rate': 4.945054945054946e-06, 'epoch': 0.57}
+{'loss': 0.4532, 'learning_rate': 4.890109890109891e-06, 'epoch': 0.59}
+{'loss': 0.4356, 'learning_rate': 4.8351648351648355e-06, 'epoch': 0.62}
+{'loss': 0.4257, 'learning_rate': 4.780219780219781e-06, 'epoch': 0.65}
+{'loss': 0.4164, 'learning_rate': 4.725274725274726e-06, 'epoch': 0.67}
+{'loss': 0.4146, 'learning_rate': 4.6703296703296706e-06, 'epoch': 0.7}
+{'loss': 0.4105, 'learning_rate': 4.615384615384616e-06, 'epoch': 0.73}
+{'loss': 0.4145, 'learning_rate': 4.560439560439561e-06, 'epoch': 0.75}
+{'loss': 0.3923, 'learning_rate': 4.505494505494506e-06, 'epoch': 0.78}
+{'loss': 0.3911, 'learning_rate': 4.45054945054945e-06, 'epoch': 0.81}
+{'loss': 0.3753, 'learning_rate': 4.395604395604396e-06, 'epoch': 0.84}
+{'loss': 0.3705, 'learning_rate': 4.340659340659341e-06, 'epoch': 0.86}
+{'loss': 0.3693, 'learning_rate': 4.2857142857142855e-06, 'epoch': 0.89}
+{'loss': 0.3816, 'learning_rate': 4.230769230769231e-06, 'epoch': 0.92}
+{'loss': 0.3676, 'learning_rate': 4.175824175824177e-06, 'epoch': 0.94}
+{'loss': 0.3745, 'learning_rate': 4.120879120879121e-06, 'epoch': 0.97}
+{'loss': 0.3891, 'learning_rate': 4.065934065934066e-06, 'epoch': 1.0}
+{'loss': 0.3676, 'learning_rate': 2.5000000000000004e-07, 'epoch': 0.03}
+{'loss': 0.3722, 'learning_rate': 5.000000000000001e-07, 'epoch': 0.05}
+{'loss': 0.3648, 'learning_rate': 7.5e-07, 'epoch': 0.08}
+{'loss': 0.3828, 'learning_rate': 1.0000000000000002e-06, 'epoch': 0.11}
+{'loss': 0.3729, 'learning_rate': 1.25e-06, 'epoch': 0.13}
+{'loss': 0.3468, 'learning_rate': 1.5e-06, 'epoch': 0.16}
+{'loss': 0.3447, 'learning_rate': 1.75e-06, 'epoch': 0.19}
+{'loss': 0.3322, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.22}
+{'loss': 0.3181, 'learning_rate': 2.25e-06, 'epoch': 0.24}
+{'loss': 0.2922, 'learning_rate': 2.5e-06, 'epoch': 0.27}
+{'loss': 0.2948, 'learning_rate': 2.7500000000000004e-06, 'epoch': 0.3}
+{'loss': 0.2853, 'learning_rate': 3e-06, 'epoch': 0.32}
+{'loss': 0.2882, 'learning_rate': 3.2500000000000002e-06, 'epoch': 0.35}
+{'loss': 0.2713, 'learning_rate': 3.5e-06, 'epoch': 0.38}
+{'loss': 0.2555, 'learning_rate': 3.7500000000000005e-06, 'epoch': 0.4}
+{'loss': 0.2629, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.43}
+{'loss': 0.2483, 'learning_rate': 4.25e-06, 'epoch': 0.46}
+{'loss': 0.2535, 'learning_rate': 4.5e-06, 'epoch': 0.49}
+{'loss': 0.2203, 'learning_rate': 4.75e-06, 'epoch': 0.51}
+{'loss': 0.2104, 'learning_rate': 5e-06, 'epoch': 0.54}
+{'loss': 0.2078, 'learning_rate': 4.945054945054946e-06, 'epoch': 0.57}
+{'loss': 0.1919, 'learning_rate': 4.890109890109891e-06, 'epoch': 0.59}
+{'loss': 0.1891, 'learning_rate': 4.8351648351648355e-06, 'epoch': 0.62}
+{'loss': 0.1903, 'learning_rate': 4.780219780219781e-06, 'epoch': 0.65}
+{'loss': 0.1931, 'learning_rate': 4.725274725274726e-06, 'epoch': 0.67}
+{'loss': 0.1889, 'learning_rate': 4.6703296703296706e-06, 'epoch': 0.7}
+{'loss': 0.1849, 'learning_rate': 4.615384615384616e-06, 'epoch': 0.73}
+{'loss': 0.1823, 'learning_rate': 4.560439560439561e-06, 'epoch': 0.75}
+{'loss': 0.1784, 'learning_rate': 4.505494505494506e-06, 'epoch': 0.78}
+{'loss': 0.1717, 'learning_rate': 4.45054945054945e-06, 'epoch': 0.81}
+{'loss': 0.1861, 'learning_rate': 4.395604395604396e-06, 'epoch': 0.84}
+{'loss': 0.1733, 'learning_rate': 4.340659340659341e-06, 'epoch': 0.86}
+{'loss': 0.1779, 'learning_rate': 4.2857142857142855e-06, 'epoch': 0.89}
+{'loss': 0.1756, 'learning_rate': 4.230769230769231e-06, 'epoch': 0.92}
+{'loss': 0.1735, 'learning_rate': 4.175824175824177e-06, 'epoch': 0.94}
+{'loss': 0.1681, 'learning_rate': 4.120879120879121e-06, 'epoch': 0.97}
+{'loss': 0.1743, 'learning_rate': 4.065934065934066e-06, 'epoch': 1.0}
+{'eval_loss': 0.36807554960250854, 'eval_runtime': 7.9308, 'eval_samples_per_second': 31.523, 'eval_steps_per_second': 15.761, 'epoch': 1.0}
+{'loss': 0.3402, 'learning_rate': 4.010989010989012e-06, 'epoch': 1.02}
+{'loss': 0.3329, 'learning_rate': 3.9560439560439565e-06, 'epoch': 1.05}
+{'loss': 0.3559, 'learning_rate': 3.901098901098901e-06, 'epoch': 1.08}
+{'loss': 0.3591, 'learning_rate': 3.846153846153847e-06, 'epoch': 1.1}
+{'loss': 0.3415, 'learning_rate': 3.7912087912087915e-06, 'epoch': 1.13}
+{'loss': 0.3454, 'learning_rate': 3.7362637362637367e-06, 'epoch': 1.16}
+{'loss': 0.3299, 'learning_rate': 3.681318681318682e-06, 'epoch': 1.19}
+{'loss': 0.3215, 'learning_rate': 3.6263736263736266e-06, 'epoch': 1.21}
+{'loss': 0.3426, 'learning_rate': 3.5714285714285718e-06, 'epoch': 1.24}
+{'loss': 0.3286, 'learning_rate': 3.516483516483517e-06, 'epoch': 1.27}
+{'loss': 0.336, 'learning_rate': 3.4615384615384617e-06, 'epoch': 1.29}
+{'loss': 0.3431, 'learning_rate': 3.406593406593407e-06, 'epoch': 1.32}
+{'loss': 0.3357, 'learning_rate': 3.3516483516483516e-06, 'epoch': 1.35}
+{'loss': 0.3298, 'learning_rate': 3.2967032967032968e-06, 'epoch': 1.37}
+{'loss': 0.3332, 'learning_rate': 3.2417582417582424e-06, 'epoch': 1.4}
+{'loss': 0.334, 'learning_rate': 3.1868131868131867e-06, 'epoch': 1.43}
+{'loss': 0.3297, 'learning_rate': 3.1318681318681323e-06, 'epoch': 1.46}
+{'loss': 0.3292, 'learning_rate': 3.0769230769230774e-06, 'epoch': 1.48}
+{'loss': 0.3278, 'learning_rate': 3.021978021978022e-06, 'epoch': 1.51}
+{'loss': 0.3374, 'learning_rate': 2.9670329670329673e-06, 'epoch': 1.54}
+{'loss': 0.3186, 'learning_rate': 2.9120879120879125e-06, 'epoch': 1.56}
+{'loss': 0.3152, 'learning_rate': 2.8571428571428573e-06, 'epoch': 1.59}
+{'loss': 0.3243, 'learning_rate': 2.8021978021978024e-06, 'epoch': 1.62}
+{'loss': 0.3158, 'learning_rate': 2.7472527472527476e-06, 'epoch': 1.64}
+{'loss': 0.3413, 'learning_rate': 2.6923076923076923e-06, 'epoch': 1.67}
+{'loss': 0.3204, 'learning_rate': 2.6373626373626375e-06, 'epoch': 1.7}
+{'loss': 0.3178, 'learning_rate': 2.582417582417583e-06, 'epoch': 1.72}
+{'loss': 0.3378, 'learning_rate': 2.5274725274725274e-06, 'epoch': 1.75}
+{'loss': 0.3314, 'learning_rate': 2.472527472527473e-06, 'epoch': 1.78}
+{'loss': 0.3299, 'learning_rate': 2.4175824175824177e-06, 'epoch': 1.81}
+{'loss': 0.3324, 'learning_rate': 2.362637362637363e-06, 'epoch': 1.83}
+{'loss': 0.3201, 'learning_rate': 2.307692307692308e-06, 'epoch': 1.86}
+{'loss': 0.3125, 'learning_rate': 2.252747252747253e-06, 'epoch': 1.89}
+{'loss': 0.3141, 'learning_rate': 2.197802197802198e-06, 'epoch': 1.91}
+{'loss': 0.3368, 'learning_rate': 2.1428571428571427e-06, 'epoch': 1.94}
+{'loss': 0.3131, 'learning_rate': 2.0879120879120883e-06, 'epoch': 1.97}
+{'loss': 0.3422, 'learning_rate': 2.032967032967033e-06, 'epoch': 1.99}
+{'eval_loss': 0.34793609380722046, 'eval_runtime': 7.9299, 'eval_samples_per_second': 31.526, 'eval_steps_per_second': 15.763, 'epoch': 1.99}
+{'loss': 0.3124, 'learning_rate': 1.9780219780219782e-06, 'epoch': 2.02}
+{'loss': 0.3126, 'learning_rate': 1.9230769230769234e-06, 'epoch': 2.05}
+{'loss': 0.3159, 'learning_rate': 1.8681318681318684e-06, 'epoch': 2.07}
+{'loss': 0.3178, 'learning_rate': 1.8131868131868133e-06, 'epoch': 2.1}
+{'loss': 0.3038, 'learning_rate': 1.7582417582417585e-06, 'epoch': 2.13}
+{'loss': 0.3209, 'learning_rate': 1.7032967032967034e-06, 'epoch': 2.16}
+{'loss': 0.2991, 'learning_rate': 1.6483516483516484e-06, 'epoch': 2.18}
+{'loss': 0.314, 'learning_rate': 1.5934065934065933e-06, 'epoch': 2.21}
+{'loss': 0.3001, 'learning_rate': 1.5384615384615387e-06, 'epoch': 2.24}
+{'loss': 0.3053, 'learning_rate': 1.4835164835164837e-06, 'epoch': 2.26}
+{'loss': 0.3019, 'learning_rate': 1.4285714285714286e-06, 'epoch': 2.29}
+{'loss': 0.3053, 'learning_rate': 1.3736263736263738e-06, 'epoch': 2.32}
+{'loss': 0.3165, 'learning_rate': 1.3186813186813187e-06, 'epoch': 2.34}
+{'loss': 0.3095, 'learning_rate': 1.2637362637362637e-06, 'epoch': 2.37}
+{'loss': 0.3036, 'learning_rate': 1.2087912087912089e-06, 'epoch': 2.4}
+{'loss': 0.3027, 'learning_rate': 1.153846153846154e-06, 'epoch': 2.43}
+{'loss': 0.2931, 'learning_rate': 1.098901098901099e-06, 'epoch': 2.45}
+{'loss': 0.3122, 'learning_rate': 1.0439560439560442e-06, 'epoch': 2.48}
+{'loss': 0.2979, 'learning_rate': 9.890109890109891e-07, 'epoch': 2.51}
+{'loss': 0.3241, 'learning_rate': 9.340659340659342e-07, 'epoch': 2.53}
+{'loss': 0.3093, 'learning_rate': 8.791208791208792e-07, 'epoch': 2.56}
+{'loss': 0.3041, 'learning_rate': 8.241758241758242e-07, 'epoch': 2.59}
+{'loss': 0.3131, 'learning_rate': 7.692307692307694e-07, 'epoch': 2.61}
+{'loss': 0.2968, 'learning_rate': 7.142857142857143e-07, 'epoch': 2.64}
+{'loss': 0.3173, 'learning_rate': 6.593406593406594e-07, 'epoch': 2.67}
+{'loss': 0.3066, 'learning_rate': 6.043956043956044e-07, 'epoch': 2.69}
+{'loss': 0.3055, 'learning_rate': 5.494505494505495e-07, 'epoch': 2.72}
+{'loss': 0.3038, 'learning_rate': 4.945054945054946e-07, 'epoch': 2.75}
+{'loss': 0.3038, 'learning_rate': 4.395604395604396e-07, 'epoch': 2.78}
+{'loss': 0.3158, 'learning_rate': 3.846153846153847e-07, 'epoch': 2.8}
+{'loss': 0.308, 'learning_rate': 3.296703296703297e-07, 'epoch': 2.83}
+{'loss': 0.3193, 'learning_rate': 2.7472527472527475e-07, 'epoch': 2.86}
+{'loss': 0.3089, 'learning_rate': 2.197802197802198e-07, 'epoch': 2.88}
+{'loss': 0.3096, 'learning_rate': 1.6483516483516484e-07, 'epoch': 2.91}
+{'loss': 0.3104, 'learning_rate': 1.098901098901099e-07, 'epoch': 2.94}
+{'loss': 0.3056, 'learning_rate': 5.494505494505495e-08, 'epoch': 2.96}
+{'loss': 0.3124, 'learning_rate': 0.0, 'epoch': 2.99}
+{'eval_loss': 0.3466813266277313, 'eval_runtime': 7.9258, 'eval_samples_per_second': 31.543, 'eval_steps_per_second': 15.771, 'epoch': 2.99}
+{'train_runtime': 1689.7468, 'train_samples_per_second': 8.433, 'train_steps_per_second': 0.066, 'train_loss': 0.430377958057163, 'epoch': 2.99}
+NAME
+    train.py
+
+SYNOPSIS
+    train.py GROUP | COMMAND | VALUE
+
+GROUPS
+    GROUP is one of the following:
+
+     os
+       OS routines for NT or Posix depending on what system we're on.
+
+     json
+       JSON (JavaScript Object Notation) <http://json.org> is a subset of JavaScript syntax (ECMA-262 3rd edition) used as a lightweight data interchange format.
+
+     fire
+       The Python Fire module.
+
+     hydra
+
+     torch
+       The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities.
+
+     wandb
+       Use wandb to track machine learning work.
+
+     logging
+       Logging package for Python. Based on PEP 282 and comments thereto in comp.lang.python.
+
+     Dict
+       A generic version of dict.
+
+     Sequence
+       A generic version of collections.abc.Sequence.
+
+     List
+       A generic version of list.
+
+     copy
+       Generic (shallow and deep) copying operations.
+
+     transformers
+
+COMMANDS
+    COMMAND is one of the following:
+
+     DictConfig
+       Container tagging interface
+
+     OmegaConf
+       OmegaConf primary class
+
+     TrainingArguments
+       TrainingArguments is the subset of the arguments we use in our example scripts **which relate to the training loop itself**.
+
+     Trainer
+       Trainer is a simple but feature-complete training and eval loop for PyTorch, optimized for 🤗 Transformers.
+
+     AutoModelForCausalLM
+       This is a generic model class that will be instantiated as one of the model classes of the library (with a causal language modeling head) when created with the [`~AutoModelForCausalLM.from_pretrained`] class method or the [`~AutoModelForCausalLM.from_config`] class method.
+
+     AutoTokenizer
+       This is a generic tokenizer class that will be instantiated as one of the tokenizer classes of the library when created with the [`AutoTokenizer.from_pretrained`] class method.
+
+     dataclass
+       Returns the same class as was passed in, with dunder methods added based on the fields defined in the class.
+
+     Dataset
+       A Dataset backed by an Arrow table.
+
+     VLLMInferenceModel
+       Simple vLLM Inference Wrapper for text generation and logprobs.
+
+     get_formatted_responses
+       Formats prompts and returns formatted model responses.
+
+     mutual_information
+       Computes mutual information.
+
+     DataCollatorForSupervisedDataset
+       Data collator for SFT which masks user from the loss.
+
+     preprocess
+       Preprocess the data by tokenizing.
+
+     main
+
+VALUES
+    VALUE is one of the following:
+
+     IGNORE_INDEX
+{'eval_loss': 0.16635428369045258, 'eval_runtime': 16.9297, 'eval_samples_per_second': 14.767, 'eval_steps_per_second': 7.383, 'epoch': 1.0}
+{'loss': 0.164, 'learning_rate': 4.010989010989012e-06, 'epoch': 1.02}
+{'loss': 0.1563, 'learning_rate': 3.9560439560439565e-06, 'epoch': 1.05}
+{'loss': 0.1549, 'learning_rate': 3.901098901098901e-06, 'epoch': 1.08}
+{'loss': 0.1634, 'learning_rate': 3.846153846153847e-06, 'epoch': 1.1}
+{'loss': 0.1584, 'learning_rate': 3.7912087912087915e-06, 'epoch': 1.13}
+{'loss': 0.1519, 'learning_rate': 3.7362637362637367e-06, 'epoch': 1.16}
+{'loss': 0.1525, 'learning_rate': 3.681318681318682e-06, 'epoch': 1.19}
+{'loss': 0.1531, 'learning_rate': 3.6263736263736266e-06, 'epoch': 1.21}
+{'loss': 0.154, 'learning_rate': 3.5714285714285718e-06, 'epoch': 1.24}
+{'loss': 0.151, 'learning_rate': 3.516483516483517e-06, 'epoch': 1.27}
+{'loss': 0.1536, 'learning_rate': 3.4615384615384617e-06, 'epoch': 1.29}
+{'loss': 0.1472, 'learning_rate': 3.406593406593407e-06, 'epoch': 1.32}
+{'loss': 0.1448, 'learning_rate': 3.3516483516483516e-06, 'epoch': 1.35}
+{'loss': 0.153, 'learning_rate': 3.2967032967032968e-06, 'epoch': 1.37}
+{'loss': 0.1513, 'learning_rate': 3.2417582417582424e-06, 'epoch': 1.4}
+{'loss': 0.1482, 'learning_rate': 3.1868131868131867e-06, 'epoch': 1.43}
+{'loss': 0.1486, 'learning_rate': 3.1318681318681323e-06, 'epoch': 1.46}
+{'loss': 0.1518, 'learning_rate': 3.0769230769230774e-06, 'epoch': 1.48}
+{'loss': 0.145, 'learning_rate': 3.021978021978022e-06, 'epoch': 1.51}
+{'loss': 0.1491, 'learning_rate': 2.9670329670329673e-06, 'epoch': 1.54}
+{'loss': 0.1457, 'learning_rate': 2.9120879120879125e-06, 'epoch': 1.56}
+{'loss': 0.1513, 'learning_rate': 2.8571428571428573e-06, 'epoch': 1.59}
+{'loss': 0.1419, 'learning_rate': 2.8021978021978024e-06, 'epoch': 1.62}
+{'loss': 0.1455, 'learning_rate': 2.7472527472527476e-06, 'epoch': 1.64}
+{'loss': 0.1513, 'learning_rate': 2.6923076923076923e-06, 'epoch': 1.67}
+{'loss': 0.1452, 'learning_rate': 2.6373626373626375e-06, 'epoch': 1.7}
+{'loss': 0.1489, 'learning_rate': 2.582417582417583e-06, 'epoch': 1.72}
+{'loss': 0.1455, 'learning_rate': 2.5274725274725274e-06, 'epoch': 1.75}
+{'loss': 0.1497, 'learning_rate': 2.472527472527473e-06, 'epoch': 1.78}
+{'loss': 0.147, 'learning_rate': 2.4175824175824177e-06, 'epoch': 1.81}
+{'loss': 0.1488, 'learning_rate': 2.362637362637363e-06, 'epoch': 1.83}
+{'loss': 0.1523, 'learning_rate': 2.307692307692308e-06, 'epoch': 1.86}
+{'loss': 0.1478, 'learning_rate': 2.252747252747253e-06, 'epoch': 1.89}
+{'loss': 0.1474, 'learning_rate': 2.197802197802198e-06, 'epoch': 1.91}
+{'loss': 0.1493, 'learning_rate': 2.1428571428571427e-06, 'epoch': 1.94}
+{'loss': 0.1468, 'learning_rate': 2.0879120879120883e-06, 'epoch': 1.97}
+{'loss': 0.1528, 'learning_rate': 2.032967032967033e-06, 'epoch': 1.99}
+{'eval_loss': 0.15661929547786713, 'eval_runtime': 16.9231, 'eval_samples_per_second': 14.773, 'eval_steps_per_second': 7.386, 'epoch': 1.99}
+{'loss': 0.1393, 'learning_rate': 1.9780219780219782e-06, 'epoch': 2.02}
+{'loss': 0.1387, 'learning_rate': 1.9230769230769234e-06, 'epoch': 2.05}
+{'loss': 0.1418, 'learning_rate': 1.8681318681318684e-06, 'epoch': 2.07}
+{'loss': 0.1355, 'learning_rate': 1.8131868131868133e-06, 'epoch': 2.1}
+{'loss': 0.1383, 'learning_rate': 1.7582417582417585e-06, 'epoch': 2.13}
+{'loss': 0.1419, 'learning_rate': 1.7032967032967034e-06, 'epoch': 2.16}
+{'loss': 0.1367, 'learning_rate': 1.6483516483516484e-06, 'epoch': 2.18}
+{'loss': 0.1361, 'learning_rate': 1.5934065934065933e-06, 'epoch': 2.21}
+{'loss': 0.1351, 'learning_rate': 1.5384615384615387e-06, 'epoch': 2.24}
+{'loss': 0.1404, 'learning_rate': 1.4835164835164837e-06, 'epoch': 2.26}
+{'loss': 0.136, 'learning_rate': 1.4285714285714286e-06, 'epoch': 2.29}
+{'loss': 0.1333, 'learning_rate': 1.3736263736263738e-06, 'epoch': 2.32}
+{'loss': 0.1414, 'learning_rate': 1.3186813186813187e-06, 'epoch': 2.34}
+{'loss': 0.136, 'learning_rate': 1.2637362637362637e-06, 'epoch': 2.37}
+{'loss': 0.1393, 'learning_rate': 1.2087912087912089e-06, 'epoch': 2.4}
+{'loss': 0.1334, 'learning_rate': 1.153846153846154e-06, 'epoch': 2.43}
+{'loss': 0.1465, 'learning_rate': 1.098901098901099e-06, 'epoch': 2.45}
+{'loss': 0.1353, 'learning_rate': 1.0439560439560442e-06, 'epoch': 2.48}
+{'loss': 0.1398, 'learning_rate': 9.890109890109891e-07, 'epoch': 2.51}
+{'loss': 0.1431, 'learning_rate': 9.340659340659342e-07, 'epoch': 2.53}
+{'loss': 0.1419, 'learning_rate': 8.791208791208792e-07, 'epoch': 2.56}
+{'loss': 0.1339, 'learning_rate': 8.241758241758242e-07, 'epoch': 2.59}
+{'loss': 0.1358, 'learning_rate': 7.692307692307694e-07, 'epoch': 2.61}
+{'loss': 0.1375, 'learning_rate': 7.142857142857143e-07, 'epoch': 2.64}
+{'loss': 0.1358, 'learning_rate': 6.593406593406594e-07, 'epoch': 2.67}
+{'loss': 0.1372, 'learning_rate': 6.043956043956044e-07, 'epoch': 2.69}
+{'loss': 0.1358, 'learning_rate': 5.494505494505495e-07, 'epoch': 2.72}
+{'loss': 0.1405, 'learning_rate': 4.945054945054946e-07, 'epoch': 2.75}
+{'loss': 0.1348, 'learning_rate': 4.395604395604396e-07, 'epoch': 2.78}
+{'loss': 0.1386, 'learning_rate': 3.846153846153847e-07, 'epoch': 2.8}
+{'loss': 0.1428, 'learning_rate': 3.296703296703297e-07, 'epoch': 2.83}
+{'loss': 0.138, 'learning_rate': 2.7472527472527475e-07, 'epoch': 2.86}
+{'loss': 0.1436, 'learning_rate': 2.197802197802198e-07, 'epoch': 2.88}
+{'loss': 0.1342, 'learning_rate': 1.6483516483516484e-07, 'epoch': 2.91}
+{'loss': 0.1394, 'learning_rate': 1.098901098901099e-07, 'epoch': 2.94}
+{'loss': 0.1357, 'learning_rate': 5.494505494505495e-08, 'epoch': 2.96}
+{'loss': 0.1448, 'learning_rate': 0.0, 'epoch': 2.99}
+{'eval_loss': 0.15625256299972534, 'eval_runtime': 16.9749, 'eval_samples_per_second': 14.728, 'eval_steps_per_second': 7.364, 'epoch': 2.99}
+{'train_runtime': 3151.5363, 'train_samples_per_second': 4.522, 'train_steps_per_second': 0.035, 'train_loss': 0.1790982864729993, 'epoch': 2.99}
+NAME
+    train.py
+
+SYNOPSIS
+    train.py GROUP | COMMAND | VALUE
+
+GROUPS
+    GROUP is one of the following:
+
+     os
+       OS routines for NT or Posix depending on what system we're on.
+
+     json
+       JSON (JavaScript Object Notation) <http://json.org> is a subset of JavaScript syntax (ECMA-262 3rd edition) used as a lightweight data interchange format.
+
+     fire
+       The Python Fire module.
+
+     hydra
+
+     torch
+       The torch package contains data structures for multi-dimensional tensors and defines mathematical operations over these tensors. Additionally, it provides many utilities for efficient serialization of Tensors and arbitrary types, and other useful utilities.
+
+     wandb
+       Use wandb to track machine learning work.
+
+     logging
+       Logging package for Python. Based on PEP 282 and comments thereto in comp.lang.python.
+
+     Dict
+       A generic version of dict.
+
+     Sequence
+       A generic version of collections.abc.Sequence.
+
+     List
+       A generic version of list.
+
+     copy
+       Generic (shallow and deep) copying operations.
+
+     transformers
+
+COMMANDS
+    COMMAND is one of the following:
+
+     DictConfig
+       Container tagging interface
+
+     OmegaConf
+       OmegaConf primary class
+
+     TrainingArguments
+       TrainingArguments is the subset of the arguments we use in our example scripts **which relate to the training loop itself**.
+
+     Trainer
+       Trainer is a simple but feature-complete training and eval loop for PyTorch, optimized for 🤗 Transformers.
+
+     AutoModelForCausalLM
+       This is a generic model class that will be instantiated as one of the model classes of the library (with a causal language modeling head) when created with the [`~AutoModelForCausalLM.from_pretrained`] class method or the [`~AutoModelForCausalLM.from_config`] class method.
+
+     AutoTokenizer
+       This is a generic tokenizer class that will be instantiated as one of the tokenizer classes of the library when created with the [`AutoTokenizer.from_pretrained`] class method.
+
+     dataclass
+       Returns the same class as was passed in, with dunder methods added based on the fields defined in the class.
+
+     Dataset
+       A Dataset backed by an Arrow table.
+
+     VLLMInferenceModel
+       Simple vLLM Inference Wrapper for text generation and logprobs.
+
+     get_formatted_responses
+       Formats prompts and returns formatted model responses.
+
+     mutual_information
+       Computes mutual information.
+
+     DataCollatorForSupervisedDataset
+       Data collator for SFT which masks user from the loss.
+
+     preprocess
+       Preprocess the data by tokenizing.
+
+     main
+
+VALUES
+    VALUE is one of the following:
+
+     IGNORE_INDEX

@@ -1,18 +1,16 @@
-prompts: data/original_prompts/human_assistant_instruct.json
 n_prompts: 5
-n_shots: 5
-
-save_file: data/base_responses/human_assistant_instruct_5k.json
-
+n_shots: 2
+dataset_split: train
+cache_dir: /scr/jphilipp/tstar/datasets/gsm
+save_file: data/base_responses/base_responses.json
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
-
 generation_config:
   max_new_tokens: 2048
-  num_return_sequences: 5
-  best_of: 5
+  num_return_sequences: 10
+  best_of: 10
   temperature: 1.0
