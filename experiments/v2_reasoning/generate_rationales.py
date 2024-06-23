@@ -2,6 +2,7 @@
 import json
 import fire
 import hydra
+import copy
 import numpy as np 
 from omegaconf import DictConfig
 from datasets import load_dataset
@@ -53,16 +54,27 @@ def main(args: DictConfig) -> None:
         **args.generation_config,
     )
     
-    # format
-    formatted_responses = [
-        response.split('<|end_header_id|>')[1].strip().split("Rationale:")[1].strip()
-        for response in batch_responses
-    ]
+    formatted_responses = []
+    for response in batch_responses:
+        try:
+            formatted_responses.append(response.split('<|end_header_id|>')[1].strip().split("Rationale:")[1].strip())
+        except:
+            print("INVALID")
+            formatted_responses.append("<|invalid|>")
     
-    breakpoint()
-
-    # eval respons 
-
+    formatted_response_batches = {}
+    formatted_response_batch = []
+    prompt = 0
+    for i, response in enumerate(formatted_responses):
+        formatted_response_batch.append(response)
+        if i > 0 and i % args.n_shots == 0:
+            formatted_response_batches[prompt] = copy.deepcopy(formatted_response_batch)
+            formatted_response_batch = []
+            prompt += 1
+        
+        
+    with open(args.save_file, "w") as f:
+        json.dump(formatted_response_batches, f, indent=4)
 
 if __name__ == "__main__":
     fire.Fire(main())
