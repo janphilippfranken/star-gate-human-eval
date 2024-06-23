@@ -1,0 +1,50 @@
+[2024-06-23 10:14:15,806][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled
+learning rate: 5e-06
+DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 4750
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 250
+    })
+})
+[2024-06-23 10:14:32,843][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 0.4721, 'learning_rate': 2.5000000000000004e-07, 'epoch': 0.03}
+{'loss': 0.5888, 'learning_rate': 5.000000000000001e-07, 'epoch': 0.05}
+{'loss': 0.5696, 'learning_rate': 7.5e-07, 'epoch': 0.08}
+{'loss': 0.6437, 'learning_rate': 1.0000000000000002e-06, 'epoch': 0.11}
+{'loss': 0.5273, 'learning_rate': 1.25e-06, 'epoch': 0.13}
+{'loss': 0.6167, 'learning_rate': 1.5e-06, 'epoch': 0.16}
+{'loss': 0.4507, 'learning_rate': 1.75e-06, 'epoch': 0.19}
+{'loss': 0.466, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.22}
+{'loss': 0.4214, 'learning_rate': 2.25e-06, 'epoch': 0.24}
+{'loss': 0.466, 'learning_rate': 2.5e-06, 'epoch': 0.27}
+{'loss': 0.4249, 'learning_rate': 2.7500000000000004e-06, 'epoch': 0.3}
+{'loss': 0.4448, 'learning_rate': 3e-06, 'epoch': 0.32}
+{'loss': 0.345, 'learning_rate': 3.2500000000000002e-06, 'epoch': 0.35}
+{'loss': 0.3495, 'learning_rate': 3.5e-06, 'epoch': 0.38}
+{'loss': 0.383, 'learning_rate': 3.7500000000000005e-06, 'epoch': 0.4}
+{'loss': 0.3075, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.43}
+{'loss': 0.3213, 'learning_rate': 4.25e-06, 'epoch': 0.46}
+{'loss': 0.3429, 'learning_rate': 4.5e-06, 'epoch': 0.49}
+{'loss': 0.3199, 'learning_rate': 4.75e-06, 'epoch': 0.51}
+{'loss': 0.3267, 'learning_rate': 5e-06, 'epoch': 0.54}
+{'loss': 0.275, 'learning_rate': 4.945054945054946e-06, 'epoch': 0.57}
+{'loss': 0.251, 'learning_rate': 4.890109890109891e-06, 'epoch': 0.59}
+{'loss': 0.2309, 'learning_rate': 4.8351648351648355e-06, 'epoch': 0.62}
+{'loss': 0.2436, 'learning_rate': 4.780219780219781e-06, 'epoch': 0.65}
+{'loss': 0.2756, 'learning_rate': 4.725274725274726e-06, 'epoch': 0.67}
+{'loss': 0.2608, 'learning_rate': 4.6703296703296706e-06, 'epoch': 0.7}
+{'loss': 0.2747, 'learning_rate': 4.615384615384616e-06, 'epoch': 0.73}
+{'loss': 0.2599, 'learning_rate': 4.560439560439561e-06, 'epoch': 0.75}
+{'loss': 0.2414, 'learning_rate': 4.505494505494506e-06, 'epoch': 0.78}
+{'loss': 0.234, 'learning_rate': 4.45054945054945e-06, 'epoch': 0.81}
+{'loss': 0.2385, 'learning_rate': 4.395604395604396e-06, 'epoch': 0.84}
+{'loss': 0.24, 'learning_rate': 4.340659340659341e-06, 'epoch': 0.86}
+{'loss': 0.2223, 'learning_rate': 4.2857142857142855e-06, 'epoch': 0.89}
+{'loss': 0.2246, 'learning_rate': 4.230769230769231e-06, 'epoch': 0.92}
+{'loss': 0.2293, 'learning_rate': 4.175824175824177e-06, 'epoch': 0.94}
+{'loss': 0.2095, 'learning_rate': 4.120879120879121e-06, 'epoch': 0.97}
+{'loss': 0.2192, 'learning_rate': 4.065934065934066e-06, 'epoch': 1.0}

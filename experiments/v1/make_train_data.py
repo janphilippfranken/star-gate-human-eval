@@ -29,7 +29,7 @@ def main(args: DictConfig) -> None:
     
     # conversations
     conversations = {k: [] for k in ['id', 'user_id', 'user', 'prompt', 'attempt', 'question', 'response']}
-    for conversation_batch in sorted(os.listdir(args.conversations))[:4]:
+    for conversation_batch in sorted(os.listdir(args.conversations)):
         with open(f"{args.conversations}{conversation_batch}", 'r') as f:
             conversation_batch = json.load(f)
         for key in conversations:
@@ -37,10 +37,10 @@ def main(args: DictConfig) -> None:
         
     # eig for best questions
     best_question_attempts = []
-    for eig_batch in sorted(os.listdir(args.eig))[:4]:
+    for eig_batch in sorted(os.listdir(args.eig)):
         with open(f"{args.eig}{eig_batch}", 'r') as f:
             eig_batch = json.load(f)
-        eig_batch = [datum["best_question_idx"] for datum in eig_batch.values()]
+        eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
         best_question_attempts.extend(eig_batch)
        
     with open(args.labels, 'r') as f:
@@ -69,26 +69,27 @@ def main(args: DictConfig) -> None:
         key = f"prompt_{prompt_id}_user_{rand_user}_attempt_{best_attempt}"
         conversation_dict_filtered[key] = copy.deepcopy(conversation_dict[key])
     
-    breakpoint()
-    # now to make sure dataset is balanced, only have each prompt appear once; so we sample random user 
-    # conversation_keys_filtered = [
-    #     f"prompt_{prompt_id}_user_{torch.randint(args.n_users, (1,)).item()}_attempt_{best_question_attempts[prompt_id]}"
-    #     for prompt_id in range(args.n_prompts)
-    # ]
-    
-    # # and update the dictionary 
-    # conversation_dict_filtered = {
-    #     k: conversation_dict_filtered[k] 
-    #     for k in conversation_keys_filtered
-    # }
-
     # format prompts
     batch_prompts = []
+    batch_prompts_for_training = []
     for conversation_key, conversation in conversation_dict_filtered.items():
         prompt_key = int(conversation_key.split("_")[1])
-        if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
+        if True:
+        # if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
             # now we dont want to include all of them because we have a bunch of them per user; so we only include 30% for now)
             batch_prompts.append([
+                {"role": "user", "content": conversation["prompt"]},
+                {"role": "assistant", "content": conversation["question"]},
+                {"role": "user", "content": FINAL_RESPONSE_PROMPT.format(response=conversation["response"], question=conversation["question"], prompt=conversation["prompt"])},
+            ])
+            
+            # batch_prompts.append([
+            #     {"role": "user", "content": conversation["prompt"]},
+            #     {"role": "assistant", "content": conversation["question"]},
+            #     {"role": "user", "content": conversation["response"]},
+            # ])
+            
+            batch_prompts_for_training.append([
                 {"role": "user", "content": conversation["prompt"]},
                 {"role": "assistant", "content": conversation["question"]},
                 {"role": "user", "content": conversation["response"]},
@@ -96,6 +97,7 @@ def main(args: DictConfig) -> None:
         
         else:  # if this is a prompt for which we should not ask a question
             batch_prompts.append([{"role": "user", "content": conversation["prompt"]}])
+            batch_prompts_for_training.append([{"role": "user", "content": conversation["prompt"]}])
 
     formatted_batch_prompts = [
         tokenizer.apply_chat_template(prompt, tokenize=False) 
@@ -112,20 +114,23 @@ def main(args: DictConfig) -> None:
     formatted_responses =  []
     for response in batch_responses:
         try:
-            formatted_responses.append(response.split('<|end_header_id|>')[1].strip())
+            response = response.split('<|end_header_id|>')[1].strip()
+            if "Final Response:" in response:
+                response = response.split("Final Response:")[1].strip()
+            formatted_responses.append(response)
         except:
             print(f"INVALID response: {response}")
             formatted_responses.append('<|invalid|>')
-            
+
     # append final response to training data
     training_data = []
-    for prompt, response in zip(batch_prompts, formatted_responses):
+    for prompt, response in zip(batch_prompts_for_training, formatted_responses):
         conversation = prompt + [{"role": "assistant", "content": response}]
         training_data.append(conversation)
         
     # TODO: implement some filtering here if needed
     
-    breakpoint()
+
     # save as dataset with messages as key
     with open(args.save_file, 'w') as f:
         json.dump(training_data, f, indent=4)

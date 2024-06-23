@@ -7,8 +7,8 @@
 #SBATCH --mem=128GB                       
 #SBATCH --cpus-per-task=32               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=train.out   
-#SBATCH --error=train.err
+#SBATCH --output=train_no_cot.out   
+#SBATCH --error=train_no_cot.err
 
 export MASTER_ADDR=568.0.0.1  
 export MASTER_PORT=29500    

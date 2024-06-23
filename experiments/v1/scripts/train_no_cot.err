@@ -1,0 +1,64 @@
+wandb: Currently logged in as: janphilipp-franken. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.1
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/star-gate-human-eval/experiments/v1/wandb/run-20240623_103326-bza6ddt9
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run stargate-5k-not-cot-distilled
+wandb: ⭐️ View project at https://wandb.ai/janphilipp-franken/stargate
+wandb: 🚀 View run at https://wandb.ai/janphilipp-franken/stargate/runs/bza6ddt9
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.23it/s]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.29it/s]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.29it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.75it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.54it/s]
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/accelerate/accelerator.py:444: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['dispatch_batches', 'split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(dispatch_batches=None, split_batches=False)
+  warnings.warn(
+
+  0%|          | 0/111 [00:00<?, ?it/s]
+  1%|          | 1/111 [00:27<49:42, 27.11s/it]
+                                               
+
+  1%|          | 1/111 [00:27<49:42, 27.11s/it]
+  2%|▏         | 2/111 [00:53<48:19, 26.60s/it]
+                                               
+
+  2%|▏         | 2/111 [00:53<48:19, 26.60s/it]
+  3%|▎         | 3/111 [01:19<47:09, 26.19s/it]
+                                               
+
+  3%|▎         | 3/111 [01:19<47:09, 26.19s/it]
+  4%|▎         | 4/111 [01:45<47:12, 26.47s/it]
+                                               
+
+  4%|▎         | 4/111 [01:45<47:12, 26.47s/it]
+  5%|▍         | 5/111 [02:11<46:02, 26.06s/it]
+                                               
+
+  5%|▍         | 5/111 [02:11<46:02, 26.06s/it]
+  5%|▌         | 6/111 [02:37<45:43, 26.12s/it]
+                                               
+
+  5%|▌         | 6/111 [02:37<45:43, 26.12s/it]
+  6%|▋         | 7/111 [03:03<45:04, 26.01s/it]
+                                               
+
+  6%|▋         | 7/111 [03:03<45:04, 26.01s/it]
+  7%|▋         | 8/111 [03:29<44:36, 25.98s/it]
+                                               
+
+  7%|▋         | 8/111 [03:29<44:36, 25.98s/it]
+  8%|▊         | 9/111 [03:54<44:01, 25.90s/it]
+                                               
+
+  8%|▊         | 9/111 [03:54<44:01, 25.90s/it]
+  9%|▉         | 10/111 [04:21<43:57, 26.12s/it]
+                                                
+
+  9%|▉         | 10/111 [04:21<43:57, 26.12s/it]
