@@ -1,0 +1,4 @@
+- seed=2
+- prompt_start=5000
+- prompt_end=7500
+- save_file=data/conversations/human_assistant_instruct_5000_7500.json

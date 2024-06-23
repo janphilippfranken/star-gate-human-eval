@@ -1,0 +1,80 @@
+ORACLE_PROMPT = """Hi! Here is my profile: {user}
+
+I have the following question for you:
+
+Question: {question}
+
+Please write a personalized response that aligns with my background and preferences.
+
+Format your response as follows:
+Reasoning: <Your step-by-step reasoning reflecting on the question and my profile to determine what aspects of my profile are relevant to my question.>
+Most Important Aspects: <List the 5-10 most important aspects of my profile that are relevant to the question. Just write them down as a list.>
+Response: <Based on the reasoning and most important aspects above, provide a personalized response. Avoid repetition and focus on key aspects that address my needs and preferences. Use "you" to refer to me directly. Avoid first-person pronouns like "I" and do not start with 'Considering your background and preferences.' Do not use phrases like 'As someone' or 'As you.' Ensure the response incorporates the attributes listed in the Most Important Aspects section. The response should be around 5-6 sentences long and synthesize all relevant aspects.>
+
+Additional Comments: <Any additional comments you may have.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
+RESPONSE_PROMPT = """{question}"""
+
+
+PROMPT_LOGPROBS = """Hi! Here is my profile: {user}
+
+I have the following question for you:
+
+Question: {question}
+
+Please provide a personalized response that aligns with my background and preferences. 
+
+Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
+
+
+QUESTION_PROMPT =  """A user with an unknown profile has asked you the following question:
+
+Question: {question}
+
+Instead of providing a response, you must ask a clarifying question specific to the user's question to elicit relevant background information. Consider various aspects such as the user's context, specific preferences, and any assumptions that could be made about their background. Be creative and try to ask an informative question. 
+
+To generate diverse and creative clarifying questions, think about:
+- The context in which the user might be asking the question.
+- Any assumptions you can make about the user's background.
+- The user's specific preferences or interests related to the topic.
+- Potential goals or outcomes the user might be seeking.
+
+Format your output as follows:
+Reasoning: <Your step-by-step reasoning analyzing the user's question and thinking about what background information from the user might be relevant to provide a high-quality personalized response.>
+Clarifying Question: <The high-quality clarifying question you are asking the user to elicit relevant background information and preferences. Be concise.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
+ROLEPLAY_PROMPT = """You must adopt the following persona in all conversations: {user}
+
+Roleplaying the above persona, answer the following question:
+
+Question: {question}
+
+Format your response as follows:
+Reasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>
+Response: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
+ROLEPLAY_PROMPTS = {
+    'standard': """You must adopt the following persona in all conversations: {user}\n\nRoleplaying the above persona, answer the following question:\n\nQuestion: {question}\n\nFormat your response as follows:\n\nReasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>\n\nResponse: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>\n\nPlease follow these formatting instructions precisely. Failure to do so will result in disqualification. Remember: No more than {max_words} words are allowed.""",
+    
+    'bullet_points': """You must adopt the following persona in all conversations: {user}\n\nRoleplaying the above persona, answer the following question:\n\nQuestion: {question}\n\nFormat your response as follows:\n\nReasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>\n\nResponse: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section. Use bullet points only, no full sentences here. This needs to be a realistic human response. People are lazy! Remember, no more than {max_words} words!>\n\nPlease follow these formatting instructions precisely. Failure to do so will result in disqualification. Remember: No more than {max_words} allowed. Also, use a lazy response style like only bullet points etc., no need for full sentences. Imagine being a lazy human user; people are lazy.""",
+    
+}
+
+
+FINAL_RESPONSE_PROMPT = """{response}
+
+Given your follow-up question: '{question}' and my response: '{response}', please provide a personalized answer to my initial question: '{prompt}'. Be concise and format your final response as follows:
+
+Reasoning: <Your step-by-step reasoning reflecting on my initial question, your follow-up question, and my response. What aspects of my response are relevant to the initial question, and how can they inform a strong final answer from you? Write at least 2-3 sentences here to clearly articulate what you have learned about me from your question and my response.>
+Final Response: <A personalized and concise final answer distilling the above information about me into your response. Do not waffle or provide generic advice. Do not hallucinate. Provide an exceptional, concise answer to my initial question here, incorporating what you have learned about me. Do not repeat the initial question and address me as 'you'.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""

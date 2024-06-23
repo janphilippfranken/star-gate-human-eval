@@ -1,0 +1,4 @@
+- prompt_start=500
+- prompt_end=1000
+- conversations=data/conversations/human_assistant_instruct_500_1000.json
+- save_file=data/expected_info_gain/eig_human_assistant_instruct_500_1000.json

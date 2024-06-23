@@ -1,0 +1,28 @@
+prompts: data/original_prompts/human_assistant_instruct.json
+users: data/users/users.json
+seed: 0
+prompt_start: 2500
+prompt_end: 5000
+n_users: 20
+n_users_per_prompt: 5
+save_file: data/conversations/human_assistant_instruct_2500_5000_v2.json
+roleplayer_mean_words: 20
+roleplayer_std_words: 10
+roleplayer_min_words: 10
+roleplayer_max_words: 50
+model_config:
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+generation_config_questioner:
+  max_new_tokens: 2048
+  num_return_sequences: 7
+  best_of: 10
+  temperature: 1.0
+generation_config_roleplayer:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 0.0

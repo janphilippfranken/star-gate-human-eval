@@ -1,0 +1,15 @@
+gold_responses: data/gold_responses_prism.json
+conversations: data/conversations_human_assistant_instruct.json
+n_users: 5
+n_logprobs_per_token: 0
+save_file: data/eig_human_assistant_instruct.json
+model_config:
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  temperature: 0.0
