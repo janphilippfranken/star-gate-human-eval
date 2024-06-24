@@ -1,20 +1,17 @@
-n_prompts: 100
+n_prompts: 10
 n_shots: 10
-
-dataset_split: train
-cache_dir: /scr/jphilipp/tstar/datasets/gsm
-
-save_file: data/rationales/rationales.json
-
+base_responses: data/base_responses/base_responses.json
+rationales: data/rationales/rationales.json
+n_logprobs_per_token: 0
+save_file: data/kl_divergence/kl_divergence.json
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
-
 generation_config:
   max_new_tokens: 2048
-  num_return_sequences: 10
-  best_of: 10
-  temperature: 1.0
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 0.0

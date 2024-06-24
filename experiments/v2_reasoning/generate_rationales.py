@@ -57,7 +57,7 @@ def main(args: DictConfig) -> None:
     formatted_responses = []
     for response in batch_responses:
         try:
-            formatted_responses.append(response.split('<|end_header_id|>')[1].strip().split("Rationale:")[1].strip())
+            formatted_responses.append(response.split('<|end_header_id|>')[1].strip().split("Reasoning:")[1].strip().split("Final Answer:")[0].strip())
         except:
             print("INVALID")
             formatted_responses.append("<|invalid|>")
@@ -66,11 +66,15 @@ def main(args: DictConfig) -> None:
     formatted_response_batch = []
     prompt = 0
     for i, response in enumerate(formatted_responses):
+        
         formatted_response_batch.append(response)
-        if i > 0 and i % args.n_shots == 0:
+        
+        if (i + 1) % args.n_shots == 0:
             formatted_response_batches[prompt] = copy.deepcopy(formatted_response_batch)
             formatted_response_batch = []
             prompt += 1
+        
+        
         
         
     with open(args.save_file, "w") as f:

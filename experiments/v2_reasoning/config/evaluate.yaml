@@ -1,12 +1,12 @@
 n_prompts: 100
 n_shots: 10
 
-base_responses: data/base_responses/base_responses.json
-rationales: data/rationales/rationales.json
-
 n_logprobs_per_token: 0
 
-save_file: data/expected_info_gain/expected_info_gain.json
+dataset_split: train
+cache_dir: /scr/jphilipp/tstar/datasets/gsm
+rationales: data/kl_divergence/kl_divergence.json
+save_file: data/results/results.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

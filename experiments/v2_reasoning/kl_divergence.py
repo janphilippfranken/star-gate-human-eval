@@ -15,7 +15,7 @@ from helpers import *
 from prompts import *
 
 
-@hydra.main(version_base=None, config_path="config", config_name="expected_info_gain")
+@hydra.main(version_base=None, config_path="config", config_name="kl_divergence")
 def main(args: DictConfig) -> None:
    
     # # model
@@ -50,9 +50,8 @@ def main(args: DictConfig) -> None:
         prior_probs = torch.nn.functional.softmax(prior_logprobs, dim=0)
 
         # compute target probs 
-        target = torch.tensor(response_batch["result"]).float()
-        target = target.masked_fill(target == 0, float("-inf"))
-        target_probs = torch.nn.functional.softmax(target, dim=0)
+        target = torch.tensor(response_batch["result"])
+        target_probs = (target + 1e-32) / (target + 1e-32).sum()
         
         # initialize tensor of conditional probso 
         conditional_logprobs = torch.empty(args.n_shots, prior_probs.shape[0])
@@ -63,14 +62,14 @@ def main(args: DictConfig) -> None:
                 
                 # prompt without response 
                 prompt_without_response = [
-                    {"role": "user", "content": response_batch["prompt"]},
-                    {"role": "assistant", "content": RATIONALE_LOGPROBS_PROMPT.format(rationale=rationale_batch[rationale_attempt], response="")}
+                    {"role": "user", "content": RATIONALE_LOGPROBS_PROMPT_HUMAN.format(question=response_batch["prompt"])},
+                    {"role": "assistant", "content": RATIONALE_LOGPROBS_PROMPT_ASSISTANT.format(rationale=rationale_batch[rationale_attempt], answer="")}
                 ]
                 
                 # prompt with response 
                 prompt_with_response = [
-                    {"role": "user", "content": response_batch["prompt"]},
-                    {"role": "assistant", "content": RATIONALE_LOGPROBS_PROMPT.format(rationale=rationale_batch[rationale_attempt], response=response_batch["response"][response_attempt])}
+                    {"role": "user", "content": RATIONALE_LOGPROBS_PROMPT_HUMAN.format(question=response_batch["prompt"])},
+                    {"role": "assistant", "content": RATIONALE_LOGPROBS_PROMPT_ASSISTANT.format(rationale=rationale_batch[rationale_attempt], answer=response_batch["response"][response_attempt])}
                 ]
                 
                 formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
@@ -103,13 +102,35 @@ def main(args: DictConfig) -> None:
         min_kl = torch.argmin(kl_divergence).item()
         max_kl = torch.argmax(kl_divergence).item()
         
+        # cross entropy 
+        target_labels = torch.tensor(target).float().unsqueeze(0).expand_as(conditional_probs)
+        binary_cross_entropy = torch.nn.functional.binary_cross_entropy(conditional_probs, target_labels, reduction="none")
+        binary_cross_entropy = binary_cross_entropy.mean(dim=-1)
+        min_binary_cross_entropy = torch.argmin(binary_cross_entropy).item()
+        max_binary_cross_entropy = torch.argmax(binary_cross_entropy).item()
+  
         best_rationales[prompt_id] = {}
+        
+        # kl
         best_rationales[prompt_id]["percentage_correct"] = response_batch["percentage_correct"]
-        best_rationales[prompt_id]["best_rationale_idx"] = min_kl
-        best_rationales[prompt_id]["best_rationale"] = rationale_batch[min_kl]
-        best_rationales[prompt_id]["worst_rationale_idx"] = max_kl
-        best_rationales[prompt_id]["worst_rationale"] = rationale_batch[max_kl]
+        best_rationales[prompt_id]["best_rationale_idx_kl"] = min_kl
+        best_rationales[prompt_id]["best_rationale_kl"] = rationale_batch[min_kl]
+        best_rationales[prompt_id]["worst_rationale_idx_kl"] = max_kl
+        best_rationales[prompt_id]["worst_rationale_kl"] = rationale_batch[max_kl]
         best_rationales[prompt_id]["kls"] = kl_divergence.tolist()
+        best_rationales[prompt_id]["best_kl"] = kl_divergence[min_kl].item()
+        best_rationales[prompt_id]["worst_kl"] = kl_divergence[max_kl].item()
+        
+        # cross entropy 
+        best_rationales[prompt_id]["best_rationale_idx_ce"] = min_binary_cross_entropy
+        best_rationales[prompt_id]["best_rationale_ce"] = rationale_batch[min_binary_cross_entropy]
+        best_rationales[prompt_id]["worst_rationale_idx_ce"] = max_binary_cross_entropy
+        best_rationales[prompt_id]["worst_rationale_ce"] = rationale_batch[max_binary_cross_entropy]
+        best_rationales[prompt_id]["ces"] = binary_cross_entropy.tolist()
+        best_rationales[prompt_id]["best_ce"] = binary_cross_entropy[min_binary_cross_entropy].item()
+        best_rationales[prompt_id]["worst_ce"] = binary_cross_entropy[max_binary_cross_entropy].item()
+        
+
         
     
     with open(args.save_file, "w") as f:
