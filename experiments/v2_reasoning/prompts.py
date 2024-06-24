@@ -14,3 +14,8 @@ Reasoning: <your step-by-step reasoning here for how you would answer the questi
 Rationale: <your high-quality rationale which distills the above reasoning into a clearly articulated reasoning trace for how to answer the above question. Do not include a response here, but simply focus on a strong reasoning trace. Do not use 'I' here, simply state what the key rationale/key approach to solving the problem is without stating the actual answer.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
+RATIONALE_LOGPROBS_PROMPT = """Reasoning: {rationale}
+
+Answer: {response}"""

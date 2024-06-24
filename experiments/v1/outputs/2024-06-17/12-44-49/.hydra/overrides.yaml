@@ -1,4 +1,0 @@
-- prompt_start=0
-- prompt_end=500
-- conversations=data/conversations/human_assistant_instruct_0_500.json
-- save_file=data/expected_info_gain/eig_human_assistant_instruct_0_500.json

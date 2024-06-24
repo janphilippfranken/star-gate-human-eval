@@ -1,5 +1,0 @@
-- seed=0
-- n_users_per_prompt=2
-- prompt_start=0
-- prompt_end=5
-- save_file=data/conversations/hai_start_0_end_5_n_user_2_seed_0.json

@@ -1,4 +1,4 @@
-"""Generate responses and logprobs."""
+"""Generate rationales."""
 import json
 import fire
 import hydra
