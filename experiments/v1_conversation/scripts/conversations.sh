@@ -7,22 +7,22 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00      
-#SBATCH --output=convo_0_2500.out
-#SBATCH --error=convo_0_2500.err
+#SBATCH --output=convo_0_100w.out
+#SBATCH --error=convo_0_10w0.err
 
 seed=0
-n_users_per_prompt=5
+n_users_per_prompt=1
 prompt_start=0
 prompt_end=100
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
-cd ~/research_projects/star-gate-human-eval/experiments/v1
+cd ~/research_projects/star-gate-human-eval/experiments/v1_conversation
 
 python conversations.py \
     seed=$seed \
     n_users_per_prompt=$n_users_per_prompt \
     prompt_start=$prompt_start \
     prompt_end=$prompt_end \
-    save_file=data/conversations/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_1_shot_dog.json
+    save_file=data/conversations/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_7_shot_doggo.json

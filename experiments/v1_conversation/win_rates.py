@@ -39,10 +39,10 @@ from users import USER_21
 @hydra.main(version_base=None, config_path="config", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
-    responses_base_file = json.load(open('data/performance_5k_base.json'))
-    breakpoint()
+    responses_base_file = json.load(open('results/baseline.json'))
+
     responses_base = [r["response"] for r in responses_base_file.values()]
-    responses_test_file = json.load(open('data/performance_5k_ckpt_2.json'))
+    responses_test_file = json.load(open('results/not-cot-distilled-ckpt-2.json'))
     responses_test = [r["response"] for r in responses_test_file.values()]
     queries = [r["prompt"] for r in responses_test_file.values()]
     
@@ -139,7 +139,7 @@ def main(args: DictConfig) -> None:
                 print("ERROR")
                 win_rates.append((0.5))
                 
-    with open(f'data/win_rates-1e-5-epoch-2-250.json', 'w') as file:
+    with open(f'results/not-cot-distilled-ckpt-2-win-rates.json', 'w') as file:
         json.dump(win_rates, file, indent=4)
         
 if __name__ == "__main__":

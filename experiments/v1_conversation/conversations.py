@@ -86,7 +86,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
             rand_roleplay_prompt_key = torch.randint(len(ROLEPLAY_PROMPTS), (1,)).item()
             roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
             
-        if i % n == 2:
+        if i % n == 1:
             question = "What is the name of your dog?"
             
         for rand_user_id in rand_users:
@@ -142,10 +142,6 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                         response = f"""Sure! Here is my entire profile {users[f'user_{rand_user_ids[rand_user_idx]}']}\n\nBased on this profile, it should be easy to provide a personalized response."""
                     
                     elif question_attempt == 1: # neg control: constant
-                        question = "What is 2 + 2? Return your answer in one word."
-                        response = "4."
-                    
-                    elif question_attempt == 2: # neg control 2
                         question = "What is the name of your dog?"
                         response = formatted_batch_responses_roleplayer[response_idx] 
                         

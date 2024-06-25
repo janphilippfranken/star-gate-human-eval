@@ -2,11 +2,11 @@ prompts: data/original_prompts/human_assistant_instruct.json
 eval_prompt_start: 5000 # 2000 # 10000 # we never have more than 10k train prompts so these are never seen 
 eval_prompt_end: 5250 # 2050 # 10050
 
-save_file: data/evaluate/human_assistant_instruct_eval_one.json
+save_file: data/evaluate/not-cot-distilled-always-ask-checkpoint-2.json
 
 model_config:
-  model: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-1e-5/checkpoint-37
-  download_dir: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-1e-5/checkpoint-37
+  model: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled/checkpoint-74
+  download_dir: /scr/jphilipp/stargate/checkpoints/m1-human-instruct-5k-5e-6-not-cot-distilled/checkpoint-74
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
