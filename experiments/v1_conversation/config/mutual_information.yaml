@@ -1,16 +1,16 @@
 prompts: data/base_responses/human_assistant_instruct_5k.json
 users: data/users/users.json
-n_prompts: 1000
+n_prompts: 100
 n_users: 20
-n_users_per_prompt: 2
+n_users_per_prompt: 4
 n_logprobs_per_token: 0
 seed: 0
 
-save_file: data/mutual_information/human_assistant_instruct_1k_4_17.json
+save_file: data/mutual_information/human_assistant_instruct_500_0_1_4_17_base.json
 
 model_config:
-  model: meta-llama/Meta-Llama-3-8B-Instruct
-  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  model: meta-llama/Meta-Llama-3-8B
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B
   dtype: auto
   quantization: null
   tensor_parallel_size: 1

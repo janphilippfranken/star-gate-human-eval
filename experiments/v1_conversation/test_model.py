@@ -32,35 +32,39 @@ def main(args: DictConfig) -> None:
         prompts = json.load(f)
         
     # format prompts
-    ids = []
-    batch_prompts = []
-    for i, prompt in enumerate(prompts[11:12]):
-       
-        
-        batch_prompts.append([
-            # {"role": "user", "content": QUESTION_PROMPT .format(user=USER_17, question=prompt, max_words=10)}
-            {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
-        ])
+    def prompt_model(batch_prompts, prompt):
+                    
+        batch_prompts.append(
+            {"role": "user", "content": prompt}
+        )
 
-    formatted_batch_prompts = [
-        tokenizer.apply_chat_template(prompt, tokenize=False) 
-        for prompt in batch_prompts
-    ]
+        formatted_batch_prompts = [
+            tokenizer.apply_chat_template(prompt, tokenize=False) 
+            for prompt in [batch_prompts]
+        ]
+        
+        # get responses
+        batch_responses = model.batch_prompt(
+            prompts=formatted_batch_prompts,
+            max_new_tokens=2048,
+            num_return_sequences=1, 
+            best_of=1,
+            temperature=0.0,
+        )
+        
+        # format and write to json
+        formatted_responses = [
+            response.split('<|end_header_id|>')[1].strip() 
+            for 
+            response in batch_responses
+        ]
+        batch_prompts.append(
+            {"role": "assistant", "content": formatted_responses[0].strip()}
+        )
+        return formatted_responses[0], batch_prompts
     
-    # get responses
-    batch_responses = model.batch_prompt(
-        prompts=formatted_batch_prompts,
-        max_new_tokens=2048,
-        num_return_sequences=7, 
-        best_of=10,
-        temperature=1.0,
-    )
-    
-    # format and write to json
-    formatted_responses = [
-        response.split('<|end_header_id|>')[1].strip() 
-        for response in batch_responses
-    ]
+    prompt = "When do I know whether my investment is good?"
+    response, batch_prompts = prompt_model([], prompt)
     
     breakpoint()
 if __name__ == "__main__":

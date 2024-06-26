@@ -7,7 +7,7 @@ from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from experiments.v1.data.prompts import *
+from prompts import *
 
 
 PROMPT = """You are given a prompt that a user asked an assistant:
@@ -25,7 +25,7 @@ Reasoning: <your step-by-step reasoning>
 Final Response: <your final response>"""
 
 
-@hydra.main(version_base=None, config_path="config", config_name="respond")
+@hydra.main(version_base=None, config_path="config", config_name="gold_responses")
 def main(args: DictConfig) -> None:
    
     # model
@@ -40,7 +40,7 @@ def main(args: DictConfig) -> None:
     )
     
     # prompts
-    prompts = json.load(open('data/human_assistant_instruct.json', 'r'))
+    prompts = json.load(open('data/original_prompts/human_assistant_instruct.json', 'r'))
 
         
     # format prompts
@@ -65,11 +65,12 @@ def main(args: DictConfig) -> None:
         for response in batch_responses
     ]
     
+    breakpoint()
     formatted_responses = [
         0 if formatted_response == 'No Question Needed' else 1 for formatted_response in formatted_responses
     ]
     
-    with open('llama_labels.json', 'w') as f:
+    with open('llama_labels_v2.json', 'w') as f:
         json.dump(formatted_responses, f, indent=4)
 
 if __name__ == "__main__":

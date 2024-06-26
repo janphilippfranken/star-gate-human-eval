@@ -159,7 +159,7 @@ N_USER: {args.n_users_per_prompt}""")
         worst_question_idx =  int(np.argmin(best_question_indices))
         # TODO: MAKE VAR NAMES HERE BETTER
         best_question_idx_wo_pos_control = 1 + int(np.argmax(best_question_indices[1:])) # look at best excluding the first two
-        
+    
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
         best_questions[f"best_question_for_prompt_{prompt_id}"]['question_performances'] = best_question_indices
@@ -172,6 +172,7 @@ N_USER: {args.n_users_per_prompt}""")
         best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['average_eig'] = best_question_indices[best_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['max_eig_gain_over_min'] = max(best_question_indices) - min(best_question_indices)
+        
         questions = []
         best_question_indices = []
 

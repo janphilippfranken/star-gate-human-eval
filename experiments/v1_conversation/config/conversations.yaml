@@ -23,8 +23,8 @@ model_config:
 
 generation_config_questioner:
   max_new_tokens: 2048
-  num_return_sequences: 9
-  best_of: 9
+  num_return_sequences: 3
+  best_of: 3
   temperature: 1.0
 
 generation_config_roleplayer:

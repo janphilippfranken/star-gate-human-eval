@@ -16,6 +16,8 @@ n_users_per_prompt=1
 prompt_start=0
 prompt_end=100
 
+best_of=4
+
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
@@ -25,5 +27,5 @@ python expected_info_gain.py \
     prompt_start=$prompt_start \
     prompt_end=$prompt_end \
     n_users_per_prompt=$n_users_per_prompt \
-    conversations=data/conversations/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_7_shot_doggo.json \
-    save_file=data/expected_info_gain/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_7_shot_doggo.json
+    conversations=data/conversations/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}_shots.json \
+    save_file=data/expected_info_gain/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}_shots.json
