@@ -17,6 +17,6 @@ export MASTER_PORT=29500
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
-cd ~/research_projects/star-gate-human-eval/experiments/v1
+cd ~/research_projects/star-gate-human-eval/experiments/v1_conversation
 
 python train.py
