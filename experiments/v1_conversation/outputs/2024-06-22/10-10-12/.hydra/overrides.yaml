@@ -1,4 +1,0 @@
-- prompt_start=0
-- prompt_end=5
-- conversations=data/conversations/hai_start_0_end_5_n_user_2_seed_0.json
-- save_file=data/expected_info_gain/hai_start_0_end_5_n_user_2_seed_0.json

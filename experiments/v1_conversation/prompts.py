@@ -69,12 +69,26 @@ ROLEPLAY_PROMPTS = {
     
 }
 
-
 FINAL_RESPONSE_PROMPT = """{response}
 
-Given your follow-up question: '{question}' and my response: '{response}', please provide a personalized answer to my initial question: '{prompt}'. Be concise and format your final response as follows:
+Given your follow-up question: '{question}' and my response: '{response}', provide a personalized answer to my initial question: '{prompt}'.
 
-Reasoning: <Your step-by-step reasoning reflecting on my initial question, your follow-up question, and my response. What aspects of my response are relevant to the initial question, and how can they inform a strong final answer from you? Write at least 2-3 sentences here to clearly articulate what you have learned about me from your question and my response.>
-Final Response: <A personalized and concise final answer distilling the above information about me into your response. Do not waffle or provide generic advice. Do not hallucinate. Provide an exceptional, concise answer to my initial question here, incorporating what you have learned about me. Do not repeat the initial question and address me as 'you'.>
+Format your response as follows:
+Reasoning: <Analyze my initial question ('{prompt}'), your follow-up question ('{question}'), and my response ('{response}'). Identify key points from my response that are vital for a personalized and exceptional answer. In 3-4 sentences, explain the insights from my response and describe what an exceptional, personalized answer should include based on the information you got.>
+Final Response: <Give a *concise* final answer that uses the information about me. Avoid generic advice or vague statements. Make sure the response directly answers my initial question using the insights gained. Address me as 'you' and don't use phrases like 'given your preferences' or 'it seems like you like'. Focus on giving a per direct, creative, and highly satisfying answer that meets the highest standards of quality. Be *concise*. Start your final response with 'Final Response:'.>
 
-Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+Follow these formatting rules exactly. Failure to comply will result in disqualification. If you don't the final response with 'Final Response:', this response will be invalid."""
+
+
+USER_PREDICTION_PROMPT = """An unknown user has asked the assistant this question:
+
+Question: {prompt}
+
+The assistant, knowing the user well, gave this personalized response:
+
+Personalized response: {response}
+
+Based on this personalized response, create a user profile that matches it. 
+
+Format your response as follows:
+User Profile: <Write a user profile here that fits the personalized response above>"""

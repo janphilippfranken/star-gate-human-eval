@@ -1,7 +1,0 @@
-- generation_config_questioner.num_return_sequences=5
-- generation_config_questioner.best_of=5
-- seed=0
-- n_users_per_prompt=1
-- prompt_start=0
-- prompt_end=100
-- save_file=data/conversations/hai_start_0_end_100_n_user_1_seed_0_5_shots.json
