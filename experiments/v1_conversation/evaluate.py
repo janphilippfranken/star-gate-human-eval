@@ -51,6 +51,9 @@ Reasoning: <your step-by-step reasoning determining whether the 'Assistant Respo
 Final Response: <state only 1 if the response is a clarifying question, or 0 if it is an answer, and nothing else.>"""
 
 
+
+
+
 @hydra.main(version_base=None, config_path="config", config_name="evaluate")
 def main(args: DictConfig) -> None:
    
@@ -67,13 +70,16 @@ def main(args: DictConfig) -> None:
     
     # prompts
     with open(args.prompts, 'r') as f:
-        prompts = json.load(f)[args.eval_prompt_start:args.eval_prompt_end]
+        prompts = json.load(f)[:100]
+        
+    # prompts = [datum['question'] for datum in prompts]
+    breakpoint()
              
     # format prompts for initial query 
     ids = []
     batch_prompts = []
     for i, prompt in enumerate(prompts):
-        ids.append(i + args.eval_prompt_start)
+        ids.append(i)
         batch_prompts.append([
             {"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}
         ])

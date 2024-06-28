@@ -16,25 +16,54 @@ model = GPT4Agent(
     n=1,
 )
 
-SYSTEM_PROMPT = """You are an expert at classifying prompts, highly skilled in determining whether a prompt is not personal (all relevant information is provided, and the response should be the same for users with different preferences and backgrounds) or personal (the response may vary based on user preferences, and a clarifying question is needed to provide a personalized response)."""
+SYSTEM_PROMPT = """Respond to the best of your ability."""
 
-PROMPT = """You are given a prompt that a user asked an assistant:
+PROMPT = """Imagine you are an AI assistant interacting with a user who has asked the following question:
 
-#### PROMPT STARTS
-{prompt}
-#### PROMPT ENDS
+Question: {prompt}
 
-Your task is to determine whether this prompt is personal or not personal. A personal prompt means that the response should vary depending on the user's preferences and background. A not personal prompt means that the response should be the same for all users, regardless of their preferences and background.
+You know nothing about the user. Your task is to decide whether you should:
 
-Think step-by-step about whether a clarifying question is necessary to provide a personalized response. After your analysis, return 'Question Needed' if the prompt is personal and a clarifying question about the user's background and preferences is needed. If the prompt is not personal and no clarifying question is needed, return 'No Question Needed'.
+Answer Directly (1): Provide an answer immediately based on your general knowledge, without asking for any additional information about the user's background or preferences.
+
+Ask Clarifying Question (0): Request more information from the user first, to provide a personalized response that aligns with their specific background, preferences, and circumstances.
+
+Consider:
+1. Would a generic answer based on general knowledge or facts satisfy the user's needs?
+2. Would additional information about the user's background or preferences significantly improve your response?
+3. Would a tailored answer that aligns with the user's specific circumstances be noticeably more valuable than a generic response?
+
+Rule of thumb: Ask yourself: Would getting more information about the user's background, preferences, or circumstances noticeably improve the quality and relevance of your response, resulting in a more personalized answer that would be more valuable to the user? If yes, choose "Ask Clarifying Question" (0). If not, choose "Answer Directly" (1).
 
 Format your response as follows:
-Reasoning: <your step-by-step reasoning>
-Final Response: <your final response>"""
+Reasoning: <Provide your step-by-step thought process, considering the points above>
+Final Decision: <1 if you would answer directly, 0 if you would ask a clarifying question>"""
 
-START_EXAMPLE = 5000
+
+PROMPT = """Imagine you are interacting with an AI assistant that knows nothing about you. The assistant has been given the following question to answer:
+
+Question: {prompt}
+
+Your task is to decide whether you'd prefer the assistant to:
+
+Answer Directly (0): Provide an answer immediately based on its general knowledge, without asking you for any additional information about your background or preferences.
+
+Ask Clarifying Question (1): Request more information from you first, to provide a personalized response that aligns with your specific background, preferences, and circumstances.
+
+Consider:
+1. Would a generic answer based on general knowledge or facts satisfy your needs?
+2. Would additional information about your background or preferences significantly improve the response?
+3. Would a tailored answer that aligns with your specific circumstances be noticeably more valuable to you than a generic response?
+
+Rule of thumb: Ask yourself: Would providing more information about your background, preferences, or circumstances noticeably improve the quality and relevance of the assistant's response, resulting in a more personalized answer that you'd find more valuable? If yes, choose "Ask Clarifying Question" (1). If not, choose "Answer Directly" (0).
+
+Format your response as follows:
+Reasoning: <Provide your step-by-step thought process from the user's perspective, considering the points above>
+Final Decision: <0 if you'd prefer the assistant to answer directly, 1 if you'd prefer the assistant to ask a clarifying question>"""
+
+START_EXAMPLE = 0
 BATCH_SIZE = 50
-TOTAL_EXAMPLES = 5100
+TOTAL_EXAMPLES = 100
 
 import time
 
@@ -53,9 +82,10 @@ for batch_start in range(START_EXAMPLE, TOTAL_EXAMPLES, BATCH_SIZE):
     responses = model.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_prompts)
 
     
-    formatted_responses = [resp[0].split('Final Response:')[1].strip() for resp in responses]
-    formatted_reasoning = [resp[0].split('Reasoning:')[1].split('Final Response:')[0].strip() for resp in responses]
-    labels = [1 if resp == "Question Needed" else 0 for resp in formatted_responses]
+    formatted_responses = [resp[0].split('Final Decision:')[1].strip() for resp in responses]
+    formatted_reasoning = [resp[0].split('Reasoning:')[1].split('Final Decision:')[0].strip() for resp in responses]
+    labels = [1 if resp == "1" else 0 for resp in formatted_responses]
+    breakpoint()
 
     for i, (prompt, reasoning, response, label) in enumerate(zip(current_batch, formatted_reasoning, formatted_responses, labels)):
         index = batch_start + i
@@ -65,5 +95,5 @@ for batch_start in range(START_EXAMPLE, TOTAL_EXAMPLES, BATCH_SIZE):
         all_responses['response'].append(response)
         all_responses['label'].append(label)
 
-    with open('data/labels/gpt4_labels_human_assistant_instruct_test.json', 'w') as f:
+    with open('data/labels/gpt4_labels_human_assistant_instruct_0_100_roleplay.json', 'w') as f:
         json.dump(all_responses, f, indent=4)
