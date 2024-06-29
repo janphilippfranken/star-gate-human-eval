@@ -128,7 +128,7 @@ def main(args: DictConfig) -> None:
     # now need to load user to filter for p(user | x, response)
     users = json.load(open("data/users/users.json", "r"))
     n = args.generation_config.num_return_sequences
-    
+    breakpoint()
     best_formatted_responses= []
     logprobs = {}
     

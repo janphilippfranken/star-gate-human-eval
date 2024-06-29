@@ -1,21 +1,16 @@
 conversations: data/conversations/5k/
 eig: data/expected_info_gain/5k/
-
 labels: data/labels/5k_1.8.json
-
 n_prompts: 5000
 n_users: 1
 n_logprobs_per_token: 0
-
 save_file: data/train/train_data_5k_cot_1.8.json
-
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   quantization: null
   tensor_parallel_size: 1
-
 generation_config:
   max_new_tokens: 2048
   num_return_sequences: 1
