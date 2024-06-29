@@ -37,20 +37,20 @@ Question: {prompt}
 
 Your task is to decide whether you'd prefer the assistant to:
 
-Answer Directly (1): Provide an answer immediately based on its general knowledge, without asking you for any additional information about your background or preferences.
+Answer Directly (0): Provide an answer immediately based on its general knowledge, without asking you for any additional information about your background or preferences.
 
-Ask Clarifying Question (0): Request more information from you first, to provide a personalized response that aligns with your specific background, preferences, and circumstances.
+Ask Clarifying Question (1): Request more information from you first, to provide a personalized response that aligns with your specific background, preferences, and circumstances.
 
 Consider:
 1. Would a generic answer based on general knowledge or facts satisfy your needs?
 2. Would additional information about your background or preferences significantly improve the response?
 3. Would a tailored answer that aligns with your specific circumstances be noticeably more valuable to you than a generic response?
 
-Rule of thumb: Ask yourself: Would providing more information about your background, preferences, or circumstances noticeably improve the quality and relevance of the assistant's response, resulting in a more personalized answer that you'd find more valuable? If yes, choose "Ask Clarifying Question" (0). If not, choose "Answer Directly" (1).
+Rule of thumb: Ask yourself: Would providing more information about your background, preferences, or circumstances noticeably improve the quality and relevance of the assistant's response, resulting in a more personalized answer that you'd find more valuable? If yes, choose "Ask Clarifying Question" (1). If not, choose "Answer Directly" (0).
 
 Format your response as follows:
 Reasoning: <Provide your step-by-step thought process from the user's perspective, considering the points above>
-Final Decision: <1 if you'd prefer the assistant to answer directly, 0 if you'd prefer the assistant to ask a clarifying question>"""
+Final Decision: <0 if you'd prefer the assistant to answer directly, 1 if you'd prefer the assistant to ask a clarifying question>"""
 
 
 @hydra.main(version_base=None, config_path="config", config_name="gold_responses")
@@ -77,7 +77,7 @@ def main(args: DictConfig) -> None:
     # format prompts
     ids = []
     batch_prompts = []
-    for i, prompt in enumerate(prompts[:100]):
+    for i, prompt in enumerate(prompts[:200]):
         ids.append(i)
         batch_prompts.append([{"role": "user", "content": PROMPT.format(prompt=prompt)}])
 
@@ -98,10 +98,10 @@ def main(args: DictConfig) -> None:
     
     breakpoint()
     formatted_responses = [
-        0 if '1' in formatted_response else 1 for formatted_response in formatted_responses
+        1 if '1' in formatted_response else 0 for formatted_response in formatted_responses
     ]
     
-    with open('data/labels/llama_labels_v3_reversed_roleplay.json', 'w') as f:
+    with open('data/labels/llama_labels_v3_roleplay_200.json', 'w') as f:
         json.dump(formatted_responses, f, indent=4)
 
 if __name__ == "__main__":

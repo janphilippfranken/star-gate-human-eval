@@ -46,24 +46,24 @@ Question: {prompt}
 
 Your task is to decide whether you'd prefer the assistant to:
 
-Answer Directly (0): Provide an answer immediately based on its general knowledge, without asking you for any additional information about your background or preferences.
+Answer Directly (1): Provide an answer immediately based on its general knowledge, without asking you for any additional information about your background or preferences.
 
-Ask Clarifying Question (1): Request more information from you first, to provide a personalized response that aligns with your specific background, preferences, and circumstances.
+Ask Clarifying Question (0): Request more information from you first, to provide a personalized response that aligns with your specific background, preferences, and circumstances.
 
 Consider:
 1. Would a generic answer based on general knowledge or facts satisfy your needs?
 2. Would additional information about your background or preferences significantly improve the response?
 3. Would a tailored answer that aligns with your specific circumstances be noticeably more valuable to you than a generic response?
 
-Rule of thumb: Ask yourself: Would providing more information about your background, preferences, or circumstances noticeably improve the quality and relevance of the assistant's response, resulting in a more personalized answer that you'd find more valuable? If yes, choose "Ask Clarifying Question" (1). If not, choose "Answer Directly" (0).
+Rule of thumb: Ask yourself: Would providing more information about your background, preferences, or circumstances noticeably improve the quality and relevance of the assistant's response, resulting in a more personalized answer that you'd find more valuable? If yes, choose "Ask Clarifying Question" (0). If not, choose "Answer Directly" (1).
 
 Format your response as follows:
 Reasoning: <Provide your step-by-step thought process from the user's perspective, considering the points above>
-Final Decision: <0 if you'd prefer the assistant to answer directly, 1 if you'd prefer the assistant to ask a clarifying question>"""
+Final Decision: <1 if you'd prefer the assistant to answer directly, 0 if you'd prefer the assistant to ask a clarifying question>"""
 
 START_EXAMPLE = 0
 BATCH_SIZE = 50
-TOTAL_EXAMPLES = 100
+TOTAL_EXAMPLES = 200
 
 import time
 
@@ -85,7 +85,7 @@ for batch_start in range(START_EXAMPLE, TOTAL_EXAMPLES, BATCH_SIZE):
     formatted_responses = [resp[0].split('Final Decision:')[1].strip() for resp in responses]
     formatted_reasoning = [resp[0].split('Reasoning:')[1].split('Final Decision:')[0].strip() for resp in responses]
     labels = [1 if resp == "1" else 0 for resp in formatted_responses]
-    breakpoint()
+    # breakpoint()
 
     for i, (prompt, reasoning, response, label) in enumerate(zip(current_batch, formatted_reasoning, formatted_responses, labels)):
         index = batch_start + i
@@ -95,5 +95,5 @@ for batch_start in range(START_EXAMPLE, TOTAL_EXAMPLES, BATCH_SIZE):
         all_responses['response'].append(response)
         all_responses['label'].append(label)
 
-    with open('data/labels/gpt4_labels_human_assistant_instruct_0_100_roleplay.json', 'w') as f:
+    with open('data/labels/gpt4_labels_human_assistant_instruct_0_200_roleplay_reversed.json', 'w') as f:
         json.dump(all_responses, f, indent=4)
