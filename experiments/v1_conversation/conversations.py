@@ -1,4 +1,5 @@
 """Generate conversations with simulated users."""
+import os
 import json
 import fire
 import torch
@@ -11,6 +12,7 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 
 from prompts import *
 from helpers import get_formatted_responses
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -52,13 +54,18 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if int(k.split("_")[1]) < args.n_users
     }
     
-    # STEP 1: questioner 
+    # step 1: questioner 
     batch_prompts_questioner = []
     for i in range(args.prompt_start, args.prompt_end):
         prompt = prompts[i]
+        
+        rand_question_prompt_key = torch.randint(len(QUESTION_PROMPTS), (1,)).item()
+        question_prompt_key = list(QUESTION_PROMPTS.keys())[rand_question_prompt_key ]
+        
         batch_prompts_questioner.append([
-            {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
+            {"role": "user", "content": QUESTION_PROMPTS[question_prompt_key].format(question=prompt)}
         ])
+        
         
     formatted_batch_responses_questioner = get_formatted_responses(
         model=model,
@@ -69,7 +76,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         invalid_output="<|invalid_response|>",
     )
     
-    # STEP 2: roleplayer 
+    # step 2: roleplayer 
     batch_prompts_roleplayer = []
     rand_user_ids = []
     n = args.generation_config_questioner.num_return_sequences 
@@ -81,11 +88,14 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if i % n == 0:
             # randomly sample args.n_users_per_prompt each time we are at a new prompt
             rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+            # randomly sample n words for this prompt 
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
+            # randomly sample prompt style (full sentence, bullet points, keywords)
             rand_roleplay_prompt_key = torch.randint(len(ROLEPLAY_PROMPTS), (1,)).item()
             roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
-            
+        
+        # distractor item 
         if i % n == 1:
             question = "What is the name of your dog?"
             

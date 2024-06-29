@@ -62,9 +62,12 @@ def main(args: DictConfig) -> None:
             {"role": "assistant", "content": formatted_responses[0].strip()}
         )
         return formatted_responses[0], batch_prompts
-    
-    prompt = "When do I know whether my investment is good?"
-    response, batch_prompts = prompt_model([], prompt)
+    breakpoint()
+    prompt = "When should I cook for dinner"
+    prompt_1 = QUESTION_PROMPTS['single'].format(question="what are some ideas for a fun date night")
+    prompt_2 = QUESTION_PROMPTS['multi'].format(question="what are some ideas for a fun date night")
+    response1, batch_prompts = prompt_model([], prompt_1)
+    response2, batch_prompts = prompt_model([], prompt_2)
     
     breakpoint()
 if __name__ == "__main__":
