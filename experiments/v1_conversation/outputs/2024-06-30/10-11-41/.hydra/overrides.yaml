@@ -1,0 +1,7 @@
+- generation_config_questioner.num_return_sequences=9
+- generation_config_questioner.best_of=9
+- seed=0
+- n_users_per_prompt=5
+- prompt_start=250
+- prompt_end=300
+- save_file=data/conversations/5k_v2/hai_start_250_end_300_n_user_5_seed_0_9_shots.json

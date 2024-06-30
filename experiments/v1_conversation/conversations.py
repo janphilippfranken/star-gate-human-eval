@@ -4,6 +4,7 @@ import json
 import fire
 import torch
 import hydra
+import random
 import logging
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
@@ -28,6 +29,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     
     # seed
     torch.manual_seed(args.seed)
+    random.seed(args.seed)
    
     # model
     model = VLLMInferenceModel(
@@ -59,11 +61,8 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     for i in range(args.prompt_start, args.prompt_end):
         prompt = prompts[i]
         
-        rand_question_prompt_key = torch.randint(len(QUESTION_PROMPTS), (1,)).item()
-        question_prompt_key = list(QUESTION_PROMPTS.keys())[rand_question_prompt_key ]
-        
         batch_prompts_questioner.append([
-            {"role": "user", "content": QUESTION_PROMPTS[question_prompt_key].format(question=prompt)}
+            {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
         ])
         
         
@@ -92,7 +91,8 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             # randomly sample prompt style (full sentence, bullet points, keywords)
-            rand_roleplay_prompt_key = torch.randint(len(ROLEPLAY_PROMPTS), (1,)).item()
+            # TODO: do not hardcode
+            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
             roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
         
         # distractor item 

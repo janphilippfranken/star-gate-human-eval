@@ -16,7 +16,7 @@ model_config:
   tensor_parallel_size: 1
 
 generation_config:
-  max_new_tokens: 2048
+  max_new_tokens: 256
   num_return_sequences: 10
   best_of: 10
-  temperature: 1.0
+  temperature: 0.1

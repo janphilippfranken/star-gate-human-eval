@@ -1,0 +1,33 @@
+output_dir: data/m0
+file_name: m0_data
+
+constitution_dir: constitutions_opus
+
+iteration: 0
+start_example: 0
+max_example: 100
+batch_size: 100
+
+model_config:
+  model: meta-llama/Meta-Llama-3-8B
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+
+generation_config:
+  max_new_tokens: 1536
+  top_p: 0.9
+  temperature: 0.0
+  num_return_sequences: 1
+
+dataset: 
+  path: openai/summarize_from_feedback
+  cache_dir: /scr/jphilipp/sami/openai/summarize_from_feedback
+  split: train
+
+filter: #  we filter these formatting errors 
+  - "[insert"
+  - "[]"
+  - "]"
+  - Response

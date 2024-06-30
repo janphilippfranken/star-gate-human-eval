@@ -1,4 +1,4 @@
-n_prompts: 100
+n_prompts: 10
 n_shots: 10
 
 n_logprobs_per_token: 0
@@ -17,6 +17,6 @@ model_config:
 
 generation_config:
   max_new_tokens: 2048
-  num_return_sequences: 1
-  best_of: 1
+  num_return_sequences: 10
+  best_of: 10
   temperature: 0.0

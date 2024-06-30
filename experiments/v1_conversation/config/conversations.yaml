@@ -9,9 +9,9 @@ n_users_per_prompt: 5 # how many we randomly sample for each prompt
 save_file: data/conversations/5k_v2/human_assistant_instruct_0_500.json
 
 # roleplayer word var
-roleplayer_mean_words: 11
-roleplayer_std_words: 15
-roleplayer_min_words: 4
+roleplayer_mean_words: 12
+roleplayer_std_words: 9
+roleplayer_min_words: 5
 roleplayer_max_words: 50
 
 model_config:

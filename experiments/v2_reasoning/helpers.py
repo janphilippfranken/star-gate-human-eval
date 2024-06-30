@@ -1,5 +1,12 @@
 import re
 
+def format_response(response):
+    formatted_response = ""
+    try:
+        formatted_response = response.split("Q:")[0].strip().lower()
+    except:
+        print("invalid, continue")
+    return formatted_response
 
 def extract_answer(answer):
     """Extract gsm answer."""

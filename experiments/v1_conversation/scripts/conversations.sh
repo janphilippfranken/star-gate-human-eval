@@ -7,16 +7,16 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00      
-#SBATCH --output=convo_7750_10250.out
-#SBATCH --error=convo_7750_10250.err
+#SBATCH --output=c_5.out
+#SBATCH --error=c_5.err
 
 seed=0
 n_users_per_prompt=5
-prompt_start=7750
-prompt_end=10250
+prompt_start=4000
+prompt_end=5000
 
-num_return_sequences=10
-best_of=10
+num_return_sequences=9
+best_of=9
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate

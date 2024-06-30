@@ -1,3 +1,5 @@
+RESPONSE_PROMPT_BASE = """Q: {question}\nA: Let's think step-by"""
+
 RESPONSE_PROMPT = """{question}"""
 
 RATIONALE_PROMPT = """{question}
