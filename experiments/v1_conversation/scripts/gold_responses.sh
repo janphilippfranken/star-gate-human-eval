@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:1                      
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=24               
-#SBATCH --time=12:00:00                    
+#SBATCH --time=24:00:00                    
 #SBATCH --output=gold.out         
 #SBATCH --error=gold.err           
 
@@ -14,6 +14,6 @@
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
-cd ~/research_projects/star-gate-human-eval/experiments/v1
+cd ~/research_projects/star-gate-human-eval/experiments/v1_conversation
 
 python gold_responses.py

@@ -14,6 +14,8 @@ from prompts import *
 
 @hydra.main(version_base=None, config_path="config", config_name="gold_responses")
 def main(args: DictConfig) -> None:
+    
+    logging.info(args)
    
     # model
     model = VLLMInferenceModel(
@@ -41,8 +43,8 @@ def main(args: DictConfig) -> None:
     opening_prompts = []
     for user_id, user in enumerate(list(users.values())[:args.n_users]):
         print(user_id)
-        for i, prompt in enumerate(prompts[:args.n_prompts]):
-            prompt_ids.append(i)
+        for i, prompt in enumerate(prompts[args.start_prompts:args.end_prompts]):
+            prompt_ids.append(i + args.start_prompts)
             user_ids.append(user_id)
             opening_prompts.append(prompt)
             batch_prompts.append([{"role": "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
@@ -62,7 +64,7 @@ def main(args: DictConfig) -> None:
             formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
         except:
             formatted_responses.append("<|invalid_response|>")
-            print(f"INVALID RESPONSE: {response.split("<|end_header_id|>")[1].strip()}")
+            print(f"INVALID RESPONSE: {response.split('<|end_header_id|>')[1].strip()}")
    
     gold_responses = {
         "prompt_id": [],
