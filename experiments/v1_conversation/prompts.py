@@ -76,9 +76,9 @@ Given your follow-up question: '{question}' and my response: '{response}', provi
 
 Format your response as follows:
 Reasoning: <Analyze my initial question ('{prompt}'), your follow-up question ('{question}'), and my response ('{response}'). Identify key points from my response that are vital for a personalized and exceptional answer. In 3-4 sentences, explain the insights from my response and describe what an exceptional, personalized answer should include based on the information you got.>
-Final Response: <Give a *concise* final answer that uses the information about me. Avoid generic advice or vague statements. Make sure the response directly answers my initial question using the insights gained. Address me as 'you' and don't use phrases like 'given your preferences' or 'it seems like you like'. Focus on giving a per direct, creative, and highly satisfying answer that meets the highest standards of quality. Be *concise*. Start your final response with 'Final Response:'.>
+Final Personalized Response: <Give a *concise* final answer that uses the information about me. Avoid generic advice or vague statements and instead use the information you have elicited from me to provide a personalized response. Make sure the response directly answers my initial question using the insights gained. Address me as 'you' and don't use phrases like 'given your preferences' or 'it seems like you like'. Focus on giving a per direct, creative, and highly satisfying answer that meets the highest standards of quality. Be *concise*. Start your final response with 'Final Personalized Response:'.>
 
-Follow these formatting rules exactly. Failure to comply will result in disqualification. If you don't the final response with 'Final Response:', this response will be invalid."""
+Follow these formatting rules exactly. Failure to comply will result in disqualification. If you don't the final response with 'Final Personalized Response:', this response will be invalid."""
 
 
 USER_PREDICTION_PROMPT = """An unknown user has asked the assistant this question:

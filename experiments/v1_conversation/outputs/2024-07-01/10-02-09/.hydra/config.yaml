@@ -1,0 +1,20 @@
+conversations: data/conversations/5k_v2/
+eig: data/expected_info_gain/5k_v2/
+labels: data/labels/mi_split_cost_2.json
+start_prompts: 250
+end_prompts: 5000
+n_users: 5
+n_logprobs_per_token: 0
+response_filtering: false
+save_file: data/train/5k_v2/train_cost_2.json
+model_config:
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 0.0

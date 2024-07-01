@@ -12,6 +12,8 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from helpers import *
 from prompts import *
 
+import logging
+
 
 @hydra.main(version_base=None, config_path="config", config_name="mutual_information")
 def main(args: DictConfig) -> None:
@@ -47,10 +49,10 @@ def main(args: DictConfig) -> None:
     all_logprobs = {}
     
     for i, (prompt, response) in tqdm.tqdm(enumerate(
-        zip(prompts['prompt'][:args.n_prompts], prompts['response'][:args.n_prompts])
+        zip(prompts['prompt'][args.start_prompt:args.end_prompt], prompts['response'][args.start_prompt:args.end_prompt])
     )):
-        
-        all_logprobs[i] = {
+                
+        all_logprobs[i + args.start_prompt] = {
             'prompt': prompt, 
             'response': response, 
             'means': [],
@@ -59,7 +61,7 @@ def main(args: DictConfig) -> None:
         
         # rand_user_ids = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
         # 
-        rand_user_ids = [4, ] # users that are different from each other 
+        rand_user_ids = [4, 17] # users that are different from each other 
         
         for j, rand_user_id in enumerate(rand_user_ids):
             
@@ -87,11 +89,12 @@ def main(args: DictConfig) -> None:
 
             # get only logprobs for response
             logprobs = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
-            logprobs = [v for prob in logprobs for k, v in prob.items()]
-            all_logprobs[i]['means'].append(np.mean(logprobs))
+            logprobs = [v for prob in logprobs for _, v in prob.items()]
+            all_logprobs[i + args.start_prompt]['means'].append(np.mean(logprobs))
         
-        all_logprobs[i]['mutual_information']  = mutual_information(
-            logprobs=torch.tensor(all_logprobs[i]['means']),
+        # breakpoint()
+        all_logprobs[i + args.start_prompt]['mutual_information']  = mutual_information(
+            logprobs=torch.tensor(all_logprobs[i + args.start_prompt]['means']),
             n_users=args.n_users_per_prompt,
         ).numpy().item()
        

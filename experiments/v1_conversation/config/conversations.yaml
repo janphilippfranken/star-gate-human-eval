@@ -4,7 +4,7 @@ seed: 0
 prompt_start: 250
 prompt_end: 2750
 n_users: 20           # total users to consider 
-n_users_per_prompt: 5 # how many we randomly sample for each prompt
+n_users_per_prompt: 2 # how many we randomly sample for each prompt
 
 save_file: data/conversations/5k_v2/human_assistant_instruct_0_500.json
 

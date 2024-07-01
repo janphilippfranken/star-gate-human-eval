@@ -1,13 +1,16 @@
-conversations: data/conversations/5k/
-eig: data/expected_info_gain/5k/
+conversations: data/conversations/5k_v2/
+eig: data/expected_info_gain/5k_v2/
 
-labels: data/labels/5k_1.8.json
+labels: data/labels/mi_split_cost_2.json
 
-n_prompts: 5000
-n_users: 1
+start_prompts: 250
+end_prompts: 5000
+n_users: 5
 n_logprobs_per_token: 0
 
-save_file: data/train/train_data_5k_cot_1.8.json
+response_filtering: false
+
+save_file: data/train/5k_v2/train_cost_2_cot_distilled.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

@@ -7,8 +7,8 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00                    
-#SBATCH --output=train_data.out         
-#SBATCH --error=train_data.err           
+#SBATCH --output=train_data_cot.out         
+#SBATCH --error=train_data_cot.err           
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
