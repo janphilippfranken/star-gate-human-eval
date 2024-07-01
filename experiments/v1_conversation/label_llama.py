@@ -108,7 +108,7 @@ def main(args: DictConfig) -> None:
         1 if 'Ask Clarifying Question' in formatted_response else 0 for formatted_response in formatted_responses
     ]
     
-    with open('data/labels/llama_0_200_question_first.json', 'w') as f:
+    with open('data/labels/llama_0_200_question_ckpt_1.json', 'w') as f:
         json.dump(formatted_responses, f, indent=4)
 
 if __name__ == "__main__":

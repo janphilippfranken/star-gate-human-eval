@@ -50,7 +50,7 @@ learning rate: {args.training_args.learning_rate}""")
         os.makedirs(training_args.output_dir)
    
     # data
-    targets = json.load(open(args.data, "r"))[100:]
+    targets = json.load(open(args.data, "r"))
     print(targets[0])
     dataset = preprocess(targets=targets, tokenizer=tokenizer)
     dataset = dataset.shuffle(seed=args.training_args.seed)

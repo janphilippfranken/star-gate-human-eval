@@ -31,7 +31,7 @@ gpt4 = GPT4Agent(
 )
 
 
-SYSTEM_PROMPT = """You are an expert at classifying prompts, highly skilled in determining whether an assistant has asked a clarifying question or provided a response."""
+SYSTEM_PROMPT = """You are an expert at classifying prompts, highly skilled in determining whether an assistant has asked a clarifying question or answered directly."""
 
 PROMPT = """You are given a question that a user asked the assistant and the assistant's response:
 
@@ -70,7 +70,7 @@ def main(args: DictConfig) -> None:
     
     # prompts
     with open(args.prompts, 'r') as f:
-        prompts = json.load(f)[:100]
+        prompts = json.load(f)[:200]
         
     # prompts = [datum['question'] for datum in prompts]
     breakpoint()
@@ -115,8 +115,9 @@ def main(args: DictConfig) -> None:
     ]
     
     # load the OG labels to compute agreement between gpt4 and model asked questions
-    labels_gpt4 = json.load(open('data/labels/gpt4_labels_human_assistant_instruct_test.json'))
-    agreement = np.mean([i == j for i, j in zip(labels_gpt4['label'], formatted_gpt_responses)])
+    breakpoint()
+    labels_human = json.load(open('data/labels/exp_when_9_pp_maj_votes_0_200.json'))
+    agreement = np.mean([i == j for i, j in zip(labels_human, formatted_gpt_responses) if i == 0])
     print("AGREEMENT", agreement)
     breakpoint()
     
