@@ -2,8 +2,8 @@ prompts: data/original_prompts/human_assistant_instruct.json
 # eval_prompt_start: 5000 # 2000 # 10000 # we never have more than 10k train prompts so these are never seen 
 # eval_prompt_end: 5250 # 2050 # 10050
 
-save_questions: results/cot_distilled_epoch_1_questions_long_answer.json
-save_responses: results/cot_distilled_epoch_1_responses_long_answer.json
+save_questions: results/cot_ckpt_1_questions_user_21_max_words_25_full_sentence_lr_5e-6.json
+save_responses: results/cot_ckpt_1_responses_user_21_max_words_25_full_sentence_lr_5e-6.json
 
 n_prompts: 200
 
@@ -13,8 +13,8 @@ roleplayer_min_words: 5
 roleplayer_max_words: 50
 
 model_config:
-  model: /scr/jphilipp/stargate/checkpoints-v2/m1-cot-c2/checkpoint-35
-  download_dir: /scr/jphilipp/stargate/checkpoints-v2/m1-cot-c2/checkpoint-35
+  model: /scr/jphilipp/stargate/checkpoints/m1-cot-cost-2-lr-5e-6/checkpoint-35
+  download_dir: /scr/jphilipp/stargate/checkpoints/m1-cot-cost-2-lr-5e-6/checkpoint-35
   dtype: auto
   quantization: null
   tensor_parallel_size: 1

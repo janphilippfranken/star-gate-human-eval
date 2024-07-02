@@ -1,0 +1,18 @@
+prompts: data/original_prompts/human_assistant_instruct.json
+save_questions: results/cot_ckpt_2_questions_user_21_max_words_25_full_sentence_old.json
+save_responses: results/cot_ckpt_2_responses_user_21_max_words_25_full_sentence_old.json
+n_prompts: 200
+roleplayer_mean_words: 12
+roleplayer_std_words: 9
+roleplayer_min_words: 5
+roleplayer_max_words: 50
+model_config:
+  model: /scr/jphilipp/stargate/checkpoints-v1/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-1.8/checkpoint-72
+  download_dir: /scr/jphilipp/stargate/checkpoints-v1/checkpoints/m1-human-instruct-5k-5e-6-cot-distilled-1.8/checkpoint-72
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  temperature: 0.0

@@ -125,15 +125,16 @@ def main(args: DictConfig) -> None:
     rand_users = []
     for i, prompt in enumerate(prompts):
         rand_user = random.choice([USER_20, USER_21, USER_22, USER_23, USER_24])
-        rand_users.append(USER_20)
-        rand_user = USER_20
+        rand_users.append(USER_21)
+        rand_user = USER_21
         
         if int(formatted_gpt_responses[i]) == 1:
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
+            rand_roleplay_prompt_key = 0
             roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
-            max_words = 20
+            max_words = 25
             roleplay_prompt_key = 'standard'
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You must adopt the following persona in all conversations: {rand_user}"},

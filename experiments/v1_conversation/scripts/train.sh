@@ -10,8 +10,8 @@
 #SBATCH --output=train_no_cot.out   
 #SBATCH --error=train_no_cot.err
 
-export MASTER_ADDR=568.0.0.1  
-export MASTER_PORT=29500    
+# export MASTER_ADDR=568.0.0.1  
+# export MASTER_PORT=29500    
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh

@@ -50,6 +50,7 @@ learning rate: {args.training_args.learning_rate}""")
         os.makedirs(training_args.output_dir)
    
     # data
+    logging.info("DATA")
     targets = json.load(open(args.data, "r"))
     print(targets[0])
     dataset = preprocess(targets=targets, tokenizer=tokenizer)

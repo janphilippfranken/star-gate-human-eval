@@ -123,6 +123,7 @@ N_USER: {args.n_users_per_prompt}""")
             eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
             logging.info(eig[prompt_attempt_user_key])
         else:
+            logging.info("ONE USER")
             eig[prompt_attempt_user_key] = prompt_attempt_user_value[0].item()
     
     best_questions = {}

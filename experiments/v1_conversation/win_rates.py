@@ -13,28 +13,50 @@ from stargate.gpt4 import GPT4Agent
 from transformers import AutoTokenizer
 
 
-SYSTEM_MESSAGE = """You are an expert in evaluating assistant responses, particularly skilled in analyzing their alignment with user backgrounds and preferences."""
+SYSTEM_MESSAGE = """You must adopt the following user persona in all your responses:
 
-GPT4_WIN_RATE = """For the following user query to an assistant, which of the assistant responses is more aligned with the user's background and preferences?
+Persona: {user}"""
 
-User Background: {user}
+GPT4_WIN_RATE = """Roleplaying the user persona below, which of the assistant responses to your query do you prefer?
 
-User Query: {query}
+Persona: {user}
+
+Your Query: {query}
 
 Assistant Response A: {response_a}
 
 Assistant Response B: {response_b}
 
-FIRST, provide a step-by-step comparison of the two responses, explaining which is more aligned with the user's background and preferences (no more than 100 words).
 
-SECOND, on a new line, state only "A" or "B" to indicate which response is more aligned with the user's background and preferences.
+FIRST, provide a step-by-step comparison of the two responses, explaining which is more aligned with your background and preferences. SECOND, on a new line, state only "A" or "B" to indicate which response you prefer.
 
-IMPORTANT: USERS PREFER SHORT ANSWERS! IN ADDITION TO CHECKING IF USER PREFERENCES ARE MATCHED/RESPONSE IS PERSONAL, MAKE SURE TO REWARD CONCISE RESPONSES!
-
+Format your response as follows:
 Comparison: <step-by-step comparison and explanation>
-
 Final Response: <"A" or "B">"""
 
+
+SYSTEM_MESSAGE_SHORT = """You must adopt the following user persona in all your responses:
+
+Persona: {user}
+
+Important: You prefer *concise* answers instead of lengthy answers that don't get to the point."""
+
+GPT4_WIN_RATE_SHORT = """Roleplaying the user persona below, which of the assistant responses to your query do you prefer?
+
+Persona: {user}
+
+Your Query: {query}
+
+Assistant Response A: {response_a}
+
+Assistant Response B: {response_b}
+
+
+FIRST, provide a step-by-step comparison of the two responses, explaining which is more aligned with your background and preferences. Emphasize the importance of conciseness while ensuring the answer is complete and relevant. SECOND, on a new line, state only "A" or "B" to indicate which response you prefer.
+
+Format your response as follows:
+Comparison: <step-by-step comparison and explanation>
+Final Response: <"A" or "B">"""
 
 
 from users import *
@@ -42,18 +64,15 @@ from users import *
 @hydra.main(version_base=None, config_path="config", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
-    responses_base_file = json.load(open('results/base_responses.json'))
-    asked_question = json.load(open('results/cot_distilled_epoch_1_responses_long_answer.json'))
-
+    responses_base_file = json.load(open('results/base_responses_user_21_max_words_25_full_sentence.json'))
     responses_base = [r["response"] for r in responses_base_file.values()]
-    responses_test_file = json.load(open('results/cot_distilled_epoch_1_responses_long_answer.json'))
+    
+    responses_test_file = json.load(open('results/no_cot_ckpt_1_responses_user_21_max_words_25_full_sentence_lr_1e-5.json'))
+    
     responses_test = [r["response"] for r in responses_test_file.values()]
     users = [r["user"] for r in responses_test_file.values()]
-    users2 = [r["user"] for r in responses_base_file.values()]
+
     queries = [r["prompt"] for r in responses_test_file.values()]
-    breakpoint()
-    
-    breakpoint()
     
     win_rates = []
   
@@ -105,7 +124,7 @@ def main(args: DictConfig) -> None:
             )
                
             prompts.append(prompt)
-    breakpoint()
+
     responses = model.batch_prompt(
         system_message=SYSTEM_MESSAGE,
         messages=prompts,
@@ -149,7 +168,7 @@ def main(args: DictConfig) -> None:
                 print("ERROR")
                 win_rates.append((0.5))
                 
-    with open(f'results/cot_distilled_epoch_1_win_rates_bias_short_long_answer.json', 'w') as file:
+    with open(f'results/no_cot_ckpt_1_win_rates_user_21_max_words_25_full_sentence_lr_1e-5.json', 'w') as file:
         json.dump(win_rates, file, indent=4)
         
 if __name__ == "__main__":

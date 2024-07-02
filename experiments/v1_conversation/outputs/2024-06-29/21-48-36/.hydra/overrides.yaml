@@ -1,5 +1,0 @@
-- prompt_start=250
-- prompt_end=2750
-- n_users_per_prompt=5
-- conversations=data/conversations/5k_v2/hai_start_250_end_2750_n_user_5_seed_0_10_shots.json
-- save_file=data/expected_info_gain/5k_v2/hai_start_250_end_2750_n_user_5_seed_0_10_shots.json

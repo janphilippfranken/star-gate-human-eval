@@ -87,8 +87,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if i % n == 0:
             # randomly sample args.n_users_per_prompt each time we are at a new prompt
             rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
-            rand_users = [4, 17]
-    
+        
             # randomly sample n words for this prompt 
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()

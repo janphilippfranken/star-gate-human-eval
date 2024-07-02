@@ -30,6 +30,22 @@ Please provide a personalized response that aligns with my background and prefer
 Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
 
+PROMPT_LOGPROBS_2 = """Below is a conversation between a user and an assistant:
+
+User: {prompt}
+
+Assistant: {question}
+
+User: {response}
+
+Based on the information elicited from the user, please provide a personalized response to the user's initial query that aligns with the user's background and preferences.
+
+Important: Carefully consider the information the assistant elicited from the user and how they might help you with writing a personalized response."""
+
+
+
+
+
 QUESTION_PROMPT = """A user with an unknown profile has asked you the following question:
 
 Question: {question}

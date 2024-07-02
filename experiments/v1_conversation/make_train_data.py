@@ -53,9 +53,10 @@ def main(args: DictConfig) -> None:
     for eig_batch in sorted(os.listdir(args.eig), key=lambda item: int(item.split("_")[2])):
         with open(f"{args.eig}{eig_batch}", 'r') as f:
             eig_batch = json.load(f)
-        eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
+        # eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
+        eig_batch = [np.argmax(datum["question_performances"][2:]).item() for datum in eig_batch.values()]
         best_question_attempts.extend(eig_batch)
-    
+    breakpoint()
     # filter best attempts based on eig 
     conversation_dict_filtered = {}
     rand_users = [] 
