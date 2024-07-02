@@ -7,13 +7,13 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=12:00:00      
-#SBATCH --output=c_1user.out
-#SBATCH --error=c_1user.err
+#SBATCH --output=c_2user_debug.out
+#SBATCH --error=c_2user_debug.err
 
 seed=0
-n_users_per_prompt=1
-prompt_start=250
-prompt_end=5000
+n_users_per_prompt=2
+prompt_start=0
+prompt_end=200
 
 num_return_sequences=9
 best_of=9
@@ -30,4 +30,4 @@ python conversations.py \
     n_users_per_prompt=$n_users_per_prompt \
     prompt_start=$prompt_start \
     prompt_end=$prompt_end \
-    save_file=data/conversations/5k_v2/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json
+    save_file=data/conversations/5k_v2/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}_for_mi.json

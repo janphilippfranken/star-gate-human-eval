@@ -2,6 +2,8 @@
 import json
 import fire
 import hydra
+import random
+import torch
 import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
@@ -12,8 +14,8 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 
 from prompts import *
 
+from users import *
 
-from users import USER_21
 
 # gpt 4 agent
 llm = AsyncAzureChatLLM(
@@ -31,31 +33,31 @@ gpt4 = GPT4Agent(
 )
 
 
-SYSTEM_PROMPT = """You are an expert at classifying prompts, highly skilled in determining whether an assistant has asked a clarifying question or answered directly."""
+SYSTEM_PROMPT = """You are an expert at classifying prompts, highly skilled in determining whether an assistant has asked a clarifying question or provided a direct answer."""
 
-PROMPT = """You are given a question that a user asked the assistant and the assistant's response:
+PROMPT = """You are given a user's question to the assistant and the assistant's response:
 
 User Question: {question}
 
 Assistant Response: {response}
 
-Your task is to determine whether the assistant's response is a 'Clarifying Question' or an 'Answer' based on the following definitions:
+Your task is to determine whether the assistant's response is a 'Clarifying Question' or a 'Direct Answer' based on the following definitions:
 
-Definition of Clarifying Question: A clarifying question is a query posed to gain a better understanding of a statement, instruction, or situation. It aims to eliminate ambiguity and ensure clear and accurate communication.
+Definition of Clarifying Question: A clarifying question is a query posed to gain a better understanding of a statement, instruction, or situation. It aims to eliminate ambiguity, ensure clear and accurate communication, and may ask for the user's background or personal information to provide a more tailored response.
 
-Definition of Answer: An answer is a reply or reaction to a question, statement, or situation. It provides information, feedback, or an answer to what has been communicated.
+Definition of Direct Answer: A direct answer is a reply that directly addresses the user's question without asking for additional information first.
 
 Format your response as follows:
 
-Reasoning: <your step-by-step reasoning determining whether the 'Assistant Response' better aligns with the definition of 'Clarifying Question' or 'Answer'. Provide a justification for your choice.>
-Final Response: <state only 1 if the response is a clarifying question, or 0 if it is an answer, and nothing else.>"""
-
-
+Reasoning: <Provide your step-by-step reasoning for determining whether the 'Assistant Response' aligns more closely with the definition of 'Clarifying Question' or 'Direct Answer'. Justify your choice.>
+Final Response: <State only '1' if the response is a clarifying question, or '0' if it is a direct answer, and nothing else.>"""
 
 
 
 @hydra.main(version_base=None, config_path="config", config_name="evaluate")
 def main(args: DictConfig) -> None:
+    
+    random.seed(1)
    
     # model
     model = VLLMInferenceModel(
@@ -70,11 +72,8 @@ def main(args: DictConfig) -> None:
     
     # prompts
     with open(args.prompts, 'r') as f:
-        prompts = json.load(f)[:200]
+        prompts = json.load(f)[:args.n_prompts]
         
-    # prompts = [datum['question'] for datum in prompts]
-    breakpoint()
-             
     # format prompts for initial query 
     ids = []
     batch_prompts = []
@@ -117,20 +116,31 @@ def main(args: DictConfig) -> None:
     # load the OG labels to compute agreement between gpt4 and model asked questions
     breakpoint()
     labels_human = json.load(open('data/labels/exp_when_9_pp_maj_votes_0_200.json'))
-    agreement = np.mean([i == j for i, j in zip(labels_human, formatted_gpt_responses) if i == 0])
+    agreement = np.mean([i == j for i, j in zip(labels_human, formatted_gpt_responses)])
     print("AGREEMENT", agreement)
     breakpoint()
     
     # now back to prompting roleplayer 
     batch_prompts_roleplayer = []
+    rand_users = []
     for i, prompt in enumerate(prompts):
+        rand_user = random.choice([USER_20, USER_21, USER_22, USER_23, USER_24])
+        rand_users.append(USER_20)
+        rand_user = USER_20
+        
         if int(formatted_gpt_responses[i]) == 1:
+            max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
+            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
+            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
+            roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
+            max_words = 20
+            roleplay_prompt_key = 'standard'
             batch_prompts_roleplayer.append([
-                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {USER_21}"},
-                    {"role": "user", "content": ROLEPLAY_PROMPT.format(
-                        user=USER_21, 
+                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {rand_user}"},
+                    {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
+                        user=rand_user, 
                         question=formatted_responses[i].strip(),
-                        max_words=20,
+                        max_words=max_words,
                 )}
             ])
 
@@ -198,21 +208,23 @@ def main(args: DictConfig) -> None:
                 'question': formatted_responses[i],
                 'response': formatted_responses_final[f_counter],
                 'roleplayer': formatted_batch_responses_roleplayer[f_counter],
+                'user': rand_users[i],
             }
             f_counter += 1
         else:
             final_performance[i] = {
                 'prompt': prompt,
                 'response': formatted_responses[i],
+                'user': rand_users[i],
             }
     breakpoint()
     
-    labels = [1 if resp == "Question Needed" else 0 for resp in formatted_responses]
-    # get win rates too for one held out user here 
-    breakpoint()
     
-    with open('results/not-cot-distilled-ckpt-2.json', 'w') as f:
+    with open(args.save_responses, 'w') as f:
         json.dump(final_performance, f, indent=4)
+        
+    with open(args.save_questions, 'w') as f:
+        json.dump(formatted_gpt_responses, f, indent=4)
 
 if __name__ == "__main__":
     fire.Fire(main())

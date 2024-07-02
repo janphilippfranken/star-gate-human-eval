@@ -1,0 +1,18 @@
+prompts: data/original_prompts/human_assistant_instruct.json
+save_questions: results/cot_distilled_epoch_3_questions_long_answer.json
+save_responses: results/cot_distilled_epoch_3_responses_long_answer.json
+n_prompts: 200
+roleplayer_mean_words: 12
+roleplayer_std_words: 9
+roleplayer_min_words: 5
+roleplayer_max_words: 50
+model_config:
+  model: /scr/jphilipp/stargate/uploads/stargate
+  download_dir: /scr/jphilipp/stargate/uploads/stargate
+  dtype: auto
+  quantization: null
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  temperature: 0.0

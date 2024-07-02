@@ -25,26 +25,33 @@ Assistant Response A: {response_a}
 
 Assistant Response B: {response_b}
 
-FIRST, provide a step-by-step comparison of the two responses and explain which you feel is more aligned with the user's background and preferences (no more than 100 words). 
+FIRST, provide a step-by-step comparison of the two responses, explaining which is more aligned with the user's background and preferences (no more than 100 words).
 
-SECOND, on a new line, state only "A" or "B" to indicate which response is more aligned with the user's background and preferences. 
+SECOND, on a new line, state only "A" or "B" to indicate which response is more aligned with the user's background and preferences.
+
+IMPORTANT: USERS PREFER SHORT ANSWERS! IN ADDITION TO CHECKING IF USER PREFERENCES ARE MATCHED/RESPONSE IS PERSONAL, MAKE SURE TO REWARD CONCISE RESPONSES!
 
 Comparison: <step-by-step comparison and explanation>
 
 Final Response: <"A" or "B">"""
 
 
-from users import USER_21
+
+from users import *
 
 @hydra.main(version_base=None, config_path="config", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
-    responses_base_file = json.load(open('results/baseline.json'))
+    responses_base_file = json.load(open('results/base_responses.json'))
+    asked_question = json.load(open('results/cot_distilled_epoch_1_responses_long_answer.json'))
 
     responses_base = [r["response"] for r in responses_base_file.values()]
-    responses_test_file = json.load(open('results/not-cot-distilled-ckpt-2.json'))
+    responses_test_file = json.load(open('results/cot_distilled_epoch_1_responses_long_answer.json'))
     responses_test = [r["response"] for r in responses_test_file.values()]
+    users = [r["user"] for r in responses_test_file.values()]
+    users2 = [r["user"] for r in responses_base_file.values()]
     queries = [r["prompt"] for r in responses_test_file.values()]
+    breakpoint()
     
     breakpoint()
     
@@ -75,10 +82,13 @@ def main(args: DictConfig) -> None:
         rand_number = np.random.randint(2)
         numbers.append(rand_number)
         
+        rand_user = users[i]
+        
+        
         if rand_number == 0:
         
             prompt = GPT4_WIN_RATE.format(
-                user=USER_21,
+                user=rand_user,
                 query=queries[i],
                 response_a=response_base,
                 response_b=response_test,
@@ -87,7 +97,7 @@ def main(args: DictConfig) -> None:
               
         elif rand_number == 1:
             prompt = GPT4_WIN_RATE.format(
-                user=USER_21,
+                user=rand_user,
                 query=queries[i],
                 response_a=response_test,
                 response_b=response_base,
@@ -95,7 +105,7 @@ def main(args: DictConfig) -> None:
             )
                
             prompts.append(prompt)
-        
+    breakpoint()
     responses = model.batch_prompt(
         system_message=SYSTEM_MESSAGE,
         messages=prompts,
@@ -103,7 +113,7 @@ def main(args: DictConfig) -> None:
     )
     
     formatted_responses = []
-
+    
     for response in responses:
         try:
             formatted_responses.append(response[0].split('Final Response:')[1].strip())
@@ -139,7 +149,7 @@ def main(args: DictConfig) -> None:
                 print("ERROR")
                 win_rates.append((0.5))
                 
-    with open(f'results/not-cot-distilled-ckpt-2-win-rates.json', 'w') as file:
+    with open(f'results/cot_distilled_epoch_1_win_rates_bias_short_long_answer.json', 'w') as file:
         json.dump(win_rates, file, indent=4)
         
 if __name__ == "__main__":
