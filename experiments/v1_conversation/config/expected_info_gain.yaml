@@ -1,11 +1,11 @@
 gold_responses: data/gold_responses/human_assistant_instruct_5k_20_users.json
-conversations: data/conversations/hai_start_0_end_100_n_user_5_seed_0_9_shots.json
-save_file: data/expected_info_gain/hai_start_0_end_100_n_user_5_seed_0_9_shots_debug.json
+conversations: data/conversations/debug_convo.json
+save_file: data/expected_info_gain/debug_gain.json
 
 prompt_start: 0
-prompt_end: 10
+prompt_end: 200
 n_users: 20
-n_users_per_prompt: 5
+n_users_per_prompt: 2
 
 
 n_logprobs_per_token: 0

@@ -32,7 +32,7 @@ Convo file: {args.conversations}""")
         cache_dir=args.model_config.download_dir,
     )
     
-    # base_ esponses 
+    # base_responses 
     with open(args.base_responses, "r") as f:
         base_responses = json.load(f)["response"]
         
@@ -50,9 +50,7 @@ Convo file: {args.conversations}""")
 
     for prompt_id in tqdm.tqdm(list(set(conversations["id"]))[:args.n_prompts]):
         
-        base_response = base_responses[prompt_id]
-        
-        for attempt in set(conversations["attempt"]):
+        for attempt in list(set(conversations["attempt"])):
             
             prompt_attempt_users = [
                 int(key.split("_")[3])
@@ -69,13 +67,7 @@ Convo file: {args.conversations}""")
                 conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 conversation = conversation_dict[conversation_key]
                 
-                # prompt with no assistant response 
-                # prompt_without_response = [
-                #     {"role": "user", "content": conversation["prompt"]},
-                #     {"role": "assistant", "content": conversation["question"]},
-                #     {"role": "user", "content": conversation["response"]},
-                # ]
-          
+              
                 prompt_without_response = [
                     {"role": "user", "content": conversation["prompt"]},
                     {"role": "assistant", "content": conversation["question"]},
@@ -87,13 +79,14 @@ Convo file: {args.conversations}""")
                     {"role": "user", "content": conversation["prompt"]},
                     {"role": "assistant", "content": conversation["question"]},
                     {"role": "user", "content": conversation["response"]},
-                    {"role": "assistant", "content": base_response},
+                    {"role": "assistant", "content": base_responses[prompt_id]},
                 ]
-                
         
                 # format 
                 formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
                 formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
+                
+                # breakpoint()
                     
                 outputs = model.prompt_logprobs(
                     prompts=[formatted_prompt_with_response],
@@ -119,7 +112,7 @@ Convo file: {args.conversations}""")
         question_mis = [] # best question attempt 
         questions = []
         
-        for attempt in set(conversations["attempt"]):   
+        for attempt in list(set(conversations["attempt"])):
             
             prompt_attempt_users = [
                 int(key.split("_")[3])

@@ -30,7 +30,9 @@ Please provide a personalized response that aligns with my background and prefer
 Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
 
-PROMPT_LOGPROBS_2 = """Below is a conversation between a user and an assistant:
+PROMPT_LOGPROBS_2 = """Below is a conversation between a user and the assistant.
+
+<Conversation Starts>
 
 User: {prompt}
 
@@ -38,11 +40,11 @@ Assistant: {question}
 
 User: {response}
 
-Based on the information elicited from the user, please provide a personalized response to the user's initial query that aligns with the user's background and preferences.
+</Conversation Ends>
+
+Please write a personalized response for the assistant that aligns with the user's background and preferences. 
 
 Important: Carefully consider the information the assistant elicited from the user and how they might help you with writing a personalized response."""
-
-
 
 
 
@@ -78,13 +80,27 @@ Response: <Based on your reasoning and in no more than {max_words} words, provid
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
 
-ROLEPLAY_PROMPTS_2 = {
-    'standard': """You must adopt the following persona in all conversations: {user}\n\nRoleplaying the above persona, answer the following question:\n\nQuestion: {question}\n\nFormat your response as follows:\n\nReasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>\n\nResponse: <Based on your reasoning, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>\n\nPlease follow these formatting instructions precisely. Failure to do so will result in disqualification. Please thoroughly respond to the question sharing thing about you that might be relevant. .""",
-    
-    'bullet_points': """You must adopt the following persona in all conversations: {user}\n\nRoleplaying the above persona, answer the following question:\n\nQuestion: {question}\n\nFormat your response as follows:\n\nReasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>\n\nResponse: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section. Use bullet points only, no full sentences here. This needs to be a realistic human response. People are lazy! Remember, no more than {max_words} words!>\n\nPlease follow these formatting instructions precisely. Failure to do so will result in disqualification. Remember: No more than {max_words} allowed. Also, use a lazy response style, only short bullet points etc. No need for full sentences. Imagine being a lazy human user; people are lazy.""",
-    
-    'keywords': """You must adopt the following persona in all conversations: {user}\n\nRoleplaying the above persona, answer the following question:\n\nQuestion: {question}\n\nFormat your response as follows:\n\nReasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>\n\nResponse: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section. Use keywords separated by commas only, no full sentences here. This needs to be a realistic human response. People are lazy! Remember, no more than {max_words} words!>\n\nPlease follow these formatting instructions precisely. Failure to do so will result in disqualification. Remember: No more than {max_words} allowed. Also, use a lazy response style, only short keywords separated by commas. No need for full sentences. Imagine being a lazy human user; people are lazy.""",
-}
+ROLEPLAY_PROMPT_2 = """You must adopt the following user persona in all conversations: {user}
+
+You, the 'User' have had the following conversation with the 'Assistant':
+
+<Conversation Starts>
+
+User: {prompt}
+
+Assistant: {question}
+
+</Conversation Ends>
+
+Roleplaying the User, provide a response to the Assistant given the context of your conversation.
+
+Format your response as follows:
+Reasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant given the context of the conversation. Repeat the key aspects of your persona relevant to the above conversation here in 3-5 sentences.>
+Response: <Based on your reasoning, provide a first-person response that directly addresses the assistant's question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
 
 ROLEPLAY_PROMPTS = {
     'standard': """You must adopt the following persona in all conversations: {user}\n\nRoleplaying the above persona, answer the following question:\n\nQuestion: {question}\n\nFormat your response as follows:\n\nReasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>\n\nResponse: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>\n\nPlease follow these formatting instructions precisely. Failure to do so will result in disqualification. Remember: No more than {max_words} words are allowed.""",

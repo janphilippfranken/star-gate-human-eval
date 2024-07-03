@@ -87,15 +87,12 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if i % n == 0:
             # randomly sample args.n_users_per_prompt each time we are at a new prompt
             rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
-            rand_users = [4, 17]
+
             # randomly sample n words for this prompt 
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-            # randomly sample prompt style (full sentence, bullet points, keywords)
-            # TODO: do not hardcode
-            max_words = 50
-            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
-            rand_roleplay_prompt_key = 0
+
+            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
             roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
         
         # distractor item 

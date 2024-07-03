@@ -1,6 +1,7 @@
 base_responses: data/base_responses/human_assistant_instruct_5k.json
-conversations: data/conversations/hai_start_0_end_200_n_user_2_seed_0_9_for_mi_long_resp.json
-save_file: data/mutual_information/mi_test.json
+gold_responses: data/gold_responses/human_assistant_instruct_5k_20_users.json
+conversations: data/conversations/hai_start_0_end_200_n_user_2_seed_0_12.json
+save_file: data/mutual_information/debug_mi.json
 
 n_users_per_prompt: 2
 n_prompts: 200
