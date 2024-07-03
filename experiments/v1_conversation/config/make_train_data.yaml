@@ -10,7 +10,7 @@ n_logprobs_per_token: 0
 
 response_filtering: false
 
-save_file: data/train/5k_v2/train_cost_2_cot_distilled_one_user.json
+save_file: data/train/5k_v2/train_cost_2_not_cot_distilled_one_user.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

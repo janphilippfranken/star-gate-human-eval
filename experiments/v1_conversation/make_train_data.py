@@ -54,7 +54,7 @@ def main(args: DictConfig) -> None:
         with open(f"{args.eig}{eig_batch}", 'r') as f:
             eig_batch = json.load(f)
         # eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
-        eig_batch = [np.argmax(datum["question_performances"][2:]).item() for datum in eig_batch.values()]
+        eig_batch = [np.argmax(datum["question_performances"][2:]).item() + 2 for datum in eig_batch.values()]
         best_question_attempts.extend(eig_batch)
     breakpoint()
     # filter best attempts based on eig 
@@ -90,17 +90,17 @@ def main(args: DictConfig) -> None:
 
         labels_int.append(labels[prompt_key]) # we need t this later 
         if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
-            batch_prompts.append([
-                {"role": "user", "content": conversation["prompt"]},
-                {"role": "assistant", "content": conversation["question"]},
-                {"role": "user", "content": FINAL_RESPONSE_PROMPT.format(response=conversation["response"], question=conversation["question"], prompt=conversation["prompt"])},
-            ])
-            
             # batch_prompts.append([
             #     {"role": "user", "content": conversation["prompt"]},
             #     {"role": "assistant", "content": conversation["question"]},
-            #     {"role": "user", "content": conversation["response"]},
+            #     {"role": "user", "content": FINAL_RESPONSE_PROMPT.format(response=conversation["response"], question=conversation["question"], prompt=conversation["prompt"])},
             # ])
+            
+            batch_prompts.append([
+                {"role": "user", "content": conversation["prompt"]},
+                {"role": "assistant", "content": conversation["question"]},
+                {"role": "user", "content": conversation["response"]},
+            ])
             
             batch_prompts_for_training.append([
                 {"role": "user", "content": conversation["prompt"]},

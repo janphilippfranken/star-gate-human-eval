@@ -75,18 +75,18 @@ Convo file: {args.conversations}""")
                 #     {"role": "assistant", "content": conversation["question"]},
                 #     {"role": "user", "content": conversation["response"]},
                 # ]
-                prompt_f = PROMPT_LOGPROBS_2.format(
-                    prompt=conversation["prompt"], 
-                    question=conversation["question"], 
-                    response=conversation["response"])
-                
+          
                 prompt_without_response = [
-                    {"role": "user", "content": prompt_f},
+                    {"role": "user", "content": conversation["prompt"]},
+                    {"role": "assistant", "content": conversation["question"]},
+                    {"role": "user", "content": conversation["response"]},
                 ]
                 
                 # prompt with assistant response 
                 prompt_with_response = [
-                    {"role": "user", "content": prompt_f},
+                    {"role": "user", "content": conversation["prompt"]},
+                    {"role": "assistant", "content": conversation["question"]},
+                    {"role": "user", "content": conversation["response"]},
                     {"role": "assistant", "content": base_response},
                 ]
                 
@@ -138,7 +138,7 @@ Convo file: {args.conversations}""")
         best_question_idx = int(np.argmax(question_mis))
         worst_question_idx =  int(np.argmin(question_mis))
       
-        best_question_idx_wo_pos_control = 1 + int(np.argmax(question_mis[1:])) # look at best excluding the first two
+        best_question_idx_wo_pos_control = 2 + int(np.argmax(question_mis[2:])) # look at best excluding the first two
     
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}

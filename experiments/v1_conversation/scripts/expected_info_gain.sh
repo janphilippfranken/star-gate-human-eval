@@ -12,9 +12,9 @@
 #SBATCH --begin=now+0hours 
 
 seed=0
-n_users_per_prompt=1
-prompt_start=250
-prompt_end=5000
+n_users_per_prompt=2
+prompt_start=0
+prompt_end=200
 
 best_of=9
 
@@ -27,6 +27,8 @@ python expected_info_gain.py \
     prompt_start=$prompt_start \
     prompt_end=$prompt_end \
     n_users_per_prompt=$n_users_per_prompt \
-    conversations=data/conversations/5k_v2_one_user/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json \
-    save_file=data/expected_info_gain/5k_v2_one_user/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json
+    conversations=data/conversations/hai_start_0_end_200_n_user_2_seed_0_9_for_mi_long_resp.json \
+    # conversations=data/conversations/5k_v2_one_user/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json \
+    save_file=data/expected_info_gain/hai_start_0_end_200_n_user_2_seed_0_9_for_mi_long_resp.json 
+    # save_file=data/expected_info_gain/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json
                 
