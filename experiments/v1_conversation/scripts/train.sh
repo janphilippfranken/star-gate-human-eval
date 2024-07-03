@@ -3,9 +3,9 @@
 #SBATCH --account=cocoflops                 
 #SBATCH --partition=cocoflops              
 #SBATCH --nodelist=cocoflops-hgx-1          
-#SBATCH --gres=gpu:4                     
+#SBATCH --gres=gpu:2                     
 #SBATCH --mem=256GB                       
-#SBATCH --cpus-per-task=48               
+#SBATCH --cpus-per-task=32               
 #SBATCH --time=12:00:00                    
 #SBATCH --output=train_no_cot.out   
 #SBATCH --error=train_no_cot.err

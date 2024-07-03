@@ -1,7 +1,7 @@
-[2024-07-02 17:15:05,364][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-no-cot-cost-2-lr-1e-5-one-user
+[2024-07-03 13:06:10,849][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/m1-cot-eig
 learning rate: 1e-05
-[2024-07-02 17:15:19,163][root][INFO] - DATA
-[{'role': 'user', 'content': 'How do I make a Mediterranean salad.'}, {'role': 'assistant', 'content': "A delicious and refreshing Mediterranean salad! Here's a simple recipe to make a classic Mediterranean salad:\n\n**Ingredients:**\n\n* 4-6 cups mixed greens (arugula, spinach, lettuce, etc.)\n* 1 cup cherry tomatoes, halved\n* 1 cup cucumber, sliced\n* 1 cup Kalamata olives, pitted\n* 1/2 cup crumbled feta cheese (optional)\n* 1/4 cup red onion, thinly sliced\n* 1/4 cup red bell pepper, sliced\n* 2 tbsp. extra-virgin olive oil\n* 2 tbsp. red wine vinegar\n* 1 tsp. Dijon mustard\n* Salt and pepper to taste\n* Fresh parsley, chopped (optional)\n\n**Instructions:**\n\n1. In a large bowl, combine the mixed greens, cherry tomatoes, cucumber, olives, feta cheese (if using), red onion, and red bell pepper.\n2. In a small bowl, whisk together the olive oil, red wine vinegar, Dijon mustard, salt, and pepper to make the dressing.\n3. Pour the dressing over the salad and toss to combine.\n4. Taste and adjust the seasoning as needed.\n5. Cover the bowl with plastic wrap and refrigerate for at least 30 minutes to allow the flavors to meld.\n6. Just before serving, sprinkle with chopped fresh parsley (if using).\n7. Serve chilled or at room temperature.\n\n**Tips and Variations:**\n\n* Use a variety of greens, such as arugula, spinach, and lettuce, for a colorful and flavorful base.\n* Add some protein to the salad by including cooked chicken, grilled salmon, or crumbled feta cheese.\n* Substitute other types of cheese, such as goat cheese or ricotta, for a different flavor profile.\n* Add some crunch by including chopped nuts or seeds, such as almonds or pumpkin seeds.\n* For a more substantial salad, add some cooked quinoa, farro, or bulgur to the mix.\n* Experiment with different types of olives, such as green olives or black olives, for a unique flavor.\n\nEnjoy your delicious Mediterranean salad!"}]
+[2024-07-03 13:06:19,720][root][INFO] - DATA
+[{'role': 'user', 'content': 'How do I make a Mediterranean salad.'}, {'role': 'assistant', 'content': 'What type of occasion or event are you planning to serve this Mediterranean salad for, or are you looking to prepare it for a quick weeknight dinner or lunch?'}, {'role': 'user', 'content': 'Foraged food, no occasion, no event, self-sufficient.'}, {'role': 'assistant', 'content': "You can create a unique and delicious Mediterranean salad by foraging for wild greens like dandelion, chicory, or wild arugula, and combining them with foraged herbs like thyme, rosemary, or oregano. Add some wild garlic or ramps for a pungent flavor, and top it off with a drizzle of olive oil and a squeeze of fresh lemon juice. Don't forget to include some foraged nuts or seeds like pine nuts or sunflower seeds for added crunch."}]
 DatasetDict({
     train: Dataset({
         features: ['input_ids', 'labels', 'attention_mask'],
@@ -12,80 +12,80 @@ DatasetDict({
         num_rows: 238
     })
 })
-[2024-07-02 17:15:27,196][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-{'loss': 0.2626, 'learning_rate': 5.000000000000001e-07, 'epoch': 0.03}
-{'loss': 0.2468, 'learning_rate': 1.0000000000000002e-06, 'epoch': 0.06}
-{'loss': 0.2381, 'learning_rate': 1.5e-06, 'epoch': 0.09}
-{'loss': 0.2499, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.11}
-{'loss': 0.2331, 'learning_rate': 2.5e-06, 'epoch': 0.14}
-{'loss': 0.2229, 'learning_rate': 3e-06, 'epoch': 0.17}
-{'loss': 0.2074, 'learning_rate': 3.5e-06, 'epoch': 0.2}
-{'loss': 0.1987, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.23}
-{'loss': 0.1943, 'learning_rate': 4.5e-06, 'epoch': 0.26}
-{'loss': 0.1985, 'learning_rate': 5e-06, 'epoch': 0.28}
-{'loss': 0.1881, 'learning_rate': 5.500000000000001e-06, 'epoch': 0.31}
-{'loss': 0.1799, 'learning_rate': 6e-06, 'epoch': 0.34}
-{'loss': 0.1698, 'learning_rate': 6.5000000000000004e-06, 'epoch': 0.37}
-{'loss': 0.1665, 'learning_rate': 7e-06, 'epoch': 0.4}
-{'loss': 0.157, 'learning_rate': 7.500000000000001e-06, 'epoch': 0.43}
-{'loss': 0.1562, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.45}
-{'loss': 0.1415, 'learning_rate': 8.5e-06, 'epoch': 0.48}
-{'loss': 0.1484, 'learning_rate': 9e-06, 'epoch': 0.51}
-{'loss': 0.1498, 'learning_rate': 9.5e-06, 'epoch': 0.54}
-{'loss': 0.1532, 'learning_rate': 1e-05, 'epoch': 0.57}
-{'loss': 0.1453, 'learning_rate': 9.800000000000001e-06, 'epoch': 0.6}
-{'loss': 0.135, 'learning_rate': 9.600000000000001e-06, 'epoch': 0.62}
-{'loss': 0.1367, 'learning_rate': 9.4e-06, 'epoch': 0.65}
-{'loss': 0.1418, 'learning_rate': 9.200000000000002e-06, 'epoch': 0.68}
-{'loss': 0.1393, 'learning_rate': 9e-06, 'epoch': 0.71}
-{'loss': 0.1402, 'learning_rate': 8.8e-06, 'epoch': 0.74}
-{'loss': 0.1371, 'learning_rate': 8.6e-06, 'epoch': 0.77}
-{'loss': 0.1318, 'learning_rate': 8.400000000000001e-06, 'epoch': 0.79}
-{'loss': 0.1314, 'learning_rate': 8.2e-06, 'epoch': 0.82}
-{'loss': 0.1301, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.85}
-{'loss': 0.1387, 'learning_rate': 7.800000000000002e-06, 'epoch': 0.88}
-{'loss': 0.1239, 'learning_rate': 7.600000000000001e-06, 'epoch': 0.91}
-{'loss': 0.1342, 'learning_rate': 7.4e-06, 'epoch': 0.94}
-{'loss': 0.1336, 'learning_rate': 7.2000000000000005e-06, 'epoch': 0.96}
-{'loss': 0.1346, 'learning_rate': 7e-06, 'epoch': 0.99}
-{'eval_loss': 0.13102790713310242, 'eval_runtime': 17.9614, 'eval_samples_per_second': 13.251, 'eval_steps_per_second': 6.625, 'epoch': 0.99}
-{'loss': 0.1077, 'learning_rate': 6.800000000000001e-06, 'epoch': 1.02}
-{'loss': 0.1033, 'learning_rate': 6.600000000000001e-06, 'epoch': 1.05}
-{'loss': 0.099, 'learning_rate': 6.4000000000000006e-06, 'epoch': 1.08}
-{'loss': 0.0974, 'learning_rate': 6.200000000000001e-06, 'epoch': 1.11}
-{'loss': 0.097, 'learning_rate': 6e-06, 'epoch': 1.13}
-{'loss': 0.098, 'learning_rate': 5.8e-06, 'epoch': 1.16}
-{'loss': 0.0964, 'learning_rate': 5.600000000000001e-06, 'epoch': 1.19}
-{'loss': 0.092, 'learning_rate': 5.400000000000001e-06, 'epoch': 1.22}
-{'loss': 0.0941, 'learning_rate': 5.2e-06, 'epoch': 1.25}
-{'loss': 0.0968, 'learning_rate': 5e-06, 'epoch': 1.28}
-{'loss': 0.0922, 'learning_rate': 4.800000000000001e-06, 'epoch': 1.3}
-{'loss': 0.0927, 'learning_rate': 4.600000000000001e-06, 'epoch': 1.33}
-{'loss': 0.0926, 'learning_rate': 4.4e-06, 'epoch': 1.36}
-{'loss': 0.0878, 'learning_rate': 4.2000000000000004e-06, 'epoch': 1.39}
-{'loss': 0.0897, 'learning_rate': 4.000000000000001e-06, 'epoch': 1.42}
-{'loss': 0.0899, 'learning_rate': 3.8000000000000005e-06, 'epoch': 1.45}
-{'loss': 0.0891, 'learning_rate': 3.6000000000000003e-06, 'epoch': 1.48}
-{'loss': 0.0885, 'learning_rate': 3.4000000000000005e-06, 'epoch': 1.5}
-{'loss': 0.0907, 'learning_rate': 3.2000000000000003e-06, 'epoch': 1.53}
-{'loss': 0.0907, 'learning_rate': 3e-06, 'epoch': 1.56}
-{'loss': 0.0924, 'learning_rate': 2.8000000000000003e-06, 'epoch': 1.59}
-{'loss': 0.0862, 'learning_rate': 2.6e-06, 'epoch': 1.62}
-{'loss': 0.0851, 'learning_rate': 2.4000000000000003e-06, 'epoch': 1.65}
-{'loss': 0.087, 'learning_rate': 2.2e-06, 'epoch': 1.67}
-{'loss': 0.0879, 'learning_rate': 2.0000000000000003e-06, 'epoch': 1.7}
-{'loss': 0.0957, 'learning_rate': 1.8000000000000001e-06, 'epoch': 1.73}
-{'loss': 0.0896, 'learning_rate': 1.6000000000000001e-06, 'epoch': 1.76}
-{'loss': 0.0912, 'learning_rate': 1.4000000000000001e-06, 'epoch': 1.79}
-{'loss': 0.0916, 'learning_rate': 1.2000000000000002e-06, 'epoch': 1.82}
-{'loss': 0.0877, 'learning_rate': 1.0000000000000002e-06, 'epoch': 1.84}
-{'loss': 0.0931, 'learning_rate': 8.000000000000001e-07, 'epoch': 1.87}
-{'loss': 0.0886, 'learning_rate': 6.000000000000001e-07, 'epoch': 1.9}
-{'loss': 0.091, 'learning_rate': 4.0000000000000003e-07, 'epoch': 1.93}
-{'loss': 0.0885, 'learning_rate': 2.0000000000000002e-07, 'epoch': 1.96}
-{'loss': 0.0924, 'learning_rate': 0.0, 'epoch': 1.99}
-{'eval_loss': 0.12733493745326996, 'eval_runtime': 17.7165, 'eval_samples_per_second': 13.434, 'eval_steps_per_second': 6.717, 'epoch': 1.99}
-{'train_runtime': 2020.5178, 'train_samples_per_second': 4.466, 'train_steps_per_second': 0.035, 'train_loss': 0.13042972864849225, 'epoch': 1.99}
+[2024-07-03 13:06:26,173][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 0.3632, 'learning_rate': 5.000000000000001e-07, 'epoch': 0.03}
+{'loss': 0.4144, 'learning_rate': 1.0000000000000002e-06, 'epoch': 0.06}
+{'loss': 0.4894, 'learning_rate': 1.5e-06, 'epoch': 0.09}
+{'loss': 0.414, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.11}
+{'loss': 0.4303, 'learning_rate': 2.5e-06, 'epoch': 0.14}
+{'loss': 0.3522, 'learning_rate': 3e-06, 'epoch': 0.17}
+{'loss': 0.3231, 'learning_rate': 3.5e-06, 'epoch': 0.2}
+{'loss': 0.3931, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.23}
+{'loss': 0.2889, 'learning_rate': 4.5e-06, 'epoch': 0.26}
+{'loss': 0.3265, 'learning_rate': 5e-06, 'epoch': 0.28}
+{'loss': 0.2829, 'learning_rate': 5.500000000000001e-06, 'epoch': 0.31}
+{'loss': 0.301, 'learning_rate': 6e-06, 'epoch': 0.34}
+{'loss': 0.2425, 'learning_rate': 6.5000000000000004e-06, 'epoch': 0.37}
+{'loss': 0.2256, 'learning_rate': 7e-06, 'epoch': 0.4}
+{'loss': 0.2395, 'learning_rate': 7.500000000000001e-06, 'epoch': 0.43}
+{'loss': 0.238, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.45}
+{'loss': 0.1975, 'learning_rate': 8.5e-06, 'epoch': 0.48}
+{'loss': 0.2041, 'learning_rate': 9e-06, 'epoch': 0.51}
+{'loss': 0.2341, 'learning_rate': 9.5e-06, 'epoch': 0.54}
+{'loss': 0.1861, 'learning_rate': 1e-05, 'epoch': 0.57}
+{'loss': 0.2081, 'learning_rate': 9.800000000000001e-06, 'epoch': 0.6}
+{'loss': 0.206, 'learning_rate': 9.600000000000001e-06, 'epoch': 0.62}
+{'loss': 0.1997, 'learning_rate': 9.4e-06, 'epoch': 0.65}
+{'loss': 0.202, 'learning_rate': 9.200000000000002e-06, 'epoch': 0.68}
+{'loss': 0.2214, 'learning_rate': 9e-06, 'epoch': 0.71}
+{'loss': 0.2036, 'learning_rate': 8.8e-06, 'epoch': 0.74}
+{'loss': 0.2106, 'learning_rate': 8.6e-06, 'epoch': 0.77}
+{'loss': 0.223, 'learning_rate': 8.400000000000001e-06, 'epoch': 0.79}
+{'loss': 0.2098, 'learning_rate': 8.2e-06, 'epoch': 0.82}
+{'loss': 0.1803, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.85}
+{'loss': 0.2441, 'learning_rate': 7.800000000000002e-06, 'epoch': 0.88}
+{'loss': 0.1799, 'learning_rate': 7.600000000000001e-06, 'epoch': 0.91}
+{'loss': 0.1821, 'learning_rate': 7.4e-06, 'epoch': 0.94}
+{'loss': 0.1977, 'learning_rate': 7.2000000000000005e-06, 'epoch': 0.96}
+{'loss': 0.1851, 'learning_rate': 7e-06, 'epoch': 0.99}
+{'eval_loss': 0.191373810172081, 'eval_runtime': 13.59, 'eval_samples_per_second': 17.513, 'eval_steps_per_second': 8.756, 'epoch': 0.99}
+{'loss': 0.1587, 'learning_rate': 6.800000000000001e-06, 'epoch': 1.02}
+{'loss': 0.1477, 'learning_rate': 6.600000000000001e-06, 'epoch': 1.05}
+{'loss': 0.1506, 'learning_rate': 6.4000000000000006e-06, 'epoch': 1.08}
+{'loss': 0.1243, 'learning_rate': 6.200000000000001e-06, 'epoch': 1.11}
+{'loss': 0.1567, 'learning_rate': 6e-06, 'epoch': 1.13}
+{'loss': 0.152, 'learning_rate': 5.8e-06, 'epoch': 1.16}
+{'loss': 0.1499, 'learning_rate': 5.600000000000001e-06, 'epoch': 1.19}
+{'loss': 0.1602, 'learning_rate': 5.400000000000001e-06, 'epoch': 1.22}
+{'loss': 0.1365, 'learning_rate': 5.2e-06, 'epoch': 1.25}
+{'loss': 0.1582, 'learning_rate': 5e-06, 'epoch': 1.28}
+{'loss': 0.126, 'learning_rate': 4.800000000000001e-06, 'epoch': 1.3}
+{'loss': 0.1541, 'learning_rate': 4.600000000000001e-06, 'epoch': 1.33}
+{'loss': 0.1416, 'learning_rate': 4.4e-06, 'epoch': 1.36}
+{'loss': 0.1717, 'learning_rate': 4.2000000000000004e-06, 'epoch': 1.39}
+{'loss': 0.1407, 'learning_rate': 4.000000000000001e-06, 'epoch': 1.42}
+{'loss': 0.1396, 'learning_rate': 3.8000000000000005e-06, 'epoch': 1.45}
+{'loss': 0.1469, 'learning_rate': 3.6000000000000003e-06, 'epoch': 1.48}
+{'loss': 0.1558, 'learning_rate': 3.4000000000000005e-06, 'epoch': 1.5}
+{'loss': 0.1276, 'learning_rate': 3.2000000000000003e-06, 'epoch': 1.53}
+{'loss': 0.1138, 'learning_rate': 3e-06, 'epoch': 1.56}
+{'loss': 0.1149, 'learning_rate': 2.8000000000000003e-06, 'epoch': 1.59}
+{'loss': 0.1382, 'learning_rate': 2.6e-06, 'epoch': 1.62}
+{'loss': 0.1321, 'learning_rate': 2.4000000000000003e-06, 'epoch': 1.65}
+{'loss': 0.126, 'learning_rate': 2.2e-06, 'epoch': 1.67}
+{'loss': 0.1462, 'learning_rate': 2.0000000000000003e-06, 'epoch': 1.7}
+{'loss': 0.1373, 'learning_rate': 1.8000000000000001e-06, 'epoch': 1.73}
+{'loss': 0.1371, 'learning_rate': 1.6000000000000001e-06, 'epoch': 1.76}
+{'loss': 0.1583, 'learning_rate': 1.4000000000000001e-06, 'epoch': 1.79}
+{'loss': 0.1451, 'learning_rate': 1.2000000000000002e-06, 'epoch': 1.82}
+{'loss': 0.1519, 'learning_rate': 1.0000000000000002e-06, 'epoch': 1.84}
+{'loss': 0.14, 'learning_rate': 8.000000000000001e-07, 'epoch': 1.87}
+{'loss': 0.1152, 'learning_rate': 6.000000000000001e-07, 'epoch': 1.9}
+{'loss': 0.1201, 'learning_rate': 4.0000000000000003e-07, 'epoch': 1.93}
+{'loss': 0.1531, 'learning_rate': 2.0000000000000002e-07, 'epoch': 1.96}
+{'loss': 0.1281, 'learning_rate': 0.0, 'epoch': 1.99}
+{'eval_loss': 0.1843215823173523, 'eval_runtime': 13.6074, 'eval_samples_per_second': 17.49, 'eval_steps_per_second': 8.745, 'epoch': 1.99}
+{'train_runtime': 1725.4306, 'train_samples_per_second': 5.23, 'train_steps_per_second': 0.041, 'train_loss': 0.2022345442857061, 'epoch': 1.99}
 NAME
     train.py
 

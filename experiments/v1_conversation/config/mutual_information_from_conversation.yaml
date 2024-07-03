@@ -9,8 +9,8 @@ n_prompts: 200
 n_logprobs_per_token: 0
 
 model_config:
-  model: /scr/jphilipp/stargate/uploads/stargate
-  download_dir: /scr/jphilipp/stargate/uploads/stargate
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   quantization: null
   tensor_parallel_size: 1

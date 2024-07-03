@@ -67,7 +67,7 @@ def main(args: DictConfig) -> None:
     responses_base_file = json.load(open('results/base_responses_user_21_max_words_25_full_sentence.json'))
     responses_base = [r["response"] for r in responses_base_file.values()]
     
-    responses_test_file = json.load(open('results/no_cot_ckpt_2_responses_user_21_max_words_25_full_sentence_lr_1e-5_one_user.json'))
+    responses_test_file = json.load(open('results/cot_ckpt_1_responses_eig.json'))
     
     responses_test = [r["response"] for r in responses_test_file.values()]
     users = [r["user"] for r in responses_test_file.values()]
@@ -168,7 +168,7 @@ def main(args: DictConfig) -> None:
                 print("ERROR")
                 win_rates.append((0.5))
                 
-    with open(f'results/no_cot_ckpt_2_win_rates_user_21_max_words_25_full_sentence_lr_1e-5_one_user.json', 'w') as file:
+    with open(f'results/cot_ckpt_1_win_rates_eig.json', 'w') as file:
         json.dump(win_rates, file, indent=4)
         
 if __name__ == "__main__":

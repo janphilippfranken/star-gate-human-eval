@@ -30,21 +30,16 @@ Please provide a personalized response that aligns with my background and prefer
 Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
 
-PROMPT_LOGPROBS_2 = """Below is a conversation between a user and the assistant.
+PROMPT_LOGPROBS_2 = """"Hi! Here is my profile: {user}
 
-<Conversation Starts>
+I have the following question for you:
 
-User: {prompt}
+Question: {question}
 
-Assistant: {question}
+Please provide a personalized response that aligns with my background and preferences.
 
-User: {response}
+Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
-</Conversation Ends>
-
-Please write a personalized response for the assistant that aligns with the user's background and preferences. 
-
-Important: Carefully consider the information the assistant elicited from the user and how they might help you with writing a personalized response."""
 
 
 

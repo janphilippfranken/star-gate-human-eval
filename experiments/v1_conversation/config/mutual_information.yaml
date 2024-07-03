@@ -1,9 +1,9 @@
 prompts: data/base_responses/human_assistant_instruct_5k.json
 users: data/users/users.json
 start_prompt: 0
-end_prompt: 200
+end_prompt: 5000
 n_users: 20
-n_users_per_prompt: 4
+n_users_per_prompt: 2
 n_logprobs_per_token: 0
 seed: 0
 

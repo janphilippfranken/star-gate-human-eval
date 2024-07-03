@@ -9,13 +9,13 @@ tokenizer_config:
 
 wandb:
   project: stargate
-  name: stargate-5k-no-cot-distilled-cost-2-1e-5-one-user
+  name: stargate-5k-cot-distilled-cost-eig
 
-data: data/train/5k_v2/train_cost_2_not_cot_distilled_one_user.json
+data: data/train/5k_v2/train_cost_2_cot_distilled_eig.json
 test_split: 0.05
 
 training_args:
-  output_dir: /scr/jphilipp/stargate/checkpoints/m1-no-cot-cost-2-lr-1e-5-one-user
+  output_dir: /scr/jphilipp/stargate/checkpoints/m1-cot-eig
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 64

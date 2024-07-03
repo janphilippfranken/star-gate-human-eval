@@ -1,0 +1,4 @@
+[2024-07-03 15:30:19,653][root][INFO] - Computing MI from Convo.
+Saving to: data/mutual_information/debug_mi.json
+Convo file: data/conversations/hai_start_0_end_200_n_user_2_seed_0_12.json
+INFO 07-03 15:30:19 llm_engine.py:79] Initializing an LLM engine with config: model='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer='meta-llama/Meta-Llama-3-8B-Instruct', tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir='/scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct', load_format=auto, tensor_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, seed=0)

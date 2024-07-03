@@ -49,14 +49,20 @@ def main(args: DictConfig) -> None:
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
         
     # eig for best questions
+    best_question_eig = []
     best_question_attempts = []
     for eig_batch in sorted(os.listdir(args.eig), key=lambda item: int(item.split("_")[2])):
         with open(f"{args.eig}{eig_batch}", 'r') as f:
             eig_batch = json.load(f)
         # eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
+        eig_batch_scores = [np.max(datum["question_performances"][2:]).item() for datum in eig_batch.values()]
         eig_batch = [np.argmax(datum["question_performances"][2:]).item() + 2 for datum in eig_batch.values()]
         best_question_attempts.extend(eig_batch)
-    breakpoint()
+        best_question_eig.extend(eig_batch_scores)
+    # breakpoint()
+    # best_question_eig = [0] * 250 + best_question_eig
+    labels = [1 if v > 1.3 * np.median(best_question_eig) else 0 for v in best_question_eig]
+    labels = [0] * 250 + labels
     # filter best attempts based on eig 
     conversation_dict_filtered = {}
     rand_users = [] 
@@ -90,17 +96,17 @@ def main(args: DictConfig) -> None:
 
         labels_int.append(labels[prompt_key]) # we need t this later 
         if labels[prompt_key] == 1: # if this is a prompt for which we should ask a question
-            # batch_prompts.append([
-            #     {"role": "user", "content": conversation["prompt"]},
-            #     {"role": "assistant", "content": conversation["question"]},
-            #     {"role": "user", "content": FINAL_RESPONSE_PROMPT.format(response=conversation["response"], question=conversation["question"], prompt=conversation["prompt"])},
-            # ])
-            
             batch_prompts.append([
                 {"role": "user", "content": conversation["prompt"]},
                 {"role": "assistant", "content": conversation["question"]},
-                {"role": "user", "content": conversation["response"]},
+                {"role": "user", "content": FINAL_RESPONSE_PROMPT.format(response=conversation["response"], question=conversation["question"], prompt=conversation["prompt"])},
             ])
+            
+            # batch_prompts.append([
+            #     {"role": "user", "content": conversation["prompt"]},
+            #     {"role": "assistant", "content": conversation["question"]},
+            #     {"role": "user", "content": conversation["response"]},
+            # ])
             
             batch_prompts_for_training.append([
                 {"role": "user", "content": conversation["prompt"]},

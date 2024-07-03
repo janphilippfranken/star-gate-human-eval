@@ -13,6 +13,7 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 
 from helpers import *
 from prompts import *
+from users import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="mutual_information_from_conversation")
@@ -69,16 +70,16 @@ Convo file: {args.conversations}""")
                 
               
                 prompt_without_response = [
-                    {"role": "user", "content": conversation["prompt"]},
+                    {"role": "user", "content": PROMPT_LOGPROBS_2.format(user=users[f"user_{user_id}"], question=conversation["prompt"])},
                     {"role": "assistant", "content": conversation["question"]},
-                    {"role": "user", "content": conversation["response"]},
+                    {"role": "user", "content": f"{conversation['response']}\n\nGiven this info, now please respond to my initial question."},
                 ]
                 
                 # prompt with assistant response 
                 prompt_with_response = [
-                    {"role": "user", "content": conversation["prompt"]},
+                    {"role": "user", "content": PROMPT_LOGPROBS_2.format(user=users[f"user_{user_id}"], question=conversation["prompt"])},
                     {"role": "assistant", "content": conversation["question"]},
-                    {"role": "user", "content": conversation["response"]},
+                    {"role": "user", "content": f"{conversation['response']}\n\nGiven this info, now please respond to my initial question."},
                     {"role": "assistant", "content": base_responses[prompt_id]},
                 ]
         
