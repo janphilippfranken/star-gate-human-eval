@@ -16,7 +16,7 @@ n_users_per_prompt=2
 prompt_start=0
 prompt_end=200
 
-best_of=12
+best_of=1
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate

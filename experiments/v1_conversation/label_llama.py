@@ -60,7 +60,7 @@ Reasoning: <Provide your step-by-step reasoning whether to answer directly or as
 Final Decision: <Output 'Answer Directly' if you'd prefer the assistant to answer directly, and 'Ask Clarifying Question' if you'd prefer the assistant to ask a clarifying question>"""
 
 
-@hydra.main(version_base=None, config_path="config", config_name="gold_responses")
+@hydra.main(version_base=None, config_path="config", config_name="expected_info_gain")
 def main(args: DictConfig) -> None:
    
     # model
@@ -108,7 +108,7 @@ def main(args: DictConfig) -> None:
         1 if 'Ask Clarifying Question' in formatted_response else 0 for formatted_response in formatted_responses
     ]
     
-    with open('data/labels/llama_0_200_question_ckpt_1.json', 'w') as f:
+    with open('data/labels/llama_70b_0_200_question.json', 'w') as f:
         json.dump(formatted_responses, f, indent=4)
 
 if __name__ == "__main__":

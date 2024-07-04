@@ -14,6 +14,7 @@ from helpers import *
 from prompts import *
 
 
+
 @hydra.main(version_base=None, config_path="config", config_name="expected_info_gain")
 def main(args: DictConfig) -> None:
     logging.info(f"""Computing EIG. Start Prompt: {args.prompt_start}. End Prompt: {args.prompt_end}
@@ -159,7 +160,7 @@ N_USER: {args.n_users_per_prompt}""")
         best_question_idx = int(np.argmax(best_question_indices))
         worst_question_idx =  int(np.argmin(best_question_indices))
         # TODO: MAKE VAR NAMES HERE BETTER
-        best_question_idx_wo_pos_control = 2 + int(np.argmax(best_question_indices[2:])) # look at best excluding the first two
+        # best_question_idx_wo_pos_control = 2 + int(np.argmax(best_question_indices[2:])) # look at best excluding the first two
     
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
@@ -167,9 +168,9 @@ N_USER: {args.n_users_per_prompt}""")
         best_questions[f"best_question_for_prompt_{prompt_id}"]['questions'] = questions
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
         best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question_idx'] = worst_question_idx
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx_wo_pos_control'] = best_question_idx_wo_pos_control 
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx_wo_pos_control'] = best_question_idx_wo_pos_control 
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question'] = questions[best_question_idx]
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_wo_pos_control'] = questions[best_question_idx_wo_pos_control]
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_wo_pos_control'] = questions[best_question_idx_wo_pos_control]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['average_eig'] = best_question_indices[best_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['max_eig_gain_over_min'] = max(best_question_indices) - min(best_question_indices)

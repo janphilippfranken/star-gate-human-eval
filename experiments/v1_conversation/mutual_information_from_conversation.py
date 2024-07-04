@@ -33,9 +33,21 @@ Convo file: {args.conversations}""")
         cache_dir=args.model_config.download_dir,
     )
     
+     # prompts
+    with open(args.prompts, "r") as f:
+        prompts = json.load(f)
+    
     # base_responses 
     with open(args.base_responses, "r") as f:
         base_responses = json.load(f)["response"]
+        
+    with open(args.gold_responses, "r") as f:
+        gold_responses = json.load(f)
+        
+    gold_responses = {
+        f"{prompt_id}_{user_id}": gold_response for prompt_id, user_id, _, gold_response in
+        zip(*gold_responses.values())
+    }
         
     # conversations
     with open(args.conversations, "r") as f:
@@ -48,6 +60,9 @@ Convo file: {args.conversations}""")
   
     # logprobs container
     logprobs = {}
+    formatted_prompts = {}
+    convos = {}
+    resp = {}
 
     for prompt_id in tqdm.tqdm(list(set(conversations["id"]))[:args.n_prompts]):
         
@@ -62,31 +77,33 @@ Convo file: {args.conversations}""")
             
             attempt_key = f"prompt_{prompt_id}_attempt_{attempt}"
             logprobs[attempt_key] = []
+            formatted_prompts[attempt_key] = []
+            resp[attempt_key] = []
+            # gold_response = gold_responses[f"{prompt_id}_4"]
             
             for user_id in prompt_attempt_users:
   
                 conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 conversation = conversation_dict[conversation_key]
                 
-              
                 prompt_without_response = [
-                    {"role": "user", "content": PROMPT_LOGPROBS_2.format(user=users[f"user_{user_id}"], question=conversation["prompt"])},
+                    {"role": "user", "content": conversation["prompt"]},
                     {"role": "assistant", "content": conversation["question"]},
-                    {"role": "user", "content": f"{conversation['response']}\n\nGiven this info, now please respond to my initial question."},
+                    {"role": "user", "content": conversation['response']},
                 ]
                 
                 # prompt with assistant response 
                 prompt_with_response = [
-                    {"role": "user", "content": PROMPT_LOGPROBS_2.format(user=users[f"user_{user_id}"], question=conversation["prompt"])},
+                    {"role": "user", "content": conversation["prompt"]},
                     {"role": "assistant", "content": conversation["question"]},
-                    {"role": "user", "content": f"{conversation['response']}\n\nGiven this info, now please respond to my initial question."},
+                    {"role": "user", "content": conversation['response']},
                     {"role": "assistant", "content": base_responses[prompt_id]},
                 ]
         
                 # format 
                 formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
                 formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
-                
+                resp[attempt_key].append(base_responses[prompt_id])
                 # breakpoint()
                     
                 outputs = model.prompt_logprobs(
@@ -98,15 +115,20 @@ Convo file: {args.conversations}""")
                 p_base_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] 
                 p_base_given_conversation = [v for prob in p_base_given_conversation for _, v in prob.items()]
                 logprobs[attempt_key].append(np.mean(p_base_given_conversation))
+                formatted_prompts[attempt_key].append(formatted_prompt_with_response)
 
     # breakpoint()
     # now compute mis
     mis = {}
+    logprobs_2 = {}
+    
     
     for prompt_attempt_key, prompt_attempt_value in logprobs.items():
         mi = mutual_information(logprobs=torch.tensor(prompt_attempt_value), n_users=len(prompt_attempt_value))
         mis[prompt_attempt_key] = mi.item()
+        logprobs_2[prompt_attempt_key] = prompt_attempt_value
 
+    # breakpoint()
     best_questions = {}
 
     for prompt_id in list(set(conversations["id"]))[:args.n_prompts]:
@@ -132,18 +154,24 @@ Convo file: {args.conversations}""")
         best_question_idx = int(np.argmax(question_mis))
         worst_question_idx =  int(np.argmin(question_mis))
       
-        best_question_idx_wo_pos_control = 2 + int(np.argmax(question_mis[2:])) # look at best excluding the first two
+        # best_question_idx_wo_pos_control = 2 + int(np.argmax(question_mis[2:])) # look at best excluding the first two
     
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
         best_questions[f"best_question_for_prompt_{prompt_id}"]['question_performances'] = question_mis
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['questions'] = questions
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question_idx'] = worst_question_idx
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx_wo_pos_control'] = best_question_idx_wo_pos_control 
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['conversation'] = formatted_prompts[f"prompt_{prompt_id}_attempt_{attempt}"]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['resp'] = resp[f"prompt_{prompt_id}_attempt_{attempt}"]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['logprobs'] = logprobs_2[f"prompt_{prompt_id}_attempt_{attempt}"]
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['logprobs_dif'] = np.abs(logprobs_2[f"prompt_{prompt_id}_attempt_{attempt}"][0] - logprobs_2[f"prompt_{prompt_id}_attempt_{attempt}"][1])
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['calibration'] = np.argmax(logprobs_2[f"prompt_{prompt_id}_attempt_{attempt}"]).item()
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['questions'] = questions
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question_idx'] = worst_question_idx
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx_wo_pos_control'] = best_question_idx_wo_pos_control 
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['prompt'] = prompts[int(prompt_id)]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question'] = questions[best_question_idx]
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_wo_pos_control'] = questions[best_question_idx_wo_pos_control]
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_wo_pos_control'] = questions[best_question_idx_wo_pos_control]
+        # best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
         
 
     with open(args.save_file, "w") as f:

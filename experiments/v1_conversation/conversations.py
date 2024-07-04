@@ -87,17 +87,18 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if i % n == 0:
             # randomly sample args.n_users_per_prompt each time we are at a new prompt
             rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
-
+            rand_users = [4, 17]
             # randomly sample n words for this prompt 
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-
+            max_words = 25
             rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
+            rand_roleplay_prompt_key = 0
             roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
         
-        # distractor item 
-        if i % n == 1:
-            question = "What is the name of your dog?"
+        # # distractor item 
+        # if i % n == 1:
+        #     question = "What is the name of your dog?"
             
         for rand_user_id in rand_users:
             
@@ -145,20 +146,20 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                     conversations["prompt"].append(prompts[prompt_id])
                     conversations["attempt"].append(question_attempt)
                     
-                    question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt] if question_attempt > 0 else "What is 2 + 2? Return your answer in one word."
+                    # question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt] # if question_attempt > 0 else "What is 2 + 2? Return your answer in one word."
                     
-                    if question_attempt == 0: # pos control
-                        question = "Please share your profile with me so I can provide a personalized response."
-                        response = f"""Sure! Here is my entire profile {users[f'user_{rand_user_ids[rand_user_idx]}']}\n\nBased on this profile, it should be easy to provide a personalized response."""
+                    # if question_attempt == 0: # pos control
+                    #     question = "Please share your profile with me so I can provide a personalized response."
+                    #     response = f"""Sure! Here is my entire profile {users[f'user_{rand_user_ids[rand_user_idx]}']}\n\nBased on this profile, it should be easy to provide a personalized response."""
                     
-                    elif question_attempt == 1: # neg control: constant
-                        question = "What is the name of your dog?"
-                        response = formatted_batch_responses_roleplayer[response_idx] 
+                    # elif question_attempt == 1: # neg control: constant
+                    #     question = "What is the name of your dog?"
+                    #     response = formatted_batch_responses_roleplayer[response_idx] 
                         
-                    else: # rest
-                        response = formatted_batch_responses_roleplayer[response_idx] 
-                        question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt]
-                        
+                    # else: # rest
+                    response = formatted_batch_responses_roleplayer[response_idx] 
+                    question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt]
+                    
                     conversations["question"].append(question)
                     conversations["response"].append(response)
                 except:

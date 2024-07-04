@@ -30,15 +30,15 @@ Please provide a personalized response that aligns with my background and prefer
 Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
 
-PROMPT_LOGPROBS_2 = """"Hi! Here is my profile: {user}
+PROMPT_LOGPROBS_2 = """Hi! Here is my profile: {user}
 
 I have the following question for you:
 
 Question: {question}
 
-Please provide a personalized response that aligns with my background and preferences.
+Please provide a personalized response that aligns with my background and preferences."""
 
-Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
+
 
 
 

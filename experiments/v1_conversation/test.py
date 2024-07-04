@@ -5,9 +5,8 @@ from sklearn.metrics import roc_curve, roc_auc_score, f1_score
 
 N_DATA = 200
 
-maj_vote = json.load(open("data/mutual_information/v2/human_assistant_instruct_0_5000_4_17.json", "r"))
-maj_vote = [v["mutual_information"] for v in maj_vote.values()][250:1000]
-maj_vote = [1 if v > 2 * np.median(maj_vote) else 0 for v in maj_vote]
+maj_vote = json.load(open("data/labels/exp_when_9_pp_maj_votes_0_200.json", "r"))
+
 
 # helper_funcs 
 def calculate_agreement(model_labels, pos_neg=None, maj_vote=maj_vote):
@@ -35,8 +34,8 @@ def compute_roc_auc(y_true, y_scores):
     return fpr, tpr, roc_auc
 
 
-mutual_information = json.load(open("data/expected_info_gain/5k_v2/hai_start_250_end_1000_n_user_5_seed_0_9_shots.json", "r"))
-mutual_information_2 = [np.mean(v["question_performances"][2:]) for v in mutual_information.values()]
+mutual_information = json.load(open("data/mutual_information/debug_mi_2.json", "r"))
+mutual_information_2 = [np.mean(v["question_performances"][:1]) for v in mutual_information.values()][:200]
 
 
 # mutual_information_0 = [v["question_performances"][2] for v in mutual_information.values()]
@@ -45,9 +44,9 @@ mutual_information_2 = [np.mean(v["question_performances"][2:]) for v in mutual_
 
 def return_agreement(cost=1.5):
     
-    mutual_information_median_split_2 = [1 if datum > cost else 0 for datum in mutual_information_2]
+    mutual_information_median_split_2 = [1 if datum > cost * np.median(mutual_information_2) else 0 for datum in mutual_information_2]
     print("MI COUNT", mutual_information_median_split_2.count(1))
-    breakpoint()
+
     mi_agreement_combined, mean_mi_agreement_combined, n_mi_combined = calculate_agreement(mutual_information_median_split_2, pos_neg=None, maj_vote=maj_vote)
     mi_agreement_answer_dir, mean_mi_agreement_answer_dir, n_mi_answer_dir = calculate_agreement(mutual_information_median_split_2, pos_neg=0, maj_vote=maj_vote)
     mi_agreement_ask_question, mean_mi_agreement_ask_question, n_mi_ask_question = calculate_agreement(mutual_information_median_split_2, pos_neg=1, maj_vote=maj_vote)
