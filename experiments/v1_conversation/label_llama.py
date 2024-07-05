@@ -10,27 +10,6 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from prompts import *
 
 
-PROMPT = """Imagine you are an AI assistant interacting with a user who has asked the following question:
-
-Question: {prompt}
-
-You know nothing about the user. Your task is to decide whether you should:
-
-Answer Directly (1): Provide an answer immediately based on your general knowledge, without asking for any additional information about the user's background or preferences.
-
-Ask Clarifying Question (0): Request more information from the user first, to provide a personalized response that aligns with their specific background, preferences, and circumstances.
-
-Consider:
-1. Would a generic answer based on general knowledge or facts satisfy the user's needs?
-2. Would additional information about the user's background or preferences significantly improve your response?
-3. Would a tailored answer that aligns with the user's specific circumstances be noticeably more valuable than a generic response?
-
-Rule of thumb: Ask yourself: Would getting more information about the user's background, preferences, or circumstances noticeably improve the quality and relevance of your response, resulting in a more personalized answer that would be more valuable to the user? If yes, choose "Ask Clarifying Question" (0). If not, choose "Answer Directly" (1).
-
-Format your response as follows:
-Reasoning: <Provide your step-by-step thought process, considering the points above>
-Final Decision: <1 if you would answer directly, 0 if you would ask a clarifying question>"""
-
 PROMPT_HUMAN = """Imagine you are interacting with an AI assistant that knows nothing about you. The assistant has been given the following question to answer:
 
 Question: {prompt}
@@ -76,15 +55,11 @@ def main(args: DictConfig) -> None:
     
     # prompts
     prompts = json.load(open('data/original_prompts/human_assistant_instruct.json', 'r'))
-    # with open('data/eval_questions/gpt4.json', 'r') as f:
-    #     prompts = json.load(f)
-        
-    # prompts = [datum['question'] for datum in prompts]
         
     # format prompts
     ids = []
     batch_prompts = []
-    for i, prompt in enumerate(prompts[:200]):
+    for i, prompt in enumerate(prompts[:10000]):
         ids.append(i)
         batch_prompts.append([{"role": "user", "content": PROMPT_HUMAN.format(prompt=prompt)}])
 
@@ -95,21 +70,20 @@ def main(args: DictConfig) -> None:
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-    breakpoint()
-    
+
     # format and write to json
     formatted_responses = [
         response.split('<|end_header_id|>')[1].strip().split('Final Decision:')[1].strip().split('\n\n')[0].strip()
         for response in batch_responses
     ]
     
-    breakpoint()
     formatted_responses = [
         1 if 'Ask Clarifying Question' in formatted_response else 0 for formatted_response in formatted_responses
     ]
     
-    with open('data/labels/llama_70b_0_200_question.json', 'w') as f:
+    with open('data/labels/llama_70b_0_10000_questions.json', 'w') as f:
         json.dump(formatted_responses, f, indent=4)
+
 
 if __name__ == "__main__":
     fire.Fire(main())
