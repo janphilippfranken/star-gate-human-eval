@@ -1,0 +1,6 @@
+[2024-07-04 18:35:50,776][root][INFO] - Generating Conversations. 
+Start Prompt: 5000
+End Prompt: 10000
+Saving to: data/conversations/10k/hai_start_5000_end_10000_n_user_5_seed_0_5.json
+Seed: 0
+N_USERS_PER_PROMPT: 5

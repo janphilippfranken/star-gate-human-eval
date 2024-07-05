@@ -30,19 +30,6 @@ Please provide a personalized response that aligns with my background and prefer
 Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
 
 
-PROMPT_LOGPROBS_2 = """Hi! Here is my profile: {user}
-
-I have the following question for you:
-
-Question: {question}
-
-Please provide a personalized response that aligns with my background and preferences."""
-
-
-
-
-
-
 QUESTION_PROMPT = """A user with an unknown profile has asked you the following question:
 
 Question: {question}
@@ -71,27 +58,6 @@ Question: {question}
 Format your response as follows:
 Reasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant to answering the above question. Repeat the key aspects of your persona relevant to the above question here in 3-5 sentences.>
 Response: <Based on your reasoning and in no more than {max_words} words, provide a first-person response that directly addresses the question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>
-
-Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
-
-
-ROLEPLAY_PROMPT_2 = """You must adopt the following user persona in all conversations: {user}
-
-You, the 'User' have had the following conversation with the 'Assistant':
-
-<Conversation Starts>
-
-User: {prompt}
-
-Assistant: {question}
-
-</Conversation Ends>
-
-Roleplaying the User, provide a response to the Assistant given the context of your conversation.
-
-Format your response as follows:
-Reasoning: <Your step-by-step reasoning reflecting on which attributes of your persona are most relevant given the context of the conversation. Repeat the key aspects of your persona relevant to the above conversation here in 3-5 sentences.>
-Response: <Based on your reasoning, provide a first-person response that directly addresses the assistant's question in a way that sounds natural coming from someone with your profile. Use "I" to refer to the above persona profile, focus on the most important aspects of your profile with respect to the question, and avoid repetition or hallucination. Do not use second-person or third-person pronouns in this section.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 

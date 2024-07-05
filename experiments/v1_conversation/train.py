@@ -76,18 +76,9 @@ learning rate: {args.training_args.learning_rate}""")
     
     # save model
     trainer.save_model(output_dir=f"{training_args.output_dir}")
-    
-    # breakpoint()
-    
+       
     
 if __name__ == "__main__":
     fire.Fire(main())
     
     
-    
-    
-    
-# dataset= dict(
-#         messages=[example for example in dataset]
-#     )
-#     dataset = Dataset.from_dict(dataset)
