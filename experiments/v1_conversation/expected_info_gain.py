@@ -47,7 +47,7 @@ N_USER: {args.n_users_per_prompt}""")
         conversations = json.load(f)
         
     conversation_dict = {}
-    for prompt_id, user_id, user, prompt, attempt, question, response in zip(*conversations.values()):
+    for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
   
@@ -77,7 +77,6 @@ N_USER: {args.n_users_per_prompt}""")
                     conversation_key = f"prompt_{prompt_id}_user_{other_user_id}_attempt_{attempt}"
                     gold_response_key = f"{prompt_id}_{user_id}"
                     
-        
                     conversation = conversation_dict[conversation_key]
                         
                     gold_response = gold_responses[gold_response_key] 

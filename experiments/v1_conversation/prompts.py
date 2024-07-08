@@ -16,10 +16,34 @@ Additional Comments: <Any additional comments you may have.>
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
 
+ORACLE_PROMPT_2 = """Hi! Here is my profile: {user}
+
+I have the following question for you:
+
+Question: {question}
+
+Please write a personalized response that aligns with my background and preferences.
+
+Format your response as follows:
+Response: <Your personalized response>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
 RESPONSE_PROMPT = """{question}"""
 
 
 PROMPT_LOGPROBS = """Hi! Here is my profile: {user}
+
+I have the following question for you:
+
+Question: {question}
+
+Please provide a personalized response that aligns with my background and preferences. 
+
+Important: Carefully consider which aspects of my profile are relevant to my question and address them appropriately in your response."""
+
+PROMPT_LOGPROBS_2 = """Hi! Here is my profile: {user}
 
 I have the following question for you:
 

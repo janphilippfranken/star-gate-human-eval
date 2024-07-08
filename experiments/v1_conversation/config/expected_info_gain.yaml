@@ -1,21 +1,21 @@
-gold_responses: data/gold_responses/human_assistant_instruct_5k_20_users.json
+gold_responses: data/gold_responses/gold_responses_0_200_prompts_20_users.json
 conversations: data/conversations/hai_start_0_end_200_n_user_2_seed_0_1.json
 save_file: data/expected_info_gain/debug_gain_user_only.json
 
 prompt_start: 0
 prompt_end: 200
 n_users: 20
-n_users_per_prompt: 2
+n_users_per_prompt: 3
 
 
 n_logprobs_per_token: 0
 
 model_config:
-  model: meta-llama/Meta-Llama-3-70B-Instruct
-  download_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B-Instruct
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   quantization: null
-  tensor_parallel_size: 4
+  tensor_parallel_size: 1
 
 generation_config:
   max_new_tokens: 2048

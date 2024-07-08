@@ -33,9 +33,9 @@ def main(args: DictConfig) -> None:
     # labels (whether to ask/not ask question)
     with open(args.labels, 'r') as f:
        labels = json.load(f)
-    
+    logging.info(labels.count(1))
     # conversations
-    conversations = {k: [] for k in ['id', 'user_id', 'user', 'prompt', 'attempt', 'question', 'response']}
+    conversations = {k: [] for k in ['id', 'user_id', 'prompt', 'attempt', 'question', 'response']}
     for conversation_batch in sorted(os.listdir(args.conversations), key=lambda item: int(item.split("_")[2])):
         with open(f"{args.conversations}{conversation_batch}", 'r') as f:
             conversation_batch = json.load(f)
@@ -44,7 +44,7 @@ def main(args: DictConfig) -> None:
             
     # conversation dict 
     conversation_dict = {}
-    for prompt_id, user_id, user, prompt, attempt, question, response in zip(*conversations.values()):
+    for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
         conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
         
@@ -59,10 +59,7 @@ def main(args: DictConfig) -> None:
         eig_batch = [np.argmax(datum["question_performances"][2:]).item() + 2 for datum in eig_batch.values()]
         best_question_attempts.extend(eig_batch)
         best_question_eig.extend(eig_batch_scores)
-    # breakpoint()
-    # best_question_eig = [0] * 250 + best_question_eig
-    labels = [1 if v > 1.3 * np.median(best_question_eig) else 0 for v in best_question_eig]
-    labels = [0] * 250 + labels
+   
     # filter best attempts based on eig 
     conversation_dict_filtered = {}
     rand_users = [] 

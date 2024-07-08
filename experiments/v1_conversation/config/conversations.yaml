@@ -4,7 +4,7 @@ seed: 0
 prompt_start: 0
 prompt_end: 200
 n_users: 20         
-n_users_per_prompt: 5 
+n_users_per_prompt: 3
 
 save_file: null
 
@@ -23,9 +23,9 @@ model_config:
 
 generation_config_questioner:
   max_new_tokens: 2048
-  num_return_sequences: 5
-  best_of: 5
-  temperature: 1.0
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 0.0
 
 generation_config_roleplayer:
   max_new_tokens: 2048

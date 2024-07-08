@@ -1,4 +1,4 @@
-prompts: data/base_responses/human_assistant_instruct_5k.json
+prompts: data/gold_responses/gold_responses_0_200_prompts_20_users.json
 users: data/users/users.json
 start_prompt: 0
 end_prompt: 5000

@@ -47,10 +47,15 @@ def main(args: DictConfig) -> None:
             prompt_ids.append(i + args.start_prompts)
             user_ids.append(user_id)
             opening_prompts.append(prompt)
-            batch_prompts.append([{"role": "user", "content": ORACLE_PROMPT.format(user=user, question=prompt)}])
+            batch_prompts.append([
+                {"role": "user", "content": prompt},
+                {"role": "assistant", "content": "Can you please share your background and preferences with me so I can provide a personalized response?"},
+                {"role": "user", "content": f"{user}"}
+            ])
     
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
     logging.info(len(formatted_batch_prompts))
+    
     # get responses
     batch_responses = model.batch_prompt(
         prompts=formatted_batch_prompts,
@@ -61,11 +66,12 @@ def main(args: DictConfig) -> None:
     formatted_responses = []
     for response in batch_responses:
         try:
-            formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
+            formatted_responses.append(response.split("<|end_header_id|>")[1].strip())
+            # formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
         except:
             formatted_responses.append("<|invalid_response|>")
             print(f"INVALID RESPONSE: {response.split('<|end_header_id|>')[1].strip()}")
-   
+
     gold_responses = {
         "prompt_id": [],
         "user_id": [],

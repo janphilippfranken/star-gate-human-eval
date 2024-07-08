@@ -7,23 +7,23 @@
 #SBATCH --mem=64GB                       
 #SBATCH --cpus-per-task=16               
 #SBATCH --time=48:00:00      
-#SBATCH --output=5_10k.out
-#SBATCH --error=5_10k.err
+#SBATCH --output=0_200.out
+#SBATCH --error=0_200.err
 
 seed=0
-n_users_per_prompt=5
-prompt_start=5000
-prompt_end=10000
+n_users_per_prompt=2
+prompt_start=0
+prompt_end=200
 
-num_return_sequences=5
-best_of=5
+num_return_sequences=1
+best_of=1
 
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
 conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v1_conversation
 
-python conversations_turn_1.py \
+python conversations.py \
     generation_config_questioner.num_return_sequences=$num_return_sequences \
     generation_config_questioner.best_of=$best_of \
     seed=$seed \
