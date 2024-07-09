@@ -25,6 +25,11 @@ def get_formatted_responses(
         for prompt in prompts
     ]
     
+    if output_format == "Roleplayer":
+        formatted_prompts = [prompt[:-10] for prompt in formatted_prompts]
+    
+    breakpoint()
+    
     responses = model.batch_prompt(
         prompts=formatted_prompts,
         **config,
@@ -32,9 +37,12 @@ def get_formatted_responses(
     
     formatted_responses = []
 
-    for response in responses:
+    for i, response in enumerate(responses):
         try:
-            formatted_responses.append(response.split(output_format)[1].strip())
+            if output_format == "Roleplayer":
+                formatted_responses.append(f"{response.strip()}")
+            else:
+                formatted_responses.append(response.split(output_format)[1].strip())
         except:
             formatted_responses.append(invalid_output)
             

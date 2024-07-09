@@ -45,6 +45,15 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     # prompts
     with open(args.prompts, "r") as f:
         prompts = json.load(f)
+        
+    # gold responses
+    with open(args.gold_responses, "r") as f:
+        gold_responses = json.load(f)
+        
+    gold_responses = {
+        f"{prompt_id}_{user_id}": gold_response for prompt_id, user_id, _, gold_response in
+        zip(*gold_responses.values())
+    }
                 
     # users
     with open(args.users, "r") as f:
@@ -74,6 +83,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         output_format="Clarifying Question:",
         invalid_output="<|invalid_response|>",
     )
+    breakpoint()
     
     # step 2: roleplayer 
     batch_prompts_roleplayer = []
@@ -92,30 +102,50 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
             rand_roleplay_prompt_key = 0
             max_words = 50
             rand_users = [4, 17]
-            roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
+            # roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
             
         for rand_user_id in rand_users:
             
             user = users[f"user_{rand_user_id}"]
             rand_user_ids.append(rand_user_id)
+            gold_response = gold_responses[f"{i//n}_{rand_user_id}"]
             
+            # batch_prompts_roleplayer.append([
+            #         {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
+            #         {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
+            #             user=user, 
+            #             question=question, 
+            #             gold_response=gold_response,
+            #             max_words=max_words,
+            #     )}
+            # ]) 
+     
             batch_prompts_roleplayer.append([
-                    {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
-                    {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
-                        user=user, 
-                        question=question, 
-                        max_words=max_words,
-                )}
-            ])   
+                    {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
+                    {"role": "assistant", "content": prompt},
+                    {"role": "user", "content": f"{question}\n\nRespond in no more than 20 words."},
+                    {"role": "assistant", "content": ""}
+                ])
             
+    # formatted_batch_responses_roleplayer = get_formatted_responses(
+    #     model=model,
+    #     tokenizer=tokenizer,
+    #     prompts=batch_prompts_roleplayer,
+    #     config=args.generation_config_roleplayer,
+    #     output_format="Response:",
+    #     invalid_output="<|invalid_response|>",
+    # )
+    
     formatted_batch_responses_roleplayer = get_formatted_responses(
         model=model,
         tokenizer=tokenizer,
         prompts=batch_prompts_roleplayer,
         config=args.generation_config_roleplayer,
-        output_format="Response:",
+        output_format="Roleplayer",
         invalid_output="<|invalid_response|>",
     )
+    
+    breakpoint()
     
     # step 3: formatting
     conversations = {

@@ -41,19 +41,26 @@ def main(args: DictConfig) -> None:
     user_ids = []
     batch_prompts = []
     opening_prompts = []
-    for user_id, user in enumerate(list(users.values())[:args.n_users]):
-        print(user_id)
-        for i, prompt in enumerate(prompts[args.start_prompts:args.end_prompts]):
-            prompt_ids.append(i + args.start_prompts)
-            user_ids.append(user_id)
-            opening_prompts.append(prompt)
-            batch_prompts.append([
-                {"role": "user", "content": prompt},
-                {"role": "assistant", "content": "Can you please share your background and preferences with me so I can provide a personalized response?"},
-                {"role": "user", "content": f"{user}"}
-            ])
     
+    for user_id, user in enumerate(list(users.values())[:args.n_users]):
+        if user_id in [4, 17]:
+            for i, prompt in enumerate(prompts[args.start_prompts:args.end_prompts]):
+                prompt_ids.append(i + args.start_prompts)
+                user_ids.append(user_id)
+                opening_prompts.append(prompt)
+
+                batch_prompts.append([
+                    {"role": "system", "content": f"You are interacting with the following user: {user}"},
+                    {"role": "user", "content": prompt},
+                    {"role": "assistant", "content": "Can you tell me a bit about yourself? This will help me provide a personalized response."},
+                    {"role": "user", "content": user},
+                    {"role": "assistant", "content": ""}
+                ])
+                 
+        
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
+    formatted_batch_prompts = [prompt[:-10] for prompt in formatted_batch_prompts]
+    breakpoint()
     logging.info(len(formatted_batch_prompts))
     
     # get responses
@@ -61,12 +68,12 @@ def main(args: DictConfig) -> None:
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-    
+    breakpoint()
     # format and write to json
     formatted_responses = []
     for response in batch_responses:
         try:
-            formatted_responses.append(response.split("<|end_header_id|>")[1].strip())
+            formatted_responses.append(f"{response.strip()}")
             # formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
         except:
             formatted_responses.append("<|invalid_response|>")

@@ -30,4 +30,4 @@ python conversations.py \
     n_users_per_prompt=$n_users_per_prompt \
     prompt_start=$prompt_start \
     prompt_end=$prompt_end \
-    save_file=data/conversations/10k/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json
+    save_file=data/conversations/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json

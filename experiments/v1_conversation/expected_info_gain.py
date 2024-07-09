@@ -54,6 +54,7 @@ N_USER: {args.n_users_per_prompt}""")
     # logprobs container
     logprobs = {}
 
+    # for prompt_id in tqdm.tqdm(set(conversations["id"])):
     for prompt_id in tqdm.tqdm(set(conversations["id"])):
         
         for attempt in set(conversations["attempt"]):
@@ -65,7 +66,7 @@ N_USER: {args.n_users_per_prompt}""")
                 int(key.split("_")[-1]) == attempt
             ]
             
-            for user_id in prompt_attempt_users:
+            for user_id in [4, 17]: #prompt_attempt_users:
                         
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 
@@ -80,26 +81,41 @@ N_USER: {args.n_users_per_prompt}""")
                     conversation = conversation_dict[conversation_key]
                         
                     gold_response = gold_responses[gold_response_key] 
+
         
                     # prompt with no assistant response 
+                    # prompt_without_response = [
+                    #     {"role": "user", "content": conversation["prompt"]},
+                    #     {"role": "assistant", "content": conversation["question"]},
+                    #     {"role": "user", "content": conversation["response"]},
+                    # ]
+                    # # prompt with assistant response 
+                    # prompt_with_response = [
+                    #     {"role": "user", "content": conversation["prompt"]},
+                    #     {"role": "assistant", "content": conversation["question"]},
+                    #     {"role": "user", "content": conversation["response"]},
+                    #     {"role": "assistant", "content": gold_response},
+                    # ]
+                    
                     prompt_without_response = [
                         {"role": "user", "content": conversation["prompt"]},
                         {"role": "assistant", "content": conversation["question"]},
                         {"role": "user", "content": conversation["response"]},
+                        {"role": "assistant", "content": ""},
                     ]
                     
-                    # prompt with assistant response 
                     prompt_with_response = [
                         {"role": "user", "content": conversation["prompt"]},
                         {"role": "assistant", "content": conversation["question"]},
                         {"role": "user", "content": conversation["response"]},
                         {"role": "assistant", "content": gold_response},
-                    ]
+                    ]              
         
                     # format 
-                    formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)
+                    formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)[:-1]
                     formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
                     
+                    breakpoint()
                     outputs = model.prompt_logprobs(
                         prompts=[formatted_prompt_with_response],
                         n_logprobs_per_token=args.n_logprobs_per_token,
@@ -109,7 +125,10 @@ N_USER: {args.n_users_per_prompt}""")
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
                     p_gold_given_conversation = [v for prob in p_gold_given_conversation for _, v in prob.items()]
                     logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
+                   
+                    # breakpoint()
 
+    # breakpoint()
     # now compute expected info gain
     eig = {}
     
