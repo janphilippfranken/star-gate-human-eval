@@ -1,11 +1,21 @@
-ORACLE_PROMPT = """Human: {prompt}
+ORACLE_PROMPT = """Hi! Here is my profile: {user}
 
-Assistant: Please share your profile with me so I can provide a personal response that aligns with your background and preferences.
+I have the following question for you:
 
-Human: {user}"""
+Question: {prompt}
 
+Before you respond, please consider the following:
+- Can this question be answered directly based on general knowledge, or does the answer depend on my profile?
+- If the answer to the question depends on my profile, what aspects of my profile are relevant to the question?
+- If it seems unusual to you that someone with my profile would ask the above question, that's okay! You can simply state this and recommend alternatives.
 
-# ROLEPLAY_PROMPT """Roleplaying 'Agent A', continue the conversation below:"""
+Format your response as follows:
+Reasoning: <Your step-by-step reasoning, reflecting on the above bullet points to determine whether the answer to the question depends on my profile or can be answered directly with general knowledge, as well as what aspects of my profile might be relevant to providing a strong answer.>
+Response: <Based on the reasoning above, provide a response. Avoid repeating my profile in your response. Use "you" to refer to me directly. Avoid first-person pronouns like "I" and do not start with phrases such as 'Considering your background and preferences,' 'As someone,' or 'As you.'>
+Additional Comments: <Any additional comments you may have. If none, state "N/A".>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
 
 
 PROMPT_LOGPROBS = """Hi! Here is my profile: {user}

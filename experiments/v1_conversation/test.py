@@ -19,7 +19,7 @@ def calculate_agreement(model_labels, pos_neg=None, maj_vote=None):
 maj_vote = json.load(open("data/labels/exp_when_9_pp_maj_votes_0_200.json", "r"))
 mutual_information = json.load(open("data/expected_info_gain/debug_gain_user_only.json", "r"))
 mutual_information = [v["question_performances"][0] for v in mutual_information.values()]
-mutual_information_median_split = [1 if datum > 1 * np.median(mutual_information) else 0 for datum in mutual_information][:N_DATA]
+mutual_information_median_split = [1 if datum > 1.3 * np.median(mutual_information) else 0 for datum in mutual_information][:N_DATA]
 
 mi_agreement_combined, mean_mi_agreement_combined, n_mi_combined = calculate_agreement(mutual_information_median_split, pos_neg=None, maj_vote=maj_vote)
 mi_agreement_answer_dir, mean_mi_agreement_answer_dir, n_mi_answer_dir = calculate_agreement(mutual_information_median_split, pos_neg=0, maj_vote=maj_vote)

@@ -7,7 +7,7 @@ prompt_end: 200
 n_users: 20         
 n_users_per_prompt: 2
 
-save_file: data/conversations/debug_convo.json
+save_file: data/conversations/debug_convo_10_words.json
 
 # roleplayer word var
 roleplayer_mean_words: 12

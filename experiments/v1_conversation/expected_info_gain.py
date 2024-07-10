@@ -34,9 +34,13 @@ N_USER: {args.n_users_per_prompt}""")
     )
     
     # gold responses
+    with open(args.base_responses, "r") as f:
+        base_responses = json.load(f)
+    
+    # gold responses
     with open(args.gold_responses, "r") as f:
         gold_responses = json.load(f)
-        
+       
     gold_responses = {
         f"{prompt_id}_{user_id}": gold_response for prompt_id, user_id, _, gold_response in
         zip(*gold_responses.values())
@@ -56,6 +60,8 @@ N_USER: {args.n_users_per_prompt}""")
 
     # for prompt_id in tqdm.tqdm(set(conversations["id"])):
     for prompt_id in tqdm.tqdm(set(conversations["id"])):
+        
+        
         
         for attempt in set(conversations["attempt"]):
             
@@ -79,23 +85,9 @@ N_USER: {args.n_users_per_prompt}""")
                     gold_response_key = f"{prompt_id}_{user_id}"
                     
                     conversation = conversation_dict[conversation_key]
-                        
-                    gold_response = gold_responses[gold_response_key] 
 
-        
-                    # prompt with no assistant response 
-                    # prompt_without_response = [
-                    #     {"role": "user", "content": conversation["prompt"]},
-                    #     {"role": "assistant", "content": conversation["question"]},
-                    #     {"role": "user", "content": conversation["response"]},
-                    # ]
-                    # # prompt with assistant response 
-                    # prompt_with_response = [
-                    #     {"role": "user", "content": conversation["prompt"]},
-                    #     {"role": "assistant", "content": conversation["question"]},
-                    #     {"role": "user", "content": conversation["response"]},
-                    #     {"role": "assistant", "content": gold_response},
-                    # ]
+                    gold_response = gold_responses[gold_response_key]
+
                     
                     prompt_without_response = [
                         {"role": "user", "content": conversation["prompt"]},
@@ -115,7 +107,7 @@ N_USER: {args.n_users_per_prompt}""")
                     formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)[:-1]
                     formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
                     
-                    breakpoint()
+                    # breakpoint()
                     outputs = model.prompt_logprobs(
                         prompts=[formatted_prompt_with_response],
                         n_logprobs_per_token=args.n_logprobs_per_token,

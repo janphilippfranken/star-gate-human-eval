@@ -36,7 +36,7 @@ def main(args: DictConfig) -> None:
     with open(args.users, "r") as f:
         users = json.load(f)
         
-    # format prompts
+
     prompt_ids = []
     user_ids = []
     batch_prompts = []
@@ -49,32 +49,25 @@ def main(args: DictConfig) -> None:
                 user_ids.append(user_id)
                 opening_prompts.append(prompt)
 
+   
                 batch_prompts.append([
-                    {"role": "system", "content": f"You are interacting with the following user: {user}"},
-                    {"role": "user", "content": prompt},
-                    {"role": "assistant", "content": "Can you tell me a bit about yourself? This will help me provide a personalized response."},
-                    {"role": "user", "content": user},
-                    {"role": "assistant", "content": ""}
+                    {"role": "user", "content": ORACLE_PROMPT.format(prompt=prompt, user=user)}
                 ])
-                 
+                         
         
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]
-    formatted_batch_prompts = [prompt[:-10] for prompt in formatted_batch_prompts]
-    breakpoint()
     logging.info(len(formatted_batch_prompts))
-    
+
     # get responses
     batch_responses = model.batch_prompt(
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-    breakpoint()
     # format and write to json
     formatted_responses = []
     for response in batch_responses:
         try:
-            formatted_responses.append(f"{response.strip()}")
-            # formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
+            formatted_responses.append(response.split("<|end_header_id|>")[1].strip().split("Response:")[1].strip().split("Additional Comments:")[0].strip())
         except:
             formatted_responses.append("<|invalid_response|>")
             print(f"INVALID RESPONSE: {response.split('<|end_header_id|>')[1].strip()}")
