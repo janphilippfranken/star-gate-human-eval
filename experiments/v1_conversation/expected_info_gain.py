@@ -142,6 +142,8 @@ N_USER: {args.n_users_per_prompt}""")
     for prompt_id in set(conversations["id"]):
         best_question_indices = [] # best question attempt 
         questions = []
+        responses = []
+        users = []
         
         for attempt in set(conversations["attempt"]):   
             
@@ -153,38 +155,41 @@ N_USER: {args.n_users_per_prompt}""")
             ]
             
             best_question_eig_across_users = [] 
+            best_question_responses = []
             
             
             for j, user_id in enumerate(prompt_attempt_users):
             
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 best_question_eig_across_users.append(eig[attempt_key])
+                best_question_responses.append(conversation_dict[attempt_key]["response"])
                 
-                if j == 0: # only need to append questions once 
+                if j == 0:
                     questions.append(conversation_dict[attempt_key]["question"])
+                
+                if attempt == 0:
+                    users.append(user_id)
             
             # how much did this attempt help on average across users 
             best_question_indices.append(np.mean(best_question_eig_across_users))
+            responses.append(best_question_responses)
        
         # best attempt across users
         best_question_idx = int(np.argmax(best_question_indices))
-        worst_question_idx =  int(np.argmin(best_question_indices))
-     
-        # best_question_idx_wo_pos_control = int(np.argmax(,best_question_indices)) # look at best excluding the first two
     
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
         best_questions[f"best_question_for_prompt_{prompt_id}"]['question_performances'] = best_question_indices
         best_questions[f"best_question_for_prompt_{prompt_id}"]['questions'] = questions
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['responses'] = responses[best_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question_idx'] = worst_question_idx
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question'] = questions[best_question_idx]   
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['worst_question'] = questions[worst_question_idx]
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['average_eig'] = best_question_indices[best_question_idx]
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['max_eig_gain_over_min'] = max(best_question_indices) - min(best_question_indices)
-        
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question'] = questions[best_question_idx]  
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['user'] = users
+   
         questions = []
         best_question_indices = []
+        
+        # breakpoint()
 
     with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)

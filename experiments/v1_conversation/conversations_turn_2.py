@@ -18,9 +18,9 @@ from helpers import get_formatted_responses
 logging.basicConfig(level=logging.INFO)
 
 
-@hydra.main(version_base=None, config_path="config", config_name="conversations")
+@hydra.main(version_base=None, config_path="config", config_name="conversations_turn_2")
 def main(args: DictConfig) -> None:
-    logging.info(f"""Generating Conversations. 
+    logging.info(f"""Generating Conversations Turn 2. 
 Start Prompt: {args.prompt_start}
 End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
@@ -46,15 +46,10 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     with open(args.prompts, "r") as f:
         prompts = json.load(f)
         
-    # gold responses
-    with open(args.gold_responses, "r") as f:
-        gold_responses = json.load(f)
-        
-    gold_responses = {
-        f"{prompt_id}_{user_id}": gold_response for prompt_id, user_id, _, gold_response in
-        zip(*gold_responses.values())
-    }
-                
+    # eig turn 1
+    with open(args.eig_turn_1, "r") as f:
+        eig_turn_1 = json.load(f)
+            
     # users
     with open(args.users, "r") as f:
         users = json.load(f)
@@ -67,13 +62,32 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     
     # step 1: questioner 
     batch_prompts_questioner = []
+    questions_turn_1 = []
+    all_users = []
+    all_answers = []
     for i in range(args.prompt_start, args.prompt_end):
         prompt = prompts[i]
+        # breakpoint()
+        eig_key = f"best_question_for_prompt_{i}"
+        eig_val = eig_turn_1[eig_key]
+        clarifying_question_turn_1 = eig_val["best_question"]
+        prompt_users = eig_val["user"]
+        all_users.append(prompt_users)
+        responses = eig_val["responses"]
+        questions_turn_1.append(clarifying_question_turn_1)
+        all_answers.append(responses)
         
-        batch_prompts_questioner.append([
-            {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
-        ])
+        for response in responses:
+            
+            formatted_prompt = QUESTION_PROMPT_TURN_2.format(
+                prompt=prompt, 
+                clarifying_question=clarifying_question_turn_1,
+                response=response,
+            )
         
+            batch_prompts_questioner.append([
+                {"role": "user", "content": formatted_prompt}
+            ])
         
     formatted_batch_responses_questioner = get_formatted_responses(
         model=model,
@@ -95,47 +109,33 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         prompt = prompts[i//n] 
         
         if i % n == 0:
-            rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+            rand_users = all_users[i]
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
             rand_roleplay_prompt_key = 0
-            max_words = 50
-            rand_users = [4, 17]
-            # roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
+            max_words = 10
+        
+        all_answer = all_answers[i//n]
+        question_turn_1 = questions_turn_1[i//n]
+           
             
-        for rand_user_id in rand_users:
+        for j, rand_user_id in enumerate(rand_users):
             
             user = users[f"user_{rand_user_id}"]
             rand_user_ids.append(rand_user_id)
-            gold_response = gold_responses[f"{i//n}_{rand_user_id}"]
+            answer = all_answer[j]
             
-            # batch_prompts_roleplayer.append([
-            #         {"role": "system", "content": f"You must adopt the following persona in all conversations: {user}"},
-            #         {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
-            #             user=user, 
-            #             question=question, 
-            #             gold_response=gold_response,
-            #             max_words=max_words,
-            #     )}
-            # ]) 
-     
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
                     {"role": "assistant", "content": prompt},
+                    {"role": "user", "content": f"{question_turn_1}"},
+                    {"role": "assistant", "content": answer},
                     {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
-                    {"role": "assistant", "content": ""}
+                    {"role": "assistant", "content": ""},
                 ])
             
-    # formatted_batch_responses_roleplayer = get_formatted_responses(
-    #     model=model,
-    #     tokenizer=tokenizer,
-    #     prompts=batch_prompts_roleplayer,
-    #     config=args.generation_config_roleplayer,
-    #     output_format="Response:",
-    #     invalid_output="<|invalid_response|>",
-    # )
-    
+    breakpoint()
     formatted_batch_responses_roleplayer = get_formatted_responses(
         model=model,
         tokenizer=tokenizer,

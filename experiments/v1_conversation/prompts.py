@@ -48,6 +48,35 @@ Clarifying Question: <The high-quality clarifying question you are asking the us
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
 
+
+QUESTION_PROMPT_TURN_2 = """A user with an unknown profile has asked you the following question:
+
+Question: {prompt}
+
+You have asked the following clarifying question:
+
+Clarifying Question: {clarifying_question}
+
+The user has given the following answer:
+
+User Answer: {response}
+
+Reflect on whether the user has answered your clarifying question and whether there might be aspects that are missing for a great, personalized response. 
+
+Think about whether any of the following might still be unclear:
+- The context in which the user might be asking the initial question.
+- Any assumptions you can make about the user's background.
+- The user's specific preferences or interests related to the topic.
+- Potential goals or outcomes the user might be seeking.
+
+Upon reflection, you must ask the user another clarifying question to resolve any remaining uncertainty. Feel free to tell the user that, in case they have been curt or did not answer your clarifying question, should provide additional context. It's important that they engage in the conversation so you can help them the most!
+Format your output as follows:
+Reasoning: <Your step-by-step reasoning analyzing the user's answer and thinking about what background information from the user or additional context might be relevant to provide a high-quality personalized response.>
+Clarifying Question: <The additional high-quality clarifying question you are asking the user to elicit relevant context, background information, and preferences.>
+
+Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
+
+
 ROLEPLAY_PROMPT = """Roleplaying the 'Human', imagine you have asked the Assistant the question below. Continue the conversation by providing a response to the assistant's clarifying question. No more than 20 words.
 
 Human: {prompt}
