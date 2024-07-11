@@ -17,6 +17,8 @@ from prompts import *
 def main(args: DictConfig) -> None:
    
     # model
+    breakpoint()
+    from vllm import LLM
     model = VLLMInferenceModel(
         **args.model_config
     )
@@ -63,9 +65,7 @@ def main(args: DictConfig) -> None:
         )
         return formatted_responses[0], batch_prompts
     breakpoint()
-    prompt = "When should I cook for dinner"
-    prompt_1 = QUESTION_PROMPTS['single'].format(question="what are some ideas for a fun date night")
-    prompt_2 = QUESTION_PROMPTS['multi'].format(question="what are some ideas for a fun date night")
+    prompt = "Thinking about cooking dinner tonight"
     response1, batch_prompts = prompt_model([], prompt_1)
     response2, batch_prompts = prompt_model([], prompt_2)
     

@@ -12,14 +12,12 @@ class VLLMInferenceModel():
         download_dir: str,
         dtype: str,
         tensor_parallel_size: int,
-        quantization: Optional[str] = "none",
     ):
         self.model = LLM(
             model=model,
             download_dir=download_dir,
             dtype=dtype,
             tensor_parallel_size=tensor_parallel_size,
-            quantization=quantization if quantization != "none" else None,
         )
         
     @property
