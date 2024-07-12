@@ -72,7 +72,7 @@ Think about whether any of the following might still be unclear:
 Upon reflection, you must ask the user another clarifying question to resolve any remaining uncertainty. Feel free to tell the user that, in case they have been curt or did not answer your clarifying question, should provide additional context. It's important that they engage in the conversation so you can help them the most!
 Format your output as follows:
 Reasoning: <Your step-by-step reasoning analyzing the user's answer and thinking about what background information from the user or additional context might be relevant to provide a high-quality personalized response.>
-Clarifying Question: <The additional high-quality clarifying question you are asking the user to elicit relevant context, background information, and preferences.>
+Clarifying Question: <The additional high-quality clarifying question you are asking the user to elicit relevant context, background information, and preferences. Make sure to incorporate acknowledgement of the user's response briefly! And then from there formulate the next question.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 

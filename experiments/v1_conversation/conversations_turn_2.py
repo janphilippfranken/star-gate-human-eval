@@ -88,7 +88,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
             batch_prompts_questioner.append([
                 {"role": "user", "content": formatted_prompt}
             ])
-        
+    
     formatted_batch_responses_questioner = get_formatted_responses(
         model=model,
         tokenizer=tokenizer,
@@ -97,28 +97,23 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         output_format="Clarifying Question:",
         invalid_output="<|invalid_response|>",
     )
-    breakpoint()
+    # breakpoint()
+    # len is n prompts * n returns per user * n_users
     
     # step 2: roleplayer 
     batch_prompts_roleplayer = []
     rand_user_ids = []
     n = args.generation_config_questioner.num_return_sequences 
+    n_user = args.n_users_per_prompt
     
-    for i, question in enumerate(formatted_batch_responses_questioner):
+    question_counter = 0
+    for i in range(args.prompt_start, args.prompt_end):
         
-        prompt = prompts[i//n] 
-        
-        if i % n == 0:
-            rand_users = all_users[i]
-            max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
-            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
-            rand_roleplay_prompt_key = 0
-            max_words = 10
-        
-        all_answer = all_answers[i//n]
-        question_turn_1 = questions_turn_1[i//n]
-           
+        prompt = prompts[i] 
+        question_turn_1 = questions_turn_1[i]
+        rand_users = all_users[i]
+        all_answer = all_answers[i]
+        max_words = 10
             
         for j, rand_user_id in enumerate(rand_users):
             
@@ -126,14 +121,18 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
             rand_user_ids.append(rand_user_id)
             answer = all_answer[j]
             
-            batch_prompts_roleplayer.append([
-                    {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
-                    {"role": "assistant", "content": prompt},
-                    {"role": "user", "content": f"{question_turn_1}"},
-                    {"role": "assistant", "content": answer},
-                    {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
-                    {"role": "assistant", "content": ""},
-                ])
+            for question_attempt in range(n):
+            
+                batch_prompts_roleplayer.append([
+                        {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
+                        {"role": "assistant", "content": prompt},
+                        {"role": "user", "content": f"{question_turn_1}"},
+                        {"role": "assistant", "content": answer},
+                        {"role": "user", "content": f"{formatted_batch_responses_questioner[question_counter]}\n\nRespond in no more than {max_words} words."},
+                        {"role": "assistant", "content": ""},
+                    ])
+                question_counter += 1
+                
             
     breakpoint()
     formatted_batch_responses_roleplayer = get_formatted_responses(
