@@ -1,4 +1,4 @@
-"""Generate conversations with simulated users."""
+"""Generate Conversations Turn 1."""
 import os
 import json
 import fire
@@ -14,21 +14,21 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from prompts import *
 from helpers import get_formatted_responses
 
-
 logging.basicConfig(level=logging.INFO)
 
 
-@hydra.main(version_base=None, config_path="config", config_name="conversations")
+@hydra.main(version_base=None, config_path="config", config_name="conversations_turn_1")
 def main(args: DictConfig) -> None:
     logging.info(f"""Generating Conversations. 
 Start Prompt: {args.prompt_start}
 End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
 Seed: {args.seed}
-N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
+N Users Per Prompt: {args.n_users_per_prompt}""")
     
     # seed
     random.seed(args.seed)
+    torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
    
     # model
@@ -45,27 +45,18 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     # prompts
     with open(args.prompts, "r") as f:
         prompts = json.load(f)
-        
-    # gold responses
-    with open(args.gold_responses, "r") as f:
-        gold_responses = json.load(f)
-        
-    gold_responses = {
-        f"{prompt_id}_{user_id}": gold_response for prompt_id, user_id, _, gold_response in
-        zip(*gold_responses.values())
-    }
                 
     # users
     with open(args.users, "r") as f:
         users = json.load(f)
     
-    # only keep up to max users used during training
+    # only use users up to n_users
     users = {
         k: v for k, v in users.items() 
         if int(k.split("_")[1]) < args.n_users
     }
     
-    # step 1: questioner 
+    # prompt questioner 
     batch_prompts_questioner = []
     for i in range(args.prompt_start, args.prompt_end):
         prompt = prompts[i]
@@ -73,7 +64,6 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         batch_prompts_questioner.append([
             {"role": "user", "content": QUESTION_PROMPT.format(question=prompt)}
         ])
-        
         
     formatted_batch_responses_questioner = get_formatted_responses(
         model=model,
@@ -83,9 +73,8 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         output_format="Clarifying Question:",
         invalid_output="<|invalid_response|>",
     )
-    breakpoint()
     
-    # step 2: roleplayer 
+    # prompt roleplayer
     batch_prompts_roleplayer = []
     rand_user_ids = []
     n = args.generation_config_questioner.num_return_sequences 
@@ -114,8 +103,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                     {"role": "assistant", "content": prompt},
                     {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
                     {"role": "assistant", "content": ""}
-                ])
-            
+                ]) 
     
     formatted_batch_responses_roleplayer = get_formatted_responses(
         model=model,
@@ -125,10 +113,8 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         output_format="Roleplayer",
         invalid_output="<|invalid_response|>",
     )
-    
-    breakpoint()
-    
-    # step 3: formatting
+   
+    # format data
     conversations = {
         "id": [],
         "user_id": [],
