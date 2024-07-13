@@ -60,7 +60,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if int(k.split("_")[1]) < args.n_users
     }
     
-    # step 1: questioner 
+    # questioner
     batch_prompts_questioner = []
     questions_turn_1 = []
     all_users = []
@@ -97,8 +97,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         output_format="Clarifying Question:",
         invalid_output="<|invalid_response|>",
     )
-    # breakpoint()
-    # len is n prompts * n returns per user * n_users
+  
     
     # step 2: roleplayer 
     batch_prompts_roleplayer = []
@@ -132,7 +131,6 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                         {"role": "assistant", "content": ""},
                     ])
                 question_counter += 1
-                
             
     breakpoint()
     formatted_batch_responses_roleplayer = get_formatted_responses(
@@ -152,33 +150,46 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         "user_id": [],
         "prompt": [],
         "attempt": [],
-        "question": [],
-        "response": [],
+        "question_turn_1": [],
+        "response_turn_1": [],
+        "question_turn_2": [],
+        "response_turn_2": [],
     }
     
-    rand_user_idx = 0
     response_idx = 0
     
-    for prompt_id in range(args.prompt_start, args.prompt_end): # for all prompts 
-        for question_attempt in range(args.generation_config_questioner.num_return_sequences):
-            for _ in range(args.n_users_per_prompt): # and we gave each attempt to a random sample of n users 
+    for i in range(args.prompt_start, args.prompt_end): # for all prompts 
+        prompt = prompts[i]
+        question_turn_1 = questions_turn_1[i]
+        rand_users = all_users[i]
+        all_answer = all_answers[i]
+        
+        for j, user_id in enumerate(rand_users):
+            
+            for question_attempt in range(n):
+
                 try:
-                    conversations["id"].append(prompt_id)
-                    conversations["user_id"].append(rand_user_ids[rand_user_idx])
-                    conversations["prompt"].append(prompts[prompt_id])
+                    conversations["id"].append(i)
+                    conversations["user_id"].append(user_id)
+                    conversations["prompt"].append(prompt)
                     conversations["attempt"].append(question_attempt)
-                    question = formatted_batch_responses_questioner[response_idx//args.n_users_per_prompt]
-                    response = formatted_batch_responses_roleplayer[response_idx]
-                    conversations["question"].append(question)
-                    conversations["response"].append(response)
+                    conversations["question_turn_1"].append(question_turn_1)
+                    conversations["response_turn_1"].append(all_answer[j])
+                    
+                    question_turn_2 = formatted_batch_responses_questioner[response_idx]
+                    response_turn_2 = formatted_batch_responses_roleplayer[response_idx]
+                    conversations["question_turn_2"].append(question_turn_2)
+                    conversations["response_turn_2"].append(response_turn_2)
                 except:
-                    conversations["id"].append(prompt_id)
-                    conversations["user_id"].append(rand_user_ids[rand_user_idx])
-                    conversations["prompt"].append(prompts[prompt_id])
+                    conversations["id"].append(i)
+                    conversations["user_id"].append(user_id)
+                    conversations["prompt"].append(prompt)
                     conversations["attempt"].append(question_attempt)
-                    conversations["question"].append("<|invalid_response|>")
-                    conversations["response"].append("<|invalid_response|>")
-                rand_user_idx += 1
+                    conversations["question_turn_1"].append("<|invalid_response|>")
+                    conversations["response_turn_1"].append("<|invalid_response|>")
+                    conversations["question_turn_2"].append("<|invalid_response|>")
+                    conversations["response_turn_2"].append("<|invalid_response|>")
+
                 response_idx += 1
     
     with open(args.save_file, "w") as f:

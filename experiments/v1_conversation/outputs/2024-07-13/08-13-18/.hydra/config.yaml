@@ -1,33 +1,26 @@
 prompts: data/original_prompts/human_assistant_instruct.json
 users: data/users/users.json
 eig_turn_1: data/expected_info_gain/debug/10_words.json
-
 seed: 0
 prompt_start: 0
 prompt_end: 3
-n_users: 20         
+n_users: 20
 n_users_per_prompt: 2
-
 save_file: data/conversations/debug_convo_10_words_turn_2.json
-
-# roleplayer word var
 roleplayer_mean_words: 12
 roleplayer_std_words: 10
 roleplayer_min_words: 7
 roleplayer_max_words: 50
-
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   tensor_parallel_size: 1
-
 generation_config_questioner:
   max_new_tokens: 2048
   num_return_sequences: 2
   best_of: 2
   temperature: 1.0
-
 generation_config_roleplayer:
   max_new_tokens: 2048
   num_return_sequences: 1
