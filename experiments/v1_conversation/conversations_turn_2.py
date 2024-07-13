@@ -1,4 +1,4 @@
-"""Generate conversations with simulated users."""
+"""Generate Conversations Turn 2"""
 import os
 import json
 import fire

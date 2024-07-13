@@ -1,4 +1,4 @@
-"""Generate personalized responses with oracle (i.e., give the original user + prompt, no questions needed)"""
+"""Generate Gold Responses: g_ij ~ model(g | x_i, u_j)"""
 import json
 import fire
 import hydra

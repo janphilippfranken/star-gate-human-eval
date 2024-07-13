@@ -17,7 +17,6 @@ Additional Comments: <Any additional comments you may have. If none, state "N/A"
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
 
-
 PROMPT_LOGPROBS = """Hi! Here is my profile: {user}
 
 I have the following question for you:
@@ -46,7 +45,6 @@ Reasoning: <Your step-by-step reasoning analyzing the user's question and thinki
 Clarifying Question: <The high-quality clarifying question you are asking the user to elicit relevant context, background information, and preferences.>
 
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
-
 
 
 QUESTION_PROMPT_TURN_2 = """A user with an unknown profile has asked you the following question:

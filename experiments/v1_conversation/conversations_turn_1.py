@@ -1,4 +1,4 @@
-"""Generate Conversations Turn 1."""
+"""Generate Conversations Turn 1: q_i ~ model(q | x_i) and h_ij ~ model(h | x_i, q_i, u_j)"""
 import os
 import json
 import fire
