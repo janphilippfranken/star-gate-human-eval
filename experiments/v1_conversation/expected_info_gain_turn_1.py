@@ -1,26 +1,30 @@
-"""Get logprobs of assistant responses for eig."""
+"""Compute EIG Turn 1."""
+import os
 import json
 import fire
+import torch
 import hydra
-import tqdm
+import random
 import logging
-import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-from helpers import *
 from prompts import *
+from helpers import get_formatted_responses
+
+logging.basicConfig(level=logging.INFO)
 
 
-
-@hydra.main(version_base=None, config_path="config", config_name="expected_info_gain")
+@hydra.main(version_base=None, config_path="config", config_name="expected_info_gain_turn_1")
 def main(args: DictConfig) -> None:
-    logging.info(f"""Computing EIG. Start Prompt: {args.prompt_start}. End Prompt: {args.prompt_end}
+    logging.info(f"""Computing EIG.
+Start Prompt: {args.prompt_start}
+End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
-Convo file: {args.conversations}
-N_USER: {args.n_users_per_prompt}""")
+Seed: {args.seed}
+N Users Per Prompt: {args.n_users_per_prompt}""")
    
     # model
     model = VLLMInferenceModel(
@@ -32,10 +36,6 @@ N_USER: {args.n_users_per_prompt}""")
         pretrained_model_name_or_path=args.model_config.model,
         cache_dir=args.model_config.download_dir,
     )
-    
-    # gold responses
-    with open(args.base_responses, "r") as f:
-        base_responses = json.load(f)
     
     # gold responses
     with open(args.gold_responses, "r") as f:
@@ -58,10 +58,7 @@ N_USER: {args.n_users_per_prompt}""")
     # logprobs container
     logprobs = {}
 
-    # for prompt_id in tqdm.tqdm(set(conversations["id"])):
     for prompt_id in tqdm.tqdm(set(conversations["id"])):
-        
-        
         
         for attempt in set(conversations["attempt"]):
             
@@ -72,7 +69,7 @@ N_USER: {args.n_users_per_prompt}""")
                 int(key.split("_")[-1]) == attempt
             ]
             
-            for user_id in [4, 17]: #prompt_attempt_users:
+            for user_id in [4, 17]: 
                         
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 
@@ -85,10 +82,8 @@ N_USER: {args.n_users_per_prompt}""")
                     gold_response_key = f"{prompt_id}_{user_id}"
                     
                     conversation = conversation_dict[conversation_key]
-
                     gold_response = gold_responses[gold_response_key]
 
-                    
                     prompt_without_response = [
                         {"role": "user", "content": conversation["prompt"]},
                         {"role": "assistant", "content": conversation["question"]},
@@ -104,29 +99,25 @@ N_USER: {args.n_users_per_prompt}""")
                     ]              
         
                     # format 
-                    formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)[:-1]
+                    formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)[:-1] # :-1 to ignore eos token
                     formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
                     
-                    # breakpoint()
                     outputs = model.prompt_logprobs(
                         prompts=[formatted_prompt_with_response],
                         n_logprobs_per_token=args.n_logprobs_per_token,
                     )
 
                     # get p_gold_given_conversation
-                    p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] # type is dict so need to extract vals
+                    p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] 
                     p_gold_given_conversation = [v for prob in p_gold_given_conversation for _, v in prob.items()]
                     logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
                    
-                    # breakpoint()
-
-    # breakpoint()
     # now compute expected info gain
     eig = {}
     
     for prompt_attempt_user_key, prompt_attempt_user_value in logprobs.items():
        
-        if len(prompt_attempt_user_value) > 1: # softmax if we are longer than one 
+        if len(prompt_attempt_user_value) > 1: 
             p_gold_given_prompt = torch.tensor(1/args.n_users_per_prompt).repeat(args.n_users_per_prompt) # baseline: uniform 
             p_gold_given_prompt_entropy = -(p_gold_given_prompt * torch.log(p_gold_given_prompt)).sum()
             p_gold_given_conversation = torch.softmax(torch.tensor(prompt_attempt_user_value), dim=0)
@@ -137,10 +128,11 @@ N_USER: {args.n_users_per_prompt}""")
             logging.info("ONE USER")
             eig[prompt_attempt_user_key] = prompt_attempt_user_value[0].item()
     
+    # score questions based on eig
     best_questions = {}
 
     for prompt_id in set(conversations["id"]):
-        best_question_indices = [] # best question attempt 
+        best_question_eigs = [] # best question attempt 
         questions = []
         responses = []
         users = []
@@ -157,29 +149,28 @@ N_USER: {args.n_users_per_prompt}""")
             best_question_eig_across_users = [] 
             best_question_responses = []
             
-            
             for j, user_id in enumerate(prompt_attempt_users):
             
                 attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
                 best_question_eig_across_users.append(eig[attempt_key])
                 best_question_responses.append(conversation_dict[attempt_key]["response"])
                 
-                if j == 0:
+                if j == 0: # first turn question is always the same so only need to append once
                     questions.append(conversation_dict[attempt_key]["question"])
                 
-                if attempt == 0:
+                if attempt == 0: 
                     users.append(user_id)
             
             # how much did this attempt help on average across users 
-            best_question_indices.append(np.mean(best_question_eig_across_users))
+            best_question_eigs.append(np.mean(best_question_eig_across_users))
             responses.append(best_question_responses)
        
         # best attempt across users
-        best_question_idx = int(np.argmax(best_question_indices))
+        best_question_idx = int(np.argmax(best_question_eigs))
     
         # add this to our best questions for each prompt_id 
         best_questions[f"best_question_for_prompt_{prompt_id}"] = {}
-        best_questions[f"best_question_for_prompt_{prompt_id}"]['question_performances'] = best_question_indices
+        best_questions[f"best_question_for_prompt_{prompt_id}"]['question_performances'] = best_question_eigs
         best_questions[f"best_question_for_prompt_{prompt_id}"]['questions'] = questions
         best_questions[f"best_question_for_prompt_{prompt_id}"]['responses'] = responses[best_question_idx]
         best_questions[f"best_question_for_prompt_{prompt_id}"]['best_question_idx'] = best_question_idx
@@ -187,9 +178,7 @@ N_USER: {args.n_users_per_prompt}""")
         best_questions[f"best_question_for_prompt_{prompt_id}"]['user'] = users
    
         questions = []
-        best_question_indices = []
-        
-        # breakpoint()
+        best_question_eigs = []
 
     with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)

@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.INFO)
 
 @hydra.main(version_base=None, config_path="config", config_name="conversations_turn_1")
 def main(args: DictConfig) -> None:
-    logging.info(f"""Generating Conversations. 
+    logging.info(f"""Generating Conversations Turn 1. 
 Start Prompt: {args.prompt_start}
 End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
@@ -59,6 +59,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
     # prompt questioner 
     batch_prompts_questioner = []
     for i in range(args.prompt_start, args.prompt_end):
+        
         prompt = prompts[i]
         
         batch_prompts_questioner.append([
@@ -101,8 +102,8 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                     {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
                     {"role": "assistant", "content": prompt},
                     {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
-                    {"role": "assistant", "content": ""}
-                ]) 
+                    {"role": "assistant", "content": ""},
+            ]) 
     
     formatted_batch_responses_roleplayer = get_formatted_responses(
         model=model,
@@ -147,6 +148,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                     conversations["response"].append("<|invalid_response|>")
                 rand_user_idx += 1
                 response_idx += 1
+    
     
     with open(args.save_file, "w") as f:
         json.dump(conversations, f, indent=4)

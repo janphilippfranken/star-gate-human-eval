@@ -14,7 +14,6 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 from prompts import *
 from helpers import get_formatted_responses
 
-
 logging.basicConfig(level=logging.INFO)
 
 
@@ -25,10 +24,11 @@ Start Prompt: {args.prompt_start}
 End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
 Seed: {args.seed}
-N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
+N Users Per Prompt: {args.n_users_per_prompt}""")
     
     # seed
     random.seed(args.seed)
+    torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
    
     # model
@@ -45,10 +45,6 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     # prompts
     with open(args.prompts, "r") as f:
         prompts = json.load(f)
-        
-    # eig turn 1
-    with open(args.eig_turn_1, "r") as f:
-        eig_turn_1 = json.load(f)
             
     # users
     with open(args.users, "r") as f:
@@ -60,29 +56,40 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         if int(k.split("_")[1]) < args.n_users
     }
     
-    # questioner
-    batch_prompts_questioner = []
-    questions_turn_1 = []
-    all_users = []
-    all_answers = []
-    for i in range(args.prompt_start, args.prompt_end):
-        prompt = prompts[i]
-        # breakpoint()
-        eig_key = f"best_question_for_prompt_{i}"
-        eig_val = eig_turn_1[eig_key]
-        clarifying_question_turn_1 = eig_val["best_question"]
-        prompt_users = eig_val["user"]
-        all_users.append(prompt_users)
-        responses = eig_val["responses"]
-        questions_turn_1.append(clarifying_question_turn_1)
-        all_answers.append(responses)
+    # eig turn 1
+    with open(args.eig_turn_1, "r") as f:
+        eig_turn_1 = json.load(f)
         
-        for response in responses:
+    # keep track of turn 1 vars
+    turn_1_vars = {
+        "questions_turn_1": [],
+        "answers_turn_1": [],
+        "users": [],
+    }
+    
+    # prompt questioner
+    batch_prompts_questioner = []
+    
+    for i in range(args.prompt_start, args.prompt_end):
+        
+        prompt = prompts[i]
+        
+        eig_key = f"best_question_for_prompt_{i}"
+    
+        question_turn_1 = eig_turn_1[eig_key]["best_question"]
+        answers_turn_1 = eig_turn_1[eig_key]["responses"]
+        users_turn_1 = eig_turn_1[eig_key]["user"]
+        
+        turn_1_vars["questions_turn_1"].append(question_turn_1)
+        turn_1_vars["answers_turn_1"].append(answers_turn_1)
+        turn_1_vars["users"].append(users_turn_1)
+        
+        for answer in answers_turn_1:
             
             formatted_prompt = QUESTION_PROMPT_TURN_2.format(
                 prompt=prompt, 
-                clarifying_question=clarifying_question_turn_1,
-                response=response,
+                clarifying_question=question_turn_1,
+                response=answer,
             )
         
             batch_prompts_questioner.append([
@@ -98,27 +105,28 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         invalid_output="<|invalid_response|>",
     )
   
-    
-    # step 2: roleplayer 
+    # prompt roleplayer 
     batch_prompts_roleplayer = []
     rand_user_ids = []
     n = args.generation_config_questioner.num_return_sequences 
     n_user = args.n_users_per_prompt
-    
     question_counter = 0
+    
     for i in range(args.prompt_start, args.prompt_end):
         
         prompt = prompts[i] 
-        question_turn_1 = questions_turn_1[i]
-        rand_users = all_users[i]
-        all_answer = all_answers[i]
+        
+        question_turn_1 = turn_1_vars["question_turn_1"][i]
+        answers_turn_1 = turn_1_vars["answers_turn_1"][i]
+        rand_users = turn_1_vars["users"][i]
+       
         max_words = 10
             
         for j, rand_user_id in enumerate(rand_users):
             
             user = users[f"user_{rand_user_id}"]
             rand_user_ids.append(rand_user_id)
-            answer = all_answer[j]
+            answer = answers_turn_1[j]
             
             for question_attempt in range(n):
             
@@ -132,7 +140,6 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                     ])
                 question_counter += 1
             
-    breakpoint()
     formatted_batch_responses_roleplayer = get_formatted_responses(
         model=model,
         tokenizer=tokenizer,
@@ -141,10 +148,8 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
         output_format="Roleplayer",
         invalid_output="<|invalid_response|>",
     )
-    
-    breakpoint()
-    
-    # step 3: formatting
+ 
+    # formatting
     conversations = {
         "id": [],
         "user_id": [],
@@ -160,9 +165,10 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
     
     for i in range(args.prompt_start, args.prompt_end): # for all prompts 
         prompt = prompts[i]
-        question_turn_1 = questions_turn_1[i]
-        rand_users = all_users[i]
-        all_answer = all_answers[i]
+        
+        question_turn_1 = turn_1_vars["question_turn_1"][i]
+        answers_turn_1 = turn_1_vars["answers_turn_1"][i]
+        rand_users = turn_1_vars["users"][i]
         
         for j, user_id in enumerate(rand_users):
             
@@ -174,7 +180,7 @@ N_USERS_PER_PROMPT: {args.n_users_per_prompt}""")
                     conversations["prompt"].append(prompt)
                     conversations["attempt"].append(question_attempt)
                     conversations["question_turn_1"].append(question_turn_1)
-                    conversations["response_turn_1"].append(all_answer[j])
+                    conversations["response_turn_1"].append(answers_turn_1[j])
                     
                     question_turn_2 = formatted_batch_responses_questioner[response_idx]
                     response_turn_2 = formatted_batch_responses_roleplayer[response_idx]
