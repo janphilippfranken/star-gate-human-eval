@@ -173,7 +173,7 @@ N_USER: {args.n_users_per_prompt}""")
             best_attempts[f"prompt_{prompt_id}_user_{user_id}"]["eig"] = np.max(list(attempt_performances.values()))
             best_attempts[f"prompt_{prompt_id}_user_{user_id}"]["attempt"] = np.argmax(list(attempt_performances.values()))
 
-    breakpoint()
+
     best_questions = {
         'prompt': [],
         'user_id': [],
@@ -197,13 +197,14 @@ N_USER: {args.n_users_per_prompt}""")
             eigs.append(val["eig"])
             best_questions['prompt'].append(prompt_id)
             best_questions['user_id'].append(user_id)
-            best_questions['best_question_attempt_id'].append(val['attempt'])
-            best_questions['best_question_attempt_eig'].append(val['eig'])
+            best_questions['best_question_attempt_id'].append(int(val['attempt']))
+            best_questions['best_question_attempt_eig'].append(float(val['eig']))
         
         for user_id in sorted(set(prompt_users)):
             best_questions['average_eig_across_users'].append(np.mean(eigs))
             
     # add t
+    breakpoint()
     with open(args.save_file, "w") as f:
         json.dump(best_questions, f, indent=4)
 

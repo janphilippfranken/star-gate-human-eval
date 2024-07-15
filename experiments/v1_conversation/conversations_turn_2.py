@@ -62,8 +62,8 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         
     # keep track of turn 1 vars
     turn_1_vars = {
-        "questions_turn_1": [],
-        "answers_turn_1": [],
+        "question_turn_1": [],
+        "answer_turn_1": [],
         "users": [],
     }
     
@@ -80,8 +80,8 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         answers_turn_1 = eig_turn_1[eig_key]["responses"]
         users_turn_1 = eig_turn_1[eig_key]["user"]
         
-        turn_1_vars["questions_turn_1"].append(question_turn_1)
-        turn_1_vars["answers_turn_1"].append(answers_turn_1)
+        turn_1_vars["question_turn_1"].append(question_turn_1)
+        turn_1_vars["answer_turn_1"].append(answers_turn_1)
         turn_1_vars["users"].append(users_turn_1)
         
         for answer in answers_turn_1:
@@ -117,10 +117,10 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         prompt = prompts[i] 
         
         question_turn_1 = turn_1_vars["question_turn_1"][i]
-        answers_turn_1 = turn_1_vars["answers_turn_1"][i]
+        answers_turn_1 = turn_1_vars["answer_turn_1"][i]
         rand_users = turn_1_vars["users"][i]
        
-        max_words = 10
+        max_words = 10quit
             
         for j, rand_user_id in enumerate(rand_users):
             
@@ -167,7 +167,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         prompt = prompts[i]
         
         question_turn_1 = turn_1_vars["question_turn_1"][i]
-        answers_turn_1 = turn_1_vars["answers_turn_1"][i]
+        answers_turn_1 = turn_1_vars["answer_turn_1"][i]
         rand_users = turn_1_vars["users"][i]
         
         for j, user_id in enumerate(rand_users):
