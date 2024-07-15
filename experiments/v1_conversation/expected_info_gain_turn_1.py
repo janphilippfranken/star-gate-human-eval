@@ -3,9 +3,11 @@ import os
 import json
 import fire
 import torch
+import tqdm
 import hydra
 import random
 import logging
+import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
@@ -23,7 +25,6 @@ def main(args: DictConfig) -> None:
 Start Prompt: {args.prompt_start}
 End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
-Seed: {args.seed}
 N Users Per Prompt: {args.n_users_per_prompt}""")
    
     # model
@@ -114,6 +115,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                    
     # now compute expected info gain
     eig = {}
+    breakpoint()
     
     for prompt_attempt_user_key, prompt_attempt_user_value in logprobs.items():
        
