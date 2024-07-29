@@ -8,9 +8,9 @@ from transformers import AutoTokenizer
 from stargate.vllm_inference_model import VLLMInferenceModel
 
 # from prompts import *
-from users import *
+# from users import *
 
-from prompts import *
+# from prompts import *
 
 
 @hydra.main(version_base=None, config_path="config", config_name="base_responses")
@@ -30,24 +30,24 @@ def main(args: DictConfig) -> None:
     )
     
     # prompts
-    with open(args.prompts, 'r') as f:
-        prompts = json.load(f)
+    # with open(args.prompts, 'r') as f:
+    #     prompts = json.load(f)
         
     # format prompts
     def prompt_model(batch_prompts, prompt):
                     
-        batch_prompts.append(
-            {"role": "user", "content": prompt}
-        )
+        # batch_prompts.append(
+        #     {"role": "user", "content": prompt}
+        # )
 
-        formatted_batch_prompts = [
-            tokenizer.apply_chat_template(prompt, tokenize=False) 
-            for prompt in [batch_prompts]
-        ]
+        # formatted_batch_prompts = [
+        #     tokenizer.apply_chat_template(prompt, tokenize=False) 
+        #     for prompt in [batch_prompts]
+        # ]
         
         # get responses
         batch_responses = model.batch_prompt(
-            prompts=formatted_batch_prompts,
+            prompts=batch_prompts,
             max_new_tokens=2048,
             num_return_sequences=1, 
             best_of=1,
@@ -55,19 +55,23 @@ def main(args: DictConfig) -> None:
         )
         
         # format and write to json
-        formatted_responses = [
-            response.split('<|end_header_id|>')[1].strip() 
-            for 
-            response in batch_responses
-        ]
-        batch_prompts.append(
-            {"role": "assistant", "content": formatted_responses[0].strip()}
-        )
-        return formatted_responses[0], batch_prompts
+        # formatted_responses = [
+        #     response.split('<|end_header_id|>')[1].strip() 
+        #     for 
+        #     response in batch_responses
+        # ]
+        # batch_prompts.append(
+        #     {"role": "assistant", "content": formatted_responses[0].strip()}
+        # )
+        
+        return batch_responses
+        
+        # return formatted_responses[0], batch_prompts
     breakpoint()
-    prompt = "Thinking about cooking dinner tonight"
-    response1, batch_prompts = prompt_model([], prompt_1)
-    response2, batch_prompts = prompt_model([], prompt_2)
+    prompt = "What is 'Mutual Information'?"
+    response = prompt_model([prompt], "none")
+    # response1, batch_prompts = prompt_model([], prompt_1)
+    # response2, batch_prompts = prompt_model([], prompt_2)
     
     breakpoint()
 if __name__ == "__main__":

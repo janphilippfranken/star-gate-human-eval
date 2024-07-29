@@ -48,7 +48,6 @@ def main(args: DictConfig) -> None:
                 prompt_ids.append(i + args.start_prompts)
                 user_ids.append(user_id)
                 opening_prompts.append(prompt)
-
    
                 batch_prompts.append([
                     {"role": "user", "content": ORACLE_PROMPT.format(prompt=prompt, user=user)}

@@ -120,7 +120,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         answers_turn_1 = turn_1_vars["answer_turn_1"][i]
         rand_users = turn_1_vars["users"][i]
        
-        max_words = 10quit
+        max_words = 10
             
         for j, rand_user_id in enumerate(rand_users):
             
