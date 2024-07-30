@@ -30,7 +30,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
     random.seed(args.seed)
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
-   
+
     # model
     model = VLLMInferenceModel(
         **args.model_config
@@ -74,6 +74,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         output_format="Clarifying Question:",
         invalid_output="<|invalid_response|>",
     )
+    breakpoint()    
     
     # prompt roleplayer
     batch_prompts_roleplayer = []
@@ -98,7 +99,6 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             
             user = users[f"user_{rand_user_id}"]
             rand_user_ids.append(rand_user_id)
-           
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
                     {"role": "assistant", "content": prompt},

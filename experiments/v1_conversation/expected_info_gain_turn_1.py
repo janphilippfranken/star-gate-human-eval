@@ -26,7 +26,7 @@ Start Prompt: {args.prompt_start}
 End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
 N Users Per Prompt: {args.n_users_per_prompt}""")
-   
+
     # model
     model = VLLMInferenceModel(
         **args.model_config
