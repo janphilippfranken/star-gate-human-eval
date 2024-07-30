@@ -92,7 +92,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
             
             rand_roleplay_prompt_key = 0
-            max_words = 30
+            # max_words = 30
             rand_users = [4, 17]
             
         for rand_user_id in rand_users:
