@@ -1,0 +1,17 @@
+gold_responses: data/gold_responses/gold_responses_0_200_prompts_20_users.json
+conversations: data/conversations/by_sims/debug_convo_10_words_2-18.json
+save_file: data/expected_info_gain/by_sims/10_words_2-18.json
+prompt_start: 0
+prompt_end: 20
+n_users: 20
+n_users_per_prompt: 2
+n_logprobs_per_token: 0
+model_config:
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  dtype: auto
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  temperature: 0.0

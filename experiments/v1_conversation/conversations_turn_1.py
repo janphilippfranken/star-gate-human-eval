@@ -56,7 +56,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         if int(k.split("_")[1]) < args.n_users
     }
     
-    # prompt questioner 
+    # prompt questioner (independent of users)
     batch_prompts_questioner = []
     for i in range(args.prompt_start, args.prompt_end):
         
@@ -73,8 +73,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         config=args.generation_config_questioner,
         output_format="Clarifying Question:",
         invalid_output="<|invalid_response|>",
-    )
-    breakpoint()    
+    )    
     
     # prompt roleplayer
     batch_prompts_roleplayer = []
@@ -86,17 +85,40 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         prompt = prompts[i//n] 
         
         if i % n == 0:
-            rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+            # rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
             
             rand_roleplay_prompt_key = 0
             # max_words = 30
-            rand_users = [4, 17]
+            # @TODO: temporarily try out different users            
+            # more runs to quickly check how user similarity impact EIG after first turn
+            # sim=0.983
+            # rand_users = [2, 18]
+            # sim=0.973
+            # rand_users = [1, 8]
+            # sim=0.962
+            # rand_users = [3, 2]
+            # sim=0.958
+            # rand_users = [3, 7]
+            # sim=0.94
+            # rand_users = [1, 10]
+            # sim=0.93
+            # rand_users = [4, 17]
+            # sim=0.922
+            # rand_users = [4, 10]
+            # sim=0.917
+            # rand_users = [11, 7]
+            # sim=0.902
+            # rand_users = [11, 3]
+            # sim=0.896
+            # rand_users = [11, 19]
+            # sim=0.887
+            rand_users = [11, 1]
             
-        for rand_user_id in rand_users:
             
+        for rand_user_id in rand_users:            
             user = users[f"user_{rand_user_id}"]
             rand_user_ids.append(rand_user_id)
             batch_prompts_roleplayer.append([

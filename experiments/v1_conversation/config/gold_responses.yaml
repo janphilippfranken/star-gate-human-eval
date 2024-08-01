@@ -3,14 +3,15 @@ users: data/users/users.json
 start_prompts: 0
 end_prompts: 200
 n_users: 20 
+chosen_users: [2, 18]
 
-save_file: data/gold_responses/gold_responses_0_200_prompts_20_users.json
+save_file: data/gold_responses/by_sims/gold_responses_0_200_prompts_users_2-18.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
-  quantization: null
+  # quantization: null
   tensor_parallel_size: 1
 
 generation_config:

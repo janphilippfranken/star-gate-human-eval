@@ -12,6 +12,8 @@ import matplotlib.colors as mc
 import warnings 
 warnings.filterwarnings("ignore")
 
+
+
 def bootstrap_confidence_interval_value(p, n, n_bootstrap_samples=10000, alpha=0.1):
     """
     Calculate the bootstrap confidence interval for a proportion.
@@ -34,6 +36,8 @@ def bootstrap_confidence_interval_value(p, n, n_bootstrap_samples=10000, alpha=0
 
     return upper_bound - lower_bound
 
+
+
 def lighten_color(color, amount=0.5, desaturation=0.2):
     """
     Eric's function.
@@ -53,6 +57,8 @@ def lighten_color(color, amount=0.5, desaturation=0.2):
     new_luminosity = 1 - amount * (1 - c[1])
     new_saturation = max(0, c[2] - desaturation)
     return colorsys.hls_to_rgb(c[0], new_luminosity, new_saturation)
+
+
 
 def get_fancy_bbox(bb, boxstyle, color, background=False, mutation_aspect=3):
     """
@@ -74,6 +80,8 @@ def get_fancy_bbox(bb, boxstyle, color, background=False, mutation_aspect=3):
         mutation_aspect=mutation_aspect, # change depending on ylim
         zorder=2
     )
+
+
 
 def change_saturation(rgb, change=0.6):
     """

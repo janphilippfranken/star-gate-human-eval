@@ -28,7 +28,7 @@ def get_formatted_responses(
     if output_format == "Roleplayer":
         formatted_prompts = [prompt[:-10] for prompt in formatted_prompts]
     
-    breakpoint()
+    # breakpoint()
     
     responses = model.batch_prompt(
         prompts=formatted_prompts,
