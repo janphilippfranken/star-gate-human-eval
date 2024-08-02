@@ -20,10 +20,6 @@ from omegaconf import DictConfig
 from scipy.spatial.distance import cosine
 from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM
 
-# from stargate.vllm_inference_model import VLLMInferenceModel
-# from prompts import *
-# from helpers import get_formatted_responses
-
 logging.basicConfig(level=logging.INFO)
 
 
@@ -39,10 +35,6 @@ def compute_sims(user_feats: Dict[str, np.array]):
             
         all_user_sims.append(user_1_sims)
     return np.array(all_user_sims)
-
-
-def save_similarity_matrix(similarity_matrix: np.array, users: List[str], output_path: str):
-    breakpoint()
     
 
 def plot_user_feat_similarity(cm: np.array, labels: List[str], fig_path: str):
@@ -66,8 +58,11 @@ def main(args: DictConfig) -> None:
     user_embeddings = {}
     user_hiddens = {}
     for user_id, user_info in user_dict.items():
+        # remove the description part of the persona that is the same across all users
+        user_info_list = user_info.split('\n')
+        user_info_stripped = '\n'.join([info.split(': ')[1] for info in user_info_list])
         with torch.no_grad():
-            inputs = tokenizer(user_info, return_tensors="pt", padding=False, truncation=True)
+            inputs = tokenizer(user_info_stripped, return_tensors="pt", padding=False, truncation=True)
             inputs.to("cuda")
             # get the embeddings
             embedding_tokens = model.get_input_embeddings()                  
@@ -81,17 +76,17 @@ def main(args: DictConfig) -> None:
     
     labels = list(user_embeddings.keys())
     # embedding similarity
+    data_folder = os.path.dirname(args.users)
     user_embd_sims = compute_sims(user_embeddings)
-    fig_path = os.path.join(output_dir, "user_embds_sims.png")    
+    fig_path = os.path.join(data_folder, "stripped_user_embds_sims.png")    
     plot_user_feat_similarity(user_embd_sims, labels, fig_path)    
     # hidden similarity
     user_hidden_sims = compute_sims(user_hiddens)
-    fig_path = os.path.join(output_dir, "user_hidden_sims.png")
+    fig_path = os.path.join(data_folder, "stripped_user_hidden_sims.png")
     plot_user_feat_similarity(user_hidden_sims, labels, fig_path)
     # save hidden states similarity
-    hidden_df = pd.DataFrame(user_hidden_sims, index=labels, columns=labels)
-    data_folder = os.path.dirname(args.users)
-    hidden_output_path = os.path.join(data_folder, "user_hidden_sims.csv")
+    hidden_df = pd.DataFrame(user_hidden_sims, index=labels, columns=labels)    
+    hidden_output_path = os.path.join(data_folder, "stripped_user_hidden_sims.csv")
     hidden_df.to_csv(hidden_output_path)
     
 

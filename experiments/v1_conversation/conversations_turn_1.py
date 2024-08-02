@@ -124,7 +124,9 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
                     {"role": "assistant", "content": prompt},
-                    {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
+                    # {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
+                    # @TODO: Temporary changing the word limit here, refactor later
+                    {"role": "user", "content": f"{question}\n\nRespond in no more than 30 words."},
                     {"role": "assistant", "content": ""},
             ]) 
     
