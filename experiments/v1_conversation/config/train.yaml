@@ -9,13 +9,13 @@ tokenizer_config:
 
 wandb:
   project: stargate
-  name: stargate-10k-cot-distilled-llama-70b-labels
+  name: stargate-5k-cot-distilled-5k_1_user_cot_distilled_eig_labels
 
-data: data/train/v2/train_cost_cot_distilled_llama_70b_labels.json
+data: data/train/v3/train_250_5000_1_user_cot_distilled_eig_labels.json
 test_split: 0.05
 
 training_args:
-  output_dir: /scr/jphilipp/stargate/checkpoints/m1-10k-cot-distilled-llama-70b-labels
+  output_dir: /scr/jphilipp/stargate/checkpoints/v3-5k-cot-distilled-1_user_cot_distilled_eig_labels
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 128

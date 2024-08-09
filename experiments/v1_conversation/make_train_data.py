@@ -34,36 +34,41 @@ def main(args: DictConfig) -> None:
     with open(args.labels, 'r') as f:
        labels = json.load(f)
     logging.info(labels.count(1))
-    # conversations
-    conversations = {k: [] for k in ['id', 'user_id', 'prompt', 'attempt', 'question', 'response']}
-    for conversation_batch in sorted(os.listdir(args.conversations), key=lambda item: int(item.split("_")[2])):
-        with open(f"{args.conversations}{conversation_batch}", 'r') as f:
-            conversation_batch = json.load(f)
-        for key in conversations:
-            conversations[key].extend(conversation_batch[key])
-            
+    # # conversations
+    # conversations = {k: [] for k in ['id', 'user_id', 'prompt', 'attempt', 'question', 'response']}
+    # for conversation_batch in sorted(os.listdir(args.conversations), key=lambda item: int(item.split("_")[2])):
+    #     with open(f"{args.conversations}{conversation_batch}", 'r') as f:
+    #         conversation_batch = json.load(f)
+    #     for key in conversations:
+    #         conversations[key].extend(conversation_batch[key])
+    conversations = json.load(open(args.conversations, 'r'))
     # conversation dict 
     conversation_dict = {}
     for prompt_id, user_id, prompt, attempt, question, response in zip(*conversations.values()):
         conversation_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
-        conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}
+        conversation_dict[conversation_key] = {"prompt": prompt, "question": question, "response": response}    
         
     # eig for best questions
-    best_question_eig = []
-    best_question_attempts = []
-    for eig_batch in sorted(os.listdir(args.eig), key=lambda item: int(item.split("_")[2])):
-        with open(f"{args.eig}{eig_batch}", 'r') as f:
-            eig_batch = json.load(f)
-        # eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
-        eig_batch_scores = [np.max(datum["question_performances"][2:]).item() for datum in eig_batch.values()]
-        eig_batch = [np.argmax(datum["question_performances"][2:]).item() + 2 for datum in eig_batch.values()]
-        best_question_attempts.extend(eig_batch)
-        best_question_eig.extend(eig_batch_scores)
+    eigs = json.load(open(args.eig, 'r'))
+    best_question_attempts = [v['best_question_idx'] for v in eigs.values()]    
+    # best_question_eig = [v["question_performances"][v['best_question_idx']].item() for v in eigs.values()]
+
+    # best_question_attempts = []
+    # best_question_eig = []
+    # for eig_batch in sorted(os.listdir(args.eig), key=lambda item: int(item.split("_")[2])):
+    #     with open(f"{args.eig}{eig_batch}", 'r') as f:
+    #         eig_batch = json.load(f)
+    #     # eig_batch = [datum["best_question_idx_wo_pos_control"] for datum in eig_batch.values()]
+    #     eig_batch_scores = [np.max(datum["question_performances"][2:]).item() for datum in eig_batch.values()]
+    #     eig_batch = [np.argmax(datum["question_performances"][2:]).item() + 2 for datum in eig_batch.values()]
+    #     best_question_attempts.extend(eig_batch)
+    #     best_question_eig.extend(eig_batch_scores)
+
    
     # filter best attempts based on eig 
     conversation_dict_filtered = {}
-    rand_users = [] 
-    # breakpoint()
+    rand_users = []
+
     for prompt_id in range(args.start_prompts, args.end_prompts):
         best_attempt = best_question_attempts[prompt_id - args.start_prompts]
         logging.info(prompt_id)
@@ -79,9 +84,7 @@ def main(args: DictConfig) -> None:
         rand_users.append(rand_user)
         
         key = f"prompt_{prompt_id}_user_{rand_user}_attempt_{best_attempt}"
-        conversation_dict_filtered[key] = copy.deepcopy(conversation_dict[key])
-        
-        # breakpoint()
+        conversation_dict_filtered[key] = copy.deepcopy(conversation_dict[key])            
     
     # format prompts
     batch_prompts = []
@@ -138,6 +141,7 @@ def main(args: DictConfig) -> None:
             print(f"INVALID response: {response}")
             formatted_responses.append('<|invalid|>')
             
+
     if args.response_filtering:    
         # now need to load user to filter for p(user | x, response)
         users = json.load(open("data/users/users.json", "r"))

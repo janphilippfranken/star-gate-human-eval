@@ -1,0 +1,17 @@
+wandb: Currently logged in as: ziyxiang (stanford_autonomous_agent). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.6 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.17.1
+wandb: Run data is saved locally in /sailhome/jphilipp/research_projects/star-gate-human-eval/experiments/v1_conversation/wandb/run-20240808_213402-honjkba0
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run stargate-5k-cot-distilled-5k_2_users_cot_distilled_eig_labels
+wandb: ⭐️ View project at https://wandb.ai/stanford_autonomous_agent/stargate
+wandb: 🚀 View run at https://wandb.ai/stanford_autonomous_agent/stargate/runs/honjkba0
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.19s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.01s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:00,  1.01it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.39it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.19it/s]
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/accelerate/accelerator.py:444: FutureWarning: Passing the following arguments to `Accelerator` is deprecated and will be removed in version 1.0 of Accelerate: dict_keys(['dispatch_batches', 'split_batches']). Please pass an `accelerate.DataLoaderConfiguration` instead: 
+dataloader_config = DataLoaderConfiguration(dispatch_batches=None, split_batches=False)
+  warnings.warn(
+  0%|          | 0/34 [00:00<?, ?it/s]  3%|▎         | 1/34 [00:41<22:55, 41.69s/it]                                                3%|▎         | 1/34 [00:41<22:55, 41.69s/it]  6%|▌         | 2/34 [01:24<22:40, 42.53s/it]                                                6%|▌         | 2/34 [01:24<22:40, 42.53s/it]

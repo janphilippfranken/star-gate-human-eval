@@ -85,35 +85,6 @@ Human: """
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 FINAL_RESPONSE_PROMPT = """{response}
 
 Given your follow-up question: '{question}' and my response: '{response}', provide a personalized answer to my initial question: '{prompt}'.

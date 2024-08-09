@@ -6,6 +6,7 @@ import torch
 import hydra
 import random
 import logging
+import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
 
@@ -85,7 +86,16 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
         prompt = prompts[i//n] 
         
         if i % n == 0:
-            # rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+            if not args.selected_users:
+                if i == 0:
+                    logging.info(f"Randomly sample {args.n_users_per_prompt} from {args.n_users} users.")
+                rand_users = torch.randperm(args.n_users)[:args.n_users_per_prompt].tolist()
+            else:
+                if i == 0:
+                    logging.info(f"Sample from 1 user pair from {args.selected_users}")
+                rand_idx = np.random.choice(np.arange(len(args.selected_users)), 1).item()
+                rand_users = args.selected_users[rand_idx]
+
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
             rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
@@ -115,7 +125,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             # sim=0.896
             # rand_users = [11, 19]
             # sim=0.887
-            rand_users = [11, 1]
+            # rand_users = [11, 1]
             
             
         for rand_user_id in rand_users:            

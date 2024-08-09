@@ -1,9 +1,9 @@
-gold_responses: data/gold_responses/by_sims/gold_responses_0_200_prompts_users_2-18.json    #data/gold_responses/gold_responses_0_200_prompts_20_users.json
+gold_responses: data/gold_responses/gold_responses_0_5000_prompts_20_users_full.json
 
-conversations:  data/conversations/by_sims/debug_convo_10_words_2-18.json  #data/conversations/debug/debug_convo_10_words.json
+conversations:  data/conversations/convo_0_5000_prompts_1_user.json
 
-save_file: data/expected_info_gain/by_sims/10_words_2-18.json
-users: [2, 18]
+save_file: data/expected_info_gain/logprobs_0_5000_prompts_1_user_turn_1.json
+users: null
 
 prompt_start: 0
 prompt_end: 20

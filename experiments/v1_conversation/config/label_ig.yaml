@@ -1,0 +1,5 @@
+eigs: data/expected_info_gain/logprobs_0_5000_prompts_1_user_turn_1.json
+cost_method: median
+cost_threshold: null
+
+save_path: data/labels/info_gain_0_5000_prompts_1_user_turn_1.json

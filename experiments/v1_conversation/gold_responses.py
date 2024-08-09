@@ -44,16 +44,16 @@ def main(args: DictConfig) -> None:
     
     for user_id, user in enumerate(list(users.values())[:args.n_users]):
         # @TODO: Temp, needs fix        
-        # if user_id in [4, 17]:        
-        if user_id in args.chosen_users:
-            for i, prompt in enumerate(prompts[args.start_prompts:args.end_prompts]):
-                prompt_ids.append(i + args.start_prompts)
-                user_ids.append(user_id)
-                opening_prompts.append(prompt)
+        # if user_id in [4, 17]:
+        # if user_id in args.chosen_users:
+        for i, prompt in enumerate(prompts[args.start_prompts:args.end_prompts]):
+            prompt_ids.append(i + args.start_prompts)
+            user_ids.append(user_id)
+            opening_prompts.append(prompt)
 
-                batch_prompts.append([
-                    {"role": "user", "content": ORACLE_PROMPT.format(prompt=prompt, user=user)}
-                ])
+            batch_prompts.append([
+                {"role": "user", "content": ORACLE_PROMPT.format(prompt=prompt, user=user)}
+            ])
 
         
     formatted_batch_prompts = [tokenizer.apply_chat_template(prompt, tokenize=False) for prompt in batch_prompts]

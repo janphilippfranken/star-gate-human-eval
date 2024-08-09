@@ -68,21 +68,20 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                 for key in conversation_dict.keys()
                 if int(key.split("_")[1]) == prompt_id and 
                 int(key.split("_")[-1]) == attempt
-            ]
+            ]            
+            if args.users:
+                user_list = args.users
+            else:
+                user_list = prompt_attempt_users
             
-            # @TODO: Temp fix, need to refactor later
-            # for user_id in [4, 17]: 
-            for user_id in args.users:
-                        
-                attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
-                
+            for user_id in user_list:                        
+                attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"                
                 logprobs[attempt_key] = []
 
                 # now to get the distributions of the above logprobs for each attempt_key, we need to compute logprobs across gold responses for each user 
                 for other_user_id in prompt_attempt_users:                    
                     conversation_key = f"prompt_{prompt_id}_user_{other_user_id}_attempt_{attempt}"
-                    gold_response_key = f"{prompt_id}_{user_id}"
-                    
+                    gold_response_key = f"{prompt_id}_{user_id}"                    
                     conversation = conversation_dict[conversation_key]
                     gold_response = gold_responses[gold_response_key]
 

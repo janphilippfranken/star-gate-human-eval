@@ -1,0 +1,15 @@
+[2024-08-08 21:34:02,346][root][INFO] - Writing to: /scr/jphilipp/stargate/checkpoints/v3-5k-cot-distilled-2_user_cot_distilled_eig_labels
+learning rate: 1e-05
+[2024-08-08 21:34:12,175][root][INFO] - DATA
+[{'role': 'user', 'content': 'How do I make a Mediterranean salad.'}, {'role': 'assistant', 'content': "A delicious and refreshing Mediterranean salad! Here's a simple recipe to make a classic Mediterranean salad:\n\n**Ingredients:**\n\n* 4-6 cups mixed greens (arugula, spinach, lettuce, etc.)\n* 1 cup cherry tomatoes, halved\n* 1 cup cucumber, sliced\n* 1 cup Kalamata olives, pitted\n* 1/2 cup crumbled feta cheese (optional)\n* 1/4 cup red onion, thinly sliced\n* 1/4 cup red bell pepper, sliced\n* 2 tbsp. extra-virgin olive oil\n* 2 tbsp. red wine vinegar\n* 1 tsp. Dijon mustard\n* Salt and pepper to taste\n* Fresh parsley, chopped (optional)\n\n**Instructions:**\n\n1. In a large bowl, combine the mixed greens, cherry tomatoes, cucumber, olives, feta cheese (if using), red onion, and red bell pepper.\n2. In a small bowl, whisk together the olive oil, red wine vinegar, Dijon mustard, salt, and pepper to make the dressing.\n3. Pour the dressing over the salad and toss to combine.\n4. Taste and adjust the seasoning as needed.\n5. Cover the bowl with plastic wrap and refrigerate for at least 30 minutes to allow the flavors to meld.\n6. Just before serving, sprinkle with chopped fresh parsley (if using).\n7. Serve chilled or at room temperature.\n\n**Tips and Variations:**\n\n* Use a variety of greens, such as arugula, spinach, and lettuce, for a colorful and flavorful base.\n* Add some protein to the salad by including cooked chicken, grilled salmon, or crumbled feta cheese.\n* Substitute other types of cheese, such as goat cheese or ricotta, for a different flavor profile.\n* Add some crunch by including chopped nuts or seeds, such as almonds or pumpkin seeds.\n* For a more substantial salad, add some cooked quinoa, farro, or bulgur to the mix.\n* Experiment with different types of olives, such as green olives or black olives, for a unique flavor.\n\nEnjoy your delicious Mediterranean salad!"}]
+DatasetDict({
+    train: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 4512
+    })
+    test: Dataset({
+        features: ['input_ids', 'labels', 'attention_mask'],
+        num_rows: 238
+    })
+})
+[2024-08-08 21:34:18,232][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.

@@ -1,22 +1,21 @@
-conversations: data/conversations/10k/
-eig: data/expected_info_gain/10k/
+conversations: data/conversations/convo_0_5000_prompts_1_user.json  #data/conversations/10k/
+eig: data/expected_info_gain/logprobs_0_5000_prompts_1_user_turn_1.json  #data/expected_info_gain/10k/
 
-labels: data/labels/llama_70b_0_10000_questions.json
+labels: data/labels/info_gain_0_5000_prompts_1_user_turn_1.json  #data/labels/llama_70b_0_10000_questions.json
 
 start_prompts: 250
-end_prompts: 10000
+end_prompts: 5000
 n_users: 5
 n_logprobs_per_token: 0
 
 response_filtering: false
 
-save_file: data/train/v2/train_cost_cot_distilled_llama_70b_labels.json
+save_file: data/train/v3/train_250_5000_1_user_cot_distilled_eig_labels.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
-  dtype: auto
-  quantization: null
+  dtype: auto  
   tensor_parallel_size: 1
 
 generation_config:
