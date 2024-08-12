@@ -13,12 +13,19 @@ def main(args: DictConfig) -> None:
     eigs = np.array([
         v["question_performances"][v["best_question_idx"]] for k, v in eigs_dict.items()
         ])
-    
-    if args.cost_method == "median":
-        assert args.cost_threshold is None, "Cost threshold is not needed for median cost method."
-        cost = np.median(eigs)
+        
+    # @TODO: this is temporary, we need to implement a better way to calculate the cost
+    if '1_user' in args.eigs:
+        cost = 0.005
+    elif '2_user' in args.eigs:
+        cost = 0.0078
     else:
-        raise NotImplementedError(f"Cost method {args.cost_method} not implemented.")
+        raise NotImplementedError("Cost not implemented for this dataset.")
+    # if args.cost_method == "median":
+    #     assert args.cost_threshold is None, "Cost threshold is not needed for median cost method."
+    #     cost = np.median(eigs)
+    # else:
+    #     raise NotImplementedError(f"Cost method {args.cost_method} not implemented.")
     
     labels = (eigs > cost).astype(int).tolist()
     with open(args.save_path, 'w') as f:

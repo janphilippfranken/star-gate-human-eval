@@ -75,7 +75,7 @@ Clarifying Question: <The additional high-quality clarifying question you are as
 Please follow these formatting instructions precisely. Failure to do so will result in disqualification."""
 
 
-ROLEPLAY_PROMPT = """Roleplaying the 'Human', imagine you have asked the Assistant the question below. Continue the conversation by providing a response to the assistant's clarifying question. No more than 20 words.
+ROLEPLAY_PROMPT = """Roleplaying the 'Human', imagine you have asked the Assistant the question below. Continue the conversation by providing a response to the assistant's clarifying question. No more than {max_words} words.
 
 Human: {prompt}
 

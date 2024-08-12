@@ -1,13 +1,14 @@
-conversations: data/conversations/convo_0_5000_prompts_1_user.json  #data/conversations/10k/
-eig: data/expected_info_gain/logprobs_0_5000_prompts_1_user_turn_1.json  #data/expected_info_gain/10k/
+conversations: data/conversations/convo_0_5000_prompts_1_user.json
+eig: data/expected_info_gain/eigs_0_5000_prompts_1_user_turn_1.json
+labels: data/labels/info_gain_0_5000_prompts_1_user_turn_1.json
 
-labels: data/labels/info_gain_0_5000_prompts_1_user_turn_1.json  #data/labels/llama_70b_0_10000_questions.json
 
 start_prompts: 250
 end_prompts: 5000
 n_users: 5
 n_logprobs_per_token: 0
 
+use_cot: true
 response_filtering: false
 
 save_file: data/train/v3/train_250_5000_1_user_cot_distilled_eig_labels.json

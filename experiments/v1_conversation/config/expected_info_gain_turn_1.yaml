@@ -2,13 +2,13 @@ gold_responses: data/gold_responses/gold_responses_0_5000_prompts_20_users_full.
 
 conversations:  data/conversations/convo_0_5000_prompts_1_user.json
 
-save_file: data/expected_info_gain/logprobs_0_5000_prompts_1_user_turn_1.json
+save_file: data/expected_info_gain/eigs_0_5000_prompts_1_user_turn_1.json
 users: null
 
 prompt_start: 0
 prompt_end: 20
 n_users: 20
-n_users_per_prompt: 2
+n_users_per_prompt: 1
 
 n_logprobs_per_token: 0
 

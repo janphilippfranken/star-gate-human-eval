@@ -1,11 +1,12 @@
 prompts: data/original_prompts/human_assistant_instruct.json
-# eval_prompt_start: 5000 # 2000 # 10000 # we never have more than 10k train prompts so these are never seen 
-# eval_prompt_end: 5250 # 2050 # 10050
 
-save_questions: results/70b_questions.json
-save_responses: results/70b_responses.json
+save_questions: results/v3/instruct_8b_1_user_questions.json
+save_responses: results/v3/instruct_8b_1_user_responses.json
 
 n_prompts: 200
+
+users: data/users/users.json
+user_start: 20
 
 roleplayer_mean_words: 12
 roleplayer_std_words: 9
@@ -13,11 +14,10 @@ roleplayer_min_words: 5
 roleplayer_max_words: 50
 
 model_config:
-  model: meta-llama/Meta-Llama-3-70B-Instruct
-  download_dir: /scr/jphilipp/sami-online/pretrained_models/Meta-Llama-3-70B-Instruct
-  dtype: auto
-  quantization: null
-  tensor_parallel_size: 4
+  model: meta-llama/Meta-Llama-3-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  dtype: auto  
+  tensor_parallel_size: 1
 
 generation_config:
   max_new_tokens: 2048

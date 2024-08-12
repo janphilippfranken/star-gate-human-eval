@@ -1,0 +1,7 @@
+short_responses: false
+
+response_base_file: results/v3/instruct_8b_1_user_responses.json
+responses_test_file: results/v3/5k-cot-distilled-1_epoch-1_user_cot_distilled_eig_labels_responses.json
+
+result_save_file: results/v3/pretrained-vs-5k-cot-distilled-1_epoch-1_user_cot_distilled_eig_labels_win_rates.json
+responses_save_file: results/v3/pretrained-vs-5k-cot-distilled-1_epoch-1_user_cot_distilled_eig_labels_win_rates_responses.json

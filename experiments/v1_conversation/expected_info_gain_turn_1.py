@@ -75,15 +75,15 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                 user_list = prompt_attempt_users
             
             for user_id in user_list:                        
-                attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"                
-                logprobs[attempt_key] = []
+                attempt_key = f"prompt_{prompt_id}_user_{user_id}_attempt_{attempt}"
+                logprobs[attempt_key] = []                
 
                 # now to get the distributions of the above logprobs for each attempt_key, we need to compute logprobs across gold responses for each user 
                 for other_user_id in prompt_attempt_users:                    
                     conversation_key = f"prompt_{prompt_id}_user_{other_user_id}_attempt_{attempt}"
                     gold_response_key = f"{prompt_id}_{user_id}"                    
                     conversation = conversation_dict[conversation_key]
-                    gold_response = gold_responses[gold_response_key]
+                    gold_response = gold_responses[gold_response_key]                    
 
                     prompt_without_response = [
                         {"role": "user", "content": conversation["prompt"]},
@@ -97,8 +97,8 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                         {"role": "assistant", "content": conversation["question"]},
                         {"role": "user", "content": conversation["response"]},
                         {"role": "assistant", "content": gold_response},
-                    ]              
-        
+                    ]
+                            
                     # format 
                     formatted_prompt_without_response = tokenizer.apply_chat_template(prompt_without_response, tokenize=True)[:-1] # :-1 to ignore eos token
                     formatted_prompt_with_response = tokenizer.apply_chat_template(prompt_with_response, tokenize=False)
@@ -107,10 +107,37 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                         prompts=[formatted_prompt_with_response],
                         n_logprobs_per_token=args.n_logprobs_per_token,
                     )
+
+                    # single user need to compute logprobs without conv
+                    if len(user_list) == 1:
+                        prompt_no_conv_without_response = [
+                            {"role": "user", "content": conversation["prompt"]},
+                            {"role": "assistant", "content": ""},
+                        ]
+                        prompt_no_conv_with_response = [
+                            {"role": "user", "content": conversation["prompt"]},
+                            {"role": "assistant", "content": gold_response},
+                        ]
+
+                        # format
+                        formatted_prompt_no_conv_without_response = tokenizer.apply_chat_template(prompt_no_conv_without_response, tokenize=True)[:-1] # :-1 to ignore eos token
+                        formatted_prompt_no_conv_with_response = tokenizer.apply_chat_template(prompt_no_conv_with_response, tokenize=False)
+
+                        outputs_no_conv = model.prompt_logprobs(
+                            prompts=[formatted_prompt_no_conv_with_response],
+                            n_logprobs_per_token=args.n_logprobs_per_token,
+                        )
+                        p_gold_no_conv = outputs_no_conv[0].prompt_logprobs[1 + len(formatted_prompt_no_conv_without_response):]
+                        p_gold_no_conv = [v.logprob for prob in p_gold_no_conv for _, v in prob.items()]
+
                     # get p_gold_given_conversation
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] 
                     p_gold_given_conversation = [v.logprob for prob in p_gold_given_conversation for _, v in prob.items()]
-                    logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
+                    if len(user_list) > 1:
+                        logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
+                    else:
+                        # single user need to logprob diff with and without conv                        
+                        logprobs[attempt_key].append(np.mean(p_gold_given_conversation) - np.mean(p_gold_no_conv))
 
     # now compute expected info gain
     eig = {}    

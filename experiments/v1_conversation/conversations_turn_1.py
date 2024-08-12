@@ -95,38 +95,13 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                     logging.info(f"Sample from 1 user pair from {args.selected_users}")
                 rand_idx = np.random.choice(np.arange(len(args.selected_users)), 1).item()
                 rand_users = args.selected_users[rand_idx]
-
+            
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
+            # rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
             
             rand_roleplay_prompt_key = 0
-            # max_words = 30
-            # @TODO: temporarily try out different users            
-            # more runs to quickly check how user similarity impact EIG after first turn
-            # sim=0.983
-            # rand_users = [2, 18]
-            # sim=0.973
-            # rand_users = [1, 8]
-            # sim=0.962
-            # rand_users = [3, 2]
-            # sim=0.958
-            # rand_users = [3, 7]
-            # sim=0.94
-            # rand_users = [1, 10]
-            # sim=0.93
-            # rand_users = [4, 17]
-            # sim=0.922
-            # rand_users = [4, 10]
-            # sim=0.917
-            # rand_users = [11, 7]
-            # sim=0.902
-            # rand_users = [11, 3]
-            # sim=0.896
-            # rand_users = [11, 19]
-            # sim=0.887
-            # rand_users = [11, 1]
-            
+            # max_words = 30            
             
         for rand_user_id in rand_users:            
             user = users[f"user_{rand_user_id}"]

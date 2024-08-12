@@ -2,6 +2,8 @@ import json
 import fire
 import hydra
 import random
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 import numpy as np
 from omegaconf import DictConfig
 from tqdm import tqdm
@@ -59,15 +61,15 @@ Comparison: <step-by-step comparison and explanation>
 Final Response: <"A" or "B">"""
 
 
-from users import *
+
 
 @hydra.main(version_base=None, config_path="config", config_name="win_rates")
 def main(args: DictConfig) -> None:
     
-    responses_base_file = json.load(open('results/base_responses_user_21_max_words_25_full_sentence.json'))
+    responses_base_file = json.load(open(args.response_base_file, 'r'))
     responses_base = [r["response"] for r in responses_base_file.values()]
     
-    responses_test_file = json.load(open('results/cot_ckpt_1_responses_eig.json'))
+    responses_test_file = json.load(open(args.responses_test_file, 'r'))
     
     responses_test = [r["response"] for r in responses_test_file.values()]
     users = [r["user"] for r in responses_test_file.values()]
@@ -94,15 +96,12 @@ def main(args: DictConfig) -> None:
 
     prompts = []
     numbers = []
-    breakpoint()
     
     for i, (response_base, response_test) in enumerate(zip(responses_base, responses_test)):
         
         rand_number = np.random.randint(2)
-        numbers.append(rand_number)
-        
-        rand_user = users[i]
-        
+        numbers.append(rand_number)        
+        rand_user = users[i]        
         
         if rand_number == 0:
         
@@ -125,15 +124,23 @@ def main(args: DictConfig) -> None:
                
             prompts.append(prompt)
 
-    responses = model.batch_prompt(
-        system_message=SYSTEM_MESSAGE,
-        messages=prompts,
-        win_rates=True,
-    )
+    prompts = prompts
+    if args.short_responses:
+        responses = model.batch_prompt(
+            system_message=SYSTEM_MESSAGE_SHORT,
+            messages=prompts,
+            win_rates=True,
+        )
+    else:
+        responses = model.batch_prompt(
+            system_message=SYSTEM_MESSAGE,
+            messages=prompts,
+            win_rates=True,
+        )
     
     formatted_responses = []
     
-    for response in responses:
+    for response in responses:        
         try:
             formatted_responses.append(response[0].split('Final Response:')[1].strip())
         except:
@@ -167,9 +174,21 @@ def main(args: DictConfig) -> None:
             else:
                 print("ERROR")
                 win_rates.append((0.5))
-                
-    with open(f'results/cot_ckpt_1_win_rates_eig.json', 'w') as file:
+                    
+    if args.short_responses:
+        result_save_file = args.result_save_file.replace('.json', '_short.json')
+        responses_save_file = args.responses_save_file.replace('.json', '_short.json')
+    else:
+        result_save_file = args.result_save_file
+        responses_save_file = args.responses_save_file
+
+    logging.info(f"Saving win rates to: {result_save_file}")
+    with open(result_save_file, 'w') as file:
         json.dump(win_rates, file, indent=4)
+
+    # save responses
+    with open(responses_save_file, 'w') as file:
+        json.dump(responses, file, indent=4)
         
 if __name__ == "__main__":
     fire.Fire(main())

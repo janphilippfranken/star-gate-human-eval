@@ -13,3 +13,40 @@ DatasetDict({
     })
 })
 [2024-08-08 21:34:18,232][accelerate.utils.other][WARNING] - Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+{'loss': 0.6745, 'learning_rate': 5.000000000000001e-07, 'epoch': 0.06}
+{'loss': 0.5699, 'learning_rate': 1.0000000000000002e-06, 'epoch': 0.11}
+{'loss': 0.606, 'learning_rate': 1.5e-06, 'epoch': 0.17}
+{'loss': 0.5596, 'learning_rate': 2.0000000000000003e-06, 'epoch': 0.23}
+{'loss': 0.5439, 'learning_rate': 2.5e-06, 'epoch': 0.28}
+{'loss': 0.4762, 'learning_rate': 3e-06, 'epoch': 0.34}
+{'loss': 0.4793, 'learning_rate': 3.5e-06, 'epoch': 0.4}
+{'loss': 0.4212, 'learning_rate': 4.000000000000001e-06, 'epoch': 0.45}
+{'loss': 0.3955, 'learning_rate': 4.5e-06, 'epoch': 0.51}
+{'loss': 0.3902, 'learning_rate': 5e-06, 'epoch': 0.57}
+{'loss': 0.4162, 'learning_rate': 5.500000000000001e-06, 'epoch': 0.62}
+{'loss': 0.3336, 'learning_rate': 6e-06, 'epoch': 0.68}
+{'loss': 0.3138, 'learning_rate': 6.5000000000000004e-06, 'epoch': 0.74}
+{'loss': 0.3138, 'learning_rate': 7e-06, 'epoch': 0.79}
+{'loss': 0.2878, 'learning_rate': 7.500000000000001e-06, 'epoch': 0.85}
+{'loss': 0.2662, 'learning_rate': 8.000000000000001e-06, 'epoch': 0.91}
+{'loss': 0.2569, 'learning_rate': 8.5e-06, 'epoch': 0.96}
+{'eval_loss': 0.2485543042421341, 'eval_runtime': 14.6349, 'eval_samples_per_second': 16.262, 'eval_steps_per_second': 8.131, 'epoch': 0.96}
+{'loss': 0.2754, 'learning_rate': 9e-06, 'epoch': 1.02}
+{'loss': 0.2357, 'learning_rate': 9.5e-06, 'epoch': 1.08}
+{'loss': 0.2335, 'learning_rate': 1e-05, 'epoch': 1.13}
+{'loss': 0.2355, 'learning_rate': 9.285714285714288e-06, 'epoch': 1.19}
+{'loss': 0.2298, 'learning_rate': 8.571428571428571e-06, 'epoch': 1.25}
+{'loss': 0.2101, 'learning_rate': 7.857142857142858e-06, 'epoch': 1.3}
+{'loss': 0.2293, 'learning_rate': 7.1428571428571436e-06, 'epoch': 1.36}
+{'loss': 0.207, 'learning_rate': 6.4285714285714295e-06, 'epoch': 1.42}
+{'loss': 0.2169, 'learning_rate': 5.7142857142857145e-06, 'epoch': 1.48}
+{'loss': 0.2108, 'learning_rate': 5e-06, 'epoch': 1.53}
+{'loss': 0.2034, 'learning_rate': 4.2857142857142855e-06, 'epoch': 1.59}
+{'loss': 0.2162, 'learning_rate': 3.5714285714285718e-06, 'epoch': 1.65}
+{'loss': 0.2063, 'learning_rate': 2.8571428571428573e-06, 'epoch': 1.7}
+{'loss': 0.204, 'learning_rate': 2.1428571428571427e-06, 'epoch': 1.76}
+{'loss': 0.1895, 'learning_rate': 1.4285714285714286e-06, 'epoch': 1.82}
+{'loss': 0.2169, 'learning_rate': 7.142857142857143e-07, 'epoch': 1.87}
+{'loss': 0.2114, 'learning_rate': 0.0, 'epoch': 1.93}
+{'eval_loss': 0.21178419888019562, 'eval_runtime': 14.328, 'eval_samples_per_second': 16.611, 'eval_steps_per_second': 8.305, 'epoch': 1.93}
+{'train_runtime': 1597.0594, 'train_samples_per_second': 5.65, 'train_steps_per_second': 0.021, 'train_loss': 0.3246014109429191, 'epoch': 1.93}

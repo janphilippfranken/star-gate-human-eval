@@ -19,23 +19,23 @@ def combine_gold_responses(gold_responses_paths, output_path):
 
 
 if __name__ == '__main__':
-    # gold responses
-    gold_responses_paths = [
-    'data/gold_responses/gold_responses_0_500_prompts_20_users_full.json',
-    'data/gold_responses/gold_responses_500_1500_prompts_20_users_full.json',
-    'data/gold_responses/gold_responses_1500_3000_prompts_20_users_full.json',
-    'data/gold_responses/gold_responses_3000_4000_prompts_20_users_full.json',
-    'data/gold_responses/gold_responses_4000_5000_prompts_20_users_full.json',
-    ]
-    gold_responses_output_path = 'data/gold_responses/gold_responses_0_5000_prompts_20_users_full.json'
-    combine_gold_responses(gold_responses_paths, gold_responses_output_path)
+    # # gold responses
+    # gold_responses_paths = [
+    # 'data/gold_responses/gold_responses_0_500_prompts_20_users_full.json',
+    # 'data/gold_responses/gold_responses_500_1500_prompts_20_users_full.json',
+    # 'data/gold_responses/gold_responses_1500_3000_prompts_20_users_full.json',
+    # 'data/gold_responses/gold_responses_3000_4000_prompts_20_users_full.json',
+    # 'data/gold_responses/gold_responses_4000_5000_prompts_20_users_full.json',
+    # ]
+    # gold_responses_output_path = 'data/gold_responses/gold_responses_0_5000_prompts_20_users_full.json'
+    # combine_gold_responses(gold_responses_paths, gold_responses_output_path)
     # conv 2 users
     chat_2_user_paths = [
         'data/conversations/convo_0_500_prompts_2_users.json',
-        'data/conversations/convo_500_1000_prompts_2_users.json',
-        'data/conversations/convo_1000_3000_prompts_2_users.json',
-        'data/conversations/convo_3000_4000_prompts_2_users.json',
-        'data/conversations/convo_4000_5000_prompts_2_users.json'
+        'data/conversations/convo_500_1500_prompts_2_users.json',
+        'data/conversations/convo_1500_2500_prompts_2_users.json',
+        'data/conversations/convo_2500_3500_prompts_2_users.json',
+        'data/conversations/convo_3500_5000_prompts_2_users.json'
     ]
     chat_2_user_output_path = 'data/conversations/convo_0_5000_prompts_2_users.json'
     combine_gold_responses(chat_2_user_paths, chat_2_user_output_path)

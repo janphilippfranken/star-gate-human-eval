@@ -14,7 +14,7 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 
 from prompts import *
 
-from users import *
+# from users import *
 
 
 # gpt 4 agent
@@ -74,13 +74,21 @@ def main(args: DictConfig) -> None:
     with open(args.prompts, 'r') as f:
         prompts = json.load(f)[:args.n_prompts]
         
+
+    # users
+    users_raw = json.load(open(args.users))
+    users = {}
+    for user_id, info in users_raw.items():
+        if int(user_id.split('_')[-1]) >= args.user_start:
+            users[user_id] = info
+        
     # format prompts for initial query 
     ids = []
     batch_prompts = []
     for i, prompt in enumerate(prompts):
         ids.append(i)
         batch_prompts.append([
-            {"role": "user", "content": RESPONSE_PROMPT.format(question=prompt)}
+            {"role": "user", "content": prompt}
         ])
 
     formatted_batch_prompts = [
@@ -96,7 +104,7 @@ def main(args: DictConfig) -> None:
 
     # format 
     formatted_responses = [
-        response.split('<|end_header_id|>')[1].strip() 
+        response.split('<|end_header_id|>')[-1].lstrip().strip()
         for response in batch_responses
     ]
     
@@ -108,40 +116,46 @@ def main(args: DictConfig) -> None:
 
     gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
     
+    formatted_gpt_responses = []
+
+    # for resp in gpt_responses:
+    #     try:
+    #         formatted_gpt_responses.append(int(resp[0].split('Final Response:')[1].strip()))
+    #     except:
+    #         formatted_gpt_responses.append(0)        
     formatted_gpt_responses = [
         int(resp[0].split('Final Response:')[1].strip()) 
         for resp in gpt_responses
     ]
     
-    # load the OG labels to compute agreement between gpt4 and model asked questions
-    breakpoint()
+    # load the OG labels to compute agreement between gpt4 and model asked questions    
     labels_human = json.load(open('data/labels/exp_when_9_pp_maj_votes_0_200.json'))
     agreement = np.mean([i == j for i, j in zip(labels_human, formatted_gpt_responses)])
     print("AGREEMENT", agreement)
-    breakpoint()
-    
+        
     # now back to prompting roleplayer 
     batch_prompts_roleplayer = []
     rand_users = []
     for i, prompt in enumerate(prompts):
-        rand_user = random.choice([USER_20, USER_21, USER_22, USER_23, USER_24])
-        rand_users.append(USER_21)
-        rand_user = USER_21
+        # rand_user = random.choice(list(users.keys()))
+        # @TODO: currently using user 21 for all prompts        
+        rand_user = users['user_21']
+        rand_users.append(rand_user)
         
         if int(formatted_gpt_responses[i]) == 1:
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-            rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
-            rand_roleplay_prompt_key = 0
-            roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
-            max_words = 25
-            roleplay_prompt_key = 'standard'
+            # rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
+            # rand_roleplay_prompt_key = 0
+            # roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
+            # max_words = 25
+            # roleplay_prompt_key = 'standard'
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You must adopt the following persona in all conversations: {rand_user}"},
-                    {"role": "user", "content": ROLEPLAY_PROMPTS[roleplay_prompt_key].format(
-                        user=rand_user, 
-                        question=formatted_responses[i].strip(),
+                    {"role": "user", "content": ROLEPLAY_PROMPT.format(
                         max_words=max_words,
+                        prompt=prompt,
+                        question=formatted_responses[i].strip(),                        
                 )}
             ])
 
@@ -164,14 +178,13 @@ def main(args: DictConfig) -> None:
     formatted_batch_responses_roleplayer = []
     for response in formatted_responses_roleplayer:
         try:
-            formatted_batch_responses_roleplayer.append(response.split('Response:')[1].strip().strip('"'))
+            if 'Response:' in response:
+                formatted_batch_responses_roleplayer.append(response.split('Response:')[1].strip().strip('"'))
+            else:
+                formatted_batch_responses_roleplayer.append(response.strip().strip('"'))
         except:
             print(f"INVALID response: {response}")    
-            formatted_batch_responses_roleplayer.append("<|invalid_response|>")
-            
-    breakpoint()
-    
-    breakpoint()
+            formatted_batch_responses_roleplayer.append("<|invalid_response|>")                
     
     batch_prompts_final = []
     response_count = 0
@@ -218,14 +231,13 @@ def main(args: DictConfig) -> None:
                 'response': formatted_responses[i],
                 'user': rand_users[i],
             }
-    breakpoint()
-    
     
     with open(args.save_responses, 'w') as f:
         json.dump(final_performance, f, indent=4)
         
     with open(args.save_questions, 'w') as f:
         json.dump(formatted_gpt_responses, f, indent=4)
+
 
 if __name__ == "__main__":
     fire.Fire(main())
