@@ -1,13 +1,13 @@
 prompts: data/original_prompts/human_assistant_instruct.json
 users: data/users/users.json
-n_users: 25
+n_users: 20
 seed: 0
 prompt_start: 0
-prompt_end: 200
-n_users_per_prompt: 1
-selected_users: [[21]]
+prompt_end: 1000
+n_users_per_prompt: 2
+selected_users: null
 
-save_file: results/v3/v3-5k-cot-distilled-1_user_cot_distilled_eig_labels_conv_turn_1.json
+save_file: data/v3/conv_0_1000-2_user_all.json
 
 # roleplayer word var
 roleplayer_mean_words: 12

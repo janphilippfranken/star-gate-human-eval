@@ -182,13 +182,14 @@ def main(args: DictConfig) -> None:
         result_save_file = args.result_save_file
         responses_save_file = args.responses_save_file
 
-    logging.info(f"Saving win rates to: {result_save_file}")
-    with open(result_save_file, 'w') as file:
-        json.dump(win_rates, file, indent=4)
+    breakpoint()
+    # logging.info(f"Saving win rates to: {result_save_file}")
+    # with open(result_save_file, 'w') as file:
+    #     json.dump(win_rates, file, indent=4)
 
-    # save responses
-    with open(responses_save_file, 'w') as file:
-        json.dump(responses, file, indent=4)
+    # # save responses
+    # with open(responses_save_file, 'w') as file:
+    #     json.dump(responses, file, indent=4)
         
 if __name__ == "__main__":
     fire.Fire(main())

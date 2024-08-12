@@ -23,11 +23,4 @@ conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v1_conversation
 
-python conversations.py \
-    generation_config_questioner.num_return_sequences=$num_return_sequences \
-    generation_config_questioner.best_of=$best_of \
-    seed=$seed \
-    n_users_per_prompt=$n_users_per_prompt \
-    prompt_start=$prompt_start \
-    prompt_end=$prompt_end \
-    save_file=data/conversations/hai_start_${prompt_start}_end_${prompt_end}_n_user_${n_users_per_prompt}_seed_${seed}_${best_of}.json
+python conversations_turn_1.py 

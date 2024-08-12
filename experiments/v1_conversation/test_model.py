@@ -1,78 +1,17 @@
-"""Generate generic responses without additional info or questions."""
-import json
-import fire
-import hydra
-from omegaconf import DictConfig
-from transformers import AutoTokenizer
+from vllm_inference_model import VLLMInferenceModel
 
-from stargate.vllm_inference_model import VLLMInferenceModel
+model = VLLMInferenceModel(
+    model="meta-llama/Meta-Llama-3-8B-Instruct",
+    download_dir="/scr/YOUR_DOWNLOAD_PATH",
+    dtype="auto",
+    tensor_parallel_size=N_GPUS_YOU_ARE_USING,
+)
 
-# from prompts import *
-# from users import *
+batch_responses = model.batch_prompt(
+    prompts=batch_prompts,
+    max_new_tokens=2048,
+    num_return_sequences=1, 
+    best_of=1,
+    temperature=0.0,
+)
 
-# from prompts import *
-
-
-@hydra.main(version_base=None, config_path="config", config_name="base_responses")
-def main(args: DictConfig) -> None:
-   
-    # model
-    breakpoint()
-    from vllm import LLM
-    model = VLLMInferenceModel(
-        **args.model_config
-    )
-    
-    # tokenizer 
-    tokenizer = AutoTokenizer.from_pretrained(
-        pretrained_model_name_or_path=args.model_config.model,
-        cache_dir=args.model_config.download_dir,
-    )
-    
-    # prompts
-    # with open(args.prompts, 'r') as f:
-    #     prompts = json.load(f)
-        
-    # format prompts
-    def prompt_model(batch_prompts, prompt):
-                    
-        # batch_prompts.append(
-        #     {"role": "user", "content": prompt}
-        # )
-
-        # formatted_batch_prompts = [
-        #     tokenizer.apply_chat_template(prompt, tokenize=False) 
-        #     for prompt in [batch_prompts]
-        # ]
-        
-        # get responses
-        batch_responses = model.batch_prompt(
-            prompts=batch_prompts,
-            max_new_tokens=2048,
-            num_return_sequences=1, 
-            best_of=1,
-            temperature=0.0,
-        )
-        
-        # format and write to json
-        # formatted_responses = [
-        #     response.split('<|end_header_id|>')[1].strip() 
-        #     for 
-        #     response in batch_responses
-        # ]
-        # batch_prompts.append(
-        #     {"role": "assistant", "content": formatted_responses[0].strip()}
-        # )
-        
-        return batch_responses
-        
-        # return formatted_responses[0], batch_prompts
-    breakpoint()
-    prompt = "What is 'Mutual Information'?"
-    response = prompt_model([prompt], "none")
-    # response1, batch_prompts = prompt_model([], prompt_1)
-    # response2, batch_prompts = prompt_model([], prompt_2)
-    
-    breakpoint()
-if __name__ == "__main__":
-    fire.Fire(main())

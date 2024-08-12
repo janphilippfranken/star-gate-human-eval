@@ -1,5 +1,0 @@
-/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-  warnings.warn(
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Processed prompts:   0%|          | 0/20000 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s]Processed prompts:   0%|          | 1/20000 [00:34<189:18:20, 34.08s/it, est. speed input: 44.14 toks/s, output: 2.11 toks/s]slurmstepd: error: *** JOB 8094044 ON cocoflops-hgx-1 CANCELLED AT 2024-08-08T10:48:48 ***
