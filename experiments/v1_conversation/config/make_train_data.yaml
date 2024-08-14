@@ -1,6 +1,6 @@
 conversations: data/conversations/v3/conv_5k-5_user.json
 eig: data/expected_info_gain/eigs_5k-5_user.json
-labels: data/labels/llama_70b_0_10000_questions.json #data/labels/info_gain_5k-user_4_17.json
+labels: data/labels/info_gain_5k-user_4_17.json
 
 
 start_prompts: 250
@@ -11,7 +11,7 @@ n_logprobs_per_token: 0
 use_cot: false
 response_filtering: false
 
-save_file: data/train/v3/train_5k_5_user_70b_labels.json
+save_file: data/train/v3/train_5k_5_user_eig_labels.json
 
 model_config:
   model: meta-llama/Meta-Llama-3-8B-Instruct

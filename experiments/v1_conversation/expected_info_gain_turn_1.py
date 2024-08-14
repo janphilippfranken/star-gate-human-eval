@@ -131,6 +131,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                     # get p_gold_given_conversation
                     p_gold_given_conversation = outputs[0].prompt_logprobs[1 + len(formatted_prompt_without_response):] 
                     p_gold_given_conversation = [v.logprob for prob in p_gold_given_conversation for _, v in prob.items()]
+                    
                     if len(user_list) > 1:
                         logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
                     else:

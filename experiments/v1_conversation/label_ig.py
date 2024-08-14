@@ -3,6 +3,8 @@ import json
 import fire
 import hydra
 import numpy as np
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 from omegaconf import DictConfig
 
 from prompts import *
@@ -20,11 +22,15 @@ def main(args: DictConfig) -> None:
     elif '2_user' in args.eigs:
         cost = 0.0078
     elif 'eigs_5k-user_4_17.json' in args.eigs:
-        # cost = 0.0165
-        cost = 0.021
+        cost = 0.0165
+    elif 'eigs_5k-user_4.json' in args.eigs:
+        cost = 0.3
+    elif 'eigs_5k-user_17.json' in args.eigs:
+        cost = 0.022
     else:
         raise NotImplementedError("Cost not implemented for this dataset.")
     
+    logging.info(f"Cost: {cost}")
     labels = (eigs > cost).astype(int).tolist()
     with open(args.save_path, 'w') as f:
         json.dump(labels, f, indent=4)
