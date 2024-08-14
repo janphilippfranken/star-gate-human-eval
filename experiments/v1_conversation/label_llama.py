@@ -39,7 +39,7 @@ Reasoning: <Provide your step-by-step reasoning whether to answer directly or as
 Final Decision: <Output 'Answer Directly' if you'd prefer the assistant to answer directly, and 'Ask Clarifying Question' if you'd prefer the assistant to ask a clarifying question>"""
 
 
-@hydra.main(version_base=None, config_path="config", config_name="expected_info_gain")
+@hydra.main(version_base=None, config_path="config", config_name="label_llama")
 def main(args: DictConfig) -> None:
    
     # model
@@ -59,7 +59,7 @@ def main(args: DictConfig) -> None:
     # format prompts
     ids = []
     batch_prompts = []
-    for i, prompt in enumerate(prompts[:10000]):
+    for i, prompt in enumerate(prompts[:args.n_data]):
         ids.append(i)
         batch_prompts.append([{"role": "user", "content": PROMPT_HUMAN.format(prompt=prompt)}])
 
@@ -81,7 +81,7 @@ def main(args: DictConfig) -> None:
         1 if 'Ask Clarifying Question' in formatted_response else 0 for formatted_response in formatted_responses
     ]
     
-    with open('data/labels/llama_70b_0_10000_questions.json', 'w') as f:
+    with open(args.save_file, 'w') as f:
         json.dump(formatted_responses, f, indent=4)
 
 

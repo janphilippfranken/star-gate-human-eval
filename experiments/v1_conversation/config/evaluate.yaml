@@ -1,7 +1,7 @@
 prompts: data/original_prompts/human_assistant_instruct.json
 
-save_questions: results/v3/instruct_8b_user-21_questions.json
-save_responses: results/v3/instruct_8b_user-21_responses.json
+save_questions: results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_questions.json
+save_responses: results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_responses.json
 
 n_prompts: 200
 

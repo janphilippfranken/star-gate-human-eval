@@ -1,21 +1,21 @@
 conversations: data/conversations/v3/conv_5k-5_user.json
 eig: data/expected_info_gain/eigs_5k-5_user.json
-labels: data/labels/info_gain_5k-user_4_17.json
+labels: data/labels/llama_3.1_8b_5k_questions.json
 
 
 start_prompts: 250
-end_prompts: 5000
+end_prompts: 1000
 # n_users: 5
 n_logprobs_per_token: 0
 
 use_cot: false
 response_filtering: false
 
-save_file: data/train/v3/train_5k_5_user_eig_labels.json
+save_file: data/train/v4/train_250_1000_llama3.1_labels.json
 
 model_config:
-  model: meta-llama/Meta-Llama-3-8B-Instruct
-  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
   dtype: auto  
   tensor_parallel_size: 1
 
