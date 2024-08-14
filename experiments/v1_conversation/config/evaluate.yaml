@@ -1,11 +1,12 @@
 prompts: data/original_prompts/human_assistant_instruct.json
 
-save_questions: results/v3/instruct_8b_1_user_questions.json
-save_responses: results/v3/instruct_8b_1_user_responses.json
+save_questions: results/v3/instruct_8b_user-21_questions.json
+save_responses: results/v3/instruct_8b_user-21_responses.json
 
 n_prompts: 200
 
 users: data/users/users.json
+# use user21 for nnow
 user_start: 20
 
 roleplayer_mean_words: 12

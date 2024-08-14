@@ -19,17 +19,15 @@ def main(args: DictConfig) -> None:
         cost = 0.005
     elif '2_user' in args.eigs:
         cost = 0.0078
+    elif 'eigs_5k-user_4_17.json' in args.eigs:
+        # cost = 0.0165
+        cost = 0.021
     else:
         raise NotImplementedError("Cost not implemented for this dataset.")
-    # if args.cost_method == "median":
-    #     assert args.cost_threshold is None, "Cost threshold is not needed for median cost method."
-    #     cost = np.median(eigs)
-    # else:
-    #     raise NotImplementedError(f"Cost method {args.cost_method} not implemented.")
     
     labels = (eigs > cost).astype(int).tolist()
     with open(args.save_path, 'w') as f:
-        json.dump(labels, f)
+        json.dump(labels, f, indent=4)
 
 
 

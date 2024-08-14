@@ -1,5 +1,5 @@
-eigs: data/expected_info_gain/eigs_0_5000_prompts_1_user_turn_1.json
+eigs: data/expected_info_gain/eigs_5k-user_4_17.json
 cost_method: median
 cost_threshold: null
 
-save_path: data/labels/info_gain_0_5000_prompts_1_user_turn_1.json
+save_path: data/labels/info_gain_5k-user_4_17-cost_0.021.json

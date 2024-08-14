@@ -28,7 +28,7 @@ gpt4 = GPT4Agent(
     model="gpt-4",
     temperature=0.0,
     top_p=0.9,
-    max_tokens=200,
+    max_tokens=500,
     n=1,
 )
 
@@ -141,7 +141,7 @@ def main(args: DictConfig) -> None:
         # @TODO: currently using user 21 for all prompts        
         rand_user = users['user_21']
         rand_users.append(rand_user)
-        
+        print(rand_user)
         if int(formatted_gpt_responses[i]) == 1:
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
             max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()

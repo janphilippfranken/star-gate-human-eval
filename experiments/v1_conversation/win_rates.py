@@ -34,8 +34,9 @@ FIRST, provide a step-by-step comparison of the two responses, explaining which 
 
 Format your response as follows:
 Comparison: <step-by-step comparison and explanation>
-Final Response: <"A" or "B">"""
-
+Final Response: <"A" or "B">
+"""
+# **IMPORTANT**: YOU MUST FOLLOW THE FORMAT ABOVE. FAILURE TO DO SO WILL RESULT IN A REJECTION OF YOUR RESPONSE.
 
 SYSTEM_MESSAGE_SHORT = """You must adopt the following user persona in all your responses:
 
@@ -58,7 +59,8 @@ FIRST, provide a step-by-step comparison of the two responses, explaining which 
 
 Format your response as follows:
 Comparison: <step-by-step comparison and explanation>
-Final Response: <"A" or "B">"""
+Final Response: <"A" or "B">
+"""
 
 
 
@@ -88,7 +90,7 @@ def main(args: DictConfig) -> None:
         model="gpt-4",
         temperature=0.0,
         top_p=0.9,
-        max_tokens=200,
+        max_tokens=500,
         n=1,
     )
 
@@ -143,7 +145,7 @@ def main(args: DictConfig) -> None:
     for response in responses:        
         try:
             formatted_responses.append(response[0].split('Final Response:')[1].strip())
-        except:
+        except:            
             formatted_responses.append("C")
 
     for formatted_response, number in zip(formatted_responses, numbers):
@@ -158,7 +160,7 @@ def main(args: DictConfig) -> None:
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
                 win_rates.append((1))
-            else:
+            else:                
                 print("ERROR")
                 win_rates.append((0.5))
         
@@ -171,7 +173,7 @@ def main(args: DictConfig) -> None:
                 
             elif 'A' not in formatted_response and 'B' in formatted_response:
                 win_rates.append((0))
-            else:
+            else:                
                 print("ERROR")
                 win_rates.append((0.5))
                     
@@ -181,15 +183,14 @@ def main(args: DictConfig) -> None:
     else:
         result_save_file = args.result_save_file
         responses_save_file = args.responses_save_file
+    
+    logging.info(f"Saving win rates to: {result_save_file}")
+    with open(result_save_file, 'w') as file:
+        json.dump(win_rates, file, indent=4)
 
-    breakpoint()
-    # logging.info(f"Saving win rates to: {result_save_file}")
-    # with open(result_save_file, 'w') as file:
-    #     json.dump(win_rates, file, indent=4)
-
-    # # save responses
-    # with open(responses_save_file, 'w') as file:
-    #     json.dump(responses, file, indent=4)
+    # save responses
+    with open(responses_save_file, 'w') as file:
+        json.dump(responses, file, indent=4)
         
 if __name__ == "__main__":
     fire.Fire(main())

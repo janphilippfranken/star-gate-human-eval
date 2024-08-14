@@ -2,12 +2,12 @@ prompts: data/original_prompts/human_assistant_instruct.json
 users: data/users/users.json
 n_users: 20
 seed: 0
-prompt_start: 0
-prompt_end: 1000
-n_users_per_prompt: 2
+prompt_start: 250
+prompt_end: 750
+n_users_per_prompt: 5
 selected_users: null
 
-save_file: data/v3/conv_0_1000-2_user_all.json
+save_file: data/conversations/v3/conv_250_750-5_user.json
 
 # roleplayer word var
 roleplayer_mean_words: 12
@@ -23,9 +23,9 @@ model_config:
 
 generation_config_questioner:
   max_new_tokens: 2048
-  num_return_sequences: 1
-  best_of: 1
-  temperature: 0.0
+  num_return_sequences: 5
+  best_of: 5
+  temperature: 1.0
 
 generation_config_roleplayer:
   max_new_tokens: 2048

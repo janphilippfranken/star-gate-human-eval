@@ -22,8 +22,6 @@ logging.basicConfig(level=logging.INFO)
 @hydra.main(version_base=None, config_path="config", config_name="expected_info_gain_turn_1")
 def main(args: DictConfig) -> None:
     logging.info(f"""Computing EIG.
-Start Prompt: {args.prompt_start}
-End Prompt: {args.prompt_end}
 Saving to: {args.save_file}
 N Users Per Prompt: {args.n_users_per_prompt}""")
 
@@ -140,7 +138,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                         logprobs[attempt_key].append(np.mean(p_gold_given_conversation) - np.mean(p_gold_no_conv))
 
     # now compute expected info gain
-    eig = {}    
+    eig = {}
     
     for prompt_attempt_user_key, prompt_attempt_user_value in logprobs.items():
         if len(prompt_attempt_user_value) > 1: 

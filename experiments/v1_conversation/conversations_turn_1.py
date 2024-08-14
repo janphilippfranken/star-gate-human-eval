@@ -97,11 +97,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                 rand_users = args.selected_users[rand_idx]
             
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
-            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-            # rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.7, 0.1, 0.2], k=1)[0]
-            
-            rand_roleplay_prompt_key = 0
-            # max_words = 30            
+            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()            
             
         for rand_user_id in rand_users:            
             user = users[f"user_{rand_user_id}"]
@@ -109,9 +105,9 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You are roleplaying the following persona: {user}"},
                     {"role": "assistant", "content": prompt},
-                    # {"role": "user", "content": f"{question}\n\nRespond in no more than 10 words."},
-                    # @TODO: Temporary changing the word limit here, refactor later
-                    {"role": "user", "content": f"{question}\n\nRespond in no more than 30 words."},
+                    # # Only for maximizing EIG and modifying gold responses
+                    # {"role": "user", "content": f"{question}\n\nRespond in no more than 30 words."},                    
+                    {"role": "user", "content": f"{question}\n\nRespond in no more than {max_words} words."},
                     {"role": "assistant", "content": ""},
             ]) 
     
