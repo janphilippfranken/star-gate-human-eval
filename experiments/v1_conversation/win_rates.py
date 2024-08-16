@@ -19,30 +19,66 @@ SYSTEM_MESSAGE = """You must adopt the following user persona in all your respon
 
 Persona: {user}"""
 
-GPT4_WIN_RATE = """Roleplaying the user persona below, which of the assistant responses to your query do you prefer?
+
+GPT4_WIN_RATE = """Roleplaying the user persona below, evaluate the assistant responses to your query:
 
 Persona: {user}
-
 Your Query: {query}
 
-Assistant Response A: {response_a}
+Step 1: Persona Preference Hypothesizing
+Based on the persona information and the specific query, hypothesize about the likely preferences, concerns, or considerations this persona might have related to the query. List these hypothesized preferences/concerns:
 
+1. [Hypothesized preference/concern 1]
+2. [Hypothesized preference/concern 2]
+3. [Continue as needed]
+
+Step 2: Response Evaluation
+Now, evaluate the following responses considering both the query and your hypothesized preferences/concerns:
+
+Assistant Response A: {response_a}
 Assistant Response B: {response_b}
 
+Please provide a step-by-step evaluation considering these criteria:
 
-FIRST, provide a step-by-step comparison of the two responses, explaining which is more aligned with your background and preferences. SECOND, on a new line, state only "A" or "B" to indicate which response you prefer.
+1. Query Addressing: How effectively does the response answer the specific question asked?
+
+2. Relevant Persona Utilization: 
+   - To what extent does the response align with or address the hypothesized preferences/concerns?
+   - Does it explicitly mention or address any of the hypothesized preferences?
+   - Is special consideration given to preferences that match verbatim?
+
+3. Avoidance of Irrelevant Details: Does the response avoid including persona information or hypothesized preferences that don't contribute to answering the question?
+
+4. Appropriate Personalization: 
+   - How well does the response tailor its answer to the persona and hypothesized preferences, but only in ways that are pertinent to the query?
+   - Does it demonstrate an understanding of the persona's likely needs and preferences?
+
+5. Overall Effectiveness: Considering all criteria, how well does the response meet both the query requirements and the persona's likely needs?
 
 Format your response as follows:
-Comparison: <step-by-step comparison and explanation>
-Final Response: <"A" or "B">
+
+Evaluation of Response A:
+1. Query Addressing: [Your analysis]
+2. Relevant Persona Utilization: [Your analysis]
+3. Avoidance of Irrelevant Details: [Your analysis]
+4. Appropriate Personalization: [Your analysis]
+5. Overall Effectiveness: [Your analysis]
+
+Evaluation of Response B:
+[Same format as above]
+
+Overall Comparison: [Brief comparison of the two responses based on all criteria, with emphasis on how well each response addresses the query while considering relevant hypothesized preferences]
+
+Final Response: ["A", "B", "Neither" or "Equally good"]
 """
-# **IMPORTANT**: YOU MUST FOLLOW THE FORMAT ABOVE. FAILURE TO DO SO WILL RESULT IN A REJECTION OF YOUR RESPONSE.
+
 
 SYSTEM_MESSAGE_SHORT = """You must adopt the following user persona in all your responses:
 
 Persona: {user}
 
 Important: You prefer *concise* answers instead of lengthy answers that don't get to the point."""
+
 
 GPT4_WIN_RATE_SHORT = """Roleplaying the user persona below, which of the assistant responses to your query do you prefer?
 
@@ -69,11 +105,11 @@ Final Response: <"A" or "B">
 def main(args: DictConfig) -> None:
     
     responses_base_file = json.load(open(args.response_base_file, 'r'))
-    responses_base = [r["response"] for r in responses_base_file.values()]
+    responses_base = [r["response"] for r in responses_base_file.values()][:10]
     
     responses_test_file = json.load(open(args.responses_test_file, 'r'))
     
-    responses_test = [r["response"] for r in responses_test_file.values()]
+    responses_test = [r["response"] for r in responses_test_file.values()][:10]
     users = [r["user"] for r in responses_test_file.values()]
 
     queries = [r["prompt"] for r in responses_test_file.values()]
@@ -90,7 +126,7 @@ def main(args: DictConfig) -> None:
         model="gpt-4",
         temperature=0.0,
         top_p=0.9,
-        max_tokens=500,
+        max_tokens=2000,
         n=1,
     )
 
@@ -126,7 +162,7 @@ def main(args: DictConfig) -> None:
                
             prompts.append(prompt)
 
-    prompts = prompts
+    prompts = prompts[:10]
     if args.short_responses:
         responses = model.batch_prompt(
             system_message=SYSTEM_MESSAGE_SHORT,
@@ -149,7 +185,7 @@ def main(args: DictConfig) -> None:
             formatted_responses.append("C")
 
     for formatted_response, number in zip(formatted_responses, numbers):
-       
+        breakpoint()
         if number == 0:
 
             if 'A' in formatted_response and 'B' not in formatted_response:

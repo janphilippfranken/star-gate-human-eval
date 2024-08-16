@@ -116,13 +116,7 @@ def main(args: DictConfig) -> None:
 
     gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
     
-    formatted_gpt_responses = []
-
-    # for resp in gpt_responses:
-    #     try:
-    #         formatted_gpt_responses.append(int(resp[0].split('Final Response:')[1].strip()))
-    #     except:
-    #         formatted_gpt_responses.append(0)        
+    formatted_gpt_responses = []       
     formatted_gpt_responses = [
         int(resp[0].split('Final Response:')[1].strip()) 
         for resp in gpt_responses
