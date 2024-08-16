@@ -5,6 +5,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
+from scipy.stats import sem
 from sklearn.metrics import f1_score
 
 
@@ -91,8 +93,7 @@ def create_win_rates_plot(df, fig_path):
     for model in all_models:
         fig_folder = os.path.dirname(fig_path)
         fig_file = os.path.basename(fig_path)
-        output_path = os.path.join(fig_folder, f"{model}_{fig_file}")
-        print(f"Creating plot for {model} and saving to {output_path}")
+        output_path = os.path.join(fig_folder, f"{model}_{fig_file}")        
         model_df = df[df['train_type'] == model]
         colors = plt.get_cmap("tab10").colors
         df_pivot = model_df.pivot(index='epoch', columns='question', values=['win_rate', 'win_rate_se'])
@@ -122,6 +123,54 @@ def create_win_rates_plot(df, fig_path):
         plt.savefig(output_path, dpi=300)        
         plt.close()
 
+def create_interactions_plot(df, fig_path):
+    all_models = df['train_type'].unique().tolist()
+    
+    for model in all_models:    
+        fig_folder = os.path.dirname(fig_path)
+        fig_file = os.path.basename(fig_path)
+        output_path = os.path.join(fig_folder, f"{model}_{fig_file}")
+        model_df = df[df['train_type'] == model]
+        grouped_data = model_df.groupby(['epoch', 'human_q', 'model_q']).agg(
+            mean_win=('win', 'mean'),
+            sem_win=('win', sem)
+        ).reset_index()
+
+        fig, axes = plt.subplots(nrows=1, ncols=grouped_data['human_q'].nunique(), figsize=(14, 6), sharey=True)
+
+        for i, (human_q, group) in enumerate(grouped_data.groupby('human_q')):
+            ax = axes[i]
+            bar_width = 0.35
+            epochs = group['epoch'].unique()
+            index = range(len(epochs))
+            
+            # Bars for model_q = 0
+            model_q_0 = group[group['model_q'] == 0]
+            ax.bar([p - bar_width/2 for p in index], model_q_0['mean_win'], bar_width, 
+                yerr=model_q_0['sem_win'], label='Model Q = 0', capsize=5, color='skyblue', edgecolor='black')
+            
+            # Bars for model_q = 1
+            model_q_1 = group[group['model_q'] == 1]
+            ax.bar([p + bar_width/2 for p in index], model_q_1['mean_win'], bar_width, 
+                yerr=model_q_1['sem_win'], label='Model Q = 1', capsize=5, color='salmon', 
+                edgecolor='black')
+
+            ax.set_title(f'Human Q = {human_q}')
+            ax.set_xticks(index)
+            ax.set_xticklabels(epochs)
+            ax.set_ylim(0, 0.85)
+            ax.set_xlabel('Epoch')
+            ax.set_ylabel('Mean Win')
+            if i == 0:
+                ax.set_ylabel('Mean Win')            
+            ax.grid(axis='y', linestyle='--', linewidth=0.7)
+
+        ax.legend(title='Model Q', bbox_to_anchor=(1.01, 1), loc='upper left')   
+        # plt.title(f"Interactions by Epoch and Human Q for {model}", fontsize=18)
+        plt.tight_layout()
+        plt.savefig(output_path, dpi=300)        
+        plt.close()
+
 
 def plot_win_rates(results_dict, human_label_path, base_label_path):
     human_labels = json.load(open(human_label_path))
@@ -129,6 +178,7 @@ def plot_win_rates(results_dict, human_label_path, base_label_path):
     res = []
     res_human_labels = []
     res_base_labels = []
+    res_interactions = []
     
 
     for train_type in results_dict:
@@ -176,6 +226,19 @@ def plot_win_rates(results_dict, human_label_path, base_label_path):
             win_rate_no_q_base_se = bootstrap_win_rate_se(wins_no_q_base)            
             res_base_labels.append({'train_type': train_type, 'epoch': i+1, 'win_rate': win_rate_no_q_base, 'win_rate_se': win_rate_no_q_base_se, 'question': 'no_question'})
             res_base_labels.append({'train_type': train_type, 'epoch': i+1, 'win_rate': win_rate, 'win_rate_se': win_rate_se, 'question': 'all'})
+            for model_q, human_q, win in zip(question_labels, human_labels, wins):
+                res_interactions.append({'train_type': train_type, 'epoch': i+1, 'model_q': model_q, 'human_q': human_q, 'win': win})
+
+    
+    interactions_df = pd.DataFrame(res_interactions)
+    if interactions_df['train_type'].str.contains('short').any():
+        short_interactions_df = interactions_df[interactions_df['train_type'].str.contains('short')]
+        fig_path = 'results/v4/figs/interactions_short.png'
+        create_interactions_plot(short_interactions_df, fig_path)
+    else:
+        no_short_interactions_df = interactions_df[~interactions_df['train_type'].str.contains('short')]
+        fig_path_no_short = 'results/v4/figs/interactions.png'
+        create_interactions_plot(no_short_interactions_df, fig_path_no_short)
 
     # model asking questions
     df = pd.DataFrame(res)          
@@ -218,22 +281,26 @@ if __name__ == "__main__":
     """ Human Agreement """    
     label_dict = {        
         'logprob_u4_7e-6': [
-            'results/v3/instruct_8b_1_user_questions.json',
+            # 'results/v3/instruct_8b_1_user_questions.json',
+            'results/v4/5k_llama3_8b_system_questions.json',
             'results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_questions.json',
             'results/v3/5k-5_user_logprob_u4_labels_epoch-2_lr-7e-6_questions.json'  
         ],
         'logprob_u17_7e-6': [
-            'results/v3/instruct_8b_1_user_questions.json',
+            # 'results/v3/instruct_8b_1_user_questions.json',
+            'results/v4/5k_llama3_8b_system_questions.json',
             'results/v3/5k-5_user_logprob_u17_labels_epoch-1_lr-7e-6_questions.json',
-                'results/v3/5k-5_user_logprob_u17_labels_epoch-2_lr-7e-6_questions.json'
+            'results/v3/5k-5_user_logprob_u17_labels_epoch-2_lr-7e-6_questions.json'
         ],
         'eig_7e-6': [
-            'results/v3/instruct_8b_1_user_questions.json',
+            # 'results/v3/instruct_8b_1_user_questions.json',
+            'results/v4/5k_llama3_8b_system_questions.json',
             'results/v3/5k-5_user_eig_labels_epoch-1_lr-7e-6_questions.json',
             'results/v3/5k-5_user_eig_labels_epoch-2_lr-7e-6_questions.json'
-        ],        
+        ],             
     }
-    # fig_path = 'results/v3/figs/human_agreement.png'
+    # # fig_path = 'results/v4/figs/human_agreement.png'
+    # fig_path = 'results/v4/figs/human_agreement_sys.png'
     # human_label_path = 'data/labels/exp_when_9_pp_maj_votes_0_200.json'
     # plot_human_agrement(human_label_path, label_dict, fig_path)  
 
@@ -275,48 +342,175 @@ if __name__ == "__main__":
     # base_label_path = 'results/v3/instruct_8b_user-21_questions.json' 
     # plot_win_rates(win_rate_dict, human_label_path, base_label_path)
 
+    """ Win Rates Against Base Models """
+    # win_rate_dict = {        
+    #     # label: u4, qs: eig
+    #     'u4_label_eig_qs_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_epoch-1_u4_labels_lr1e-6_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_epoch-2_u4_labels_lr1e-6_win_rates.json',                
+    #             ],
+    #         'question_label': [
+    #             'results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_questions.json',
+    #             'results/v3/5k-5_user_logprob_u4_labels_epoch-2_lr-7e-6_questions.json',
+    #             ]
+    #     },
+    #     # label: u17, qs: eig
+    #     'u17_label_eig_qs_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_epoch-1_u17_labels_lr7e-6_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_epoch-2_u17_labels_lr7e-6_win_rates.json',                
+    #             ],
+    #         'question_label': [
+    #             'results/v3/5k-5_user_logprob_u17_labels_epoch-1_lr-7e-6_questions.json',
+    #             'results/v3/5k-5_user_logprob_u17_labels_epoch-2_lr-7e-6_questions.json',
+    #             ]
+    #     },
+    #     # label: eig, qs: eig
+    #     'eig_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_epoch-1_eig_labels_lr7e-6_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_epoch-2_eig_labels_lr7e-6_win_rates.json'                
+    #         ],
+    #         'question_label': [
+    #             'results/v3/5k-5_user_eig_labels_epoch-1_lr-7e-6_questions.json',
+    #             'results/v3/5k-5_user_eig_labels_epoch-2_lr-7e-6_questions.json'
+    #         ]
+    #    },
+    #    # label: eig, qs: u4
+    #    'eig_label_u4_qs_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_1_eig_labels_u4_qs_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_2_eig_labels_u4_qs_win_rates.json'
+    #         ],
+    #         'question_label': [
+    #             'results/v4/5k_lr7e-6_epoch_1_eig_labels_u4_qs_questions.json',
+    #             'results/v4/5k_lr7e-6_epoch_2_eig_labels_u4_qs_questions.json'
+    #         ]
+    #      },
+    #      # label: eig, qs: u17
+    #     'eig_label_u17_qs_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_1_eig_labels_u17_qs_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_2_eig_labels_u17_qs_win_rates.json'
+    #         ],
+    #         'question_label': [
+    #             'results/v4/5k_lr7e-6_epoch_1_eig_labels_u17_qs_questions.json',
+    #             'results/v4/5k_lr7e-6_epoch_2_eig_labels_u17_qs_questions.json'
+    #         ]
+    #     },
+    #     # label: u4, qs: u4
+    #     'u4_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_1_eig_labels_u4_qs_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_2_eig_labels_u4_qs_win_rates.json'
+    #         ],
+    #         'question_label': [
+    #             'results/v4/5k_lr7e-6_epoch_1_eig_labels_u4_qs_questions.json',
+    #             'results/v4/5k_lr7e-6_epoch_2_eig_labels_u4_qs_questions.json'
+    #         ]
+    #     },
+    #     # label: u17, qs: u17
+    #     'u17_7e-6': {
+    #         'win_rate': [
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_1_eig_labels_u17_qs_win_rates.json',
+    #             'results/v4/pretrained-vs-5k_lr7e-6_epoch_2_eig_labels_u17_qs_win_rates.json'
+    #         ],
+    #         'question_label': [
+    #             'results/v4/5k_lr7e-6_epoch_1_eig_labels_u17_qs_questions.json',
+    #             'results/v4/5k_lr7e-6_epoch_2_eig_labels_u17_qs_questions.json'
+    #         ]
+    #     },    
+    # }
+    # human_label_path = 'data/labels/exp_when_9_pp_maj_votes_0_200.json'
+    # base_label_path = 'results/v3/instruct_8b_user-21_questions.json' 
+    # plot_win_rates(win_rate_dict, human_label_path, base_label_path)
 
+    """ Win rates against prompted model"""
     win_rate_dict = {        
-        # 'logprob_u4_7e-6': {
-        #     'win_rate': [
-        #         'results/v3/pretrained-vs-5k_5_user_epoch-1_logprob_u4_labels_win_rates.json',
-        #         'results/v3/pretrained-vs-5k_5_user_epoch-2_logprob_u4_labels_win_rates.json'
-        #         ],
-        #     'question_label': [
-        #         'results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_questions.json',
-        #         'results/v3/5k-5_user_logprob_u4_labels_epoch-2_lr-7e-6_questions.json'
-        #         ]
-        # },
-        # 'logprob_u17_7e-6': {
-        #     'win_rate': [
-        #         'results/v3/pretrained-vs-5k_5_user_epoch-1_logprob_u17_labels_win_rates.json',
-        #         'results/v3/pretrained-vs-5k_5_user_epoch-2_logprob_u17_labels_win_rates.json'
-        #         ],
-        #     'question_label': [
-        #         'results/v3/5k-5_user_logprob_u17_labels_epoch-1_lr-7e-6_questions.json',
-        #         'results/v3/5k-5_user_logprob_u17_labels_epoch-2_lr-7e-6_questions.json'
-        #         ]
-        # },
-        'eig_7e-6': {
+        # label: u4, qs: eig
+        'u4_label_eig_qs_7e-6': {
             'win_rate': [
-                'results/v4/pretrained-vs-5k_5_user_epoch-1_eig_labels_lr7e-6_win_rates.json',
-                'results/v4/pretrained-vs-5k_5_user_epoch-2_eig_labels_lr7e-6_win_rates.json'                
+                'results/v4/system-vs-5k_lr7e-6_epoch_1_u4_labels_eig_qs_win_rates.json',
+                'results/v4/system-vs-5k_lr7e-6_epoch_2_u4_labels_eig_qs_win_rates.json'
+                ],
+            'question_label': [
+                'results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_questions.json',
+                'results/v3/5k-5_user_logprob_u4_labels_epoch-2_lr-7e-6_questions.json',
+                ]
+        },
+        # label: u17, qs: eig
+        'u17_label_eig_qs_7e-6': {
+            'win_rate': [
+                'results/v4/system-vs-5k_lr7e-6_epoch_1_u17_labels_eig_qs_win_rates.json',
+                'results/v4/system-vs-5k_lr7e-6_epoch_2_u17_labels_eig_qs_win_rates.json'
+                ],
+            'question_label': [
+                'results/v3/5k-5_user_logprob_u17_labels_epoch-1_lr-7e-6_questions.json',
+                'results/v3/5k-5_user_logprob_u17_labels_epoch-2_lr-7e-6_questions.json',
+                ]
+        },
+        
+        # label: eig, qs: eig
+        'eig_7e-6': {
+            'win_rate': [ 
+                'results/v4/system-vs-5k_lr7e-6_epoch_1_eig_labels_win_rates.json',
+                'results/v4/system-vs-5k_lr7e-6_epoch_2_eig_labels_win_rates.json'
             ],
             'question_label': [
                 'results/v3/5k-5_user_eig_labels_epoch-1_lr-7e-6_questions.json',
                 'results/v3/5k-5_user_eig_labels_epoch-2_lr-7e-6_questions.json'
             ]
        },
-    #    'eig_5e-6': {
-    #         'win_rate': [
-    #             'results/v4/pretrained-vs-5k_5_user_epoch-1_eig_labels_lr5e-6_win_rates.json',
-    #             'results/v4/pretrained-vs-5k_5_user_epoch-2_eig_labels_lr5e-6_win_rates.json'
-    #         ],
-    #         'question_label': [
-    #             'results/v3/5k-5_user_eig_labels_lr5e-6_epoch-1_questions.json',
-    #             'results/v3/5k-5_user_eig_labels_lr5e-6_epoch-2_questions.json'
-    #         ]
-    #      },
+
+
+       # label: eig, qs: u4
+       'eig_label_u4_qs_7e-6': {
+            'win_rate': [   
+                'results/v4/system-vs-5k_lr7e-6_epoch_1_eig_labels_u4_qs_win_rates.json',
+                'results/v4/system-vs-5k_lr7e-6_epoch_2_eig_labels_u4_qs_win_rates.json'
+            ],
+            'question_label': [
+                'results/v4/5k_lr7e-6_epoch_1_eig_labels_u4_qs_questions.json',
+                'results/v4/5k_lr7e-6_epoch_2_eig_labels_u4_qs_questions.json'
+            ]
+         },
+
+        # label: eig, qs: u17
+        'eig_label_u17_qs_7e-6': {
+            'win_rate': [ 
+               'results/v4/system-vs-5k_lr7e-6_epoch_1_eig_labels_u17_qs_win_rates.json',
+               'results/v4/system-vs-5k_lr7e-6_epoch_2_eig_labels_u17_qs_win_rates.json'          
+            ],
+            'question_label': [
+                'results/v4/5k_lr7e-6_epoch_1_eig_labels_u17_qs_questions.json',
+                'results/v4/5k_lr7e-6_epoch_2_eig_labels_u17_qs_questions.json'
+            ]
+        },
+
+        # label: u4, qs: u4
+        'u4_7e-6': {
+            'win_rate': [
+                'results/v4/system-vs-5k_lr7e-6_epoch_1_u4_labels_u4_qs_win_rates.json',
+                'results/v4/system-vs-5k_lr7e-6_epoch_2_u4_labels_u4_qs_win_rates.json'
+            ],
+            'question_label': [
+                'results/v4/5k_lr7e-6_epoch_1_eig_labels_u4_qs_questions.json',
+                'results/v4/5k_lr7e-6_epoch_2_eig_labels_u4_qs_questions.json'
+            ]
+        },        
+
+        # label: u17, qs: u17
+        'u17_7e-6': {
+            'win_rate': [
+                'results/v4/system-vs-5k_lr7e-6_epoch_1_u17_labels_u17_qs_win_rates.json',
+                'results/v4/system-vs-5k_lr7e-6_epoch_2_u17_labels_u17_qs_win_rates.json'
+            ],
+            'question_label': [
+                'results/v4/5k_lr7e-6_epoch_1_eig_labels_u17_qs_questions.json',
+                'results/v4/5k_lr7e-6_epoch_2_eig_labels_u17_qs_questions.json'
+            ]
+        }
     }
     human_label_path = 'data/labels/exp_when_9_pp_maj_votes_0_200.json'
     base_label_path = 'results/v3/instruct_8b_user-21_questions.json' 

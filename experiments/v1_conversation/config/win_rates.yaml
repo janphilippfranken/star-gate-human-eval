@@ -1,6 +1,6 @@
 short_responses: false
 
-response_base_file: results/v3/instruct_8b_1_user_responses.json
+response_base_file: results/v4/5k_llama3_8b_system_responses.json
 responses_test_file: results/v3/5k-5_user_eig_labels_epoch-1_lr-7e-6_responses.json
 
 result_save_file: results/v4/pretrained-vs-5k_5_user_epoch-1_eig_labels_lr7e-6_win_rates.json

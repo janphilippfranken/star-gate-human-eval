@@ -105,16 +105,16 @@ Final Response: <"A" or "B">
 def main(args: DictConfig) -> None:
     
     responses_base_file = json.load(open(args.response_base_file, 'r'))
-    responses_base = [r["response"] for r in responses_base_file.values()][:10]
+    responses_base = [r["response"] for r in responses_base_file.values()]
     
     responses_test_file = json.load(open(args.responses_test_file, 'r'))
     
-    responses_test = [r["response"] for r in responses_test_file.values()][:10]
+    responses_test = [r["response"] for r in responses_test_file.values()]
     users = [r["user"] for r in responses_test_file.values()]
 
     queries = [r["prompt"] for r in responses_test_file.values()]
     
-    win_rates = []
+    win_rates = []    
   
     llm = AsyncAzureChatLLM(
         azure_endpoint="https://philipp.openai.azure.com/",
@@ -134,6 +134,7 @@ def main(args: DictConfig) -> None:
 
     prompts = []
     numbers = []
+        
     
     for i, (response_base, response_test) in enumerate(zip(responses_base, responses_test)):
         
@@ -162,7 +163,8 @@ def main(args: DictConfig) -> None:
                
             prompts.append(prompt)
 
-    prompts = prompts[:10]
+
+    logging.info(f"Number of prompts: {len(prompts)}")
     if args.short_responses:
         responses = model.batch_prompt(
             system_message=SYSTEM_MESSAGE_SHORT,
@@ -178,40 +180,40 @@ def main(args: DictConfig) -> None:
     
     formatted_responses = []
     
-    for response in responses:        
+    for response in responses: 
         try:
-            formatted_responses.append(response[0].split('Final Response:')[1].strip())
-        except:            
+            formatted_responses.append(response[0].split('Final Response:')[1].strip().lstrip())
+        except:
             formatted_responses.append("C")
 
-    for formatted_response, number in zip(formatted_responses, numbers):
-        breakpoint()
+    for formatted_response, number in zip(formatted_responses, numbers):        
         if number == 0:
+            if "Neither" in formatted_response or "Equally good" in formatted_response:
+                win_rates.append((0.5))
 
-            if 'A' in formatted_response and 'B' not in formatted_response:
+            elif 'A' in formatted_response:
                 win_rates.append((0))
-                
-            elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates.append((0.5))
-                
-            elif 'A' not in formatted_response and 'B' in formatted_response:
+
+            elif 'B' in formatted_response:
                 win_rates.append((1))
-            else:                
+
+            else:
                 print("ERROR")
-                win_rates.append((0.5))
+                win_rates.append((0.5))            
         
-        elif number == 1:
-            if 'A' in formatted_response and 'B' not in formatted_response:
+        elif number == 1:    
+            if "Neither" in formatted_response or "Equally good" in formatted_response:
+                win_rates.append((0.5))
+
+            elif 'A' in formatted_response:
                 win_rates.append((1))
-                
-            elif 'A' in formatted_response and 'B' in formatted_response:
-                win_rates.append((0.5))
-                
-            elif 'A' not in formatted_response and 'B' in formatted_response:
+
+            elif 'B' in formatted_response:
                 win_rates.append((0))
-            else:                
+
+            else:
                 print("ERROR")
-                win_rates.append((0.5))
+                win_rates.append((0.5))        
                     
     if args.short_responses:
         result_save_file = args.result_save_file.replace('.json', '_short.json')

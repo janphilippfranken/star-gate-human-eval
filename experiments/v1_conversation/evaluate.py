@@ -4,6 +4,7 @@ import fire
 import hydra
 import random
 import torch
+import logging
 import numpy as np
 from omegaconf import DictConfig
 from transformers import AutoTokenizer
@@ -53,6 +54,31 @@ Reasoning: <Provide your step-by-step reasoning for determining whether the 'Ass
 Final Response: <State only '1' if the response is a clarifying question, or '0' if it is a direct answer, and nothing else.>"""
 
 
+QUESTION_SYSTEM_PROMPT = """You are an AI assistant. For each user query:
+
+1. Carefully analyze the query and any provided context.
+
+2. Decide whether to answer directly or ask a clarifying question:
+
+   Answer Directly when:
+   - A response based on general knowledge would satisfy the query.
+   - Additional personal information wouldn't significantly improve your answer.
+   - Example: "What are the three laws of motion?"
+
+   Ask a Clarifying Question when:
+   - Knowing more about the user's situation would result in a noticeably better answer.
+   - A tailored response would be more valuable than a generic one.
+   - Example: "I have a 3-day weekend coming up. What should I do?"
+
+3. Based on your decision:
+   - If answering directly, provide a comprehensive response using available information.
+   - If clarifying, ask ONE clear, concise question directly related to the query.
+
+4. After a follow-up (if asked), give a final, thorough response.
+
+Aim to provide the most helpful interaction for each specific query.
+"""
+
 
 @hydra.main(version_base=None, config_path="config", config_name="evaluate")
 def main(args: DictConfig) -> None:
@@ -87,9 +113,19 @@ def main(args: DictConfig) -> None:
     batch_prompts = []
     for i, prompt in enumerate(prompts):
         ids.append(i)
-        batch_prompts.append([
-            {"role": "user", "content": prompt}
-        ])
+        if args.use_question_system:
+            if i == 0:
+                logging.info("Using question system prompt")
+            batch_prompts.append([
+                {"role": "system", "content": QUESTION_SYSTEM_PROMPT},
+                {"role": "user", "content": prompt}
+            ])
+        else:
+            if i == 0:
+                logging.info("Do not use question system prompt")
+            batch_prompts.append([
+                {"role": "user", "content": prompt}
+            ])
 
     formatted_batch_prompts = [
         tokenizer.apply_chat_template(prompt, tokenize=False) 

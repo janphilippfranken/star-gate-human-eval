@@ -1,4 +1,5 @@
 prompts: data/original_prompts/human_assistant_instruct.json
+use_question_system: false
 
 save_questions: results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_questions.json
 save_responses: results/v3/5k-5_user_logprob_u4_labels_epoch-1_lr-7e-6_responses.json
