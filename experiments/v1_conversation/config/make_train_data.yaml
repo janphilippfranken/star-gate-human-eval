@@ -13,11 +13,9 @@ response_filtering: false
 
 save_file: data/train/v3/train_5k_5_user_labels_u4_u4_qs.json    #data/train/v4/train_250_1000_llama3.1_labels.json
 
-model_config:
-  model: meta-llama/Meta-Llama-3-8B-Instruct
-  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
-  # model: meta-llama/Meta-Llama-3.1-8B-Instruct
-  # download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+model_config:  
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
   dtype: auto
   tensor_parallel_size: 1
 

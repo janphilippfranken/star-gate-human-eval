@@ -8,8 +8,7 @@ def combine_gold_responses(gold_responses_paths, output_path):
     for gold_responses_path in gold_responses_paths[1:]:
         with open(gold_responses_path, 'r') as f:
             data = json.load(f)            
-            if data.keys() != gold_responses.keys():
-                assert 'eig' in gold_responses_path, 'This is only for merging EIG files'
+            if data.keys() != gold_responses.keys():                
                 gold_responses.update(data)
             else:
                 for k, v in data.items():
@@ -21,58 +20,39 @@ def combine_gold_responses(gold_responses_paths, output_path):
 
 
 
-if __name__ == '__main__':
-    # # gold responses
-    # gold_responses_paths = [
-    # 'data/gold_responses/gold_responses_0_500_prompts_20_users_full.json',
-    # 'data/gold_responses/gold_responses_500_1500_prompts_20_users_full.json',
-    # 'data/gold_responses/gold_responses_1500_3000_prompts_20_users_full.json',
-    # 'data/gold_responses/gold_responses_3000_4000_prompts_20_users_full.json',
-    # 'data/gold_responses/gold_responses_4000_5000_prompts_20_users_full.json',
+if __name__ == '__main__':    
+    # """ gold responses 20 users 10k """
+    # file_paths = [
+    #     'data/gold_responses/gold_responses_prompts_0-250_20_users_full.json',
+    #     'data/gold_responses/gold_responses_9.750k_20_users_full.json'
     # ]
-    # gold_responses_output_path = 'data/gold_responses/gold_responses_0_5000_prompts_20_users_full.json'
-    # combine_gold_responses(gold_responses_paths, gold_responses_output_path)
-    # # conv 2 users
-    # chat_2_user_paths = [
-    #     'data/conversations/convo_0_500_prompts_2_users.json',
-    #     'data/conversations/convo_500_1500_prompts_2_users.json',
-    #     'data/conversations/convo_1500_2500_prompts_2_users.json',
-    #     'data/conversations/convo_2500_3500_prompts_2_users.json',
-    #     'data/conversations/convo_3500_5000_prompts_2_users.json'
+    # output_path = 'data/gold_responses/gold_responses_10k_20_users_full.json'
+    # combine_gold_responses(file_paths, output_path)
+    # """" conv 10k 1 user """
+    # file_paths = [
+    #     'data/conversations/1_user-250_5000_conv.json',
+    #     'data/conversations/1_user-5000_10000_conv.json'
     # ]
-    # chat_2_user_output_path = 'data/conversations/convo_0_5000_prompts_2_users.json'
-    # combine_gold_responses(chat_2_user_paths, chat_2_user_output_path)
-    # # conv 4-17 users 5k
-    # chat_4_17_user_paths = [
-    #     'data/conversations/user_4-17/conv_0_250-user_4_17.json',
-    #     'data/conversations/user_4-17/conv_250_1000-user_4_17.json',
-    #     'data/conversations/user_4-17/conv_1000_2000-user_4_17.json',
-    #     'data/conversations/user_4-17/conv_2000_3000-user_4_17.json',
-    #     'data/conversations/user_4-17/conv_3000_4000-user_4_17.json',
-    #     'data/conversations/user_4-17/conv_4000_5000-user_4_17.json',
+    # output_path = 'data/conversations/conv_10k-1_user.json'
+    # combine_gold_responses(file_paths, output_path)
+    # """ conv 10k 2 users """
+    # file_paths = [
+    #     'data/conversations/2_user-250_1000_conv.json',
+    #     'data/conversations/2_user-1000_2000_conv.json',
+    #     'data/conversations/2_user-2000_3000_conv.json',
+    #     'data/conversations/2_user-3000_5000_conv.json',        
+    #     'data/conversations/2_user-5000_7500_conv.json',
+    #     'data/conversations/2_user-7500_10000_conv.json'
     # ]
-    # chat_4_17_user_output_path = 'data/conversations/user_4-17/conv_5k-user_4_17.json'
-    # combine_gold_responses(chat_4_17_user_paths, chat_4_17_user_output_path)
-
-    # # conv 5 users 5k
-    # chat_5_users_5k_paths = [
-    #     'data/conversations/v3/conv_250_750-5_user.json',
-    #     'data/conversations/v3/conv_750_1250-5_user.json',
-    #     'data/conversations/v3/conv_1250_1750-5_user.json',
-    #     'data/conversations/v3/conv_1750_2500-5_user.json',
-    #     'data/conversations/v3/conv_2500_3200-5_user.json',
-    #     'data/conversations/v3/conv_3200_3900-5_user.json',
-    #     'data/conversations/v3/conv_3900_4400-5_user.json',
-    #     'data/conversations/v3/conv_4400_5000-5_user.json'
-    # ]
-    # chat_5_users_5k_output_path = 'data/conversations/v3/conv_5k-5_user.json'
-    # combine_gold_responses(chat_5_users_5k_paths, chat_5_users_5k_output_path)
-
-    # eig 5 users 5k
-    gold_responses_20_users_10k_paths = [
-        'data/gold_responses/gold_responses_prompts_0-250_20_users_full.json',
-        'data/gold_responses/gold_responses_9.750k_20_users_full.json'
+    # output_path = 'data/conversations/conv_10k-2_user.json'
+    # combine_gold_responses(file_paths, output_path)
+    """ info gain 10k 1 user """
+    file_paths = [
+        'data/expected_info_gain/logprobs_250_5000.json',
+        'data/expected_info_gain/logprobs_5000_10000.json'
     ]
-    gold_responses_20_users_10k_output_path = 'data/gold_responses/gold_responses_10k_20_users_full.json'
-    combine_gold_responses(gold_responses_20_users_10k_paths, gold_responses_20_users_10k_output_path)
+    output_path = 'data/expected_info_gain/logprobs_10k.json'
+    combine_gold_responses(file_paths, output_path)
+    
+    
     

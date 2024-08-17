@@ -188,7 +188,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             # how much did this attempt help on average across users 
             best_question_eigs.append(np.mean(best_question_eig_across_users))
             responses.append(best_question_responses)
-            print(best_question_eigs)            
+            # print(best_question_eigs)            
 
         # best attempt across users
         best_question_idx = int(np.argmax(best_question_eigs))        
