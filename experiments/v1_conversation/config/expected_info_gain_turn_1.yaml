@@ -1,7 +1,7 @@
-gold_responses: data/gold_responses/gold_responses_0_5000_prompts_20_users_full.json
+gold_responses: data/gold_responses/gold_responses_10k_20_users_full.json
 
-conversations:  data/conversations/v3/conv_250_750-5_user.json
-save_file: data/expected_info_gain/eigs_250_750-5_user.json
+conversations:  data/conversations/conv_10k-1_user.json
+save_file: data/expected_info_gain/logprobs_10k.json
 users: null
 
 n_users_per_prompt: 5

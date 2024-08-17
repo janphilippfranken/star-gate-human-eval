@@ -69,16 +69,10 @@ if __name__ == '__main__':
     # combine_gold_responses(chat_5_users_5k_paths, chat_5_users_5k_output_path)
 
     # eig 5 users 5k
-    eig_5_users_5k_paths = [
-        'data/expected_info_gain/eigs_250_750-5_user.json',
-        'data/expected_info_gain/eigs_750_1250-5_user.json',
-        'data/expected_info_gain/eigs_1250_1750-5_user.json',
-        'data/expected_info_gain/eigs_1750_2500-5_user.json',
-        'data/expected_info_gain/eigs_2500_3200-5_user.json',
-        'data/expected_info_gain/eigs_3200_3900-5_user.json',
-        'data/expected_info_gain/eigs_3900_4400-5_user.json',
-        'data/expected_info_gain/eigs_4400_5000-5_user.json'
+    gold_responses_20_users_10k_paths = [
+        'data/gold_responses/gold_responses_prompts_0-250_20_users_full.json',
+        'data/gold_responses/gold_responses_9.750k_20_users_full.json'
     ]
-    eig_5_users_5k_output_path = 'data/expected_info_gain/eigs_5k-5_user.json'
-    combine_gold_responses(eig_5_users_5k_paths, eig_5_users_5k_output_path)
+    gold_responses_20_users_10k_output_path = 'data/gold_responses/gold_responses_10k_20_users_full.json'
+    combine_gold_responses(gold_responses_20_users_10k_paths, gold_responses_20_users_10k_output_path)
     
