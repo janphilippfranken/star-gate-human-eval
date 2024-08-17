@@ -3,12 +3,12 @@ datasets
 hydra-core
 omegaconf
 openai
-transformers==4.37.2
+transformers #==4.37.2
 wandb
 torch
 fire
 trl
 deepspeed
 matplotlib
-vllm
+vllm==0.5.4
 seaborn
