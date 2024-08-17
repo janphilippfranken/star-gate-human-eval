@@ -1,10 +1,10 @@
 gold_responses: data/gold_responses/gold_responses_10k_20_users_full.json
 
-conversations:  data/conversations/conv_10k-1_user.json
-save_file: data/expected_info_gain/logprobs_10k.json
+conversations:  data/conversations/conv_10k-2_user.json
+save_file: data/expected_info_gain/eig_2_user_10k.json
 users: null
 
-n_users_per_prompt: 5
+n_users_per_prompt: 2
 n_logprobs_per_token: 0
 
 model_config:

@@ -14,7 +14,7 @@ seed=0
 n_users_per_prompt=5
 prompt_start=0
 prompt_end=10000
-num_return_sequences=1
+num_return_sequences=5
 best_of=5
 save_file=data/conversations/conv_10k-5_user.json
 

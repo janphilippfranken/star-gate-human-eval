@@ -134,7 +134,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
                     
                     if len(user_list) > 1:
                         logprobs[attempt_key].append(np.mean(p_gold_given_conversation))
-                    else:
+                    else:                        
                         # single user need to logprob diff with and without conv                        
                         logprobs[attempt_key].append(np.mean(p_gold_given_conversation) - np.mean(p_gold_no_conv))
 
@@ -150,7 +150,7 @@ N Users Per Prompt: {args.n_users_per_prompt}""")
             eig[prompt_attempt_user_key] = (p_gold_given_prompt_entropy - p_gold_given_conversation_entropy).item()
             logging.info(eig[prompt_attempt_user_key])
         else:
-            logging.info("ONE USER")
+            logging.info("ONE USER")            
             eig[prompt_attempt_user_key] = prompt_attempt_user_value[0].item()
     
     # score questions based on eig (best question score per prompt across uesrs and attempts)

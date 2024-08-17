@@ -5,19 +5,38 @@ from vllm import LLM, SamplingParams
 
 
 class VLLMInferenceModel():
-    """Simple vLLM Inference Wrapper for text generation and logprobs."""
+    """Simple vLLM Inference Wrapper for text generation and logprobs.
+    Args:
+        model: str
+            The model name or path to the model.
+        download_dir: str
+            The directory to download the model to.
+        dtype: str
+            The data type of the model.
+        tensor_parallel_size: int
+            The size of the tensor parallelism.
+        enable_chunked_prefill: bool
+            Whether to enable chunked prefill.
+        max_num_batched_tokens: int
+            The maximum number of batched tokens. This number can be adjusted to avoid batch token budget issues.
+    """
     def __init__(
         self, 
         model: str,
         download_dir: str,
         dtype: str,
         tensor_parallel_size: int,
+        enable_chunked_prefill: bool = True,
+        max_num_batched_tokens: int = 2048,
+        
     ):
         self.model = LLM(
             model=model,
             download_dir=download_dir,
             dtype=dtype,
             tensor_parallel_size=tensor_parallel_size,
+            enable_chunked_prefill=enable_chunked_prefill,
+            max_num_batched_tokens=max_num_batched_tokens,
         )
         
     @property
