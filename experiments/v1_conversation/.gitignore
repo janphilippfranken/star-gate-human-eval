@@ -1,3 +1,5 @@
 outputs/
 data/
 old_data/
+old_results/
+wandb/

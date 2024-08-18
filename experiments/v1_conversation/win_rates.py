@@ -105,11 +105,11 @@ Final Response: <"A" or "B">
 def main(args: DictConfig) -> None:
     
     responses_base_file = json.load(open(args.response_base_file, 'r'))
-    responses_base = [r["response"] for r in responses_base_file.values()]
+    responses_base = [r["response"] for r in responses_base_file.values()][:10]
     
     responses_test_file = json.load(open(args.responses_test_file, 'r'))
     
-    responses_test = [r["response"] for r in responses_test_file.values()]
+    responses_test = [r["response"] for r in responses_test_file.values()][:10]
     users = [r["user"] for r in responses_test_file.values()]
 
     queries = [r["prompt"] for r in responses_test_file.values()]
@@ -117,13 +117,13 @@ def main(args: DictConfig) -> None:
     win_rates = []    
   
     llm = AsyncAzureChatLLM(
-        azure_endpoint="https://philipp.openai.azure.com/",
-        api_version="2023-05-15",
+        azure_endpoint="https://philipp.openai.azure.com/",        
+        api_version="2024-07-01-preview",  # "2023-05-15",
     )
     
     model = GPT4Agent(
         llm=llm,
-        model="gpt-4",
+        model="gpt-4o",
         temperature=0.0,
         top_p=0.9,
         max_tokens=2000,

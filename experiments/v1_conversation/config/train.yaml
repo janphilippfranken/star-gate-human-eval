@@ -9,17 +9,17 @@ tokenizer_config:
 
 wandb:
   project: stargate
-  name: stargate-5k_5_user_u4_labels_u4_qs_1e-5
+  name: stargate-10k_logprob_qs_7e-6
 
-data: data/train/v3/train_5k_5_user_labels_u4_u4_qs.json
+data: data/train/train_10k_logprob_qs.json
 test_split: 0.05
 
 training_args:
-  output_dir: /scr/jphilipp/stargate/checkpoints/v3-5k_5_user_u4_labels_u4_qs_1e-5
+  output_dir: /scr/jphilipp/stargate/checkpoints/10k_logprob_qs_7e-6
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 128
-  learning_rate: 1e-5
+  learning_rate: 7e-6
   num_train_epochs: 2
   save_total_limit: 2
   # do_eval: false
@@ -31,3 +31,4 @@ training_args:
   bf16: true
   logging_steps: 1
   logging_strategy: steps
+  report_to: none    # @TODO: temporarily disable the logging to wandb due to rate limits
