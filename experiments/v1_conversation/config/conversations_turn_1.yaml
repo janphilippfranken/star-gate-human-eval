@@ -20,8 +20,8 @@ model_config:
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
   dtype: auto
   tensor_parallel_size: 1
-  # max_num_batched_tokens: 2048
-  enable_chunked_prefill: True    # this is set due to token budget issue with llama3.1
+  max_num_batched_tokens: 2048    # this is set due to token budget issue with llama3.1
+  enable_chunked_prefill: True
 
 generation_config_questioner:
   max_new_tokens: 2048
