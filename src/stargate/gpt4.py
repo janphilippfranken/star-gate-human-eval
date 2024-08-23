@@ -11,10 +11,12 @@ logging.basicConfig(level=logging.INFO)
 
 MODEL_COST_PER_INPUT = {
     'gpt-4': 3e-05,
+    'gpt-4o': 5e-06,
 }
 
 MODEL_COST_PER_OUTPUT = {
     'gpt-4': 6e-05,
+    'gpt-4o': 1.5e-05
 }
 
 
@@ -46,8 +48,8 @@ class GPT4Agent():
         input_tokens = response.usage.prompt_tokens
         output_tokens = response.usage.completion_tokens
         cost = (
-            MODEL_COST_PER_INPUT['gpt-4'] * input_tokens
-            + MODEL_COST_PER_OUTPUT['gpt-4'] * output_tokens
+            MODEL_COST_PER_INPUT['gpt-4o'] * input_tokens
+            + MODEL_COST_PER_OUTPUT['gpt-4o'] * output_tokens
         )
         return cost
 
@@ -86,20 +88,33 @@ class GPT4Agent():
         """
         messages = self.get_prompt(system_message=system_message, user_message=message)
         response = await self.get_response(messages=messages)
-        cost = self.calc_cost(response=response)
+        try:
+            cost = self.calc_cost(response=response)
+        except Exception as e:
+            logging.error(f"Failed to calculate cost: {e}")
+            cost = 0
         logging.info(f"Cost for running gpt4: {cost}")
        
-        full_response = {
-            'response': response,
-            'response_str': [r.message.content for r in response.choices],
-            'cost': cost
-        }
+        try:
+            full_response = {
+                'response': response,
+                'response_str': [r.message.content for r in response.choices],
+                'cost': cost
+            }
+        except Exception as e:
+            logging.error(f"Failed to parse response: {e}")
+            full_response = {
+                'response': response,
+                'response_str': "Failed to parse response",
+                'cost': cost
+            }
         # update total cost and store response
         self.total_inference_cost += cost
         self.all_responses.append(full_response)
     
         return full_response['response_str']
     
+
     async def run_win_rates(
         self, 
         system_message: str,

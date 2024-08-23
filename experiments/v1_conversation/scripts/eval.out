@@ -1,0 +1,813 @@
+INFO 08-22 23:22:12 config.py:820] Chunked prefill is enabled with max_num_batched_tokens=2048.
+INFO 08-22 23:22:12 llm_engine.py:174] Initializing an LLM engine (v0.5.4) with config: model='/scr/jphilipp/stargate/checkpoints/10k_eig_5_user_qs_7e-6/checkpoint-72/', speculative_config=None, tokenizer='/scr/jphilipp/stargate/checkpoints/10k_eig_5_user_qs_7e-6/checkpoint-72/', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, rope_scaling=None, rope_theta=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=131072, download_dir='/scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct/', load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None), seed=0, served_model_name=/scr/jphilipp/stargate/checkpoints/10k_eig_5_user_qs_7e-6/checkpoint-72/, use_v2_block_manager=False, enable_prefix_caching=False)
+INFO 08-22 23:22:13 model_runner.py:720] Starting to load model /scr/jphilipp/stargate/checkpoints/10k_eig_5_user_qs_7e-6/checkpoint-72/...
+INFO 08-22 23:22:15 model_runner.py:732] Loading model weights took 14.9888 GB
+INFO 08-22 23:22:16 gpu_executor.py:102] # GPU blocks: 28171, # CPU blocks: 2048
+INFO 08-22 23:22:18 model_runner.py:1024] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 08-22 23:22:18 model_runner.py:1028] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 08-22 23:22:27 model_runner.py:1225] Graph capturing finished in 9 secs.
+[2024-08-22 23:22:28,103][root][INFO] - Do not use question system prompt
+[2024-08-22 23:22:33,542][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,549][root][INFO] - Cost for running gpt4: 0.006200000000000001
+[2024-08-22 23:22:33,550][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,552][root][INFO] - Cost for running gpt4: 0.002435
+[2024-08-22 23:22:33,552][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,553][root][INFO] - Cost for running gpt4: 0.0043
+[2024-08-22 23:22:33,582][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,584][root][INFO] - Cost for running gpt4: 0.005235000000000001
+[2024-08-22 23:22:33,595][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,596][root][INFO] - Cost for running gpt4: 0.0043300000000000005
+[2024-08-22 23:22:33,599][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,600][root][INFO] - Cost for running gpt4: 0.005430000000000001
+[2024-08-22 23:22:33,616][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,618][root][INFO] - Cost for running gpt4: 0.0026
+[2024-08-22 23:22:33,623][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,624][root][INFO] - Cost for running gpt4: 0.002725
+[2024-08-22 23:22:33,625][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,626][root][INFO] - Cost for running gpt4: 0.005305000000000001
+[2024-08-22 23:22:33,630][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,631][root][INFO] - Cost for running gpt4: 0.00277
+[2024-08-22 23:22:33,632][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,633][root][INFO] - Cost for running gpt4: 0.0029850000000000002
+[2024-08-22 23:22:33,635][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,637][root][INFO] - Cost for running gpt4: 0.0028200000000000005
+[2024-08-22 23:22:33,648][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,649][root][INFO] - Cost for running gpt4: 0.005180000000000001
+[2024-08-22 23:22:33,654][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,655][root][INFO] - Cost for running gpt4: 0.006775000000000001
+[2024-08-22 23:22:33,657][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,659][root][INFO] - Cost for running gpt4: 0.005685000000000001
+[2024-08-22 23:22:33,659][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,661][root][INFO] - Cost for running gpt4: 0.002465
+[2024-08-22 23:22:33,661][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,662][root][INFO] - Cost for running gpt4: 0.00264
+[2024-08-22 23:22:33,673][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,675][root][INFO] - Cost for running gpt4: 0.0027400000000000002
+[2024-08-22 23:22:33,683][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,684][root][INFO] - Cost for running gpt4: 0.004865
+[2024-08-22 23:22:33,685][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,686][root][INFO] - Cost for running gpt4: 0.0027300000000000002
+[2024-08-22 23:22:33,701][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,703][root][INFO] - Cost for running gpt4: 0.00575
+[2024-08-22 23:22:33,704][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,706][root][INFO] - Cost for running gpt4: 0.00254
+[2024-08-22 23:22:33,706][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,708][root][INFO] - Cost for running gpt4: 0.0026750000000000003
+[2024-08-22 23:22:33,716][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,717][root][INFO] - Cost for running gpt4: 0.0026950000000000003
+[2024-08-22 23:22:33,722][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,723][root][INFO] - Cost for running gpt4: 0.0026650000000000003
+[2024-08-22 23:22:33,728][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,729][root][INFO] - Cost for running gpt4: 0.005435000000000001
+[2024-08-22 23:22:33,743][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,745][root][INFO] - Cost for running gpt4: 0.00262
+[2024-08-22 23:22:33,746][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,748][root][INFO] - Cost for running gpt4: 0.0026
+[2024-08-22 23:22:33,750][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,752][root][INFO] - Cost for running gpt4: 0.005465
+[2024-08-22 23:22:33,754][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,755][root][INFO] - Cost for running gpt4: 0.0026449999999999998
+[2024-08-22 23:22:33,755][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,756][root][INFO] - Cost for running gpt4: 0.005345000000000001
+[2024-08-22 23:22:33,756][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,757][root][INFO] - Cost for running gpt4: 0.00231
+[2024-08-22 23:22:33,757][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,758][root][INFO] - Cost for running gpt4: 0.002725
+[2024-08-22 23:22:33,764][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,765][root][INFO] - Cost for running gpt4: 0.00525
+[2024-08-22 23:22:33,766][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,767][root][INFO] - Cost for running gpt4: 0.0059050000000000005
+[2024-08-22 23:22:33,767][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,769][root][INFO] - Cost for running gpt4: 0.0026950000000000003
+[2024-08-22 23:22:33,771][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,772][root][INFO] - Cost for running gpt4: 0.005335
+[2024-08-22 23:22:33,772][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,773][root][INFO] - Cost for running gpt4: 0.005755000000000001
+[2024-08-22 23:22:33,773][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,774][root][INFO] - Cost for running gpt4: 0.005315
+[2024-08-22 23:22:33,793][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,795][root][INFO] - Cost for running gpt4: 0.0026300000000000004
+[2024-08-22 23:22:33,796][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,797][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,798][root][INFO] - Cost for running gpt4: 0.0026850000000000003
+[2024-08-22 23:22:33,800][root][INFO] - Cost for running gpt4: 0.002555
+[2024-08-22 23:22:33,800][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,801][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,801][root][INFO] - Cost for running gpt4: 0.00444
+[2024-08-22 23:22:33,802][root][INFO] - Cost for running gpt4: 0.00264
+[2024-08-22 23:22:33,802][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,803][root][INFO] - Cost for running gpt4: 0.00254
+[2024-08-22 23:22:33,813][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,814][root][INFO] - Cost for running gpt4: 0.0025000000000000005
+[2024-08-22 23:22:33,816][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,817][root][INFO] - Cost for running gpt4: 0.0027500000000000003
+[2024-08-22 23:22:33,819][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,820][root][INFO] - Cost for running gpt4: 0.0025000000000000005
+[2024-08-22 23:22:33,821][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,822][root][INFO] - Cost for running gpt4: 0.006185
+[2024-08-22 23:22:33,827][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,828][root][INFO] - Cost for running gpt4: 0.0028850000000000004
+[2024-08-22 23:22:33,828][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,830][root][INFO] - Cost for running gpt4: 0.00288
+[2024-08-22 23:22:33,831][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,832][root][INFO] - Cost for running gpt4: 0.002555
+[2024-08-22 23:22:33,833][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,834][root][INFO] - Cost for running gpt4: 0.007535000000000001
+[2024-08-22 23:22:33,838][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,839][root][INFO] - Cost for running gpt4: 0.002625
+[2024-08-22 23:22:33,846][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,848][root][INFO] - Cost for running gpt4: 0.0051
+[2024-08-22 23:22:33,850][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,852][root][INFO] - Cost for running gpt4: 0.002515
+[2024-08-22 23:22:33,852][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,853][root][INFO] - Cost for running gpt4: 0.0025250000000000003
+[2024-08-22 23:22:33,856][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,857][root][INFO] - Cost for running gpt4: 0.00249
+[2024-08-22 23:22:33,859][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,860][root][INFO] - Cost for running gpt4: 0.002535
+[2024-08-22 23:22:33,861][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,862][root][INFO] - Cost for running gpt4: 0.002645
+[2024-08-22 23:22:33,863][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,863][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,865][root][INFO] - Cost for running gpt4: 0.005220000000000001
+[2024-08-22 23:22:33,865][root][INFO] - Cost for running gpt4: 0.00264
+[2024-08-22 23:22:33,866][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,867][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,868][root][INFO] - Cost for running gpt4: 0.0055650000000000005
+[2024-08-22 23:22:33,869][root][INFO] - Cost for running gpt4: 0.00266
+[2024-08-22 23:22:33,872][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,873][root][INFO] - Cost for running gpt4: 0.002615
+[2024-08-22 23:22:33,873][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,874][root][INFO] - Cost for running gpt4: 0.010915000000000001
+[2024-08-22 23:22:33,874][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,875][root][INFO] - Cost for running gpt4: 0.0027800000000000004
+[2024-08-22 23:22:33,875][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,876][root][INFO] - Cost for running gpt4: 0.0029000000000000002
+[2024-08-22 23:22:33,880][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,882][root][INFO] - Cost for running gpt4: 0.00299
+[2024-08-22 23:22:33,883][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,884][root][INFO] - Cost for running gpt4: 0.002725
+[2024-08-22 23:22:33,884][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,886][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,886][root][INFO] - Cost for running gpt4: 0.002735
+[2024-08-22 23:22:33,887][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,888][root][INFO] - Cost for running gpt4: 0.00577
+[2024-08-22 23:22:33,889][root][INFO] - Cost for running gpt4: 0.004750000000000001
+[2024-08-22 23:22:33,889][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,890][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,892][root][INFO] - Cost for running gpt4: 0.00366
+[2024-08-22 23:22:33,892][root][INFO] - Cost for running gpt4: 0.0028200000000000005
+[2024-08-22 23:22:33,892][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,893][root][INFO] - Cost for running gpt4: 0.0028650000000000004
+[2024-08-22 23:22:33,893][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,894][root][INFO] - Cost for running gpt4: 0.002685
+[2024-08-22 23:22:33,894][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,895][root][INFO] - Cost for running gpt4: 0.002665
+[2024-08-22 23:22:33,895][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,896][root][INFO] - Cost for running gpt4: 0.00273
+[2024-08-22 23:22:33,903][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,905][root][INFO] - Cost for running gpt4: 0.00266
+[2024-08-22 23:22:33,908][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,910][root][INFO] - Cost for running gpt4: 0.008235000000000001
+[2024-08-22 23:22:33,911][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,912][root][INFO] - Cost for running gpt4: 0.004395
+[2024-08-22 23:22:33,913][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,915][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,916][root][INFO] - Cost for running gpt4: 0.002775
+[2024-08-22 23:22:33,917][root][INFO] - Cost for running gpt4: 0.0024000000000000002
+[2024-08-22 23:22:33,918][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,919][root][INFO] - Cost for running gpt4: 0.0028150000000000002
+[2024-08-22 23:22:33,921][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,921][root][INFO] - Cost for running gpt4: 0.002665
+[2024-08-22 23:22:33,924][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,924][root][INFO] - Cost for running gpt4: 0.005015
+[2024-08-22 23:22:33,925][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,925][root][INFO] - Cost for running gpt4: 0.00227
+[2024-08-22 23:22:33,926][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,926][root][INFO] - Cost for running gpt4: 0.004945
+[2024-08-22 23:22:33,929][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,930][root][INFO] - Cost for running gpt4: 0.002615
+[2024-08-22 23:22:33,930][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,931][root][INFO] - Cost for running gpt4: 0.0057150000000000005
+[2024-08-22 23:22:33,934][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,935][root][INFO] - Cost for running gpt4: 0.002455
+[2024-08-22 23:22:33,935][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,936][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,938][root][INFO] - Cost for running gpt4: 0.0027350000000000005
+[2024-08-22 23:22:33,938][root][INFO] - Cost for running gpt4: 0.0028850000000000004
+[2024-08-22 23:22:33,941][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,942][root][INFO] - Cost for running gpt4: 0.0027600000000000003
+[2024-08-22 23:22:33,943][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,944][root][INFO] - Cost for running gpt4: 0.0059700000000000005
+[2024-08-22 23:22:33,944][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,945][root][INFO] - Cost for running gpt4: 0.002475
+[2024-08-22 23:22:33,947][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,948][root][INFO] - Cost for running gpt4: 0.0028
+[2024-08-22 23:22:33,949][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,950][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,951][root][INFO] - Cost for running gpt4: 0.004995
+[2024-08-22 23:22:33,951][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,952][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,953][root][INFO] - Cost for running gpt4: 0.00285
+[2024-08-22 23:22:33,954][root][INFO] - Cost for running gpt4: 0.0027800000000000004
+[2024-08-22 23:22:33,955][root][INFO] - Cost for running gpt4: 0.002765
+[2024-08-22 23:22:33,955][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,956][root][INFO] - Cost for running gpt4: 0.006405000000000001
+[2024-08-22 23:22:33,956][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,957][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,958][root][INFO] - Cost for running gpt4: 0.006
+[2024-08-22 23:22:33,958][root][INFO] - Cost for running gpt4: 0.00285
+[2024-08-22 23:22:33,958][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,959][root][INFO] - Cost for running gpt4: 0.0055000000000000005
+[2024-08-22 23:22:33,960][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,960][root][INFO] - Cost for running gpt4: 0.00272
+[2024-08-22 23:22:33,961][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,961][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,962][root][INFO] - Cost for running gpt4: 0.006110000000000001
+[2024-08-22 23:22:33,963][root][INFO] - Cost for running gpt4: 0.006470000000000001
+[2024-08-22 23:22:33,963][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,964][root][INFO] - Cost for running gpt4: 0.002805
+[2024-08-22 23:22:33,964][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,965][root][INFO] - Cost for running gpt4: 0.002775
+[2024-08-22 23:22:33,966][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,967][root][INFO] - Cost for running gpt4: 0.006345000000000001
+[2024-08-22 23:22:33,967][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,968][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,969][root][INFO] - Cost for running gpt4: 0.0026550000000000002
+[2024-08-22 23:22:33,970][root][INFO] - Cost for running gpt4: 0.00269
+[2024-08-22 23:22:33,970][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,971][root][INFO] - Cost for running gpt4: 0.00283
+[2024-08-22 23:22:33,973][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,974][root][INFO] - Cost for running gpt4: 0.00251
+[2024-08-22 23:22:33,974][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,976][root][INFO] - Cost for running gpt4: 0.0028650000000000004
+[2024-08-22 23:22:33,976][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,977][root][INFO] - Cost for running gpt4: 0.005035
+[2024-08-22 23:22:33,980][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,982][root][INFO] - Cost for running gpt4: 0.003025
+[2024-08-22 23:22:33,982][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,982][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,984][root][INFO] - Cost for running gpt4: 0.00272
+[2024-08-22 23:22:33,986][root][INFO] - Cost for running gpt4: 0.00298
+[2024-08-22 23:22:33,988][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,990][root][INFO] - Cost for running gpt4: 0.005345
+[2024-08-22 23:22:33,991][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,993][root][INFO] - Cost for running gpt4: 0.0027
+[2024-08-22 23:22:33,993][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,994][root][INFO] - Cost for running gpt4: 0.0028000000000000004
+[2024-08-22 23:22:33,995][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,996][root][INFO] - Cost for running gpt4: 0.005720000000000001
+[2024-08-22 23:22:33,996][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:33,998][root][INFO] - Cost for running gpt4: 0.0063950000000000005
+[2024-08-22 23:22:33,999][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,001][root][INFO] - Cost for running gpt4: 0.004260000000000001
+[2024-08-22 23:22:34,001][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,003][root][INFO] - Cost for running gpt4: 0.0027150000000000004
+[2024-08-22 23:22:34,003][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,005][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:22:34,005][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,007][root][INFO] - Cost for running gpt4: 0.0026100000000000003
+[2024-08-22 23:22:34,007][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,009][root][INFO] - Cost for running gpt4: 0.0028350000000000003
+[2024-08-22 23:22:34,009][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,011][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:22:34,011][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,012][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,014][root][INFO] - Cost for running gpt4: 0.00279
+[2024-08-22 23:22:34,015][root][INFO] - Cost for running gpt4: 0.0048000000000000004
+[2024-08-22 23:22:34,016][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,018][root][INFO] - Cost for running gpt4: 0.00275
+[2024-08-22 23:22:34,018][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,018][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,020][root][INFO] - Cost for running gpt4: 0.0027600000000000003
+[2024-08-22 23:22:34,022][root][INFO] - Cost for running gpt4: 0.002745
+[2024-08-22 23:22:34,022][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,023][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,025][root][INFO] - Cost for running gpt4: 0.003025
+[2024-08-22 23:22:34,026][root][INFO] - Cost for running gpt4: 0.00469
+[2024-08-22 23:22:34,027][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,029][root][INFO] - Cost for running gpt4: 0.002795
+[2024-08-22 23:22:34,034][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,036][root][INFO] - Cost for running gpt4: 0.00251
+[2024-08-22 23:22:34,039][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,041][root][INFO] - Cost for running gpt4: 0.00428
+[2024-08-22 23:22:34,042][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,047][root][INFO] - Cost for running gpt4: 0.0028400000000000005
+[2024-08-22 23:22:34,048][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,049][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,052][root][INFO] - Cost for running gpt4: 0.002875
+[2024-08-22 23:22:34,054][root][INFO] - Cost for running gpt4: 0.0025850000000000005
+[2024-08-22 23:22:34,054][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,055][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,055][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,058][root][INFO] - Cost for running gpt4: 0.005195
+[2024-08-22 23:22:34,060][root][INFO] - Cost for running gpt4: 0.00638
+[2024-08-22 23:22:34,062][root][INFO] - Cost for running gpt4: 0.002685
+[2024-08-22 23:22:34,062][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,065][root][INFO] - Cost for running gpt4: 0.00253
+[2024-08-22 23:22:34,065][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,065][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,068][root][INFO] - Cost for running gpt4: 0.002785
+[2024-08-22 23:22:34,070][root][INFO] - Cost for running gpt4: 0.00289
+[2024-08-22 23:22:34,076][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,078][root][INFO] - Cost for running gpt4: 0.006450000000000001
+[2024-08-22 23:22:34,078][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,081][root][INFO] - Cost for running gpt4: 0.00299
+[2024-08-22 23:22:34,081][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,087][root][INFO] - Cost for running gpt4: 0.002965
+[2024-08-22 23:22:34,088][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,092][root][INFO] - Cost for running gpt4: 0.006575000000000001
+[2024-08-22 23:22:34,093][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,095][root][INFO] - Cost for running gpt4: 0.002745
+[2024-08-22 23:22:34,096][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,098][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:22:34,099][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,099][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,102][root][INFO] - Cost for running gpt4: 0.006325000000000001
+[2024-08-22 23:22:34,104][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:22:34,105][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,105][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,108][root][INFO] - Cost for running gpt4: 0.00296
+[2024-08-22 23:22:34,111][root][INFO] - Cost for running gpt4: 0.002765
+[2024-08-22 23:22:34,111][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,114][root][INFO] - Cost for running gpt4: 0.00521
+[2024-08-22 23:22:34,114][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,117][root][INFO] - Cost for running gpt4: 0.005125
+[2024-08-22 23:22:34,118][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,120][root][INFO] - Cost for running gpt4: 0.00453
+[2024-08-22 23:22:34,127][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,130][root][INFO] - Cost for running gpt4: 0.00472
+[2024-08-22 23:22:34,140][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,147][root][INFO] - Cost for running gpt4: 0.006045
+[2024-08-22 23:22:34,147][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,153][root][INFO] - Cost for running gpt4: 0.00476
+[2024-08-22 23:22:34,153][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,156][root][INFO] - Cost for running gpt4: 0.00285
+[2024-08-22 23:22:34,157][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,160][root][INFO] - Cost for running gpt4: 0.0029000000000000002
+[2024-08-22 23:22:34,178][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,186][root][INFO] - Cost for running gpt4: 0.00268
+[2024-08-22 23:22:34,186][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,187][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,193][root][INFO] - Cost for running gpt4: 0.00555
+[2024-08-22 23:22:34,196][root][INFO] - Cost for running gpt4: 0.0028000000000000004
+[2024-08-22 23:22:34,196][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,197][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,200][root][INFO] - Cost for running gpt4: 0.006905
+[2024-08-22 23:22:34,203][root][INFO] - Cost for running gpt4: 0.005685000000000001
+[2024-08-22 23:22:34,204][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,204][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,207][root][INFO] - Cost for running gpt4: 0.0049900000000000005
+[2024-08-22 23:22:34,210][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:22:34,211][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,214][root][INFO] - Cost for running gpt4: 0.002935
+[2024-08-22 23:22:34,214][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,218][root][INFO] - Cost for running gpt4: 0.005635
+[2024-08-22 23:22:34,218][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,221][root][INFO] - Cost for running gpt4: 0.0058000000000000005
+[2024-08-22 23:22:34,230][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,238][root][INFO] - Cost for running gpt4: 0.003405
+[2024-08-22 23:22:34,244][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,247][root][INFO] - Cost for running gpt4: 0.002875
+[2024-08-22 23:22:34,257][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,266][root][INFO] - Cost for running gpt4: 0.002615
+[2024-08-22 23:22:34,267][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,270][root][INFO] - Cost for running gpt4: 0.004135
+[2024-08-22 23:22:34,315][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,323][root][INFO] - Cost for running gpt4: 0.002965
+[2024-08-22 23:22:34,332][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,340][root][INFO] - Cost for running gpt4: 0.0028400000000000005
+[2024-08-22 23:22:34,341][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,346][root][INFO] - Cost for running gpt4: 0.00288
+[2024-08-22 23:22:34,347][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,350][root][INFO] - Cost for running gpt4: 0.0035700000000000003
+[2024-08-22 23:22:34,354][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,361][root][INFO] - Cost for running gpt4: 0.0029700000000000004
+[2024-08-22 23:22:34,361][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,366][root][INFO] - Cost for running gpt4: 0.00288
+[2024-08-22 23:22:34,367][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,371][root][INFO] - Cost for running gpt4: 0.003135
+[2024-08-22 23:22:34,372][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,376][root][INFO] - Cost for running gpt4: 0.00275
+[2024-08-22 23:22:34,378][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,382][root][INFO] - Cost for running gpt4: 0.005125
+[2024-08-22 23:22:34,429][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,438][root][INFO] - Cost for running gpt4: 0.00288
+[2024-08-22 23:22:34,556][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,565][root][INFO] - Cost for running gpt4: 0.007045
+[2024-08-22 23:22:34,590][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,594][root][INFO] - Cost for running gpt4: 0.002835
+[2024-08-22 23:22:34,596][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,600][root][INFO] - Cost for running gpt4: 0.002765
+[2024-08-22 23:22:34,648][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,657][root][INFO] - Cost for running gpt4: 0.0028850000000000004
+[2024-08-22 23:22:34,747][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,756][root][INFO] - Cost for running gpt4: 0.007165
+[2024-08-22 23:22:34,979][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:34,988][root][INFO] - Cost for running gpt4: 0.002875
+[2024-08-22 23:22:35,004][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:22:35,008][root][INFO] - Cost for running gpt4: 0.002945
+[2024-08-22 23:22:35,009][root][INFO] - Number of errors: 0
+AGREEMENT 0.665
+[2024-08-22 23:23:06,853][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,860][root][INFO] - Cost for running gpt4: 0.00249
+[2024-08-22 23:23:06,909][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,911][root][INFO] - Cost for running gpt4: 0.002575
+[2024-08-22 23:23:06,912][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,914][root][INFO] - Cost for running gpt4: 0.006585000000000001
+[2024-08-22 23:23:06,919][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,921][root][INFO] - Cost for running gpt4: 0.0025450000000000004
+[2024-08-22 23:23:06,949][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,951][root][INFO] - Cost for running gpt4: 0.002555
+[2024-08-22 23:23:06,976][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,978][root][INFO] - Cost for running gpt4: 0.0024800000000000004
+[2024-08-22 23:23:06,984][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,986][root][INFO] - Cost for running gpt4: 0.0059700000000000005
+[2024-08-22 23:23:06,986][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,987][root][INFO] - Cost for running gpt4: 0.0060550000000000005
+[2024-08-22 23:23:06,988][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:06,989][root][INFO] - Cost for running gpt4: 0.005900000000000001
+[2024-08-22 23:23:07,012][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,014][root][INFO] - Cost for running gpt4: 0.00494
+[2024-08-22 23:23:07,015][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,016][root][INFO] - Cost for running gpt4: 0.0024300000000000003
+[2024-08-22 23:23:07,034][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,036][root][INFO] - Cost for running gpt4: 0.006215
+[2024-08-22 23:23:07,042][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,043][root][INFO] - Cost for running gpt4: 0.0049700000000000005
+[2024-08-22 23:23:07,057][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,059][root][INFO] - Cost for running gpt4: 0.0057
+[2024-08-22 23:23:07,060][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,061][root][INFO] - Cost for running gpt4: 0.00247
+[2024-08-22 23:23:07,072][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,074][root][INFO] - Cost for running gpt4: 0.002555
+[2024-08-22 23:23:07,075][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,076][root][INFO] - Cost for running gpt4: 0.002545
+[2024-08-22 23:23:07,082][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,083][root][INFO] - Cost for running gpt4: 0.006230000000000001
+[2024-08-22 23:23:07,086][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,087][root][INFO] - Cost for running gpt4: 0.00638
+[2024-08-22 23:23:07,088][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,089][root][INFO] - Cost for running gpt4: 0.00412
+[2024-08-22 23:23:07,095][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,096][root][INFO] - Cost for running gpt4: 0.00575
+[2024-08-22 23:23:07,097][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,098][root][INFO] - Cost for running gpt4: 0.00231
+[2024-08-22 23:23:07,104][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,105][root][INFO] - Cost for running gpt4: 0.00254
+[2024-08-22 23:23:07,107][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,108][root][INFO] - Cost for running gpt4: 0.0067
+[2024-08-22 23:23:07,110][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,111][root][INFO] - Cost for running gpt4: 0.00408
+[2024-08-22 23:23:07,112][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,113][root][INFO] - Cost for running gpt4: 0.00262
+[2024-08-22 23:23:07,114][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,115][root][INFO] - Cost for running gpt4: 0.005200000000000001
+[2024-08-22 23:23:07,116][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,117][root][INFO] - Cost for running gpt4: 0.00265
+[2024-08-22 23:23:07,129][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,131][root][INFO] - Cost for running gpt4: 0.002625
+[2024-08-22 23:23:07,133][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,135][root][INFO] - Cost for running gpt4: 0.002785
+[2024-08-22 23:23:07,135][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,137][root][INFO] - Cost for running gpt4: 0.0023150000000000002
+[2024-08-22 23:23:07,138][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,140][root][INFO] - Cost for running gpt4: 0.005945000000000001
+[2024-08-22 23:23:07,142][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,143][root][INFO] - Cost for running gpt4: 0.002705
+[2024-08-22 23:23:07,147][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,149][root][INFO] - Cost for running gpt4: 0.00406
+[2024-08-22 23:23:07,159][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,161][root][INFO] - Cost for running gpt4: 0.0025050000000000003
+[2024-08-22 23:23:07,161][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,163][root][INFO] - Cost for running gpt4: 0.0026550000000000002
+[2024-08-22 23:23:07,165][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,166][root][INFO] - Cost for running gpt4: 0.005380000000000001
+[2024-08-22 23:23:07,169][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,170][root][INFO] - Cost for running gpt4: 0.0026850000000000003
+[2024-08-22 23:23:07,170][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,171][root][INFO] - Cost for running gpt4: 0.0026
+[2024-08-22 23:23:07,174][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,176][root][INFO] - Cost for running gpt4: 0.0047150000000000004
+[2024-08-22 23:23:07,177][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,178][root][INFO] - Cost for running gpt4: 0.004275
+[2024-08-22 23:23:07,178][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,180][root][INFO] - Cost for running gpt4: 0.0025900000000000003
+[2024-08-22 23:23:07,180][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,181][root][INFO] - Cost for running gpt4: 0.005325
+[2024-08-22 23:23:07,182][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,183][root][INFO] - Cost for running gpt4: 0.005490000000000001
+[2024-08-22 23:23:07,184][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,184][root][INFO] - Cost for running gpt4: 0.005725
+[2024-08-22 23:23:07,185][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,185][root][INFO] - Cost for running gpt4: 0.0062250000000000005
+[2024-08-22 23:23:07,187][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,187][root][INFO] - Cost for running gpt4: 0.004215
+[2024-08-22 23:23:07,188][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,189][root][INFO] - Cost for running gpt4: 0.00266
+[2024-08-22 23:23:07,189][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,190][root][INFO] - Cost for running gpt4: 0.00253
+[2024-08-22 23:23:07,190][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,191][root][INFO] - Cost for running gpt4: 0.00487
+[2024-08-22 23:23:07,191][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,192][root][INFO] - Cost for running gpt4: 0.005115
+[2024-08-22 23:23:07,193][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,194][root][INFO] - Cost for running gpt4: 0.00256
+[2024-08-22 23:23:07,195][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,196][root][INFO] - Cost for running gpt4: 0.004355
+[2024-08-22 23:23:07,207][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,209][root][INFO] - Cost for running gpt4: 0.00577
+[2024-08-22 23:23:07,210][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,211][root][INFO] - Cost for running gpt4: 0.0046700000000000005
+[2024-08-22 23:23:07,215][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,216][root][INFO] - Cost for running gpt4: 0.0027150000000000004
+[2024-08-22 23:23:07,218][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,219][root][INFO] - Cost for running gpt4: 0.0024200000000000003
+[2024-08-22 23:23:07,222][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,223][root][INFO] - Cost for running gpt4: 0.00401
+[2024-08-22 23:23:07,224][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,225][root][INFO] - Cost for running gpt4: 0.0027300000000000002
+[2024-08-22 23:23:07,225][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,226][root][INFO] - Cost for running gpt4: 0.00594
+[2024-08-22 23:23:07,226][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,227][root][INFO] - Cost for running gpt4: 0.006955000000000001
+[2024-08-22 23:23:07,227][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,229][root][INFO] - Cost for running gpt4: 0.006625000000000001
+[2024-08-22 23:23:07,229][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,231][root][INFO] - Cost for running gpt4: 0.00574
+[2024-08-22 23:23:07,232][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,234][root][INFO] - Cost for running gpt4: 0.00251
+[2024-08-22 23:23:07,235][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,236][root][INFO] - Cost for running gpt4: 0.005465
+[2024-08-22 23:23:07,237][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,238][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,240][root][INFO] - Cost for running gpt4: 0.00273
+[2024-08-22 23:23:07,240][root][INFO] - Cost for running gpt4: 0.00247
+[2024-08-22 23:23:07,240][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,241][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,242][root][INFO] - Cost for running gpt4: 0.0054800000000000005
+[2024-08-22 23:23:07,242][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,243][root][INFO] - Cost for running gpt4: 0.005135000000000001
+[2024-08-22 23:23:07,243][root][INFO] - Cost for running gpt4: 0.007195000000000001
+[2024-08-22 23:23:07,243][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,244][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,245][root][INFO] - Cost for running gpt4: 0.00279
+[2024-08-22 23:23:07,245][root][INFO] - Cost for running gpt4: 0.0027800000000000004
+[2024-08-22 23:23:07,245][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,246][root][INFO] - Cost for running gpt4: 0.002625
+[2024-08-22 23:23:07,248][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,248][root][INFO] - Cost for running gpt4: 0.002685
+[2024-08-22 23:23:07,252][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,253][root][INFO] - Cost for running gpt4: 0.008
+[2024-08-22 23:23:07,254][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,254][root][INFO] - Cost for running gpt4: 0.005415
+[2024-08-22 23:23:07,257][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,258][root][INFO] - Cost for running gpt4: 0.005625000000000001
+[2024-08-22 23:23:07,259][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,260][root][INFO] - Cost for running gpt4: 0.002555
+[2024-08-22 23:23:07,260][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,261][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,262][root][INFO] - Cost for running gpt4: 0.00265
+[2024-08-22 23:23:07,263][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,264][root][INFO] - Cost for running gpt4: 0.00264
+[2024-08-22 23:23:07,265][root][INFO] - Cost for running gpt4: 0.002615
+[2024-08-22 23:23:07,268][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,268][root][INFO] - Cost for running gpt4: 0.0026950000000000003
+[2024-08-22 23:23:07,271][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,272][root][INFO] - Cost for running gpt4: 0.0027800000000000004
+[2024-08-22 23:23:07,276][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,277][root][INFO] - Cost for running gpt4: 0.0063950000000000005
+[2024-08-22 23:23:07,278][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,279][root][INFO] - Cost for running gpt4: 0.0026700000000000005
+[2024-08-22 23:23:07,279][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,280][root][INFO] - Cost for running gpt4: 0.002555
+[2024-08-22 23:23:07,285][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,286][root][INFO] - Cost for running gpt4: 0.002725
+[2024-08-22 23:23:07,290][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,292][root][INFO] - Cost for running gpt4: 0.0025700000000000002
+[2024-08-22 23:23:07,292][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,293][root][INFO] - Cost for running gpt4: 0.003135
+[2024-08-22 23:23:07,294][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,295][root][INFO] - Cost for running gpt4: 0.00508
+[2024-08-22 23:23:07,296][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,297][root][INFO] - Cost for running gpt4: 0.0027500000000000003
+[2024-08-22 23:23:07,297][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,299][root][INFO] - Cost for running gpt4: 0.00269
+[2024-08-22 23:23:07,302][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,303][root][INFO] - Cost for running gpt4: 0.0028650000000000004
+[2024-08-22 23:23:07,311][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,313][root][INFO] - Cost for running gpt4: 0.00264
+[2024-08-22 23:23:07,319][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,320][root][INFO] - Cost for running gpt4: 0.002785
+[2024-08-22 23:23:07,323][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,324][root][INFO] - Cost for running gpt4: 0.0024850000000000002
+[2024-08-22 23:23:07,326][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,327][root][INFO] - Cost for running gpt4: 0.00623
+[2024-08-22 23:23:07,333][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,334][root][INFO] - Cost for running gpt4: 0.00277
+[2024-08-22 23:23:07,335][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,336][root][INFO] - Cost for running gpt4: 0.0028000000000000004
+[2024-08-22 23:23:07,336][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,337][root][INFO] - Cost for running gpt4: 0.00288
+[2024-08-22 23:23:07,338][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,339][root][INFO] - Cost for running gpt4: 0.00271
+[2024-08-22 23:23:07,340][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,341][root][INFO] - Cost for running gpt4: 0.002965
+[2024-08-22 23:23:07,342][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,343][root][INFO] - Cost for running gpt4: 0.006485
+[2024-08-22 23:23:07,344][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,345][root][INFO] - Cost for running gpt4: 0.004455000000000001
+[2024-08-22 23:23:07,348][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,349][root][INFO] - Cost for running gpt4: 0.0029500000000000004
+[2024-08-22 23:23:07,349][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,350][root][INFO] - Cost for running gpt4: 0.0029950000000000003
+[2024-08-22 23:23:07,350][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,351][root][INFO] - Cost for running gpt4: 0.00485
+[2024-08-22 23:23:07,351][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,352][root][INFO] - Cost for running gpt4: 0.005595000000000001
+[2024-08-22 23:23:07,362][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,364][root][INFO] - Cost for running gpt4: 0.005245
+[2024-08-22 23:23:07,364][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,367][root][INFO] - Cost for running gpt4: 0.006370000000000001
+[2024-08-22 23:23:07,368][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,371][root][INFO] - Cost for running gpt4: 0.005765
+[2024-08-22 23:23:07,371][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,372][root][INFO] - Cost for running gpt4: 0.002905
+[2024-08-22 23:23:07,374][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,376][root][INFO] - Cost for running gpt4: 0.0027700000000000003
+[2024-08-22 23:23:07,376][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,377][root][INFO] - Cost for running gpt4: 0.0026300000000000004
+[2024-08-22 23:23:07,377][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,378][root][INFO] - Cost for running gpt4: 0.002665
+[2024-08-22 23:23:07,379][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,379][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,380][root][INFO] - Cost for running gpt4: 0.002545
+[2024-08-22 23:23:07,381][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:23:07,382][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,383][root][INFO] - Cost for running gpt4: 0.004350000000000001
+[2024-08-22 23:23:07,383][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,383][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,385][root][INFO] - Cost for running gpt4: 0.0059900000000000005
+[2024-08-22 23:23:07,386][root][INFO] - Cost for running gpt4: 0.0028350000000000003
+[2024-08-22 23:23:07,386][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,388][root][INFO] - Cost for running gpt4: 0.0027550000000000005
+[2024-08-22 23:23:07,388][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,389][root][INFO] - Cost for running gpt4: 0.005025
+[2024-08-22 23:23:07,390][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,391][root][INFO] - Cost for running gpt4: 0.004805
+[2024-08-22 23:23:07,392][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,394][root][INFO] - Cost for running gpt4: 0.005465000000000001
+[2024-08-22 23:23:07,396][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,397][root][INFO] - Cost for running gpt4: 0.0031400000000000004
+[2024-08-22 23:23:07,399][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,401][root][INFO] - Cost for running gpt4: 0.005065
+[2024-08-22 23:23:07,401][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,404][root][INFO] - Cost for running gpt4: 0.006195000000000001
+[2024-08-22 23:23:07,412][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,415][root][INFO] - Cost for running gpt4: 0.002645
+[2024-08-22 23:23:07,415][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,418][root][INFO] - Cost for running gpt4: 0.00284
+[2024-08-22 23:23:07,419][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,421][root][INFO] - Cost for running gpt4: 0.00283
+[2024-08-22 23:23:07,422][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,425][root][INFO] - Cost for running gpt4: 0.005495
+[2024-08-22 23:23:07,433][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,435][root][INFO] - Cost for running gpt4: 0.00287
+[2024-08-22 23:23:07,435][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,439][root][INFO] - Cost for running gpt4: 0.0028350000000000003
+[2024-08-22 23:23:07,440][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,444][root][INFO] - Cost for running gpt4: 0.00272
+[2024-08-22 23:23:07,444][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,444][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,446][root][INFO] - Cost for running gpt4: 0.012360000000000001
+[2024-08-22 23:23:07,448][root][INFO] - Cost for running gpt4: 0.0030150000000000003
+[2024-08-22 23:23:07,448][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,449][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,449][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,451][root][INFO] - Cost for running gpt4: 0.0057350000000000005
+[2024-08-22 23:23:07,453][root][INFO] - Cost for running gpt4: 0.00275
+[2024-08-22 23:23:07,454][root][INFO] - Cost for running gpt4: 0.0046500000000000005
+[2024-08-22 23:23:07,455][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,457][root][INFO] - Cost for running gpt4: 0.005575
+[2024-08-22 23:23:07,457][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,459][root][INFO] - Cost for running gpt4: 0.00644
+[2024-08-22 23:23:07,459][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,460][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,462][root][INFO] - Cost for running gpt4: 0.0027600000000000003
+[2024-08-22 23:23:07,464][root][INFO] - Cost for running gpt4: 0.00284
+[2024-08-22 23:23:07,464][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,466][root][INFO] - Cost for running gpt4: 0.00281
+[2024-08-22 23:23:07,467][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,469][root][INFO] - Cost for running gpt4: 0.00623
+[2024-08-22 23:23:07,469][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,470][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,472][root][INFO] - Cost for running gpt4: 0.002885
+[2024-08-22 23:23:07,474][root][INFO] - Cost for running gpt4: 0.00286
+[2024-08-22 23:23:07,481][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,485][root][INFO] - Cost for running gpt4: 0.0027350000000000005
+[2024-08-22 23:23:07,486][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,487][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,492][root][INFO] - Cost for running gpt4: 0.00524
+[2024-08-22 23:23:07,494][root][INFO] - Cost for running gpt4: 0.002685
+[2024-08-22 23:23:07,494][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,497][root][INFO] - Cost for running gpt4: 0.005035
+[2024-08-22 23:23:07,497][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,497][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,500][root][INFO] - Cost for running gpt4: 0.006135
+[2024-08-22 23:23:07,502][root][INFO] - Cost for running gpt4: 0.002855
+[2024-08-22 23:23:07,502][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,505][root][INFO] - Cost for running gpt4: 0.006410000000000001
+[2024-08-22 23:23:07,505][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,508][root][INFO] - Cost for running gpt4: 0.002875
+[2024-08-22 23:23:07,508][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,511][root][INFO] - Cost for running gpt4: 0.00635
+[2024-08-22 23:23:07,512][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,514][root][INFO] - Cost for running gpt4: 0.00303
+[2024-08-22 23:23:07,514][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,517][root][INFO] - Cost for running gpt4: 0.004595
+[2024-08-22 23:23:07,518][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,521][root][INFO] - Cost for running gpt4: 0.005690000000000001
+[2024-08-22 23:23:07,521][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,523][root][INFO] - Cost for running gpt4: 0.005615
+[2024-08-22 23:23:07,537][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,543][root][INFO] - Cost for running gpt4: 0.00284
+[2024-08-22 23:23:07,544][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,549][root][INFO] - Cost for running gpt4: 0.00287
+[2024-08-22 23:23:07,549][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,549][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,552][root][INFO] - Cost for running gpt4: 0.005045
+[2024-08-22 23:23:07,555][root][INFO] - Cost for running gpt4: 0.002725
+[2024-08-22 23:23:07,555][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,558][root][INFO] - Cost for running gpt4: 0.007195000000000001
+[2024-08-22 23:23:07,558][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,561][root][INFO] - Cost for running gpt4: 0.006335
+[2024-08-22 23:23:07,564][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,568][root][INFO] - Cost for running gpt4: 0.010760000000000002
+[2024-08-22 23:23:07,575][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,582][root][INFO] - Cost for running gpt4: 0.00294
+[2024-08-22 23:23:07,583][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,588][root][INFO] - Cost for running gpt4: 0.0028450000000000003
+[2024-08-22 23:23:07,589][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,592][root][INFO] - Cost for running gpt4: 0.0025800000000000003
+[2024-08-22 23:23:07,592][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,592][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,595][root][INFO] - Cost for running gpt4: 0.00287
+[2024-08-22 23:23:07,598][root][INFO] - Cost for running gpt4: 0.002975
+[2024-08-22 23:23:07,599][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,599][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,602][root][INFO] - Cost for running gpt4: 0.00296
+[2024-08-22 23:23:07,605][root][INFO] - Cost for running gpt4: 0.00301
+[2024-08-22 23:23:07,606][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,606][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,609][root][INFO] - Cost for running gpt4: 0.00283
+[2024-08-22 23:23:07,612][root][INFO] - Cost for running gpt4: 0.002925
+[2024-08-22 23:23:07,613][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,613][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,616][root][INFO] - Cost for running gpt4: 0.00282
+[2024-08-22 23:23:07,620][root][INFO] - Cost for running gpt4: 0.00623
+[2024-08-22 23:23:07,620][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,620][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,624][root][INFO] - Cost for running gpt4: 0.004655
+[2024-08-22 23:23:07,627][root][INFO] - Cost for running gpt4: 0.00302
+[2024-08-22 23:23:07,627][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,631][root][INFO] - Cost for running gpt4: 0.004845
+[2024-08-22 23:23:07,631][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,634][root][INFO] - Cost for running gpt4: 0.0029100000000000003
+[2024-08-22 23:23:07,635][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,638][root][INFO] - Cost for running gpt4: 0.0054
+[2024-08-22 23:23:07,654][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,658][root][INFO] - Cost for running gpt4: 0.0033250000000000003
+[2024-08-22 23:23:07,663][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,667][root][INFO] - Cost for running gpt4: 0.0029300000000000003
+[2024-08-22 23:23:07,668][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,672][root][INFO] - Cost for running gpt4: 0.005115
+[2024-08-22 23:23:07,688][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,693][root][INFO] - Cost for running gpt4: 0.002475
+[2024-08-22 23:23:07,709][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,713][root][INFO] - Cost for running gpt4: 0.00334
+[2024-08-22 23:23:07,718][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,723][root][INFO] - Cost for running gpt4: 0.005525
+[2024-08-22 23:23:07,726][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,730][root][INFO] - Cost for running gpt4: 0.0041
+[2024-08-22 23:23:07,934][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,943][root][INFO] - Cost for running gpt4: 0.0028250000000000003
+[2024-08-22 23:23:07,944][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,947][root][INFO] - Cost for running gpt4: 0.0053
+[2024-08-22 23:23:07,970][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,979][root][INFO] - Cost for running gpt4: 0.0025900000000000003
+[2024-08-22 23:23:07,983][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:07,990][root][INFO] - Cost for running gpt4: 0.00264
+[2024-08-22 23:23:08,097][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:08,106][root][INFO] - Cost for running gpt4: 0.002855
+[2024-08-22 23:23:08,110][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:08,114][root][INFO] - Cost for running gpt4: 0.005675
+[2024-08-22 23:23:08,297][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:08,307][root][INFO] - Cost for running gpt4: 0.0024600000000000004
+[2024-08-22 23:23:08,587][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:08,596][root][INFO] - Cost for running gpt4: 0.00273
+[2024-08-22 23:23:08,619][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:08,627][root][INFO] - Cost for running gpt4: 0.010380000000000002
+[2024-08-22 23:23:09,008][httpx][INFO] - HTTP Request: POST https://philipp.openai.azure.com//openai/deployments/gpt-4o/chat/completions?api-version=2024-07-01-preview "HTTP/1.1 200 OK"
+[2024-08-22 23:23:09,018][root][INFO] - Cost for running gpt4: 0.002945
+[2024-08-22 23:23:09,019][root][INFO] - Number of errors: 0
+AGREEMENT 0.73

@@ -4,7 +4,7 @@ labels: data/labels/8b_10k_questions.json
 
 
 start_prompts: 250
-end_prompts: 10000
+end_prompts: 5000
 n_logprobs_per_token: 0
 
 use_cot: false

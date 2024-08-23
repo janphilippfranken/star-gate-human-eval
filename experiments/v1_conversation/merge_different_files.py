@@ -66,35 +66,50 @@ if __name__ == '__main__':
     # output_path = 'data/expected_info_gain/eig_10k_2_user.json'
     # combine_gold_responses(file_paths, output_path)
 
-    """ conv 10k 5 users """
+    # """ conv 10k 5 users """
+    # file_paths = [
+    #     'data/conversations/5_user-250_1000_conv.json',
+    #     'data/conversations/5_user-1000_2000_conv.json',
+    #     'data/conversations/5_user-2000_3000_conv.json',
+    #     'data/conversations/5_user-3000_4000_conv.json',
+    #     'data/conversations/5_user-4000_5000_conv.json',
+    #     'data/conversations/5_user-5000_6000_conv.json',
+    #     'data/conversations/5_user-6000_7000_conv.json',
+    #     'data/conversations/5_user-7000_8000_conv.json',
+    #     'data/conversations/5_user-8000_9000_conv.json',
+    #     'data/conversations/5_user-9000_10000_conv.json'
+    # ]
+    # output_path = 'data/conversations/conv_10k-5_user.json'
+    # combine_gold_responses(file_paths, output_path)
+
+    # """ info gain 10k 5 users """
+    # file_paths = [
+    #     'data/expected_info_gain/eig_5_user_250_1000.json',
+    #     'data/expected_info_gain/eig_5_user_1000_2000.json',
+    #     'data/expected_info_gain/eig_5_user_2000_3000.json',
+    #     'data/expected_info_gain/eig_5_user_3000_4000.json',
+    #     'data/expected_info_gain/eig_5_user_4000_5000.json',
+    #     'data/expected_info_gain/eig_5_user_5000_6000.json',
+    #     'data/expected_info_gain/eig_5_user_6000_7000.json',
+    #     'data/expected_info_gain/eig_5_user_7000_8000.json',
+    #     'data/expected_info_gain/eig_5_user_8000_9000.json',
+    #     'data/expected_info_gain/eig_5_user_9000_10000.json'
+    # ]
+    # output_path = 'data/expected_info_gain/eig_10k_5_user.json'
+    # combine_gold_responses(file_paths, output_path)
+    
+
+    """ logprobs 5k 1 user v0 """
     file_paths = [
-        'data/conversations/5_user-250_1000_conv.json',
-        'data/conversations/5_user-1000_2000_conv.json',
-        'data/conversations/5_user-2000_3000_conv.json',
-        'data/conversations/5_user-3000_4000_conv.json',
-        'data/conversations/5_user-4000_5000_conv.json',
-        'data/conversations/5_user-5000_6000_conv.json',
-        'data/conversations/5_user-6000_7000_conv.json',
-        'data/conversations/5_user-7000_8000_conv.json',
-        'data/conversations/5_user-8000_9000_conv.json',
-        'data/conversations/5_user-9000_10000_conv.json'
+        'data/expected_info_gain/v0/logprob_250_750-5_user.json',
+        'data/expected_info_gain/v0/logprob_750_1250-5_user.json',
+        'data/expected_info_gain/v0/logprob_1250_1750-5_user.json',
+        'data/expected_info_gain/v0/logprob_1750_2500-5_user.json',
+        'data/expected_info_gain/v0/logprob_2500_3200-5_user.json',
+        'data/expected_info_gain/v0/logprob_3200_3900-5_user.json',
+        'data/expected_info_gain/v0/logprob_3900_4400-5_user.json',
+        'data/expected_info_gain/v0/logprob_4400_5000-5_user.json',
     ]
-    output_path = 'data/conversations/conv_10k-5_user.json'
+    output_path = 'data/expected_info_gain/v0/logp_5k_5_user.json'
     combine_gold_responses(file_paths, output_path)
 
-    """ info gain 10k 5 users """
-    file_paths = [
-        'data/expected_info_gain/eig_5_user_250_1000.json',
-        'data/expected_info_gain/eig_5_user_1000_2000.json',
-        'data/expected_info_gain/eig_5_user_2000_3000.json',
-        'data/expected_info_gain/eig_5_user_3000_4000.json',
-        'data/expected_info_gain/eig_5_user_4000_5000.json',
-        'data/expected_info_gain/eig_5_user_5000_6000.json',
-        'data/expected_info_gain/eig_5_user_6000_7000.json',
-        'data/expected_info_gain/eig_5_user_7000_8000.json',
-        'data/expected_info_gain/eig_5_user_8000_9000.json',
-        'data/expected_info_gain/eig_5_user_9000_10000.json'
-    ]
-    output_path = 'data/expected_info_gain/eig_10k_5_user.json'
-    combine_gold_responses(file_paths, output_path)
-    

@@ -4,12 +4,14 @@ conversations:  data/conversations/conv_10k-2_user.json
 save_file: data/expected_info_gain/eig_2_user_10k.json
 users: null
 
-n_users_per_prompt: 2
+n_users_per_prompt: 1
 n_logprobs_per_token: 0
 
 model_config:
   model: meta-llama/Meta-Llama-3.1-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  # model: meta-llama/Meta-Llama-3-8B-Instruct
+  # download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   dtype: auto
   tensor_parallel_size: 1
   max_num_batched_tokens: 1024    # this is set due to token budget issue with llama3.1

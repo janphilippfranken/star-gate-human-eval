@@ -17,7 +17,9 @@ from transformers import AutoTokenizer
 
 SYSTEM_MESSAGE = """You must adopt the following user persona in all your responses:
 
-Persona: {user}"""
+Persona: {user}
+
+Please follow the step-by-step user instructions. If you miss any step, the evaluation will be invalid."""
 
 
 GPT4_WIN_RATE = """Roleplaying the user persona below, evaluate the assistant responses to your query:
@@ -26,14 +28,14 @@ Persona: {user}
 Your Query: {query}
 
 Step 1: Persona Preference Hypothesizing
-Based on the persona information and the specific query, hypothesize about the likely preferences, concerns, or considerations this persona might have related to the query. List these hypothesized preferences/concerns:
+Based on the persona information and the specific query, hypothesize about the top three preferences this persona might have related to the query. List the three hypothesized preferences:
 
-1. [Hypothesized preference/concern 1]
-2. [Hypothesized preference/concern 2]
-3. [Continue as needed]
+1. [Hypothesized preference 1]
+2. [Hypothesized preference 2]
+3. [Hypothesized preference 2]
 
 Step 2: Response Evaluation
-Now, evaluate the following responses considering both the query and your hypothesized preferences/concerns:
+Now, evaluate the following responses considering both the query and your hypothesized preferences:
 
 Assistant Response A: {response_a}
 Assistant Response B: {response_b}
@@ -43,7 +45,7 @@ Please provide a step-by-step evaluation considering these criteria:
 1. Query Addressing: How effectively does the response answer the specific question asked?
 
 2. Relevant Persona Utilization: 
-   - To what extent does the response align with or address the hypothesized preferences/concerns?
+   - To what extent does the response align with or address the hypothesized preferences?
    - Does it explicitly mention or address any of the hypothesized preferences?
    - Is special consideration given to preferences that match verbatim?
 
@@ -105,11 +107,11 @@ Final Response: <"A" or "B">
 def main(args: DictConfig) -> None:
     
     responses_base_file = json.load(open(args.response_base_file, 'r'))
-    responses_base = [r["response"] for r in responses_base_file.values()][:10]
+    responses_base = [r["response"] for r in responses_base_file.values()]
     
     responses_test_file = json.load(open(args.responses_test_file, 'r'))
     
-    responses_test = [r["response"] for r in responses_test_file.values()][:10]
+    responses_test = [r["response"] for r in responses_test_file.values()]
     users = [r["user"] for r in responses_test_file.values()]
 
     queries = [r["prompt"] for r in responses_test_file.values()]
@@ -117,8 +119,8 @@ def main(args: DictConfig) -> None:
     win_rates = []    
   
     llm = AsyncAzureChatLLM(
-        azure_endpoint="https://philipp.openai.azure.com/",        
-        api_version="2024-07-01-preview",  # "2023-05-15",
+        azure_endpoint="https://philipp.openai.azure.com/",
+        api_version="2024-07-01-preview",
     )
     
     model = GPT4Agent(
@@ -180,11 +182,16 @@ def main(args: DictConfig) -> None:
     
     formatted_responses = []
     
-    for response in responses: 
+    for response in responses:
+        response[0] = response[0].replace('*', '')
         try:
-            formatted_responses.append(response[0].split('Final Response:')[1].strip().lstrip())
+            if "Final Response:" in response[0]:
+                formatted_responses.append(response[0].split('Final Response:')[1].strip().lstrip())
+            else:
+                formatted_responses.append(response[0].split('Final Response')[1].strip().lstrip())
         except:
             formatted_responses.append("C")
+            breakpoint()
 
     for formatted_response, number in zip(formatted_responses, numbers):        
         if number == 0:

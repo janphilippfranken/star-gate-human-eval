@@ -1,15 +1,18 @@
 model_config:
   pretrained_model_name_or_path: meta-llama/Meta-Llama-3.1-8B-Instruct
-  cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct  
 
 tokenizer_config:
-  pretrained_model_name_or_path: meta-llama/Meta-Llama-3.1-8B-Instruct
-  cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  # pretrained_model_name_or_path: meta-llama/Meta-Llama-3.1-8B-Instruct
+  # cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  # # @TODO: Temporarily try using Llama 3 tokenizer as it does not add weird system messages
+  pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+  cache_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3-8B-Instruct
   model_max_length: 2048
 
 wandb:
   project: stargate
-  name: stargate-10k_logprob_qs_7e-6
+  name: 10k_logprob_qs_7e-6
 
 data: data/train/train_10k_logprob_qs.json
 test_split: 0.05
@@ -31,4 +34,3 @@ training_args:
   bf16: true
   logging_steps: 1
   logging_strategy: steps
-  report_to: none    # @TODO: temporarily disable the logging to wandb due to rate limits

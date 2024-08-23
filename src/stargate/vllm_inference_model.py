@@ -95,8 +95,7 @@ class VLLMInferenceModel():
         outputs = self.model.generate(
             prompts=prompts,
             sampling_params=sampling_params,
-        )
-        
+        )        
         generations = []
         for output in outputs: 
             for generated_sequence in output.outputs:

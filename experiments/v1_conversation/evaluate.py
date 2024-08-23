@@ -7,7 +7,7 @@ import torch
 import logging
 import numpy as np
 from omegaconf import DictConfig
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM
 from stargate.azure import AsyncAzureChatLLM
 from stargate.gpt4 import GPT4Agent
 
@@ -20,13 +20,13 @@ from prompts import *
 
 # gpt 4 agent
 llm = AsyncAzureChatLLM(
-    azure_endpoint="https://philipp.openai.azure.com/",
-    api_version="2023-05-15",
-)
+        azure_endpoint="https://philipp.openai.azure.com/",
+        api_version="2024-07-01-preview",
+    )
 
 gpt4 = GPT4Agent(
     llm=llm,
-    model="gpt-4",
+    model="gpt-4o",
     temperature=0.0,
     top_p=0.9,
     max_tokens=500,
@@ -98,9 +98,8 @@ def main(args: DictConfig) -> None:
     
     # prompts
     with open(args.prompts, 'r') as f:
-        prompts = json.load(f)[:args.n_prompts]
-        
-
+        prompts = json.load(f)[:args.n_prompts]        
+            
     # users
     users_raw = json.load(open(args.users))
     users = {}
@@ -130,33 +129,51 @@ def main(args: DictConfig) -> None:
     formatted_batch_prompts = [
         tokenizer.apply_chat_template(prompt, tokenize=False) 
         for prompt in batch_prompts
-    ]
-    
+    ]    
+    # """ Prompt hugginf face model """
+    # pretrained_model_name_or_path = args.model_config.model
+    # cache_dir = args.model_config.download_dir    
+    # hg_model = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path=pretrained_model_name_or_path, cache_dir=cache_dir, torch_dtype=torch.bfloat16, device_map='auto')
+    # from transformers import pipeline
+    # text_gen = pipeline('text-generation', model=hg_model, tokenizer=tokenizer)
+    # """ Prompt hugginf face model """    
+
     # get responses
     batch_responses = model.batch_prompt(
         prompts=formatted_batch_prompts,
         **args.generation_config,
     )
-
+    
     # format 
     formatted_responses = [
         response.split('<|end_header_id|>')[-1].lstrip().strip()
         for response in batch_responses
-    ]
-    
+    ]    
+
     # now we need to call GPT to check if response includes question
     formatted_gpt_prompts = [
         PROMPT.format(question=prompt, response=response) 
         for prompt, response in zip(prompts, formatted_responses)
     ]
-
+    
     gpt_responses = gpt4.batch_prompt(system_message=SYSTEM_PROMPT, messages=formatted_gpt_prompts)
     
-    formatted_gpt_responses = []       
-    formatted_gpt_responses = [
-        int(resp[0].split('Final Response:')[1].strip()) 
-        for resp in gpt_responses
-    ]
+    formatted_gpt_responses = []
+    n_errors = 0
+    for i, resp in enumerate(gpt_responses):
+        try:
+            formatted_gpt_responses.append(int(resp[0].split('Final Response:')[1].strip()))
+        except:
+            print(f"Error in response {i}")
+            # print(resp)
+            n_errors += 1
+            formatted_gpt_responses.append(0)
+    
+    logging.info(f"Number of errors: {n_errors}")
+    # formatted_gpt_responses = [
+    #     int(resp[0].split('Final Response:')[1].strip()) 
+    #     for resp in gpt_responses
+    # ]
     
     # load the OG labels to compute agreement between gpt4 and model asked questions    
     labels_human = json.load(open('data/labels/exp_when_9_pp_maj_votes_0_200.json'))
@@ -167,19 +184,13 @@ def main(args: DictConfig) -> None:
     batch_prompts_roleplayer = []
     rand_users = []
     for i, prompt in enumerate(prompts):
-        # rand_user = random.choice(list(users.keys()))
+        rand_user = random.choice(list(users.keys()))
         # @TODO: currently using user 21 for all prompts        
         rand_user = users['user_21']
-        rand_users.append(rand_user)
-        print(rand_user)
+        rand_users.append(rand_user)        
         if int(formatted_gpt_responses[i]) == 1:
             max_words = torch.normal(mean=args.roleplayer_mean_words, std=args.roleplayer_std_words, size=(1,))
-            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()
-            # rand_roleplay_prompt_key = random.choices([0, 1, 2], weights=[0.5, 0.2, 0.3], k=1)[0]
-            # rand_roleplay_prompt_key = 0
-            # roleplay_prompt_key = list(ROLEPLAY_PROMPTS.keys())[rand_roleplay_prompt_key]
-            # max_words = 25
-            # roleplay_prompt_key = 'standard'
+            max_words = torch.clamp(max_words, args.roleplayer_min_words, args.roleplayer_max_words).int().item()            
             batch_prompts_roleplayer.append([
                     {"role": "system", "content": f"You must adopt the following persona in all conversations: {rand_user}"},
                     {"role": "user", "content": ROLEPLAY_PROMPT.format(
@@ -251,15 +262,15 @@ def main(args: DictConfig) -> None:
                 'prompt': prompt,
                 'question': formatted_responses[i],
                 'response': formatted_responses_final[f_counter],
-                'roleplayer': formatted_batch_responses_roleplayer[f_counter],
-                'user': rand_users[i],
+                'roleplayer': formatted_batch_responses_roleplayer[f_counter],                
+                'user': rand_users[i]
             }
             f_counter += 1
         else:
             final_performance[i] = {
                 'prompt': prompt,
                 'response': formatted_responses[i],
-                'user': rand_users[i],
+                'user': rand_users[i]
             }
     
     with open(args.save_responses, 'w') as f:
