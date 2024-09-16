@@ -296,22 +296,22 @@ def plot_win_rates(results_dict, human_label_path, base_label_path):
     interactions_df = pd.DataFrame(res_interactions)
     if interactions_df['train_type'].str.contains('short').any():
         short_interactions_df = interactions_df[interactions_df['train_type'].str.contains('short')]
-        fig_path = 'results/v0/figs/interactions_short.png'
+        fig_path = 'results/figs/interactions_short.png'
         create_interactions_plot(short_interactions_df, fig_path)
     else:
         no_short_interactions_df = interactions_df[~interactions_df['train_type'].str.contains('short')]
-        fig_path_no_short = 'results/v0/figs/interactions.png'
+        fig_path_no_short = 'results/figs/interactions.png'
         create_interactions_plot(no_short_interactions_df, fig_path_no_short)
 
     # model asking questions
     df = pd.DataFrame(res)          
     if df['train_type'].str.contains('short').any():
         short_df = df[df['train_type'].str.contains('short')]
-        fig_path = 'results/v0/figs/win_rates_short.png'
+        fig_path = 'results/figs/win_rates_short.png'
         create_win_rates_plot(short_df, fig_path)
     else:
         no_short_df = df[~df['train_type'].str.contains('short')]
-        fig_path_no_short = 'results/v0/figs/win_rate.png'
+        fig_path_no_short = 'results/figs/win_rate.png'
         create_win_rates_plot(no_short_df, fig_path_no_short)
 
     # human asking questions
@@ -319,11 +319,11 @@ def plot_win_rates(results_dict, human_label_path, base_label_path):
     # split into short df and no short df    
     if df_human_labels['train_type'].str.contains('short').any():        
         short_df_human_labels = df_human_labels[df_human_labels['train_type'].str.contains('short')]
-        fig_path_human_labels_short = 'results/v0/figs/win_rates_human_labels_short.png'
+        fig_path_human_labels_short = 'results/figs/win_rates_human_labels_short.png'
         create_win_rates_plot(short_df_human_labels, fig_path_human_labels_short)
     else:
         no_short_df_human_labels = df_human_labels[~df_human_labels['train_type'].str.contains('short')]
-        fig_path_human_labels_no_short = 'results/v0/figs/win_rates_human_labels.png'
+        fig_path_human_labels_no_short = 'results/figs/win_rates_human_labels.png'
         create_win_rates_plot(no_short_df_human_labels, fig_path_human_labels_no_short)
     
     # base asking questions
@@ -331,11 +331,11 @@ def plot_win_rates(results_dict, human_label_path, base_label_path):
     # split into short df and no short df
     if df_base_labels['train_type'].str.contains('short').any():
         short_df_base_labels = df_base_labels[df_base_labels['train_type'].str.contains('short')]
-        fig_path_base_labels_short = 'results/v0/figs/win_rates_base_labels_short.png'
+        fig_path_base_labels_short = 'results/figs/win_rates_base_labels_short.png'
         create_win_rates_plot(short_df_base_labels, fig_path_base_labels_short)
     else:
         no_short_df_base_labels = df_base_labels[~df_base_labels['train_type'].str.contains('short')]
-        fig_path_base_labels_no_short = 'results/v0/figs/win_rates_base_labels.png'
+        fig_path_base_labels_no_short = 'results/figs/win_rates_base_labels.png'
         create_win_rates_plot(no_short_df_base_labels, fig_path_base_labels_no_short)
 
 
@@ -343,79 +343,62 @@ def plot_win_rates(results_dict, human_label_path, base_label_path):
 if __name__ == "__main__":
     """ Human Agreement """    
     label_dict = {        
-        'eig_label_logp_qs': [            
-            'results/v0/instruct_8b_1_user_questions.json',
-            'results/v0/eig_labels_logp_qs_epoch_1_lr7e-6_questions.json',
-            'results/v0/eig_labels_logp_qs_epoch_2_lr7e-6_questions.json'
+        'logp_qs': [            
+            'results/10k_8b_questions.json',
+            'results/10k_logp_qs_epoch_1_7e-6_questions.json',
+            'results/10k_logp_qs_epoch_2_7e-6_questions.json'
         ],        
-        'eig_label_eig_qs': [
-            'results/v0/instruct_8b_1_user_questions.json',
-            'results/v0/eig_labels_epoch_1_lr7e-6_questions.json',
-            'results/v0/eig_labels_epoch_2_lr7e-6_questions.json'
-        ],  
-        'u4_label_logp_qs': [
-            'results/v0/instruct_8b_1_user_questions.json',
-            'results/v0/u4_labels_logp_qs_epoch_1_lr7e-6_questions.json',
-            'results/v0/u4_labels_logp_qs_epoch_2_lr7e-6_questions.json',
+        'eig_2_user_qs': [
+            'results/10k_8b_questions.json',
+            'results/10k_eig_2_user_qs_epoch_1_7e-6_questions.json',
+            'results/10k_eig_2_user_qs_epoch_2_7e-6_questions.json'
         ],
-        'u4_label_eig_qs': [
-            'results/v0/instruct_8b_1_user_questions.json',
-            'results/v0/u4_labels_eig_qs_epoch_1_lr7e-6_questions.json',
-            'results/v0/u4_labels_eig_qs_epoch_2_lr7e-6_questions.json',
+        'eig_5_user_qs': [
+            'results/10k_8b_questions.json',
+            'results/10k_eig_5_user_qs_epoch_1_7e-6_questions.json',
+            'results/10k_eig_5_user_qs_epoch_2_7e-6_questions.json'
         ],
 
     }
-    fig_path = 'results/v0/figs/human_agreement.png'
-    # fig_path = 'results/v0/figs/human_agreement_sys.png'
+    fig_path = 'results/figs/human_agreement.png'    
     human_label_path = 'data/labels/exp_when_9_pp_maj_votes_0_200.json'
     plot_human_agrement(human_label_path, label_dict, fig_path)  
     """ Win Rates Against Base Models """
-    win_rate_dict = {        
-        # label: u4, qs: eig
-        'u4_label_eig_qs': {
+    win_rate_dict = {
+        'logp_qs': {
             'win_rate': [
-                'results/v0/instruct_vs_u4_labels_eig_qs_epoch_1_lr7e-6_win_rates.json',
-                'results/v0/instruct_vs_u4_labels_eig_qs_epoch_2_lr7e-6_win_rates.json'
+                'results/instruct_vs_logp_qs_epoch_1_lr7e-6_win_rates.json',
+                'results/instruct_vs_logp_qs_epoch_2_lr7e-6_win_rates.json'
+            ],
+            'question_label': [
+                'results/10k_logp_qs_epoch_1_7e-6_questions.json',
+                'results/10k_logp_qs_epoch_2_7e-6_questions.json'
+            ]
+        },
+
+        'eig_2_user_qs': {
+            'win_rate': [
+                'results/instruct_vs_eig_2_user_qs_epoch_1_lr7e-6_win_rates.json',
+                'results/instruct_vs_eig_2_user_qs_epoch_1_lr7e-6_win_rates.json',
                 ],
             'question_label': [
-                'results/v0/u4_labels_eig_qs_epoch_1_lr7e-6_questions.json',
-                'results/v0/u4_labels_eig_qs_epoch_2_lr7e-6_questions.json'
+                'results/10k_eig_2_user_qs_epoch_1_7e-6_questions.json',
+                'results/10k_eig_2_user_qs_epoch_2_7e-6_questions.json'
                 ]
-        },
-        # label: u4, qs: logp
-        'u4_label_logp_qs': {
+        },        
+        
+        'eig_5_user_qs': {
             'win_rate': [
-                'results/v0/instruct_vs_u4_labels_logp_qs_epoch_1_lr7e-6_win_rates.json',
-                'results/v0/instruct_vs_u4_labels_logp_qs_epoch_2_lr7e-6_win_rates.json'
+                'results/instruct_vs_eig_5_user_qs_epoch_1_lr7e-6_win_rates.json',
+                'results/instruct_vs_eig_5_user_qs_epoch_2_lr7e-6_win_rates.json'
             ],
             'question_label': [
-                'results/v0/u4_labels_logp_qs_epoch_1_lr7e-6_questions.json',
-                'results/v0/u4_labels_logp_qs_epoch_2_lr7e-6_questions.json'
+                'results/10k_eig_5_user_qs_epoch_1_7e-6_questions.json',
+            'results/10k_eig_5_user_qs_epoch_2_7e-6_questions.json'
             ]
-        },
-        # label: eig, qs: eig
-        'eig_label_eig_qs': {
-            'win_rate': [
-                'results/v0/instruct_vs_eig_labels_epoch_1_lr7e-6_win_rates.json',
-                'results/v0/instruct_vs_eig_labels_epoch_2_lr7e-6_win_rates.json'
-            ],
-            'question_label': [
-                'results/v0/eig_labels_epoch_1_lr7e-6_questions.json',
-                'results/v0/eig_labels_epoch_2_lr7e-6_questions.json'
-            ]
-        },
-       # # label: eig, qs: logp
-       'eig_label_logp_qs': {
-            'win_rate': [
-                'results/v0/instruct_vs_eig_labels_logp_qs_epoch_1_lr7e-6_win_rates.json',
-                'results/v0/instruct_vs_eig_labels_logp_qs_epoch_2_lr7e-6_win_rates.json'
-            ],
-            'question_label': [
-                'results/v0/eig_labels_logp_qs_epoch_1_lr7e-6_questions.json',
-                'results/v0/eig_labels_logp_qs_epoch_2_lr7e-6_questions.json'
-            ]
-         },
+        }
+
     }
     human_label_path = 'data/labels/exp_when_9_pp_maj_votes_0_200.json'
-    base_label_path = 'results/v0/instruct_8b_1_user_questions.json' 
+    base_label_path = 'results/10k_8b_questions.json'
     plot_win_rates(win_rate_dict, human_label_path, base_label_path)
