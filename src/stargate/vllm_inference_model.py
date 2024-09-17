@@ -69,7 +69,6 @@ class VLLMInferenceModel():
         self, 
         prompts: List[str], 
         max_new_tokens: Optional[int] = 500,
-        do_sample: Optional[bool] = True,
         top_p: Optional[float] = 0.9,
         top_k: Optional[int] = -1,
         temperature: Optional[float] = 0.1,
