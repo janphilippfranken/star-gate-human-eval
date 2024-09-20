@@ -1,0 +1,17 @@
+prompts: data/prompts/math/prompts.json
+start_prompts: 0
+end_prompts: 5000
+n_return: 8
+save_file_scores: data/train/scores.json
+save_file_responses: data/train/responses.json
+save_train_responses: data/train/train_5k.json
+model_config:
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  dtype: auto
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 1.0

@@ -1,0 +1,49 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.22s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.15s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.14s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.21it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.05it/s]
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/transformers/training_args.py:1525: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
+  warnings.warn(
+/scr/jphilipp/miniconda3/envs/stargate/lib/python3.10/site-packages/accelerate/state.py:250: UserWarning: OMP_NUM_THREADS/MKL_NUM_THREADS unset, we set it at 64 to improve oob performance.
+  warnings.warn(
+[W920 13:20:07.467334101 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:08.467504326 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:09.467644571 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:10.467779746 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:11.467922100 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:12.468055835 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:13.468188889 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:14.468333464 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:15.468470788 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:16.468609122 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:17.468768287 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:18.468919901 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:19.469054585 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:20.469208249 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:21.469340373 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:22.469489137 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:23.469621252 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:24.469757445 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:25.469914319 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:26.470057663 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:27.470227737 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:28.470382881 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:29.470515134 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:30.470653118 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:31.470797412 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:32.470936945 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:33.471072048 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:34.471213672 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:35.471358235 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:36.471497998 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:37.471634812 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:38.471783724 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:39.471917328 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:40.477952811 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:41.478082784 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:42.478225757 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:43.478391450 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:44.478526553 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:45.478661405 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:46.478807518 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:47.478996231 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:48.479129794 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+[W920 13:20:49.479282906 socket.cpp:697] [c10d] The IPv6 network addresses of (568.0.0.1, 29500) cannot be retrieved (gai error: -2 - Name or service not known).
+slurmstepd: error: *** JOB 8550760 ON cocoflops-hgx-1 CANCELLED AT 2024-09-20T13:20:49 ***

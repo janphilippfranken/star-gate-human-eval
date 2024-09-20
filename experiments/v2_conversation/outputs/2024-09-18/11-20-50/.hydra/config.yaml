@@ -3,16 +3,13 @@ users: data/users/users.json
 start_prompts: 0
 end_prompts: 2
 n_users: 2
-
 save_file: data/gold_responses/prism-prompts-0-10-users-0-5.json
-
 model_config:
   model: meta-llama/Meta-Llama-3.1-8B-Instruct
   download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
-  dtype: auto  
+  dtype: auto
   tensor_parallel_size: 1
-
 generation_config:
   max_new_tokens: 1024
-  num_return_sequences: 1 
+  num_return_sequences: 1
   temperature: 0.0
