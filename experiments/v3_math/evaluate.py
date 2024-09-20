@@ -13,7 +13,7 @@ from datasets import load_dataset
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-PROMPT = """Q: {question}\nA:"""
+PROMPT = """Generate eight diverse answer options to the query below. Answers must be distinct and you are not allowed to repeat the same answer multiple times. After you are done generating eight diverse answer options, pick the best one.\n\nQ: {question}\nA:"""
 
 def extract_output(response, key):
     escaped_key = re.escape(key)
@@ -90,15 +90,19 @@ def main(args: DictConfig) -> None:
         **args.generation_config,
     )
     
+    # batch_responses = [
+    #     response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
+    #     for response in batch_responses   
+    # ]
+    breakpoint()
     batch_responses = [
-        response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
-        for response in batch_responses   
-    ]
-    
-    formatted_batch_responses = [
-        extract_output(response, key="best_answer")
+        response.strip()
         for response in batch_responses
     ]
+    breakpoint()
+    formatted_batch_responses = [response for response in batch_responses]
+
+    # extract_output(response, key="best_answer")
     response_scores = []
     
     for i in range(args.end_prompts):

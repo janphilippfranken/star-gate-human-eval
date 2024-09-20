@@ -1,10 +1,12 @@
 start_prompts: 0
-end_prompts: 10
+end_prompts: 100
 n_return: 1
 
 model_config:
-  model: /scr/jphilipp/stargate/checkpoints-v2/test/checkpoint-28
-  download_dir: /scr/jphilipp/stargate/checkpoints-v2/test/checkpoint-28
+  model: /scr/jphilipp/stargate/checkpoints-v2/test-5e-6-gemma/checkpoint-34
+  # download_dir: /scr/jphilipp/stargate/checkpoints-v2/test/checkpoint-70
+  # model: mistralai/Mistral-7B-Instruct-v0.1
+  download_dir: /scr/jphilipp/stargate/checkpoints-v2/test-5e-6-gemma/checkpoint-34
   dtype: auto  
   tensor_parallel_size: 1
 

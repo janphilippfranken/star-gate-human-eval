@@ -1,0 +1,12 @@
+start_prompts: 0
+end_prompts: 100
+n_return: 1
+model_config:
+  model: google/gemma-2b-it
+  download_dir: /scr/jphilipp/stargate/pretrained_models/gemma-2b-it
+  dtype: auto
+  tensor_parallel_size: 1
+generation_config:
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 0.0

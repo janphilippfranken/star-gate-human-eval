@@ -1,0 +1,17 @@
+prompts: data/prompts/math/prompts.json
+start_prompts: 0
+end_prompts: 2500
+n_return: 8
+save_file_scores: data/train/scores_2.5k_gemma.json
+save_file_responses: data/train/responses_2.5k_gemma.json
+save_train_responses: data/train/train_2.5k_gemma.json
+model_config:
+  model: google/gemma-2b-it
+  download_dir: /scr/jphilipp/stargate/pretrained_models/gemma-2b-it
+  dtype: auto
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 2048
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 1.0

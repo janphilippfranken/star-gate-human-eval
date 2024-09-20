@@ -16,12 +16,12 @@ from stargate.vllm_inference_model import VLLMInferenceModel
 PROMPT = """Q: {question}\nA:"""
 
 TRAIN_PROMPT = """<plan>
-I will first generate exactly 4 answer options. I will then pick the best answer.
+I will first generate exactly 8 unique answer options. I am not allowed to just repeat the same answer multiple times. I will then pick the best answer.
 </plan>
 
-<answer_options>
+<diverse_answer_options>
 {responses}
-</answer_options>
+</diverse_answer_options>
 
 <best_answer>
 {correct_response}
@@ -108,8 +108,14 @@ def main(args: DictConfig) -> None:
         **args.generation_config,
     )
     
+    # batch_responses = [
+    #     response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
+    #     for response in batch_responses   
+    # ]
+    breakpoint()
+    
     batch_responses = [
-        response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
+        response.strip()
         for response in batch_responses   
     ]
     
@@ -153,7 +159,7 @@ def main(args: DictConfig) -> None:
             ).strip()
 
             train_data.append([
-                {"role": "user", "content": f"Q: {dataset['question'][i]}\nA:"},
+                {"role": "user", "content": f"Generate eight diverse answer options to the query below. Answers must be distinct and you are not allowed to repeat the same answer multiple times. After you are done generating eight diverse answer options, pick the best one.\n\nQ: {dataset['question'][i]}\nA:"},
                 {"role": "assistant", "content": TRAIN_PROMPT.format(responses=responses, correct_response=f"Answer {correct_response + 1}: {formatted_batch_responses[i][correct_response]}")},
             ])
 

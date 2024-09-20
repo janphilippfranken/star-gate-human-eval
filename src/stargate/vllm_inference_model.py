@@ -26,8 +26,8 @@ class VLLMInferenceModel():
         download_dir: str,
         dtype: str,
         tensor_parallel_size: int,
-        enable_chunked_prefill: bool = True,
-        max_num_batched_tokens: int = 2048,
+        enable_chunked_prefill: bool = False,
+        # max_num_batched_tokens: int = 2048,
         
     ):
         self.model = LLM(
@@ -36,7 +36,7 @@ class VLLMInferenceModel():
             dtype=dtype,
             tensor_parallel_size=tensor_parallel_size,
             enable_chunked_prefill=enable_chunked_prefill,
-            max_num_batched_tokens=max_num_batched_tokens,
+            # max_num_batched_tokens=max_num_batched_tokens,
         )
         
     @property

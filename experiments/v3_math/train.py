@@ -52,10 +52,12 @@ learning rate: {args.training_args.learning_rate}""")
     logging.info("DATA")
     targets = json.load(open(args.data, "r"))
     print(targets[0])
+    # breakpoint()
     dataset = preprocess(targets=targets, tokenizer=tokenizer)
     dataset = dataset.shuffle(seed=args.training_args.seed)
     dataset = dataset.train_test_split(test_size=args.test_split)
     print(dataset) 
+    breakpoint()
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)    
     # trainer
