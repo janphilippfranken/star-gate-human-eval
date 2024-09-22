@@ -113,19 +113,25 @@ def main(args: DictConfig) -> None:
     )
     
     breakpoint()
-    batch_responses = [
-        response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
-        for response in batch_responses   
-    ]
+    # batch_responses = [
+    #     response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
+    #     for response in batch_responses   
+    # ]
     
-    breakpoint()
     best_answers = []
     for response in batch_responses:
         try:
-            best_answers.append(re.search(r"<best_attempt>(.*?)</best_attempt>", string).group(1))
-        except:
+            # Using a more flexible regex pattern to match content between tags
+            match = re.search(r"<best_attempt>([\s\S]*?)</best_attempt>", response)
+            if match:
+                best_answers.append(match.group(1))
+            else:
+                best_answers.append("Null")
+        except Exception as e:
+            # Log the exception for debugging purposes
             best_answers.append("Null")
     
+    breakpoint()
 
     formatted_batch_responses = []
     

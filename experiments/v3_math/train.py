@@ -94,7 +94,6 @@ learning rate: {args.training_args.learning_rate}""")
 
     dataset = Dataset.from_dict(tokenized_formatted)
     dataset.set_format('torch')
-    breakpoint()
 
     dataset = dataset.shuffle(seed=args.training_args.seed).train_test_split(test_size=args.test_split)
 
