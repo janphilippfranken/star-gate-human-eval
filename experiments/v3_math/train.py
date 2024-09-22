@@ -22,6 +22,38 @@ import logging
 from helpers import *
 
 
+def mask_tokens_based_on_attempts(attempt_scores, tokens, tokenizer):
+    updated_tokens = tokens.copy()
+    attempts_to_mask = [idx + 1 for idx, val in enumerate(attempt_scores) if val == 0]
+
+    for attempt_num in attempts_to_mask:
+        start_tag = f"<attempt_{attempt_num}>"
+        end_tag = f"</attempt_{attempt_num}>"
+
+        start_tag_tokens = tokenizer.encode(start_tag)[1:]
+        end_tag_tokens = tokenizer.encode(end_tag)[1:]
+
+        start_pos = find_sublist_position(updated_tokens, start_tag_tokens) 
+  
+        search_start = start_pos 
+        try:
+            end_pos = find_sublist_position(updated_tokens[search_start:], end_tag_tokens) 
+        except:
+            breakpoint()
+
+        end_pos += search_start - len(end_tag_tokens)
+
+        updated_tokens[start_pos:end_pos] = [-100] * (end_pos - start_pos)
+
+    return updated_tokens
+
+def find_sublist_position(full_list, target_tokens):
+    for i in range(len(full_list) - len(target_tokens) + 1):
+        if full_list[i:i+len(target_tokens)] == target_tokens:
+            return i + len(target_tokens)
+
+
+
 @hydra.main(version_base=None, config_path="config", config_name="train")
 def main(args: DictConfig) -> None:
     logging.info(f"""Writing to: {args.training_args.output_dir}
@@ -50,16 +82,25 @@ learning rate: {args.training_args.learning_rate}""")
    
     # data
     logging.info("DATA")
-    targets = json.load(open(args.data, "r"))
-    print(targets[0])
-    # breakpoint()
-    dataset = preprocess(targets=targets, tokenizer=tokenizer)
-    dataset = dataset.shuffle(seed=args.training_args.seed)
-    dataset = dataset.train_test_split(test_size=args.test_split)
-    print(dataset) 
+    targets = json.load(open(args.data, "r"))[:1000]
+    attempt_scores = json.load(open(args.labels, "r"))[:1000]
+    dataset, tokenized_formatted = preprocess(targets=targets, tokenizer=tokenizer)
+    dataset_labels = [label.tolist() for label in dataset["labels"]]
+    masked_labels = [
+        mask_tokens_based_on_attempts(attempt_score, tokens, tokenizer)
+        for attempt_score, tokens in zip(attempt_scores, dataset_labels)
+    ]
+    tokenized_formatted["labels"] = masked_labels
+
+    dataset = Dataset.from_dict(tokenized_formatted)
+    dataset.set_format('torch')
     breakpoint()
+
+    dataset = dataset.shuffle(seed=args.training_args.seed).train_test_split(test_size=args.test_split)
+
     # collator 
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)    
+    
     # trainer
     trainer = Trainer(
         model=model,
@@ -70,6 +111,9 @@ learning rate: {args.training_args.learning_rate}""")
         data_collator=data_collator,
     )
     
+    # eval
+    trainer.evaluate()
+    
     # train
     trainer.train()
     
@@ -79,5 +123,3 @@ learning rate: {args.training_args.learning_rate}""")
     
 if __name__ == "__main__":
     fire.Fire(main())
-    
-    

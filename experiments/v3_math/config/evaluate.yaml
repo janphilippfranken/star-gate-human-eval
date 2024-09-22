@@ -1,17 +1,15 @@
 start_prompts: 0
-end_prompts: 100
+end_prompts: 5000
 n_return: 1
 
 model_config:
-  model: /scr/jphilipp/stargate/checkpoints-v2/test-5e-6-gemma/checkpoint-34
-  # download_dir: /scr/jphilipp/stargate/checkpoints-v2/test/checkpoint-70
-  # model: mistralai/Mistral-7B-Instruct-v0.1
-  download_dir: /scr/jphilipp/stargate/checkpoints-v2/test-5e-6-gemma/checkpoint-34
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
   dtype: auto  
   tensor_parallel_size: 1
 
 generation_config:
-  max_new_tokens: 8192
+  max_new_tokens: 2048
   num_return_sequences: 1
   best_of: 1
   temperature: 0.0

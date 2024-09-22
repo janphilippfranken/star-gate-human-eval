@@ -1,0 +1,13 @@
+start_prompts: 0
+end_prompts: 1000
+n_return: 1
+model_config:
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  dtype: auto
+  tensor_parallel_size: 1
+generation_config:
+  max_new_tokens: 8192
+  num_return_sequences: 1
+  best_of: 1
+  temperature: 0.0

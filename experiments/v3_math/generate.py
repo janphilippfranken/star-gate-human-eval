@@ -13,47 +13,74 @@ from datasets import load_dataset
 
 from stargate.vllm_inference_model import VLLMInferenceModel
 
-PROMPT = """Q: {question}\nA:"""
+from dataset.util import clean_numbers, last_boxed_only, last_boxed_only_string, remove_boxed
+from dataset.math_equivalence import is_equiv
 
-TRAIN_PROMPT = """<plan>
-I will first generate exactly 8 unique answer options. I am not allowed to just repeat the same answer multiple times. I will then pick the best answer.
-</plan>
 
-<diverse_answer_options>
-{responses}
-</diverse_answer_options>
+PROMPT = """Solve the following math problem step by step. The last line of your response should be of the form Answer: $ANSWER (without quotes) where $ANSWER is the answer to the problem. 
 
-<best_answer>
-{correct_response}
-</best_answer>"""
+{question}
 
-def extract_output(response, key):
-    escaped_key = re.escape(key)
-    pattern = rf"<{escaped_key}>(.*?)</{escaped_key}>"
-    match = re.search(pattern, response, re.DOTALL)
-    if match:
-        return match.group(1).strip()
-    else:
-        return f"{key.capitalize()} tag not found in the response."
+Remember to put your answer on its own line after "Answer:", and you do not need to use a \\boxed command."""
 
-def extract_answer(answer):
-    if '=' in answer:
-        answer = answer.split('=')[-1].strip()
-    answer = answer.replace(",", "")
-    try:
-        answer = re.findall(r"\d+", answer.strip())[-1]
-        answer = int(answer)
-    except:
-        answer = "[invalid]"
-    return answer
+TRAIN_PROMPT = """
+You are going to solve problems using multiple attempts. You will first receive specific problem instructions and the problem statement. Follow these steps:
 
-def evaluate_model_response(model_answer, gt_answer):
-    try:
-        result = int(model_answer) == int(gt_answer)
-        return result
-    except:
-        return False
+1. Solve the problem using multiple attempts. Each attempt must be unique and diverse. Wrap each attempt in its own `<attempt>` tag, and surround all attempts within the `<attempts>` tag, as shown in the example below.
+2. After completing all attempts, select the best one and wrap it in the `<best_attempt>` tag.
 
+Important: You must follow the formatting example below when providing your output. Failure to do so will result in disqualification.
+
+### Formatting Example:
+Solve the problem below using 3 diverse attempts.
+
+<problem>
+The specific problem will be stated here.
+</problem>
+
+<attempts>
+<|reserved_special_token_0|><attempt_1><|reserved_special_token_0|>
+Step-by-step solution attempt 1 goes here.
+Answer: 42
+<|reserved_special_token_0|></attempt_1><|reserved_special_token_0|>
+
+<|reserved_special_token_0|><attempt_2><|reserved_special_token_0|>
+Step-by-step solution attempt 2 goes here.
+Answer: 37
+<|reserved_special_token_0|></attempt_2><|reserved_special_token_0|>
+
+<|reserved_special_token_0|><attempt_3><|reserved_special_token_0|>
+Step-by-step solution attempt 3 goes here.
+Answer: 99
+<|reserved_special_token_0|></attempt_3><|reserved_special_token_0|>
+</attempts>
+
+<best_attempt>
+Your selected best attempt goes here.
+Answer: 42
+</best_attempt>
+
+### Main Task:
+Solve the problem below using {N} diverse attempts.
+
+<problem>
+Solve the following math problem step by step. The last line of each attempt should be of the form Answer: $ANSWER (without quotes) where $ANSWER is the answer to the problem.
+
+{question}
+
+Remember to put your answer on its own line after "Answer:", and you do not need to use a \\boxed command.
+</problem>
+"""
+
+ASSISTANT_PROMPT = """
+<attempts>
+{attempts}
+</attempts>
+
+<best_attempt>
+{best_attempt}
+</best_attempt>
+"""
 
 @hydra.main(version_base=None, config_path="config", config_name="generate")
 def main(args: DictConfig) -> None:
@@ -76,17 +103,16 @@ def main(args: DictConfig) -> None:
     
     # prompts
     dataset = load_dataset(
-        "gsm8k",
-        "main",
+        "hendrycks/competition_math",
         split="train",
-        cache_dir="./data/gsm",
+        cache_dir="./data/math",
     )
     
-    gt_answers = [
-        int(gt_answer.split('####')[1].strip().lower().replace(",", "")) for gt_answer in dataset['answer']
-    ]
+    problems = [datum["problem"] for datum in dataset]
+    solutions = [datum["solution"] for datum in dataset]
+    answer_strings = [remove_boxed(last_boxed_only_string(solution)) for solution in solutions]
     
-    prompts = [PROMPT.format(question=question) for question in dataset['question'][:args.end_prompts]]
+    prompts = [PROMPT.format(question=question) for question in problems[:args.end_prompts]]
     
     extended_prompts = []
     
@@ -108,14 +134,8 @@ def main(args: DictConfig) -> None:
         **args.generation_config,
     )
     
-    # batch_responses = [
-    #     response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
-    #     for response in batch_responses   
-    # ]
-    breakpoint()
-    
     batch_responses = [
-        response.strip()
+        response.split("<|start_header_id|>assistant<|end_header_id|>")[1].strip()
         for response in batch_responses   
     ]
     
@@ -133,12 +153,13 @@ def main(args: DictConfig) -> None:
         responses = formatted_batch_responses[i]
         for response in responses:
             try:
-                answer = extract_answer(answer=response)
-                res = evaluate_model_response(answer, gt_answers[i]) 
+                answer = response.split("\n\nAnswer:")[1].strip()
+                res = is_equiv(answer, answer_strings[i]) 
                 response_scores[i].append(int(res))
             except:
                 response_scores[i].append(0)
-
+                
+                
     with open(args.save_file_scores, "w") as f:
         json.dump(response_scores, f, indent=4)
     
@@ -146,27 +167,44 @@ def main(args: DictConfig) -> None:
         json.dump(formatted_batch_responses, f, indent=4)
         
     train_data = []
-    
+    correct_attempts = []
     
     for i in range(args.end_prompts):
         if sum(response_scores[i]) == 0:
             continue
-        else:
+        try: 
+            answers = [response.split("\n\nAnswer:")[1].strip() for response in formatted_batch_responses[i]]
             correct_indices = [k for k, score in enumerate(response_scores[i]) if score == 1]
-            correct_response = random.choice(correct_indices)
+            
+            correct_response_idx = random.choice(correct_indices)
+            correct_response = formatted_batch_responses[i].pop(correct_response_idx)
+
+            N = random.randint(1, args.n_return)
+            shown_responses = formatted_batch_responses[i][:N - 1] + [correct_response]
+            random.shuffle(shown_responses)
+            
             responses = "\n\n".join(
-                [f"Answer {j + 1}: {formatted_batch_responses[i][j]}" for j in range(args.n_return)]
+                [f"<|reserved_special_token_0|><attempt_{j + 1}><|reserved_special_token_0|>{shown_response}<|reserved_special_token_0|></attempt_{j + 1}><|reserved_special_token_0|>" for j, shown_response in enumerate(shown_responses)]
             ).strip()
-
+            
+            answers = [response.split("\n\nAnswer:")[1].strip() for response in shown_responses]
+            results = [int(is_equiv(answer, answer_strings[i])) for answer in answers]
+            
             train_data.append([
-                {"role": "user", "content": f"Generate eight diverse answer options to the query below. Answers must be distinct and you are not allowed to repeat the same answer multiple times. After you are done generating eight diverse answer options, pick the best one.\n\nQ: {dataset['question'][i]}\nA:"},
-                {"role": "assistant", "content": TRAIN_PROMPT.format(responses=responses, correct_response=f"Answer {correct_response + 1}: {formatted_batch_responses[i][correct_response]}")},
+                {"role": "user", "content": f"{TRAIN_PROMPT.format(question=problems[i], N=N).strip()}"},
+                {"role": "assistant", "content": ASSISTANT_PROMPT.format(attempts=responses, best_attempt=correct_response).strip()},
             ])
-
+            
+            correct_attempts.append(results)
+            
+        except:
+            continue 
     
     with open(args.save_train_responses, "w") as f:
         json.dump(train_data, f, indent=4)
+        
+    with open(args.save_train_labels, "w") as f:
+        json.dump(correct_attempts, f, indent=4)
                 
-
 if __name__ == "__main__":
     fire.Fire(main())
