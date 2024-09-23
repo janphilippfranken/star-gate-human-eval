@@ -50,8 +50,7 @@ def _tokenize_fn(
         
         inputs.append(tokenized)
         
-        # mask user input (turn % 2 == 0) with -100
-        if turn % 2 == 0:
+        if message["role"] == "system" or message["role"] == "user":
             masked_labels = torch.full(tokenized.shape, IGNORE_INDEX, dtype=torch.long)
             labels.append(masked_labels)
         else:

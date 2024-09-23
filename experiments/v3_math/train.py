@@ -27,8 +27,8 @@ def mask_tokens_based_on_attempts(attempt_scores, tokens, tokenizer):
     attempts_to_mask = [idx + 1 for idx, val in enumerate(attempt_scores) if val == 0]
 
     for attempt_num in attempts_to_mask:
-        start_tag = f"<attempt_{attempt_num}>"
-        end_tag = f"</attempt_{attempt_num}>"
+        start_tag = f"<|reserved_special_token_0|>Attempt {attempt_num} Starts<|reserved_special_token_0|>"
+        end_tag = f"<|reserved_special_token_0|>Attempt {attempt_num} Ends<|reserved_special_token_0|>"
 
         start_tag_tokens = tokenizer.encode(start_tag)[1:]
         end_tag_tokens = tokenizer.encode(end_tag)[1:]
@@ -59,7 +59,7 @@ def main(args: DictConfig) -> None:
     logging.info(f"""Writing to: {args.training_args.output_dir}
 learning rate: {args.training_args.learning_rate}""")
     
-    wandb.init(project=args.wandb.project, name=args.wandb.name)
+    # wandb.init(project=args.wandb.project, name=args.wandb.name)
     
     # tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.tokenizer_config)
@@ -82,9 +82,11 @@ learning rate: {args.training_args.learning_rate}""")
    
     # data
     logging.info("DATA")
-    targets = json.load(open(args.data, "r"))[:1000]
-    attempt_scores = json.load(open(args.labels, "r"))[:1000]
+    targets = json.load(open(args.data, "r"))[:500]
+    attempt_scores = json.load(open(args.labels, "r"))[:500]
     dataset, tokenized_formatted = preprocess(targets=targets, tokenizer=tokenizer)
+    
+    # masking
     dataset_labels = [label.tolist() for label in dataset["labels"]]
     masked_labels = [
         mask_tokens_based_on_attempts(attempt_score, tokens, tokenizer)
@@ -106,7 +108,7 @@ learning rate: {args.training_args.learning_rate}""")
         tokenizer=tokenizer,
         args=training_args,
         train_dataset=dataset["train"],
-        eval_dataset=dataset["test"],
+        eval_dataset=datastoet["test"],
         data_collator=data_collator,
     )
     

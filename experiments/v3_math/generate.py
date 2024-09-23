@@ -23,64 +23,37 @@ PROMPT = """Solve the following math problem step by step. The last line of your
 
 Remember to put your answer on its own line after "Answer:", and you do not need to use a \\boxed command."""
 
-TRAIN_PROMPT = """
-You are going to solve problems using multiple attempts. You will first receive specific problem instructions and the problem statement. Follow these steps:
 
-1. Solve the problem using multiple attempts. Each attempt must be unique and diverse. Wrap each attempt in its own `<attempt>` tag, and surround all attempts within the `<attempts>` tag, as shown in the example below.
-2. After completing all attempts, select the best one and wrap it in the `<best_attempt>` tag.
+SYSTEM_PROMPT = """
+You are an expert at generating diverse solutions to math problems and selecting the best one. You will first receive a problem and specific instructions from the user, then generate multiple unique solutions. Make sure to:
 
-Important: You must follow the formatting example below when providing your output. Failure to do so will result in disqualification.
+1. Use different methods for each solution attempt.
+2. Use the special token `<|reserved_special_token_0|>` to mark the start and end of each attempt.
+3. After completing all attempts, choose the best solution and provide it in the `<final_output>` tag.
+"""
 
-### Formatting Example:
-Solve the problem below using 3 diverse attempts.
-
-<problem>
-The specific problem will be stated here.
-</problem>
-
-<attempts>
-<|reserved_special_token_0|><attempt_1><|reserved_special_token_0|>
-Step-by-step solution attempt 1 goes here.
-Answer: 42
-<|reserved_special_token_0|></attempt_1><|reserved_special_token_0|>
-
-<|reserved_special_token_0|><attempt_2><|reserved_special_token_0|>
-Step-by-step solution attempt 2 goes here.
-Answer: 37
-<|reserved_special_token_0|></attempt_2><|reserved_special_token_0|>
-
-<|reserved_special_token_0|><attempt_3><|reserved_special_token_0|>
-Step-by-step solution attempt 3 goes here.
-Answer: 99
-<|reserved_special_token_0|></attempt_3><|reserved_special_token_0|>
-</attempts>
-
-<best_attempt>
-Your selected best attempt goes here.
-Answer: 42
-</best_attempt>
-
-### Main Task:
-Solve the problem below using {N} diverse attempts.
-
-<problem>
-Solve the following math problem step by step. The last line of each attempt should be of the form Answer: $ANSWER (without quotes) where $ANSWER is the answer to the problem.
+USER_PROMPT = """
+Provide {N} step-by-step solutions to the following math problem. The last line of each solution should be of the form Answer: $ANSWER (without quotes) where $ANSWER is the answer to the problem.
 
 {question}
 
-Remember to put your answer on its own line after "Answer:", and you do not need to use a \\boxed command.
-</problem>
+Remember to put your answer on its own line after "Answer:", and you do not need to use a \boxed command. Each solution should be treated as one unique attempt.
 """
 
 ASSISTANT_PROMPT = """
-<attempts>
 {attempts}
-</attempts>
 
-<best_attempt>
+<final_output>
 {best_attempt}
-</best_attempt>
+</final_output>
 """
+
+PROMPT = """Solve the following math problem step by step. The last line of your response should be of the form Answer: $ANSWER (without quotes) where $ANSWER is the answer to the problem. 
+
+{question}
+
+Remember to put your answer on its own line after "Answer:", and you do not need to use a \\boxed command."""
+
 
 @hydra.main(version_base=None, config_path="config", config_name="generate")
 def main(args: DictConfig) -> None:
@@ -159,7 +132,6 @@ def main(args: DictConfig) -> None:
             except:
                 response_scores[i].append(0)
                 
-                
     with open(args.save_file_scores, "w") as f:
         json.dump(response_scores, f, indent=4)
     
@@ -184,14 +156,15 @@ def main(args: DictConfig) -> None:
             random.shuffle(shown_responses)
             
             responses = "\n\n".join(
-                [f"<|reserved_special_token_0|><attempt_{j + 1}><|reserved_special_token_0|>{shown_response}<|reserved_special_token_0|></attempt_{j + 1}><|reserved_special_token_0|>" for j, shown_response in enumerate(shown_responses)]
+                [f"<|reserved_special_token_0|>Attempt {j + 1} Starts<|reserved_special_token_0|>\n\n{shown_response}<|reserved_special_token_0|>Attempt {j + 1} Ends<|reserved_special_token_0|>" for j, shown_response in enumerate(shown_responses)]
             ).strip()
             
             answers = [response.split("\n\nAnswer:")[1].strip() for response in shown_responses]
             results = [int(is_equiv(answer, answer_strings[i])) for answer in answers]
             
             train_data.append([
-                {"role": "user", "content": f"{TRAIN_PROMPT.format(question=problems[i], N=N).strip()}"},
+                {"role": "system", "content": f"{SYSTEM_PROMPT.strip()}"},
+                {"role": "user", "content": f"{USER_PROMPT.format(question=problems[i], N=N).strip()}"},
                 {"role": "assistant", "content": ASSISTANT_PROMPT.format(attempts=responses, best_attempt=correct_response).strip()},
             ])
             

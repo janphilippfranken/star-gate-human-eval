@@ -99,7 +99,10 @@ def main(args: DictConfig) -> None:
     prompts = [PROMPT.format(question=question, N=4) for question in problems[:args.end_prompts]]
     
     prompts = [
-        [{"role": "user", "content": prompt}]
+        [
+            {"role": "system", "content": "You must follow the user instructions."},
+            {"role": "user", "content": prompt}
+        ]
         for prompt in prompts
     ]
 
