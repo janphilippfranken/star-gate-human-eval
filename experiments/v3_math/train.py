@@ -22,7 +22,7 @@ import logging
 from helpers import *
 
 
-def mask_tokens_based_on_attempts(attempt_scores, tokens, tokenizer):
+def mask_tokens_based_on_attempts(attempt_scores, tokens, tokenizer, datum_id):
     updated_tokens = tokens.copy()
     attempts_to_mask = [idx + 1 for idx, val in enumerate(attempt_scores) if val == 0]
 
@@ -39,8 +39,12 @@ def mask_tokens_based_on_attempts(attempt_scores, tokens, tokenizer):
         try:
             end_pos = find_sublist_position(updated_tokens[search_start:], end_tag_tokens) 
         except:
-            breakpoint()
+            print(f"FAILED AT {datum_id}")
 
+        if search_start is None or end_pos is None:
+            print(f"FAILED AT {datum_id}")
+            return updated_tokens
+        
         end_pos += search_start - len(end_tag_tokens)
 
         updated_tokens[start_pos:end_pos] = [-100] * (end_pos - start_pos)
@@ -59,7 +63,7 @@ def main(args: DictConfig) -> None:
     logging.info(f"""Writing to: {args.training_args.output_dir}
 learning rate: {args.training_args.learning_rate}""")
     
-    # wandb.init(project=args.wandb.project, name=args.wandb.name)
+    wandb.init(project=args.wandb.project, name=args.wandb.name)
     
     # tokenizer 
     tokenizer = AutoTokenizer.from_pretrained(**args.tokenizer_config)
@@ -82,15 +86,15 @@ learning rate: {args.training_args.learning_rate}""")
    
     # data
     logging.info("DATA")
-    targets = json.load(open(args.data, "r"))[:500]
-    attempt_scores = json.load(open(args.labels, "r"))[:500]
+    targets = json.load(open(args.data, "r"))
+    attempt_scores = json.load(open(args.labels, "r"))
     dataset, tokenized_formatted = preprocess(targets=targets, tokenizer=tokenizer)
     
     # masking
     dataset_labels = [label.tolist() for label in dataset["labels"]]
     masked_labels = [
-        mask_tokens_based_on_attempts(attempt_score, tokens, tokenizer)
-        for attempt_score, tokens in zip(attempt_scores, dataset_labels)
+        mask_tokens_based_on_attempts(attempt_score, tokens, tokenizer, datum_id)
+        for datum_id, (attempt_score, tokens) in enumerate(zip(attempt_scores, dataset_labels))
     ]
     tokenized_formatted["labels"] = masked_labels
 
@@ -108,7 +112,7 @@ learning rate: {args.training_args.learning_rate}""")
         tokenizer=tokenizer,
         args=training_args,
         train_dataset=dataset["train"],
-        eval_dataset=datastoet["test"],
+        eval_dataset=dataset["test"],
         data_collator=data_collator,
     )
     

@@ -14,9 +14,10 @@ export MASTER_ADDR=568.0.0.1
 export MASTER_PORT=29500    
 
 wandb_name=gsm
-data=data/train/train_test_1k.json
-output_dir=/scr/jphilipp/stargate/checkpoints-v2/test
-learning_rate=5e-6
+data=data/train/train_2.5_llama_tag.json
+labels=data/train/labels_2.5_llama_tag.json
+output_dir=/scr/jphilipp/stargate/checkpoints-v2
+learning_rate=1e-6
 
 # cond env
 source /scr/jphilipp/miniconda3/etc/profile.d/conda.sh
@@ -24,4 +25,4 @@ conda activate stargate
 
 cd ~/research_projects/star-gate-human-eval/experiments/v3_math
 
-python train.py wandb.name=$wandb_name data=$data training_args.output_dir=$output_dir training_args.learning_rate=$learning_rate
+python train.py wandb.name=$wandb_name data=$data labels=$labels training_args.output_dir=$output_dir training_args.learning_rate=$learning_rate

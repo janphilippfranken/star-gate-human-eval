@@ -1,12 +1,12 @@
 prompts: data/prompts/math/prompts.json
 start_prompts: 0
-end_prompts: 2500
-n_return: 16
+end_prompts: 1500
+n_return: 4
 
-save_file_scores: data/train/scores_2.5_llama_tag.json
-save_file_responses: data/train/responses_2.5_llama_tag.json
-save_train_responses: data/train/train_2.5_llama_tag.json
-save_train_labels: data/train/labels_2.5_llama_tag.json
+save_file_scores: data/train/scores_1.5_llama_tag_best_of.json
+save_file_responses: data/train/responses_1.5_llama_tag_best_of.json
+save_train_responses: data/train/train_1.5_llama_tag_best_of.json
+save_train_labels: data/train/labels_1.5_llama_tag_best_of.json
 
 model_config:
   model: meta-llama/Meta-Llama-3.1-8B-Instruct

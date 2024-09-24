@@ -1,10 +1,10 @@
 start_prompts: 0
-end_prompts: 10
+end_prompts: 250
 n_return: 1
 
 model_config:
-  model: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-61
-  download_dir: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-61
+  model: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-18
+  download_dir: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-18
   dtype: auto  
   tensor_parallel_size: 1
 

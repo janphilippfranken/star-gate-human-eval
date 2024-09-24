@@ -1,10 +1,10 @@
 start_prompts: 0
-end_prompts: 5000
+end_prompts: 1000
 n_return: 1
 
 model_config:
-  model: meta-llama/Meta-Llama-3.1-8B-Instruct
-  download_dir: /scr/jphilipp/stargate/pretrained_models/Meta-Llama-3.1-8B-Instruct
+  model: /scr/jphilipp/stargate/checkpoints-v2-best-of/checkpoint-18
+  download_dir: /scr/jphilipp/stargate/checkpoints-v2-best-of/checkpoint-18
   dtype: auto  
   tensor_parallel_size: 1
 

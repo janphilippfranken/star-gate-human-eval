@@ -1,0 +1,5 @@
+- wandb.name=gsm
+- data=data/train/train_2.5_llama_tag.json
+- labels=data/train/labels_2.5_llama_tag.json
+- training_args.output_dir=/scr/jphilipp/stargate/checkpoints-v2
+- training_args.learning_rate=1e-6
