@@ -3,13 +3,13 @@ end_prompts: 250
 n_return: 1
 
 model_config:
-  model: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-18
-  download_dir: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-18
+  model: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-122
+  download_dir: /scr/jphilipp/stargate/checkpoints-v2/checkpoint-122
   dtype: auto  
   tensor_parallel_size: 1
 
 generation_config:
-  max_new_tokens: 2048
+  max_new_tokens: 8192
   num_return_sequences: 1
   best_of: 1
   temperature: 0.0

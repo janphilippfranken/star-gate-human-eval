@@ -1,12 +1,12 @@
 prompts: data/prompts/math/prompts.json
 start_prompts: 0
-end_prompts: 1500
-n_return: 4
+end_prompts: 3000
+n_return: 8
 
-save_file_scores: data/train/scores_1.5_llama_tag_best_of.json
-save_file_responses: data/train/responses_1.5_llama_tag_best_of.json
-save_train_responses: data/train/train_1.5_llama_tag_best_of.json
-save_train_labels: data/train/labels_1.5_llama_tag_best_of.json
+save_file_scores: data/train/scores_3_llama_tag_best_of.json
+save_file_responses: data/train/responses_3_llama_tag_best_of.json
+save_train_responses: data/train/train_3_llama_tag_best_of.json
+save_train_labels: data/train/labels_3_llama_tag_best_of.json
 
 model_config:
   model: meta-llama/Meta-Llama-3.1-8B-Instruct
@@ -18,4 +18,4 @@ generation_config:
   max_new_tokens: 2048
   num_return_sequences: 1
   best_of: 1
-  temperature: 1.0
+  temperature: 0.9

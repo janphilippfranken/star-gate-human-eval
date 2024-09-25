@@ -52,6 +52,7 @@ def main(args: DictConfig) -> None:
     problems = [datum["problem"] for datum in dataset]
     solutions = [datum["solution"] for datum in dataset]
     answer_strings = [remove_boxed(last_boxed_only_string(solution)) for solution in solutions]
+    breakpoint()
     
     prompts = [PROMPT.format(question=question) for question in problems[:args.end_prompts]]
     

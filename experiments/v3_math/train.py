@@ -97,6 +97,13 @@ learning rate: {args.training_args.learning_rate}""")
         for datum_id, (attempt_score, tokens) in enumerate(zip(attempt_scores, dataset_labels))
     ]
     tokenized_formatted["labels"] = masked_labels
+    
+    # mask the special token
+    # for datum in tokenized_formatted["labels"]:
+    #     for i, token in enumerate(datum):
+    #         if token == 128002:
+    
+    #             datum[i] = -100
 
     dataset = Dataset.from_dict(tokenized_formatted)
     dataset.set_format('torch')

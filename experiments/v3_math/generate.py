@@ -25,11 +25,10 @@ Remember to put your answer on its own line after "Answer:", and you do not need
 
 
 SYSTEM_PROMPT = """
-You are an expert at generating diverse solutions to math problems and selecting the best one. You will first receive a problem and specific instructions from the user, then generate multiple unique solutions. Make sure to:
+You are an expert in generating diverse solutions to math problems and selecting the optimal one. Upon receiving a problem and specific instructions from the user, your tasks are to:
 
-1. Use different methods for each solution attempt.
-2. Use the special token `<|reserved_special_token_0|>` to mark the start and end of each attempt.
-3. After completing all attempts, choose the best solution and provide it in the `<final_output>` tag.
+1. Create multiple unique solutions using different methods for each.
+2. After completing all solutions, select the best one and enclose it within the `<final_output>` tags.
 """
 
 USER_PROMPT = """
@@ -37,15 +36,15 @@ Provide {N} step-by-step solutions to the following math problem. The last line 
 
 {question}
 
-Remember to put your answer on its own line after "Answer:", and you do not need to use a \boxed command. Each solution should be treated as one unique attempt.
+Remember to generate {N} independent solutions. At the end, enclose the best solution within the `<final_output>` and `</final_output>` XML tags.
 """
 
 ASSISTANT_PROMPT = """
 {attempts}
 
 <final_output>
-{best_attempt}
-</final_output>
+
+{best_attempt}</final_output>
 """
 
 PROMPT = """Solve the following math problem step by step. The last line of your response should be of the form Answer: $ANSWER (without quotes) where $ANSWER is the answer to the problem. 
@@ -151,7 +150,7 @@ def main(args: DictConfig) -> None:
             correct_response_idx = random.choice(correct_indices)
             correct_response = formatted_batch_responses[i].pop(correct_response_idx)
 
-            N = random.randint(1, args.n_return)
+            N = random.randint(1, 8)
             shown_responses = formatted_batch_responses[i][:N - 1] + [correct_response]
             random.shuffle(shown_responses)
             
